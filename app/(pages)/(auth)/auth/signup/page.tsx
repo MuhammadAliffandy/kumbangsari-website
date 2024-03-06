@@ -9,6 +9,7 @@ import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../component/validation';
+import { createAuth } from '@/app/api/repository/authRepository';
 
 const SignUpPage  = () => {
 
@@ -26,9 +27,12 @@ const SignUpPage  = () => {
 
     const password = watch('password', '');
     
-    const onSubmit : SubmitHandler<signUpData> = (data ) => {
-        console.log(data);
-        return data;
+    const onSubmit : SubmitHandler<signUpData> = async (data ) => {
+
+        const res = await createAuth(data)
+        console.log(res)
+        
+
     };
 
     return(

@@ -27,8 +27,39 @@ body {
   
 }
 
+.inputotp::placeholder {
+  text-align: center; 
+}
+
+/* or, for legacy browsers */
+
+.inputotp::-webkit-input-placeholder {
+  text-align: center;
+}
+
+.inputotp:-moz-placeholder { /* Firefox 18- */
+  text-align: center;  
+}
+
+.inputotp::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;  
+}
+
+.inputotp:-ms-input-placeholder {  
+  text-align: center; 
+}
+
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

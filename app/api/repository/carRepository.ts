@@ -3,7 +3,6 @@ import { PROVIDER_DELETE, PROVIDER_GET, PROVIDER_POST, PROVIDER_PUT } from "../p
 
 const delay = (): Promise<void> => new Promise(res => setTimeout(() => res(), 800))
 
-
 export const fetchCars = async () => {
     await delay()
     const response = await PROVIDER_GET(`cars`)

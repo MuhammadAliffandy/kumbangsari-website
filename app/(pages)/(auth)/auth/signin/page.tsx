@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
+import { loginAuth } from '@/app/api/repository/authRepository';
 
 const SignInPage = () => {
 
@@ -23,9 +24,12 @@ const SignInPage = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<signInData>();
     
-    const onSubmit : SubmitHandler<signInData> = (data ) => {
-        console.log(data);
-        dispatch(setToken('ada'))
+    const onSubmit : SubmitHandler<signInData> = async (data ) => {
+
+        const res = await loginAuth(data)
+
+        console.log(res);
+        dispatch(setToken(res.token))
         push('/example')
     };
 

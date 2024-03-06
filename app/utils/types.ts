@@ -31,3 +31,12 @@ export interface CarApiData{
 }
 
 //  added new type initiation in ate here
+
+
+export interface User{
+    name?: string,
+    email : string,
+    phoneNumber? : string ,
+    password : string ,
+    confirmPassword?: string,
+}
