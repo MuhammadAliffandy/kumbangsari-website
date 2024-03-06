@@ -28,13 +28,7 @@ const SignUpPage  = () => {
     };
 
     return(
-
-        <Box  className=' h-[100vh] flex'>
-            <Box className = 'w-[50%] h-[100vh] bg-black'>
-                {/*  */}
-            </Box>
-            <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
-                <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
+        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
                     <AppHeadline 
                         title = {'Selamat Datang!'}
                         subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
@@ -146,8 +140,6 @@ const SignUpPage  = () => {
                         </Box>
                     </form>
                 </Box>
-            </Box>
-        </Box>
     )
 }
 

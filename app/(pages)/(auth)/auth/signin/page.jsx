@@ -32,70 +32,63 @@ const SignInPage = () => {
     };
 
     return(
-        <Box className=' h-[100vh] flex'>
-            <Box className = 'w-[50%] h-[100vh] bg-black'>
-            {/*  */}
-            </Box>
-            <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
-                <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
-                    <AppHeadline 
-                        title = {'Selamat Datang Kembali!'}
-                        subtitle = {'Masuk ke dalam akun, dan akses kembali datamu!'}
+        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
+            <AppHeadline 
+                title = {'Selamat Datang Kembali!'}
+                subtitle = {'Masuk ke dalam akun, dan akses kembali datamu!'}
+            />
+            <CustomSpacing height = {20} />
+                <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                    <label className='text-black font-semibold'>Email</label>
+                    <TextField
+                        className=' w-[100%] rounded-xl bg-CUSTOM-GREY  '
+                        id="email"
+                        placeholder='Masukkan email di sini'
+                        InputProps={{
+                            style: {
+                                borderRadius: "15px",
+                            }
+                        }}
+                        {...register('email', { 
+                            validate : validateEmail
+                        })}
+                        error={Boolean(errors.email)}
+                        helperText={errors.email && errors.email.message}
+                        />
+                    <label className='text-black font-semibold '>Kata Sandi</label>
+                    <TextField
+                        className=' w-[100%] bg-CUSTOM-GREY '
+                        id="password"
+                        placeholder='Masukkan kata sandi di sini'
+                        type="password"
+                        InputProps={{
+                            style: {
+                                borderRadius: "15px",
+                            }
+                        }}
+                        {...register(
+                            'password', {   
+                                validate : validatePassword
+                        })}
+                        error={Boolean(errors.password)}
+                        helperText={errors.password && errors.password.message}
+                    
+                    />  
+                    <Box className = 'w-[100%] flex justify-end'>
+                        <p onClick = {()=>{push('forgot-pass')}} className='text-black cursor-pointer font-poppins text-[12px] font-semibold'>Lupa Password</p>
+                    </Box>
+                    <AppButton
+                        text={'Masuk'} 
+                        type = {'Submit'}
+                        fontSize = {'12px'}
+                        onClick = {()=>{}}
                     />
-                    <CustomSpacing height = {20} />
-                        <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
-                            <label className='text-black font-semibold'>Email</label>
-                            <TextField
-                                className=' w-[100%] rounded-xl bg-CUSTOM-GREY  '
-                                id="email"
-                                placeholder='Masukkan email di sini'
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                    }
-                                }}
-                                {...register('email', { 
-                                    validate : validateEmail
-                                })}
-                                error={Boolean(errors.email)}
-                                helperText={errors.email && errors.email.message}
-                                />
-                            <label className='text-black font-semibold '>Kata Sandi</label>
-                            <TextField
-                                className=' w-[100%] bg-CUSTOM-GREY '
-                                id="password"
-                                placeholder='Masukkan kata sandi di sini'
-                                type="password"
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                    }
-                                }}
-                                {...register(
-                                    'password', {   
-                                        validate : validatePassword
-                                })}
-                                error={Boolean(errors.password)}
-                                helperText={errors.password && errors.password.message}
-                            
-                            />  
-                            <Box className = 'w-[100%] flex justify-end'>
-                                <p onClick = {()=>{push('forgot-pass')}} className='text-black cursor-pointer font-poppins text-[12px] font-semibold'>Lupa Password</p>
-                            </Box>
-                            <AppButton
-                                text={'Masuk'} 
-                                type = {'Submit'}
-                                fontSize = {'12px'}
-                                onClick = {()=>{}}
-                            />
-                            <Box className = 'w-[100%] flex justify-center'>
-                                <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
-                                <CustomSpacing width = {5}/>
-                                <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
-                            </Box>
-                        </form>
-                </Box>
-            </Box>
+                    <Box className = 'w-[100%] flex justify-center'>
+                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
+                        <CustomSpacing width = {5}/>
+                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
+                    </Box>
+                </form>
         </Box>
     )
 }
