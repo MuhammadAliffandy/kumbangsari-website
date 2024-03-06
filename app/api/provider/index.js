@@ -1,14 +1,14 @@
 import { BASE_URL } from "@/app/utils/constants";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
-export const PROVIDER_GET = async (pathUrl: string): Promise<any> => {
+export const PROVIDER_GET = async (pathUrl) => {
     const headers = {
         'Content-Type': 'application/json',
         // 'ADS-Key':ADS_KEY
     }
 
     try {
-        const response: AxiosResponse = await axios.get(`${BASE_URL}/${pathUrl}`, { headers });
+        const response = await axios.get(`${BASE_URL}/${pathUrl}`, { headers });
         
         switch (response.status) {
             case 200:
@@ -24,14 +24,14 @@ export const PROVIDER_GET = async (pathUrl: string): Promise<any> => {
     }
 }
 
-export const PROVIDER_POST = async (pathUrl: string, data: any): Promise<any> => {
+export const PROVIDER_POST = async (pathUrl, data) => {
     const headers = {
         'Content-Type': 'application/json',
         // 'ADS-Key':ADS_KEY
     }
 
     try {
-        const response: AxiosResponse = await axios.post(`${BASE_URL}/${pathUrl}`, data, { headers });
+        const response = await axios.post(`${BASE_URL}/${pathUrl}`, data, { headers });
 
         switch (response.status) {
             case 200:
@@ -60,14 +60,14 @@ export const PROVIDER_POST = async (pathUrl: string, data: any): Promise<any> =>
     }
 }
 
-export const PROVIDER_DELETE = async (pathUrl: string): Promise<any> => {
+export const PROVIDER_DELETE = async (pathUrl) => {
     const headers = {
         'Content-Type': 'application/json',
         // 'ADS-Key':ADS_KEY
     }
 
     try {
-        const response: AxiosResponse = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
+        const response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
 
         switch (response.status) {
             case 200:
@@ -96,14 +96,14 @@ export const PROVIDER_DELETE = async (pathUrl: string): Promise<any> => {
     }
 }
 
-export const PROVIDER_PUT = async (pathUrl: string, data: any): Promise<any> => {
+export const PROVIDER_PUT = async (pathUrl, data) => {
     const headers = {
         'Content-Type': 'application/json',
         // 'ADS-Key':ADS_KEY
     }
 
     try {
-        const response: AxiosResponse = await axios.put(`${BASE_URL}/${pathUrl}`, data, { headers });
+        const response = await axios.put(`${BASE_URL}/${pathUrl}`, data, { headers });
 
         switch (response.status) {
             case 200:

@@ -1,4 +1,3 @@
-// persistedReducer.js
 import { persistReducer } from 'redux-persist';
 import storage from './storage'; 
 import carReducer from './slices/carSlice'

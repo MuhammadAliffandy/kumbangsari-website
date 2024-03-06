@@ -1,5 +1,5 @@
 
-const CustomSpacing = ({height , width} : any ) : React.ReactNode => {
+const CustomSpacing = ({height , width}) => {
     return(
         <>
             <div style={{ height : height , width : width }}></div>

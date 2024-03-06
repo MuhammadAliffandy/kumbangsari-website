@@ -6,7 +6,7 @@ const carSlice = createSlice({
         value: '',
     },
     reducers: {
-        getCarsId: (state: any) => {
+        getCarsId: (state) => {
             state.value = localStorage.getItem('carsId');
         },
         setCarsId: (state , action) => {

@@ -10,20 +10,25 @@ import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
 import { loginAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
+// import { makeStyles } from '@mui/styles';
 import "../../../../globals.css";
+
+
+// const useStyles = makeStyles({
+//     fieldset: {
+//         borderRadius: 20,
+//     },
+// });
 
 const SignInPage = () => {
 
     const dispatch = useDispatch();
     const { push } = useRouter()
-    type signInData = {
-        email : string;
-        password : string ;
-    }
 
-    const { register, handleSubmit, formState: { errors } } = useForm<signInData>();
+    // const classes = useStyles();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
-    const onSubmit : SubmitHandler<signInData> = async (data ) => {
+    const onSubmit  = async (data ) => {
 
         const res = await loginAuth(data)
 
@@ -52,11 +57,6 @@ const SignInPage = () => {
                                 className=' w-[100%] rounded-xl '
                                 id="email"
                                 placeholder='Email'
-                                inputProps={{
-                                    style : {
-                                        borderRadius : '20px'
-                                    }
-                                }}
                                 {...register('email', { 
                                     validate : validateEmail
                                 })}
@@ -90,9 +90,9 @@ const SignInPage = () => {
                                 onClick = {()=>{}}
                             />
                             <Box className = 'w-[100%] flex justify-center'>
-                                <p  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</p>
+                                <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
                                 <CustomSpacing width = {5}/>
-                                <p  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</p>
+                                <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
                             </Box>
                         </form>
                 </Box>

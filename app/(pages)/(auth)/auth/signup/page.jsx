@@ -16,19 +16,11 @@ const SignUpPage  = () => {
 
     const { push } = useRouter();
 
-    type signUpData = {
-        name : string;
-        email : string;
-        phoneNumber : string;
-        password : string ;
-        confirmPassword : string;
-    }
-
-    const { register, watch ,handleSubmit, formState: { errors } } = useForm<signUpData>();
+    const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
     
-    const onSubmit : SubmitHandler<signUpData> = async (data ) => {
+    const onSubmit= async (data ) => {
 
         const res = await createAuth(data)
         console.log(res)
@@ -119,9 +111,9 @@ const SignUpPage  = () => {
                                 onClick = {()=>{}}
                         />
                         <Box className = 'w-[100%] flex justify-center'>
-                                <p  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
+                                <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
                                 <CustomSpacing width = {5}/>
-                                <p  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
+                                <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
                         </Box>
                     </form>
                 </Box>

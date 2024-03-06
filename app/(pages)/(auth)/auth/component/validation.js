@@ -1,4 +1,4 @@
-export const validatePassword = (value: string) => {
+export const validatePassword = (value) => {
     let isValid = true;
     let errorMessage = '';
 
@@ -36,7 +36,7 @@ export const validatePassword = (value: string) => {
 };
 
 
-export const validateEmail = (value : string) => {
+export const validateEmail = (value ) => {
     let isValid = true;
     let errorMessage = '';
 
@@ -53,7 +53,7 @@ export const validateEmail = (value : string) => {
     return isValid || errorMessage;
 }
 
-export const validatePhoneNumber = (value : string ) => {
+export const validatePhoneNumber = (value  ) => {
     let isValid  = true;
     let errorMessage = '';
 
@@ -71,7 +71,7 @@ export const validatePhoneNumber = (value : string ) => {
 
 } 
 
-export const validateName = (value: string) => {
+export const validateName = (value) => {
 
     let isValid  = true;
     let errorMessage = '';

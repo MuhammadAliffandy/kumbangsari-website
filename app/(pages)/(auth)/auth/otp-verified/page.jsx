@@ -18,24 +18,15 @@ const ForgotPasswordPage = ()  => {
     const [isSending, setIsSending] = useState(false);
     const { push } = useRouter()
 
-    type numberOTP = {
-        otpNumber1 : number;
-        otpNumber2 : number;
-        otpNumber3 : number;
-        otpNumber4 : number;
-        otpNumber5 : number;
-        otpNumber6 : number;
-    }
-
-    const { register, handleSubmit, formState: { errors } } = useForm<numberOTP>();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
-    const onSubmit : SubmitHandler<numberOTP> = (data ) => {
+    const onSubmit= (data ) => {
         console.log(data);
         return data; 
     };
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        let timer;
         if (isSending && countdown > 0) {
             timer = setTimeout(() => {
             setCountdown(prevCountdown => prevCountdown - 1);

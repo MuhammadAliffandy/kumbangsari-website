@@ -15,13 +15,9 @@ const ForgotPasswordPage = () => {
 
     const { push } = useRouter()
 
-    type forgotPassData = {
-        email : string;
-    }
-
-    const { register, handleSubmit, formState: { errors } } = useForm<forgotPassData>();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
-    const onSubmit : SubmitHandler<forgotPassData> = (data ) => {
+    const onSubmit = (data ) => {
         console.log(data);
         return data;
     };
