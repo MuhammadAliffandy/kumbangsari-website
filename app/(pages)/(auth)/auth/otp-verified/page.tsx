@@ -10,7 +10,7 @@ import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState  , useEffect} from 'react';
-
+import AppButton from '@/app/components/appButton';
 
 const ForgotPasswordPage = ()  => {
     
@@ -55,16 +55,23 @@ const ForgotPasswordPage = ()  => {
     };
 
     return(
-        <Container className='bg-red-500'>
-            <Box className = 'bg-white flex flex-col items-center shadow-xl rounded-sm p-[10px]'>
-                <Typography className='text-[20px] text-black'>
-                    OTP Verification
-                </Typography>
-                <CustomSpacing height = {10} />
+    <div  className=' h-[100vh] flex'>
+            <Box className = 'w-[50%] h-[100vh] bg-black'>
+            {/*  */}
+            </Box>
+            <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
+                <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
+                    <h1 className='text-[32px] text-black font-bold'>
+                        Verifikasi Email
+                    </h1>
+                    <p className='text-[15px] text-black font-medium'>
+                        Masukkan kode OTP yang dikirimkan ke emailmu!
+                    </p>
+                    <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%] items-center'>
-                        <Box className = 'flex gap-[20px] justify-center '>
+                        <Box className = 'flex gap-[20px] justify-center w-[100%] '>
                             <TextField
-                                className='inputotp w-[3.5%] text-center placeholder-center '
+                                className='inputotp w-[6%] text-center placeholder-center '
                                 inputProps={{
                                         maxLength: 1,
                                         placeholder: '0',
@@ -75,7 +82,7 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber1 && errors.otpNumber1.message}
                             /> 
                             <TextField
-                                className=' w-[3.5%]'
+                                className=' w-[6%]'
                                 inputProps={{
                                     maxLength: 1,
                                     placeholder: '0',
@@ -86,7 +93,7 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber2 && errors.otpNumber2.message}
                             /> 
                             <TextField
-                                className=' w-[3.5%]'
+                                className=' w-[6%]'
                                 inputProps={{
                                     maxLength: 1,
                                     placeholder: '0',
@@ -97,7 +104,7 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber3 && errors.otpNumber3.message}
                             /> 
                             <TextField
-                                className=' w-[3.5%]'
+                                className=' w-[6%]'
                                 inputProps={{
                                     maxLength: 1,
                                     placeholder: '0',
@@ -108,7 +115,7 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber4 && errors.otpNumber4.message}
                             /> 
                             <TextField
-                                className=' w-[3.5%]'
+                                className=' w-[6%]'
                                 inputProps={{
                                     maxLength: 1,
                                     placeholder: '0',
@@ -119,7 +126,7 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber5 && errors.otpNumber5.message}
                             /> 
                             <TextField
-                                className=' w-[3.5%]'
+                                className=' w-[6%]'
                                 inputProps={{
                                     maxLength: 1,
                                     placeholder: '0',
@@ -130,16 +137,22 @@ const ForgotPasswordPage = ()  => {
                                 helperText={errors.otpNumber6 && errors.otpNumber6.message}
                             /> 
                         </Box>
-                        <Button type='submit' variant="contained" className='w-[100%]'>
-                            kirim 
-                        </Button>
                     </form>
-                    <Box className = 'flex justify-evenly items-center gap-[20px]'>
-                        {isSending && <Typography className='text-[14px] text-black' >Sisa waktu: {countdown} detik</Typography>}
-                        <Button type='button' variant="contained" onClick={handleSendOTP} disabled={isSending}  className='text-black '>kirim ulang code</Button>
+                    <CustomSpacing height={20}/>
+                    <AppButton
+                        text={'Verifikasi'} 
+                        type = {'Submit'}
+                        fontSize = {'12px'}
+                        onClick = {()=>{}}
+                    />
+                    <CustomSpacing height={10}/>
+                    <Box className = 'flex justify-center items-center gap-[5px]'>
+                        <button type='button' onClick={handleSendOTP} disabled={isSending}  className='text-black text-opacity-[50%] bg-transparent text-[14px] '>Kirim ulang code</button>
+                        {isSending && <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam: {countdown}</p>}
                     </Box>
+                </Box>
             </Box>
-        </Container>
+        </div>
     )
 }
 

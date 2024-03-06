@@ -9,6 +9,7 @@ import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail } from '../component/validation';
+import AppButton from '@/app/components/appButton';
 
 const ForgotPasswordPage = () => {
 
@@ -26,32 +27,46 @@ const ForgotPasswordPage = () => {
     };
 
     return(
-        <Container className='bg-red-500'>
-            <Box className = 'bg-white flex flex-col items-center shadow-xl rounded-sm p-[10px]'>
-                <Typography className='text-[20px] text-black'>
-                    Lupa Password
-                </Typography>
-                <CustomSpacing height = {10} />
+        <div  className=' h-[100vh] flex'>
+            <Box className = 'w-[50%] h-[100vh] bg-black'>
+            {/*  */}
+            </Box>
+            <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
+                <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
+                    <h1 className='text-[32px] text-black font-bold'>
+                        Lupa Kata Sandi?
+                    </h1>
+                    <p className='text-[15px] text-black font-medium'>
+                        Buat kata sandi baru dan masuk kembali ke akunmu!
+                    </p>
+                    <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                        <label className='text-black'>Email</label>
                         <TextField
-                            className=' w-[100%]'
+                            className=' w-[100%] rounded-xl '
                             id="email"
-                            label="Email"
                             placeholder='Email'
+                            inputProps={{
+                                style : {
+                                    borderRadius : '20px'
+                                }
+                            }}
                             {...register('email', { 
                                 validate : validateEmail
-                            } )}
+                            })}
                             error={Boolean(errors.email)}
                             helperText={errors.email && errors.email.message}
                             />
-                        <CustomSpacing height = {20} /> 
-                        <Button type='submit' variant="contained" className='w-[100%]'>
-                            kirim 
-                        </Button>
-                        <Typography  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer'>kembali</Typography>
+                        <AppButton
+                            text={'Kirim'} 
+                            type = {'Submit'}
+                            fontSize = {'12px'}
+                            onClick = {()=>{}}
+                        />
                     </form>
+                </Box>
             </Box>
-        </Container>
+        </div>
     )
 }
 
