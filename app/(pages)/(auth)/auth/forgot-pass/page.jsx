@@ -10,6 +10,7 @@ import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail } from '../component/validation';
 import AppButton from '@/app/components/appButton';
+import AppHeadline from '@/app/components/appHeadline';
 
 const ForgotPasswordPage = () => {
 
@@ -29,22 +30,20 @@ const ForgotPasswordPage = () => {
             </Box>
             <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
                 <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
-                    <h1 className='text-[32px] text-black font-bold'>
-                        Lupa Kata Sandi?
-                    </h1>
-                    <p className='text-[15px] text-black font-medium'>
-                        Buat kata sandi baru dan masuk kembali ke akunmu!
-                    </p>
+                    <AppHeadline 
+                        title = {'Lupa Kata Sandi?'}
+                        subtitle = {'Buat kata sandi baru dan masuk kembali ke akunmu!'}
+                    />
                     <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
-                        <label className='text-black'>Email</label>
+                        <label className='text-black font-semibold'>Email</label>
                         <TextField
-                            className=' w-[100%] rounded-xl '
+                            className=' w-[100%] bg-CUSTOM-GREY  '
                             id="email"
-                            placeholder='Email'
-                            inputProps={{
-                                style : {
-                                    borderRadius : '20px'
+                            placeholder='Masukkkan email di sini'
+                            InputProps={{
+                                style: {
+                                    borderRadius: "15px",
                                 }
                             }}
                             {...register('email', { 

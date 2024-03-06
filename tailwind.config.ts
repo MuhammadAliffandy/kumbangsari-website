@@ -12,7 +12,7 @@ const config: Config = {
         'custom-blue': '#007bff',
         'custom-red': '#dc3545',
         'custom-green': '#28a745',
-        'CUSTOM-GREY': '#474E68',
+        'CUSTOM-GREY': '#F7F9F9',
         'CUSTOM-GREY-LIGHT': '#6B728E',
       },
       spacing: {

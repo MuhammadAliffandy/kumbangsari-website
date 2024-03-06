@@ -1,16 +1,15 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../component/validation';
 import { createAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
+import AppHeadline from '@/app/components/appHeadline';
 
 const SignUpPage  = () => {
 
@@ -30,25 +29,28 @@ const SignUpPage  = () => {
 
     return(
 
-        <div  className=' h-[100vh] flex'>
+        <Box  className=' h-[100vh] flex'>
             <Box className = 'w-[50%] h-[100vh] bg-black'>
-
+                {/*  */}
             </Box>
             <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
                 <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
-                    <h1 className='text-[32px] text-black font-bold'>
-                        Selamat Datang Kembali!
-                    </h1>
-                    <p className='text-[15px] text-black font-medium'>
-                        Masuk ke dalam akun, dan akses kembali datamu!
-                    </p>
+                    <AppHeadline 
+                        title = {'Selamat Datang!'}
+                        subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
+                    />
                     <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                        <label className='text-black font-semibold'>Nama</label>
                         <TextField
-                                className=' w-[100%]'
+                                className=' w-[100%]  bg-CUSTOM-GREY '
                                 id="name"
-                                label="Name"
-                                placeholder='Name'
+                                placeholder='Masukkan nama lengkap disini'
+                                InputProps={{
+                                    style: {
+                                        borderRadius: "15px",
+                                    }
+                                }}
                                 {...register('name', 
                                     {
                                         validate: validateName
@@ -56,33 +58,54 @@ const SignUpPage  = () => {
                                 error={Boolean(errors.name)}
                                 helperText={errors.name && errors.name.message}
                             />
+                        <Stack direction="row" spacing={2}>   
+                            <Box className='flex flex-col gap-[10px]'>
+                                <label className='text-black font-semibold'>Email</label>
+                                <TextField
+                                        className=' w-[100%] bg-CUSTOM-GREY '
+                                        id="email"
+                                        placeholder='Masukkan email di sini'
+                                        InputProps={{
+                                            style: {
+                                                borderRadius: "15px",
+                                            }
+                                        }}
+                                        {...register('email', {
+                                            validate : validateEmail
+                                        })}
+                                        error={Boolean(errors.email)}
+                                        helperText={errors.email && errors.email.message}
+                                    />
+                            </Box>
+                            <Box className='flex flex-col gap-[10px]'>
+                                <label className='text-black font-semibold'>Nomor Telepon</label>
+                                <TextField
+                                        className=' w-[100%] bg-CUSTOM-GREY '
+                                        id="phoneNumber"
+                                        placeholder='Masukkan no telephone di sini'
+                                        InputProps={{
+                                            style: {
+                                                borderRadius: "15px",
+                                            }
+                                        }}
+                                        {...register('phoneNumber', { 
+                                            validate: validatePhoneNumber 
+                                        })}
+                                        error={Boolean(errors.phoneNumber)}
+                                    />
+                            </Box>
+                        </Stack> 
+                        <label className='text-black font-semibold'>Kata Sandi</label>
                         <TextField
-                                className=' w-[100%]'
-                                id="email"
-                                label="Email"
-                                placeholder='Email'
-                                {...register('email', {
-                                    validate : validateEmail
-                                })}
-                                error={Boolean(errors.email)}
-                                helperText={errors.email && errors.email.message}
-                            />
-                            <TextField
-                                className=' w-[100%]'
-                                id="phoneNumber"
-                                label="No Handphone"
-                                placeholder='Nomor Handphone'
-                                {...register('phoneNumber', { 
-                                    validate: validatePhoneNumber 
-                                })}
-                                error={Boolean(errors.phoneNumber)}
-                            />
-                            <TextField
-                                className=' w-[100%]'
+                                className=' w-[100%] bg-CUSTOM-GREY '
                                 id="password"
-                                label="Password"
-                                placeholder='Password'
+                                placeholder='Masukkan kata sandi di sini'
                                 type="password"
+                                InputProps={{
+                                    style: {
+                                        borderRadius: "15px",
+                                    }
+                                }}
                                 {...register('password', {
                                     validate : validatePassword
                                 })}
@@ -90,11 +113,17 @@ const SignUpPage  = () => {
                                 helperText={errors.password && errors.password.message}
                             
                             />
-                            <TextField
-                                className=' w-[100%]'
+                        <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
+                        <TextField
+                                className=' w-[100%] bg-CUSTOM-GREY '
                                 id="confirmPassword"
-                                label="Confirm Password"
+                                placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type="password"
+                                InputProps={{
+                                    style: {
+                                        borderRadius: "15px",
+                                    }
+                                }}
                                 {...register('confirmPassword', {
                                 required: 'Please confirm your password',
                                     validate: value => value === password || 'Password tidak cocok'
@@ -103,7 +132,7 @@ const SignUpPage  = () => {
                                 helperText={errors.confirmPassword && errors.confirmPassword.message}
                             />
             
-                        <CustomSpacing height = {20} />
+                        <CustomSpacing height = {5} />
                         <AppButton
                                 text={'Daftar Sekarang'} 
                                 type = {'Submit'}
@@ -118,7 +147,7 @@ const SignUpPage  = () => {
                     </form>
                 </Box>
             </Box>
-        </div>
+        </Box>
     )
 }
 

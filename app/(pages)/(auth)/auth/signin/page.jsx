@@ -10,22 +10,16 @@ import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
 import { loginAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
-// import { makeStyles } from '@mui/styles';
+import AppHeadline from '@/app/components/appHeadline'
 import "../../../../globals.css";
 
 
-// const useStyles = makeStyles({
-//     fieldset: {
-//         borderRadius: 20,
-//     },
-// });
 
 const SignInPage = () => {
 
     const dispatch = useDispatch();
     const { push } = useRouter()
 
-    // const classes = useStyles();
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     const onSubmit  = async (data ) => {
@@ -38,39 +32,44 @@ const SignInPage = () => {
     };
 
     return(
-        <div  className=' h-[100vh] flex'>
+        <Box className=' h-[100vh] flex'>
             <Box className = 'w-[50%] h-[100vh] bg-black'>
             {/*  */}
             </Box>
             <Box className = 'w-[50%] h-[100vh] flex flex-col items-center justify-center'>
                 <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
-                    <h1 className='text-[32px] text-black font-bold'>
-                        Selamat Datang Kembali!
-                    </h1>
-                    <p className='text-[15px] text-black font-medium'>
-                        Masuk ke dalam akun, dan akses kembali datamu!
-                    </p>
+                    <AppHeadline 
+                        title = {'Selamat Datang Kembali!'}
+                        subtitle = {'Masuk ke dalam akun, dan akses kembali datamu!'}
+                    />
                     <CustomSpacing height = {20} />
                         <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
-                            <label className='text-black'>Email</label>
+                            <label className='text-black font-semibold'>Email</label>
                             <TextField
-                                className=' w-[100%] rounded-xl '
+                                className=' w-[100%] rounded-xl bg-CUSTOM-GREY  '
                                 id="email"
-                                placeholder='Email'
+                                placeholder='Masukkan email di sini'
+                                InputProps={{
+                                    style: {
+                                        borderRadius: "15px",
+                                    }
+                                }}
                                 {...register('email', { 
                                     validate : validateEmail
                                 })}
                                 error={Boolean(errors.email)}
                                 helperText={errors.email && errors.email.message}
                                 />
-                            <label className='text-black'>Password</label>
+                            <label className='text-black font-semibold '>Kata Sandi</label>
                             <TextField
-                                className=' w-[100%]'
+                                className=' w-[100%] bg-CUSTOM-GREY '
                                 id="password"
-                                placeholder='Password'
+                                placeholder='Masukkan kata sandi di sini'
                                 type="password"
-                                sx={{
-                                    borderRadius : '15px'
+                                InputProps={{
+                                    style: {
+                                        borderRadius: "15px",
+                                    }
                                 }}
                                 {...register(
                                     'password', {   
@@ -97,7 +96,7 @@ const SignInPage = () => {
                         </form>
                 </Box>
             </Box>
-        </div>
+        </Box>
     )
 }
 
