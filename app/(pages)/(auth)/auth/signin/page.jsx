@@ -41,12 +41,13 @@ const SignInPage = () => {
                 <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                     <label className='text-black font-semibold'>Email</label>
                     <TextField
-                        className=' w-[100%] rounded-xl bg-CUSTOM-GREY  '
+                        className=' w-[100%]  '
                         id="email"
                         placeholder='Masukkan email di sini'
                         InputProps={{
                             style: {
                                 borderRadius: "15px",
+                                backgroundColor: '#F7F9F9'
                             }
                         }}
                         {...register('email', { 
@@ -57,13 +58,14 @@ const SignInPage = () => {
                         />
                     <label className='text-black font-semibold '>Kata Sandi</label>
                     <TextField
-                        className=' w-[100%] bg-CUSTOM-GREY '
+                        className=' w-[100%] '
                         id="password"
                         placeholder='Masukkan kata sandi di sini'
                         type="password"
                         InputProps={{
                             style: {
                                 borderRadius: "15px",
+                                backgroundColor: '#F7F9F9'
                             }
                         }}
                         {...register(

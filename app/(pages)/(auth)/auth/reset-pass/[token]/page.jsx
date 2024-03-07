@@ -23,7 +23,6 @@ const SignUpPage  = () => {
 
         const res = await createAuth(data)
         console.log(res)
-        
 
     };
 
@@ -37,13 +36,14 @@ const SignUpPage  = () => {
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                         <label className='text-black font-semibold'>Kata Sandi</label>
                         <TextField
-                                className=' w-[100%] bg-CUSTOM-GREY '
+                                className=' w-[100%]  '
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
                                 type="password"
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
+                                        backgroundColor: '#F7F9F9'
                                     }
                                 }}
                                 {...register('password', {
@@ -55,13 +55,14 @@ const SignUpPage  = () => {
                             />
                         <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
                         <TextField
-                                className=' w-[100%] bg-CUSTOM-GREY '
+                                className=' w-[100%]  '
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type="password"
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
+                                        backgroundColor: '#F7F9F9'
                                     }
                                 }}
                                 {...register('confirmPassword', {

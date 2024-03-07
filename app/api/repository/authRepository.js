@@ -15,3 +15,16 @@ export const loginAuth = async ( data) => {
     return response
 }
 
+
+export const sendOTPAuth = async ( data) => {
+    await delay()
+    const response = await PROVIDER_POST(`api/v1/users/send-otp`,data)
+    return response
+}
+
+export const verificationOTPAuth = async ( data) => {
+    await delay()
+    const response = await PROVIDER_POST(`api/v1/users/verification`,data)
+    return response
+}
+

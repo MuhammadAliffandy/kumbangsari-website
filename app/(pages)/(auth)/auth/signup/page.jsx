@@ -7,9 +7,12 @@ import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../component/validation';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { createAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
+
 
 const SignUpPage  = () => {
 
@@ -19,11 +22,20 @@ const SignUpPage  = () => {
 
     const password = watch('password', '');
     
+    const notify = () => {
+        toast.success('Pendaftaran Berhasil')
+    }
+
     const onSubmit= async (data ) => {
 
-        const res = await createAuth(data)
-        console.log(res)
-        
+        sessionStorage.setItem('email' ,data.email)
+        // const res = await createAuth(data)
+        // console.log(res)
+
+        // if(res.status = 'OK'){
+        //     push('/auth/otp-verified')
+        // }
+        notify();
 
     };
 
@@ -139,7 +151,9 @@ const SignUpPage  = () => {
                                 <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
                         </Box>
                     </form>
+                    <ToastContainer/>
                 </Box>
+
     )
 }
 
