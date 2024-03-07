@@ -29,12 +29,12 @@ const SignUpPage  = () => {
     const onSubmit= async (data ) => {
 
         sessionStorage.setItem('email' ,data.email)
-        // const res = await createAuth(data)
-        // console.log(res)
+        const res = await createAuth(data)
+        console.log(res)
 
-        // if(res.status = 'OK'){
-        //     push('/auth/otp-verified')
-        // }
+        if(res.status = 'OK'){
+            push('/auth/otp-verified')
+        }
         notify();
 
     };
@@ -49,12 +49,13 @@ const SignUpPage  = () => {
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                         <label className='text-black font-semibold'>Nama</label>
                         <TextField
-                                className=' w-[100%]  bg-CUSTOM-GREY '
+                                className=' w-[100%]   '
                                 id="name"
                                 placeholder='Masukkan nama lengkap disini'
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
+                                        backgroundColor: '#F7F9F9'
                                     }
                                 }}
                                 {...register('name', 
@@ -68,12 +69,13 @@ const SignUpPage  = () => {
                             <Box className='flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold'>Email</label>
                                 <TextField
-                                        className=' w-[100%] bg-CUSTOM-GREY '
+                                        className=' w-[100%]  '
                                         id="email"
                                         placeholder='Masukkan email di sini'
                                         InputProps={{
                                             style: {
                                                 borderRadius: "15px",
+                                                backgroundColor: '#F7F9F9'
                                             }
                                         }}
                                         {...register('email', {
@@ -86,12 +88,13 @@ const SignUpPage  = () => {
                             <Box className='flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold'>Nomor Telepon</label>
                                 <TextField
-                                        className=' w-[100%] bg-CUSTOM-GREY '
+                                        className=' w-[100%]  '
                                         id="phoneNumber"
                                         placeholder='Masukkan no telephone di sini'
                                         InputProps={{
                                             style: {
                                                 borderRadius: "15px",
+                                                backgroundColor: '#F7F9F9'
                                             }
                                         }}
                                         {...register('phoneNumber', { 
@@ -103,13 +106,14 @@ const SignUpPage  = () => {
                         </Stack> 
                         <label className='text-black font-semibold'>Kata Sandi</label>
                         <TextField
-                                className=' w-[100%] bg-CUSTOM-GREY '
+                                className=' w-[100%]  '
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
                                 type="password"
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
+                                        backgroundColor: '#F7F9F9'
                                     }
                                 }}
                                 {...register('password', {
@@ -121,13 +125,14 @@ const SignUpPage  = () => {
                             />
                         <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
                         <TextField
-                                className=' w-[100%] bg-CUSTOM-GREY '
+                                className=' w-[100%]  '
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type="password"
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
+                                        backgroundColor: '#F7F9F9'
                                     }
                                 }}
                                 {...register('confirmPassword', {
@@ -137,8 +142,6 @@ const SignUpPage  = () => {
                                 error={Boolean(errors.confirmPassword)}
                                 helperText={errors.confirmPassword && errors.confirmPassword.message}
                             />
-            
-                        <CustomSpacing height = {5} />
                         <AppButton
                                 text={'Daftar Sekarang'} 
                                 type = {'Submit'}
