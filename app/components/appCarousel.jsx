@@ -22,7 +22,7 @@ function AppCarousel(props) {
         indicators={true} // Set to true to show indicators
         timeout={500} // Set the interval time between slides in milliseconds
         navButtonsAlwaysVisible={true} // Set to true to always show navigation buttons
-        navButtonsProps={{ style: { backgroundColor: 'transparent', color: '#000' } }} // Customize navigation buttons style
+        navButtonsProps={{ style: { backgroundColor: 'transparent', color: 'white' } }} // Customize navigation buttons style
         navButtonsWrapperProps={{ style: { bottom: '20px' } }} // Customize navigation buttons wrapper style
         fullHeightHover={false} // Set to true to allow carousel item to take full height on hover
         cycleNavigation={true} // Set to true to enable cycle navigation
@@ -33,7 +33,7 @@ function AppCarousel(props) {
         renderIndicator={(onClickHandler, active, index, label) => (
             <button
             style={{
-                width: '12px',
+                width: active ? '20px' : '12px',
                 height: '12px',
                 backgroundColor: active ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.5)',
                 border: 'none',

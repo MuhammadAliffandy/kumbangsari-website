@@ -31,7 +31,7 @@ const Layout = (props) => {
                     <AppCarousel  items = {items}  />
                 </Box>
             </Box>
-            <Box className = 'w-[100%] xl:w-[50%] h-[100vh] flex flex-col items-center justify-center'>
+            <Box className = 'w-[100%] xl:w-[50%] md:w-[50%] h-[100vh] flex flex-col items-center justify-center'>
                 {props.children}
             </Box>
         </Box>
