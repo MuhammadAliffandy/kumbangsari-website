@@ -23,19 +23,27 @@ const SignUpPage  = () => {
     const password = watch('password', '');
     
     const notify = () => {
-        toast.success('Pendaftaran Berhasil')
+        toast.success('Pendaftaran Berhasil',{
+            onClose : () => {
+                push('/auth/otp-verified')
+            }
+        })
     }
 
     const onSubmit= async (data ) => {
 
-        sessionStorage.setItem('email' ,data.email)
-        const res = await createAuth(data)
-        console.log(res)
+        try {
+            sessionStorage.setItem('email' ,data.email)
+            const res = await createAuth(data)
+            console.log(res)
 
-        if(res.status = 'OK'){
-            push('/auth/otp-verified')
+            if(res.status = 'OK'){
+                notify();
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server');
         }
-        notify();
+
 
     };
 
@@ -148,12 +156,13 @@ const SignUpPage  = () => {
                                 fontSize = {'12px'}
                                 onClick = {()=>{}}
                         />
-                        <Box className = 'w-[100%] flex justify-center'>
-                                <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
-                                <CustomSpacing width = {5}/>
-                                <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
-                        </Box>
                     </form>
+                    <CustomSpacing height={'10px'}/>
+                    <Box className = 'w-[100%] flex justify-center'>
+                            <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
+                            <CustomSpacing width = {5}/>
+                            <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
+                    </Box>
                     <ToastContainer/>
                 </Box>
 

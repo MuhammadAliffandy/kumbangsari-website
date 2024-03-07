@@ -7,7 +7,7 @@ export function middleware(req) {
 
     
     if(isLogin && pathname == '/auth/signin'){
-        return NextResponse.redirect(new URL('/example', req.url));
+        return NextResponse.redirect(new URL('/', req.url));
     }
     
     if (!isLogin && pathname !== '/auth/signin') {

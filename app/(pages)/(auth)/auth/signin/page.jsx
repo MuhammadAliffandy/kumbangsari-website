@@ -11,6 +11,8 @@ import { validateEmail, validatePassword } from '../component/validation';
 import { loginAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline'
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import "../../../../globals.css";
 
 
@@ -24,11 +26,13 @@ const SignInPage = () => {
     
     const onSubmit  = async (data ) => {
 
-        const res = await loginAuth(data)
-
-        console.log(res);
-        dispatch(setToken(res.token))
-        push('/example')
+        try {
+            const res = await loginAuth(data)
+            dispatch(setToken(res.token))
+            push('/example')
+        } catch (error) {
+            toast.error('Email atau Kata Sandi Salah')
+        }
     };
 
     return(
@@ -85,12 +89,14 @@ const SignInPage = () => {
                         fontSize = {'12px'}
                         onClick = {()=>{}}
                     />
-                    <Box className = 'w-[100%] flex justify-center'>
-                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
-                        <CustomSpacing width = {5}/>
-                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
-                    </Box>
                 </form>
+                <CustomSpacing height={'10px'}/>
+                <Box className = 'w-[100%] flex justify-center'>
+                    <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
+                    <CustomSpacing width = {5}/>
+                    <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
+                </Box>
+                <ToastContainer/>
         </Box>
     )
 }

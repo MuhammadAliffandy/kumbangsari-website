@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation';
 import { useState  , useEffect} from 'react';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { sendOTPAuth, verificationOTPAuth } from '@/app/api/repository/authRepository';
 import OtpInput from 'react-otp-input';
 
@@ -22,19 +24,31 @@ const ForgotPasswordPage = ()  => {
     const [otp, setOtp] = useState('');
     const { push } = useRouter()
 
+    const notify = () => {
+        toast.success('Verifikasi Email Berhasil' , 
+        {
+            onClose: () => {
+                push('/auth/signin');
+            }
+        }
+        )
+    }
     
     const onSubmit = async () => {
 
-        const data = {
-            email : sessionStorage.getItem('email'),
-            otp: otp
-        }
-        
-
-        const res = await verificationOTPAuth(data)
-
-        if(res.status == 'OK'){
-            console.log(res)
+        try {
+            const data = {
+                email : sessionStorage.getItem('email'),
+                otp: otp
+            }
+            
+            const res = await verificationOTPAuth(data)
+    
+            if(res.status == 'OK'){
+                notify()
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server');
         }
     };
 
@@ -65,6 +79,10 @@ const ForgotPasswordPage = ()  => {
             const email = sessionStorage.getItem('email')
             const res = await sendOTPAuth({email : email})
             console.log(res)
+
+            if(res.status == 'OK'){
+
+            }
     };
 
     return(
@@ -104,6 +122,7 @@ const ForgotPasswordPage = ()  => {
                 <button type='button' onClick={handleSendOTP} disabled={isSending}  className='text-black text-opacity-[50%] bg-transparent text-[14px] '>{isSending ? 'Kirim ulang code' : 'Kirim code'}</button>
                 {isSending && <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam : {countdown} detik</p>}
             </Box>
+            <ToastContainer/>
         </Box>
     )
 }

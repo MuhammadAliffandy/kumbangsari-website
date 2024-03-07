@@ -11,7 +11,7 @@ import { createAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 
-const SignUpPage  = () => {
+const  ResetPasswordPage = () => {
 
     const { push } = useRouter();
 
@@ -84,4 +84,4 @@ const SignUpPage  = () => {
     )
 }
 
-export default SignUpPage ;
+export default  ResetPasswordPage;
