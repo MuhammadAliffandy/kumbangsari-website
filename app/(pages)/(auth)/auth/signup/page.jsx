@@ -2,6 +2,7 @@
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , } from 'react-hook-form';
@@ -14,12 +15,16 @@ import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 
 const SignUpPage  = () => {
 
     const { push } = useRouter();
     const [loadingProgress,setLoadingProgress] = useState(0);
+    const [visiblePass,setVisiblePass] = useState(false);
+    const [visiblePass1,setVisiblePass1] = useState(false);
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
@@ -125,12 +130,13 @@ const SignUpPage  = () => {
                                 className=' w-[100%]  '
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
-                                type="password"
+                                type={ visiblePass ?  'text' : "password"  } 
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
                                         backgroundColor: '#F7F9F9'
-                                    }
+                                    },
+                                    endAdornment: <InputAdornment onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
                                 }}
                                 {...register('password', {
                                     validate : validatePassword
@@ -144,12 +150,13 @@ const SignUpPage  = () => {
                                 className=' w-[100%]  '
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
-                                type="password"
+                                type={ visiblePass ?  'text' : "password"  } 
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
                                         backgroundColor: '#F7F9F9'
-                                    }
+                                    },
+                                    endAdornment: <InputAdornment onClick={()=>{ setVisiblePass(!visiblePass1) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
                                 }}
                                 {...register('confirmPassword', {
                                 required: 'Password harus sama',
