@@ -26,6 +26,12 @@ const ForgotPasswordPage = ()  => {
     const [otp, setOtp] = useState('');
     const { push } = useRouter()
 
+
+    useEffect(()=>{
+        handleSendOTP()
+    },[])
+
+
     const notify = () => {
         toast.success('Verifikasi Email Berhasil' , 
         {
@@ -130,7 +136,7 @@ const ForgotPasswordPage = ()  => {
                 <button type='button' onClick={handleSendOTP} disabled={isSending}  className='text-black text-opacity-[50%] bg-transparent text-[14px] '>{isSending ? 'Kirim ulang code' : 'Kirim code'}</button>
                 {isSending && <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam : {countdown} detik</p>}
             </Box>
-            <ToastContainer/>
+            <ToastContainer autoClose={800} />
         </Box>
     )
 }
