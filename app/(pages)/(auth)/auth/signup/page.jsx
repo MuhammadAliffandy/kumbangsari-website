@@ -156,7 +156,7 @@ const SignUpPage  = () => {
                                         borderRadius: "15px",
                                         backgroundColor: '#F7F9F9'
                                     },
-                                    endAdornment: <InputAdornment onClick={()=>{ setVisiblePass(!visiblePass1) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
+                                    endAdornment: <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass1) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
                                 }}
                                 {...register('confirmPassword', {
                                 required: 'Password harus sama',

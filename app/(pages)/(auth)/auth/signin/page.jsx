@@ -85,7 +85,7 @@ const SignInPage = () => {
                                 borderRadius: "15px",
                                 backgroundColor: '#F7F9F9'
                             },
-                            endAdornment: <InputAdornment onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
+                            endAdornment: <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
                         }}
                         {...register(
                             'password', {   
