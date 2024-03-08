@@ -51,7 +51,7 @@ const SignUpPage  = () => {
     };
 
     return(
-        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px] fixed'>
+        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
                 <LoadingBar 
                     color={'blue'} 
                     progress={loadingProgress} 

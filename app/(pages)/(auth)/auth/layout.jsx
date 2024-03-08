@@ -24,17 +24,20 @@ const Layout = (props) => {
 
 
     return (
-        <Box  className=' h-[100vh] flex'>
-            <Box 
-                className = 'w-[50%] h-[100vh] hidden bg-black  xl:flex md:flex lg:flex sm:hidden flex-col items-center justify-center'>
-                <Box className = 'w-[100%] h-[100%]  flex flex-col items-center justify-center'>
-                    <AppCarousel  items = {items}  />
+        <>
+            <Box className='h-[100vh] '>
+                <Box  className=' h-[100%] flex items-center'>
+                    <Box 
+                        className = 'w-[50%] h-[100%] hidden bg-black xl:bg-black xl:flex md:flex lg:flex sm:hidden flex-col items-center justify-center'>
+                            <AppCarousel  items = {items}  />
+                    </Box>
+                    <Box className = ' bg-white w-[100%] xl:w-[50%] md:w-[50%] h-[100vh] flex flex-col items-center justify-center'>
+                        {props.children}
+                    </Box>
                 </Box>
             </Box>
-            <Box className = 'w-[100%] xl:w-[50%] md:w-[50%] h-[100vh] flex flex-col items-center justify-center'>
-                {props.children}
-            </Box>
-        </Box>
+        </>
+
     ) 
 }
 

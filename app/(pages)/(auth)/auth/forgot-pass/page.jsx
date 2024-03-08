@@ -31,7 +31,6 @@ const ForgotPasswordPage = () => {
             const res = await resetPasswordAuth({email : data.email});
 
             if(res.status == 'OK'){
-                console.log(res)
                 notify()
             }
         } catch (error) {

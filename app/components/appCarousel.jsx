@@ -7,14 +7,14 @@ function AppCarousel(props) {
 
 
     const renderCustomItem = (item, index) => (
-        <div className='flex flex-col items-center justify-center gap-[20px]' key={index}>
+        <div className='h-[80%] flex flex-col items-center justify-center gap-[20px]' key={index}>
             <img className='w-[460px] h-[360px] bg-gray-500 rounded-[15px]' src={item.image} alt={item.name} />
             <h2 className='text-white text-[28px] font-bold font-poppins'>{item.name}</h2>
-            <p className='text-white text-[14px] text-center font-medium w-[] font-poppins' >{item.description}</p>
+            <p className='text-white text-[14px] text-center font-medium  font-poppins' >{item.description}</p>
         </div>
     );
 
-  return (
+    return (
     <Carousel
         className='w-[70%] h-[70%]'
         animation="slide" // or 'fade' or 'zoom'
