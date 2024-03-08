@@ -11,16 +11,32 @@ import { useRouter } from 'next/navigation';
 import { validateEmail } from '../component/validation';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { resetPasswordAuth } from '@/app/api/repository/authRepository';
 
 const ForgotPasswordPage = () => {
 
     const { push } = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const notify = () => {
+        toast.success('Email Berhasil dikirim')
+    }
+
     
-    const onSubmit = (data ) => {
-        console.log(data);
-        return data;
+    const onSubmit = async (data ) => {
+        try {
+            const res = await resetPasswordAuth({email : data.email});
+
+            if(res.status == 'OK'){
+                console.log(res)
+                notify()
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')
+        }
     };
 
     return(
@@ -55,6 +71,7 @@ const ForgotPasswordPage = () => {
                     onClick = {()=>{}}
                 />
             </form>
+            <ToastContainer autoClose={800} />
         </Box>
     )
 }

@@ -5,9 +5,12 @@ import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter , useParams } from 'next/navigation';
 import { validatePassword, } from '../../component/validation';
-import { createAuth } from '@/app/api/repository/authRepository';
+import {  verifyPasswordAuth } from '@/app/api/repository/authRepository';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 
@@ -15,19 +18,50 @@ const  ResetPasswordPage = () => {
 
     const { push } = useRouter();
 
+    const [loadingProgress,setLoadingProgress] = useState(0);
+
+    const params = useParams()
+    const uniqueId = params.uniqueId 
+
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
     
     const onSubmit= async (data ) => {
 
-        const res = await createAuth(data)
-        console.log(res)
+        try {
+
+            const jsonData = {
+                uniqueId : uniqueId,
+                newPassword : data.password,
+                newConfirmPassword : data.password, 
+            }
+
+            const res = await verifyPasswordAuth(jsonData)
+
+            setLoadingProgress(80)
+
+            if(res.status == 'OK'){
+                toast.success('Ganti Kata Sandi Berhasil' , {  onClose : () => { 
+                    setLoadingProgress(100)
+                    push('/auth/signin')
+                } })
+            }
+            
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')   
+        }
+
 
     };
 
     return(
         <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
+                    <LoadingBar 
+                        color={'blue'} 
+                        progress={loadingProgress} 
+                        onLoaderFinished={() => setLoadingProgress(0)
+                    } />
                     <AppHeadline 
                         title = {'Password Baru'}
                         subtitle = {'Buat password baru yang berbeda dari sebelumnya.' }
@@ -80,6 +114,7 @@ const  ResetPasswordPage = () => {
                                 onClick = {()=>{}}
                         />
                     </form>
+                    <ToastContainer autoClose={800}/>
                 </Box>
     )
 }

@@ -13,7 +13,9 @@ import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline'
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 import "../../../../globals.css";
+import { useState } from 'react';
 
 
 
@@ -21,15 +23,17 @@ const SignInPage = () => {
 
     const dispatch = useDispatch();
     const { push } = useRouter()
-
+    const [loadingProgress,setLoadingProgress] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     const onSubmit  = async (data ) => {
 
         try {
+            setLoadingProgress(50)
             const res = await loginAuth(data)
             dispatch(setToken(res.token))
-            push('/example')
+            push('/')
+            setLoadingProgress(100)
         } catch (error) {
             toast.error('Email atau Kata Sandi Salah')
         }
@@ -37,6 +41,11 @@ const SignInPage = () => {
 
     return(
         <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
+            <LoadingBar 
+                color={'blue'} 
+                progress={loadingProgress} 
+                onLoaderFinished={() => setLoadingProgress(0)
+            } />
             <AppHeadline 
                 title = {'Selamat Datang Kembali!'}
                 subtitle = {'Masuk ke dalam akun, dan akses kembali datamu!'}

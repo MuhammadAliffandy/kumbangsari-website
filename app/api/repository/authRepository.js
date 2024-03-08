@@ -28,3 +28,15 @@ export const verificationOTPAuth = async ( data) => {
     return response
 }
 
+export const resetPasswordAuth = async ( data) => {
+    await delay()
+    const response = await PROVIDER_POST(`api/v1/users/reset-password`,data)
+    return response
+}
+
+export const verifyPasswordAuth = async ( data) => {
+    await delay()
+    const response = await PROVIDER_POST(`api/v1/users/verify-reset`,data)
+    return response
+}
+

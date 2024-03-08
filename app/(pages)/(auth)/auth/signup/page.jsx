@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
-import { useForm , SubmitHandler } from 'react-hook-form';
+import { useForm , } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../component/validation';
 import { ToastContainer, toast } from "react-toastify";
@@ -12,12 +12,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
+import LoadingBar from 'react-top-loading-bar'
+import { useState } from 'react';
 
 
 const SignUpPage  = () => {
 
     const { push } = useRouter();
-
+    const [loadingProgress,setLoadingProgress] = useState(0);
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
@@ -26,6 +28,7 @@ const SignUpPage  = () => {
         toast.success('Pendaftaran Berhasil',{
             onClose : () => {
                 push('/auth/otp-verified')
+                setLoadingProgress(100)
             }
         })
     }
@@ -33,9 +36,9 @@ const SignUpPage  = () => {
     const onSubmit= async (data ) => {
 
         try {
+            setLoadingProgress(50)
             sessionStorage.setItem('email' ,data.email)
             const res = await createAuth(data)
-            console.log(res)
 
             if(res.status = 'OK'){
                 notify();
@@ -48,7 +51,12 @@ const SignUpPage  = () => {
     };
 
     return(
-        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
+        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px] fixed'>
+                <LoadingBar 
+                    color={'blue'} 
+                    progress={loadingProgress} 
+                    onLoaderFinished={() => setLoadingProgress(0)
+                } />
                     <AppHeadline 
                         title = {'Selamat Datang!'}
                         subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
@@ -59,7 +67,7 @@ const SignUpPage  = () => {
                         <TextField
                                 className=' w-[100%]   '
                                 id="name"
-                                placeholder='Masukkan nama lengkap disini'
+                                placeholder='Masukkan nama lengkap di sini'
                                 InputProps={{
                                     style: {
                                         borderRadius: "15px",
@@ -98,7 +106,7 @@ const SignUpPage  = () => {
                                 <TextField
                                         className=' w-[100%]  '
                                         id="phoneNumber"
-                                        placeholder='Masukkan no telephone di sini'
+                                        placeholder='Masukkan no telepon di sini'
                                         InputProps={{
                                             style: {
                                                 borderRadius: "15px",
@@ -144,7 +152,7 @@ const SignUpPage  = () => {
                                     }
                                 }}
                                 {...register('confirmPassword', {
-                                required: 'Please confirm your password',
+                                required: 'Password harus sama',
                                     validate: value => value === password || 'Password tidak cocok'
                                 })}
                                 error={Boolean(errors.confirmPassword)}
@@ -163,7 +171,9 @@ const SignUpPage  = () => {
                             <CustomSpacing width = {5}/>
                             <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
                     </Box>
-                    <ToastContainer/>
+                    <ToastContainer
+                        autoClose={800}
+                    />
                 </Box>
 
     )

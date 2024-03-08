@@ -14,6 +14,7 @@ import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 import { sendOTPAuth, verificationOTPAuth } from '@/app/api/repository/authRepository';
 import OtpInput from 'react-otp-input';
 
@@ -21,6 +22,7 @@ const ForgotPasswordPage = ()  => {
     
     const [countdown, setCountdown] = useState(70); 
     const [isSending, setIsSending] = useState(false);
+    const [loadingProgress,setLoadingProgress] = useState(0);
     const [otp, setOtp] = useState('');
     const { push } = useRouter()
 
@@ -29,6 +31,7 @@ const ForgotPasswordPage = ()  => {
         {
             onClose: () => {
                 push('/auth/signin');
+                setLoadingProgress(100)
             }
         }
         )
@@ -37,6 +40,7 @@ const ForgotPasswordPage = ()  => {
     const onSubmit = async () => {
 
         try {
+            setLoadingProgress(50)
             const data = {
                 email : sessionStorage.getItem('email'),
                 otp: otp
@@ -78,15 +82,19 @@ const ForgotPasswordPage = ()  => {
             setIsSending(true); 
             const email = sessionStorage.getItem('email')
             const res = await sendOTPAuth({email : email})
-            console.log(res)
-
+            
             if(res.status == 'OK'){
-
+                console.log(res)
             }
     };
 
     return(
         <Box className = 'bg-white flex flex-col items-center rounded-sm px-[70px]'>
+            <LoadingBar 
+                color={'blue'} 
+                progress={loadingProgress} 
+                onLoaderFinished={() => setLoadingProgress(0)
+            } />
             <AppHeadline 
                 title = {'Verifikasi Email'}
                 subtitle = {'Masukkan kode OTP yang dikirimkan ke emailmu!' }
