@@ -55,6 +55,7 @@ const SignInPage = () => {
                     <label className='text-black font-semibold'>Email</label>
                     <AppTextField
                         id="email"
+                        type='email'
                         placeholder='Masukkan email di sini'
                         {...register('email', { 
                             validate : validateEmail

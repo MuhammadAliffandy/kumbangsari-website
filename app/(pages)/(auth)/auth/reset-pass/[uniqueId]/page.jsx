@@ -1,7 +1,6 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
@@ -12,7 +11,10 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
 import AppButton from '@/app/components/appButton';
+import AppTextField from '@/app/components/appTextField'
 import AppHeadline from '@/app/components/appHeadline';
+import { useState } from 'react';
+
 
 const  ResetPasswordPage = () => {
 
@@ -69,17 +71,10 @@ const  ResetPasswordPage = () => {
                     <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                         <label className='text-black font-semibold'>Kata Sandi</label>
-                        <TextField
-                                className=' w-[100%]  '
+                        <AppTextField
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
                                 type="password"
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                        backgroundColor: '#F7F9F9'
-                                    }
-                                }}
                                 {...register('password', {
                                     validate : validatePassword
                                 })}
@@ -88,17 +83,10 @@ const  ResetPasswordPage = () => {
                             
                             />
                         <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
-                        <TextField
-                                className=' w-[100%]  '
+                        <AppTextField
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type="password"
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                        backgroundColor: '#F7F9F9'
-                                    }
-                                }}
                                 {...register('confirmPassword', {
                                 required: 'Please confirm your password',
                                     validate: value => value === password || 'Password tidak cocok'

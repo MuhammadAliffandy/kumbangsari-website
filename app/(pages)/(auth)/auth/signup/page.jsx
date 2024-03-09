@@ -1,8 +1,7 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment';
+import AppTextField from '@/app/components/appTextField'
 import Stack from '@mui/material/Stack'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , } from 'react-hook-form';
@@ -15,16 +14,12 @@ import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 
 const SignUpPage  = () => {
 
     const { push } = useRouter();
     const [loadingProgress,setLoadingProgress] = useState(0);
-    const [visiblePass,setVisiblePass] = useState(false);
-    const [visiblePass1,setVisiblePass1] = useState(false);
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
@@ -69,16 +64,9 @@ const SignUpPage  = () => {
                     <CustomSpacing height = {20} />
                     <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                         <label className='text-black font-semibold'>Nama</label>
-                        <TextField
-                                className=' w-[100%]   '
+                        <AppTextField
                                 id="name"
                                 placeholder='Masukkan nama lengkap di sini'
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                        backgroundColor: '#F7F9F9'
-                                    }
-                                }}
                                 {...register('name', 
                                     {
                                         validate: validateName
@@ -89,16 +77,10 @@ const SignUpPage  = () => {
                         <Stack direction="row" spacing={2}>   
                             <Box className='flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold'>Email</label>
-                                <TextField
-                                        className=' w-[100%]  '
+                                <AppTextField
                                         id="email"
+                                        type='email'
                                         placeholder='Masukkan email di sini'
-                                        InputProps={{
-                                            style: {
-                                                borderRadius: "15px",
-                                                backgroundColor: '#F7F9F9'
-                                            }
-                                        }}
                                         {...register('email', {
                                             validate : validateEmail
                                         })}
@@ -108,16 +90,9 @@ const SignUpPage  = () => {
                             </Box>
                             <Box className='flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold'>Nomor Telepon</label>
-                                <TextField
-                                        className=' w-[100%]  '
+                                <AppTextField            
                                         id="phoneNumber"
                                         placeholder='Masukkan no telepon di sini'
-                                        InputProps={{
-                                            style: {
-                                                borderRadius: "15px",
-                                                backgroundColor: '#F7F9F9'
-                                            }
-                                        }}
                                         {...register('phoneNumber', { 
                                             validate: validatePhoneNumber 
                                         })}
@@ -126,18 +101,10 @@ const SignUpPage  = () => {
                             </Box>
                         </Stack> 
                         <label className='text-black font-semibold'>Kata Sandi</label>
-                        <TextField
-                                className=' w-[100%]  '
+                        <AppTextField
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
-                                type={ visiblePass ?  'text' : "password"  } 
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                        backgroundColor: '#F7F9F9'
-                                    },
-                                    endAdornment: <InputAdornment onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
-                                }}
+                                type={"password"} 
                                 {...register('password', {
                                     validate : validatePassword
                                 })}
@@ -146,18 +113,11 @@ const SignUpPage  = () => {
                             
                             />
                         <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
-                        <TextField
-                                className=' w-[100%]  '
+                        <AppTextField
+                
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
-                                type={ visiblePass ?  'text' : "password"  } 
-                                InputProps={{
-                                    style: {
-                                        borderRadius: "15px",
-                                        backgroundColor: '#F7F9F9'
-                                    },
-                                    endAdornment: <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass1) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
-                                }}
+                                type={"password"  } 
                                 {...register('confirmPassword', {
                                 required: 'Password harus sama',
                                     validate: value => value === password || 'Password tidak cocok'
