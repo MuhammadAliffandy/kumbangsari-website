@@ -36,7 +36,7 @@ const SignInPage = () => {
             setLoadingProgress(50)
             const res = await loginAuth(data)
             dispatch(setToken(res.token))
-            push('/')
+            push('/dashboard')
             setLoadingProgress(100)
         } catch (error) {
             toast.error('Email atau Kata Sandi Salah')
@@ -66,7 +66,6 @@ const SignInPage = () => {
                                 borderRadius: "15px",
                                 backgroundColor: '#F7F9F9'
                             },
-          
                         }}
                         {...register('email', { 
                             validate : validateEmail
