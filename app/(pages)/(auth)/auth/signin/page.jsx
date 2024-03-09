@@ -1,8 +1,6 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField'
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -11,22 +9,19 @@ import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
 import { loginAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline'
+import AppHeadline from '@/app/components/appHeadline';
+import AppTextField from '@/app/components/appTextField';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
 import "../../../../globals.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+
 import { useState } from 'react';
-
-
 
 const SignInPage = () => {
 
     const dispatch = useDispatch();
     const { push } = useRouter()
-    const [visiblePass,setVisiblePass] = useState(false);
     const [loadingProgress,setLoadingProgress] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
     
@@ -44,6 +39,7 @@ const SignInPage = () => {
     };
 
     return(
+        
         <Box className = 'bg-white flex flex-col items-center rounded-sm px-[70px]'>
             <LoadingBar 
                 color={'blue'} 
@@ -57,35 +53,20 @@ const SignInPage = () => {
             <CustomSpacing height = {20} />
                 <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                     <label className='text-black font-semibold'>Email</label>
-                    <TextField
-                        className=' w-[100%]  '
+                    <AppTextField
                         id="email"
                         placeholder='Masukkan email di sini'
-                        InputProps={{
-                            style: {
-                                borderRadius: "15px",
-                                backgroundColor: '#F7F9F9'
-                            },
-                        }}
                         {...register('email', { 
                             validate : validateEmail
                         })}
                         error={Boolean(errors.email)}
                         helperText={errors.email && errors.email.message}
-                        />
+                    />
                     <label className='text-black font-semibold '>Kata Sandi</label>
-                    <TextField
-                        className=' w-[100%] '
+                    <AppTextField
                         id="password"
                         placeholder='Masukkan kata sandi di sini'
-                        type={ visiblePass ?  'text' : "password"  } 
-                        InputProps={{
-                            style: {
-                                borderRadius: "15px",
-                                backgroundColor: '#F7F9F9'
-                            },
-                            endAdornment: <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment>,
-                        }}
+                        type={ "password" } 
                         {...register(
                             'password', {   
                                 validate : validatePassword
