@@ -48,7 +48,7 @@ const ForgotPasswordPage = () => {
                     id="email"
                     type='email'
                     placeholder='Masukkkan email di sini'
-                    {...register('email', { 
+                    validationConfig = {register('email', { 
                         validate : validateEmail
                     })}
                     error={Boolean(errors.email)}

@@ -75,7 +75,7 @@ const  ResetPasswordPage = () => {
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
                                 type="password"
-                                {...register('password', {
+                                validationConfig = {register('password', {
                                     validate : validatePassword
                                 })}
                                 error={Boolean(errors.password)}
@@ -87,7 +87,7 @@ const  ResetPasswordPage = () => {
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type="password"
-                                {...register('confirmPassword', {
+                                validationConfig = {register('confirmPassword', {
                                 required: 'Please confirm your password',
                                     validate: value => value === password || 'Password tidak cocok'
                                 })}

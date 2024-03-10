@@ -67,7 +67,7 @@ const SignUpPage  = () => {
                         <AppTextField
                                 id="name"
                                 placeholder='Masukkan nama lengkap di sini'
-                                {...register('name', 
+                                validationConfig = {register('name', 
                                     {
                                         validate: validateName
                                     })}
@@ -81,7 +81,7 @@ const SignUpPage  = () => {
                                         id="email"
                                         type='email'
                                         placeholder='Masukkan email di sini'
-                                        {...register('email', {
+                                        validationConfig = {register('email', {
                                             validate : validateEmail
                                         })}
                                         error={Boolean(errors.email)}
@@ -93,7 +93,7 @@ const SignUpPage  = () => {
                                 <AppTextField            
                                         id="phoneNumber"
                                         placeholder='Masukkan no telepon di sini'
-                                        {...register('phoneNumber', { 
+                                        validationConfig = {register('phoneNumber', { 
                                             validate: validatePhoneNumber 
                                         })}
                                         error={Boolean(errors.phoneNumber)}
@@ -105,7 +105,7 @@ const SignUpPage  = () => {
                                 id="password"
                                 placeholder='Masukkan kata sandi di sini'
                                 type={"password"} 
-                                {...register('password', {
+                                validationConfig = {register('password', {
                                     validate : validatePassword
                                 })}
                                 error={Boolean(errors.password)}
@@ -118,7 +118,7 @@ const SignUpPage  = () => {
                                 id="confirmPassword"
                                 placeholder='Masukkan konfirmasi kata sandi di sini'
                                 type={"password"  } 
-                                {...register('confirmPassword', {
+                                validationConfig = {register('confirmPassword', {
                                 required: 'Password harus sama',
                                     validate: value => value === password || 'Password tidak cocok'
                                 })}

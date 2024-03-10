@@ -57,7 +57,7 @@ const SignInPage = () => {
                         id="email"
                         type='email'
                         placeholder='Masukkan email di sini'
-                        {...register('email', { 
+                        validationConfig = {register('email', { 
                             validate : validateEmail
                         })}
                         error={Boolean(errors.email)}
@@ -68,7 +68,7 @@ const SignInPage = () => {
                         id="password"
                         placeholder='Masukkan kata sandi di sini'
                         type={ "password" } 
-                        {...register(
+                        validationConfig = {register(
                             'password', {   
                                 validate : validatePassword
                         })}
