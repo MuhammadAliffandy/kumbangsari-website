@@ -52,19 +52,19 @@ const SignUpPage  = () => {
     };
 
     return(
-        <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
-            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
-                <AppCloseButton
-                    onClick = {()=>{
-                        push('/')
-                    }}
-                />
-            </Box>
-                <LoadingBar 
-                    color={'blue'} 
-                    progress={loadingProgress} 
-                    onLoaderFinished={() => setLoadingProgress(0)
-                } />
+            <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
+                    <LoadingBar 
+                        color={'blue'} 
+                        progress={loadingProgress} 
+                        onLoaderFinished={() => setLoadingProgress(0)
+                    } />
+                    <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+                        <AppCloseButton
+                            onClick = {()=>{
+                                push('/')
+                            }}
+                        />
+                    </Box>
                     <AppHeadline 
                         title = {'Selamat Datang!'}
                         subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
