@@ -39,12 +39,12 @@ const Layout = (props) => {
                 {/* background */}
                 <Box className = 'h-[100%] flex flex-col justify-between bg-white'>
                     <Box className='relative'>
-                        <img src='/images/shape/ShapeUp2.png' className='absolute w-[100%] h-[70px]' />
-                        <img src='/images/shape/ShapeUp.png' className='w-[100%] h-[90px]' />
+                        <img src='/images/shape/ShapeUp2.png' className='absolute w-[100%] h-[60px]' />
+                        <img src='/images/shape/ShapeUp.png' className='w-[100%] h-[70px]' />
                     </Box>
                     <Box className='relative'>
-                        <img src='/images/shape/ShapeDown2.png' className='absolute w-[100%] h-[70px]' />
-                        <img src='/images/shape/ShapeDown.png' className='w-[100%] h-[70px]' />
+                        <img src='/images/shape/ShapeDown2.png' className='absolute w-[100%] h-[50px]' />
+                        <img src='/images/shape/ShapeDown.png' className='w-[100%] h-[50px]' />
                     </Box>
                 </Box>
             </Box>

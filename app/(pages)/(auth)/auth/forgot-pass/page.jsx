@@ -7,7 +7,8 @@ import { useRouter } from 'next/navigation';
 import { validateEmail } from '../component/validation';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
-import AppTextField from '@/app/components/appTextField'
+import AppTextField from '@/app/components/appTextField';
+import AppCloseButton from '@/app/components/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { resetPasswordAuth } from '@/app/api/repository/authRepository';
@@ -36,7 +37,14 @@ const ForgotPasswordPage = () => {
     };
 
     return(
-        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[70px]'>
+        <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
+            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+                <AppCloseButton
+                    onClick = {()=>{
+                        push('/')
+                    }}
+                />
+            </Box>
             <AppHeadline 
                 title = {'Lupa Kata Sandi?'}
                 subtitle = {'Buat kata sandi baru dan masuk kembali ke akunmu!'}

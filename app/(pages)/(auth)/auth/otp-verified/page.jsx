@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useState  , useEffect} from 'react';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
+import AppCloseButton from '@/app/components/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
@@ -95,7 +96,14 @@ const ForgotPasswordPage = ()  => {
     };
 
     return(
-        <Box className = 'bg-white flex flex-col items-center rounded-sm px-[70px]'>
+        <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
+            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+                <AppCloseButton
+                    onClick = {()=>{
+                        push('/')
+                    }}
+                />
+            </Box>
             <LoadingBar 
                 color={'blue'} 
                 progress={loadingProgress} 

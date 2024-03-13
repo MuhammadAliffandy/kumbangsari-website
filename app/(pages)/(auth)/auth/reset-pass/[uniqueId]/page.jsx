@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
 import AppButton from '@/app/components/appButton';
 import AppTextField from '@/app/components/appTextField'
+import AppCloseButton from '@/app/components/appCloseButton';
 import AppHeadline from '@/app/components/appHeadline';
 import { useState } from 'react';
 
@@ -58,7 +59,14 @@ const  ResetPasswordPage = () => {
     };
 
     return(
-        <Box className = 'bg-white flex flex-col items-center rounded-sm p-[10px]'>
+            <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
+                <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+                    <AppCloseButton
+                        onClick = {()=>{
+                            push('/')
+                        }}
+                    />
+                </Box>
                     <LoadingBar 
                         color={'blue'} 
                         progress={loadingProgress} 

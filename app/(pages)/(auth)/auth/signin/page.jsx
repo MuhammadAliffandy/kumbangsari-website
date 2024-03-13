@@ -41,15 +41,14 @@ const SignInPage = () => {
 
     return(
         
-        <Box className = ' flex flex-col items-center rounded-sm px-[70px] relative'>
-            <Box className='flex justify-end w-[100%] absolute z-[12]'> 
+        <Box className = ' h-[100vh] flex flex-col items-center justify-center px-[70px] relative'>
+            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
                 <AppCloseButton
                     onClick = {()=>{
-                        push('/input-product/addCountProduct')
+                        push('/')
                     }}
                 />
             </Box>
-            <CustomSpacing height={50}  />
             <LoadingBar 
                 color={'blue'} 
                 progress={loadingProgress} 
