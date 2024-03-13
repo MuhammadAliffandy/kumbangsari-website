@@ -12,6 +12,7 @@ import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import AppTextField from '@/app/components/appTextField';
 import { ToastContainer, toast } from "react-toastify";
+import AppCloseButton from '@/app/components/appCloseButton';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
 import "../../../../globals.css";
@@ -40,7 +41,15 @@ const SignInPage = () => {
 
     return(
         
-        <Box className = ' flex flex-col items-center rounded-sm px-[70px]'>
+        <Box className = ' flex flex-col items-center rounded-sm px-[70px] relative'>
+            <Box className='flex justify-end w-[100%] absolute z-[12]'> 
+                <AppCloseButton
+                    onClick = {()=>{
+                        push('/input-product/addCountProduct')
+                    }}
+                />
+            </Box>
+            <CustomSpacing height={50}  />
             <LoadingBar 
                 color={'blue'} 
                 progress={loadingProgress} 

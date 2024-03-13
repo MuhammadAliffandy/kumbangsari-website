@@ -89,3 +89,17 @@ export const validateName = (value) => {
     return isValid || errorMessage;
 
 }
+
+export const validateText = (value) => {
+
+    let isValid  = true;
+    let errorMessage = '';
+
+    if (!value) {
+        isValid = false;
+        errorMessage = 'Input harus diisi';
+    }
+
+    return isValid || errorMessage;
+
+}
