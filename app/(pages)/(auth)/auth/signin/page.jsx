@@ -40,7 +40,7 @@ const SignInPage = () => {
 
     return(
         
-        <Box className = 'bg-white flex flex-col items-center rounded-sm px-[70px]'>
+        <Box className = ' flex flex-col items-center rounded-sm px-[70px]'>
             <LoadingBar 
                 color={'blue'} 
                 progress={loadingProgress} 

@@ -10,8 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         'custom-blue': '#007bff',
-        'custom-red': '#dc3545',
-        'custom-green': '#28a745',
+        'CUSTOM-RED': '#F45B69',
+        'CUSTOM-DARK-BLUE' : '#52489c',
+        'CUSTOM-LIGHT-BLUE': '#59c3c3',
+        'CUSTOM-BLUE': '#4062bb',
         'CUSTOM-GREY': '#F7F9F9',
         'CUSTOM-GREY-LIGHT': '#6B728E',
       },

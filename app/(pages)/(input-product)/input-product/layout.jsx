@@ -26,7 +26,7 @@ const Layout = (props) => {
     return (
         <>
             <Box className='h-[100vh] relative'>
-                <Box  className=' absolute h-[100%] w-[100%] flex items-center bg-transparent '>
+                <Box  className=' absolute h-[100%] w-[100%] flex items-center bg-transparent z-10'>
                     <Box 
                         className = 'w-[50%] h-[100%] hidden bg-transparent xl:bg-transparent xl:flex md:flex lg:flex sm:hidden flex-col items-center justify-center'>
                             <AppCarousel  items = {items}  />
