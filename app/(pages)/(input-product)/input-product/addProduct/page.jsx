@@ -1,11 +1,11 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import CustomSpacing from '@/app/components/customSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { validateEmail } from '../.../../../../(auth)/auth/component/validation';
+import { validateText } from '../.../../../../(auth)/auth/component/validation';
+import { listDropCategory }  from '@/app/utils/model'
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import AppTextField from '@/app/components/appTextField';
@@ -16,19 +16,15 @@ import AppCloseButton from '@/app/components/appCloseButton';
 import AppGenderCheckbox from '../addProduct/component/appGenderCheckbox';
 import AppSchoolCheckbox from '../addProduct/component/appSchoolCheckbox';
 import AppJobCheckbox from '../addProduct/component/appJobCheckbox';
+import AppRangeSlider from '@/app/components/appRangeSlider';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { resetPasswordAuth } from '@/app/api/repository/authRepository';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const AddProductPage = () => {
 
-    const listDropItem = [
-        {value : 1 , text : 'Satu'},
-        {value : 2 , text : 'Dua'},
-        {value : 3 , text : 'Tiga'},
-    ]
+
 
     const { push } = useRouter()
     const countProduct = useSelector(state => state.countInputProduct.value)
@@ -36,10 +32,12 @@ const AddProductPage = () => {
 
     const [categoryProduct, setCategoryProduct] = useState('');
     const [page, setPage] = useState('product1');
+    const [ category , setCategory ] = useState('');
+    const [ productName , setProductName ] = useState('');
+    const [ ageRange , setAgeRange ] = useState('');
+    const [ gender , setGender ] = useState('');
+    const [ job , setJob ] = useState('');
 
-    const notify = () => {
-        toast.success('Email Berhasil dikirim')
-    }
 
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
@@ -48,19 +46,16 @@ const AddProductPage = () => {
     
     const onSubmit = async (data ) => {
         try {
-            const res = await resetPasswordAuth({email : data.email});
 
-            if(res.status == 'OK'){
-                notify()
-            }
+
         } catch (error) {
             toast.error('Ada Kesalahan Server')
         }
     };
 
     return(
-        <Box className = 'bg-transparent flex flex-col items-center rounded-sm px-[180px] w-[100%]'>
-            <Box className='flex justify-between w-[100%]'> 
+        <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
+            <Box className='flex justify-between w-[100%] px-[140px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}
@@ -74,132 +69,135 @@ const AddProductPage = () => {
                     }}
                 />
             </Box>
-            <AppHeadline 
-                title = {'Data Produk'}
-                subtitle = {''}
-            />
-            <CustomSpacing height = {20} />
-            <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
-                <AppTextWithLine
-                        text = 'Informasi Produk'
-                        width='28.5%'
-                    />
-                <label className='text-black font-semibold'>Nama Produk</label>
-                <AppTextField
-                    id="productName"
-                    type='text'
-                    placeholder='Masukkkan nama produk di sini'
-                    validationConfig = {register('productName', { 
-                        validate : validateEmail
-                    })}
-                    error={Boolean(errors.email)}
-                    helperText={errors.email && errors.email.message}
-                    />
-                <label className='text-black font-semibold'>Kategori Produk</label>
-                <AppDropDown
-                    value={categoryProduct}
-                    placeholder={'Pilih Kategori Produk'}
-                    listItem = {listDropItem}
-                    onChange={handleChangeCategory}
+            <Box className='flex flex-col h-[70%] items-center overflow-y-scroll overflow-x-hidden px-[20px] scrollbar scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+                <AppHeadline 
+                    title = {'Data Produk'}
+                    subtitle = {''}
                 />
-                <Box className= 'flex flex-col gap-[12px]'>
+                <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
                     <AppTextWithLine
-                        text = 'Target Pasar'
-                        width='32%'
+                            text = 'Informasi Produk'
+
+                        />
+                    <label className='text-black font-semibold'>Nama Produk</label>
+                    <AppTextField
+                        id="productName"
+                        type='text'
+                        placeholder='Masukkkan nama produk di sini'
+                        validationConfig = {register('productName', { 
+                            validate : validateText
+                        })}
+                        error={Boolean(errors.productName)}
+                        helperText={errors.productName && errors.productName.message}
+                        />
+                    <label className='text-black font-semibold'>Kategori Produk</label>
+                    <AppDropDown
+                        value={categoryProduct}
+                        placeholder={'Pilih Kategori Produk'}
+                        listItem = {listDropCategory}
+                        onChange={handleChangeCategory}
                     />
-                    {/* checkbox */}
-                    <Box className='flex justify-between'>
-                        <Box>
-                            <label className='text-black font-semibold'>Gender</label>
-                            <CustomSpacing height={10} />
-                            <AppGenderCheckbox 
-                                onChange={(data)=>{
-                                    console.log(data)
-                                }}
-                            />
+                    <Box className= 'flex flex-col gap-[12px]'>
+                        <AppTextWithLine
+                            text = 'Target Pasar'
+                        />
+                        <label className='text-black font-semibold'>Umur</label>
+                        <AppRangeSlider
+                        />
+                        {/* checkbox */}
+                        <Box className='flex justify-between'>
+                            <Box>
+                                <label className='text-black font-semibold'>Gender</label>
+                                <CustomSpacing height={10} />
+                                <AppGenderCheckbox 
+                                    onChange={(data)=>{
+                                        console.log(data)
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <label className='text-black font-semibold'>Pendidikan Terakhir</label>
+                                <CustomSpacing height={10} />
+                                <AppSchoolCheckbox 
+                                    onChange={(data)=>{
+                                        console.log(data)
+                                    }}
+                                />
+                            </Box>
                         </Box>
                         <Box>
-                            <label className='text-black font-semibold'>Pendidikan Terakhir</label>
-                            <CustomSpacing height={10} />
-                            <AppSchoolCheckbox 
-                                onChange={(data)=>{
-                                    console.log(data)
-                                }}
-                            />
-                        </Box>
+                                <label className='text-black font-semibold'>Ranah Pekerjaan</label>
+                                <CustomSpacing height={10} />
+                                <AppJobCheckbox
+                                    onChange={(data)=>{
+                                        console.log(data)
+                                    }}
+                                />
+                            </Box>
                     </Box>
-                    <Box>
-                            <label className='text-black font-semibold'>Ranah Pekerjaan</label>
-                            <CustomSpacing height={10} />
-                            <AppJobCheckbox
-                                onChange={(data)=>{
-                                    console.log(data)
-                                }}
-                            />
-                        </Box>
-                </Box>
-                <Box className='w-[100%] flex gap-[10px]'>
-                    {
-                        page == 'product1' ? 
-                        <AppButton
-                            text={ countProduct == 1 ? 'Simpan'  : 'Selanjutnya'} 
-                            type = {'Submit'}
-                            fontSize = {'12px'}
-                            onClick = {
-                                countProduct == 1 ? 
+                    <Box className='w-[100%] flex gap-[10px]'>
+                        {
+                            page == 'product1' ? 
+                            <AppButton
+                                text={ countProduct == 1 ? 'Simpan'  : 'Selanjutnya'} 
+                                type = {'Submit'}
+                                fontSize = {'12px'}
+                                onClick = {
+                                    countProduct == 1 ? 
 
-                                ()=>{
-                                    console.log('simpan')
-                                } :
-                                ()=>{
-                                    setPage('product2')
+                                    ()=>{
+                                        console.log('simpan')
+                                    } :
+                                    ()=>{
+                                        setPage('product2')
+                                    }
                                 }
-                            }
-                        /> :  page == 'product2' || page == 'product3' ?
-                                <>
-                                    <AppButton
-                                        text={'Sebelumnya'} 
-                                        type = {'Submit'}
-                                        fontSize = {'12px'}
-                                        onClick = {
+                            /> :  page == 'product2' || page == 'product3' ?
+                                    <>
+                                        <AppButton
+                                            text={'Sebelumnya'} 
+                                            type = {'Submit'}
+                                            fontSize = {'12px'}
+                                            onClick = {
 
-                                            countProduct == 2 ? 
-                                            ()=>{
-                                                console.log('simpan')
-                                            } :
-                                            page == 'product2' ? 
-                                            ()=>{
-                                                setPage('product1')
-                                            } : page == 'product3' ? 
-                                            ()=>{
-                                                setPage('product2')
-                                            } : ()=>{}
-                                        }
-                                    /> 
-                                    <AppButton
-                                        text={ countProduct == 2 ? 'Simpan' : page == 'product2' ? 'Selanjutnya' : page == 'product3' ? 'Simpan' : null} 
-                                        type = {'Submit'}
-                                        fontSize = {'12px'}
-                                        onClick = {
+                                                countProduct == 2 ? 
+                                                ()=>{
+                                                    console.log('simpan')
+                                                } :
+                                                page == 'product2' ? 
+                                                ()=>{
+                                                    setPage('product1')
+                                                } : page == 'product3' ? 
+                                                ()=>{
+                                                    setPage('product2')
+                                                } : ()=>{}
+                                            }
+                                        /> 
+                                        <AppButton
+                                            text={ countProduct == 2 ? 'Simpan' : page == 'product2' ? 'Selanjutnya' : page == 'product3' ? 'Simpan' : null} 
+                                            type = {'Submit'}
+                                            fontSize = {'12px'}
+                                            onClick = {
 
-                                            countProduct == 3 ? 
-                                            ()=>{
-                                                console.log('simpan')
-                                            } :
+                                                countProduct == 3 ? 
+                                                ()=>{
+                                                    console.log('simpan')
+                                                } :
 
-                                            page == 'product2' ? 
-                                            ()=>{
-                                                setPage('product3')
-                                            } : page == 'product3' ? 
-                                            ()=>{
-                                                console.log('simpan')
-                                            } : ()=>{}
-                                        }
-                                    /> 
-                                </> : null
-                    }
-                </Box>
-            </form>
+                                                page == 'product2' ? 
+                                                ()=>{
+                                                    setPage('product3')
+                                                } : page == 'product3' ? 
+                                                ()=>{
+                                                    console.log('simpan')
+                                                } : ()=>{}
+                                            }
+                                        /> 
+                                    </> : null
+                        }
+                    </Box>
+                </form>
+            </Box>
             <ToastContainer autoClose={800} />
         </Box>
     )
