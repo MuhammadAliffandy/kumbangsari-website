@@ -23,8 +23,8 @@ const AppDropDown = (props) => {
                         {props.placeholder}
                     </MenuItem>
                     {
-                        props.listItem.map(data =>{
-                            return( <MenuItem value={data.value}>{data.text}</MenuItem> )
+                        props.listItem.map((data ,index)=>{
+                            return( <MenuItem key = {index} value={data.value}>{data.text}</MenuItem> )
                         })
                     }
             </Select>

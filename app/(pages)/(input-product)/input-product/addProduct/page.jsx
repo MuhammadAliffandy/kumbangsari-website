@@ -11,13 +11,16 @@ import AppHeadline from '@/app/components/appHeadline';
 import AppTextField from '@/app/components/appTextField';
 import AppTextWithLine from '@/app/components/appTextWithLine';
 import AppDropDown from '@/app/components/appDropDown';
-import AppCheckBox from '@/app/components/appCheckBox';
 import AppSubNav from '@/app/components/appSubNav';
 import AppCloseButton from '@/app/components/appCloseButton';
+import AppGenderCheckbox from '../addProduct/component/appGenderCheckbox';
+import AppSchoolCheckbox from '../addProduct/component/appSchoolCheckbox';
+import AppJobCheckbox from '../addProduct/component/appJobCheckbox';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { resetPasswordAuth } from '@/app/api/repository/authRepository';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const AddProductPage = () => {
 
@@ -28,7 +31,7 @@ const AddProductPage = () => {
     ]
 
     const { push } = useRouter()
-
+    const countProduct = useSelector(state => state.countInputProduct.value)
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [categoryProduct, setCategoryProduct] = useState('');
@@ -60,7 +63,7 @@ const AddProductPage = () => {
             <Box className='flex justify-between w-[100%]'> 
                 <AppSubNav 
                     status={page}
-                    value={3}
+                    value={countProduct}
                     handleSub1={()=>{setPage('product1')}}
                     handleSub2={()=>{setPage('product2')}}
                     handleSub3={()=>{setPage('product3')}}
@@ -109,87 +112,49 @@ const AddProductPage = () => {
                         <Box>
                             <label className='text-black font-semibold'>Gender</label>
                             <CustomSpacing height={10} />
-                            <Stack direction='column' spacing={1}>
-                                <AppCheckBox
-                                    label = 'Pria'
-                                />
-                                <AppCheckBox
-                                    label = 'Perempuan'
-                                />
-                            </Stack>
+                            <AppGenderCheckbox 
+                                onChange={(data)=>{
+                                    console.log(data)
+                                }}
+                            />
                         </Box>
                         <Box>
                             <label className='text-black font-semibold'>Pendidikan Terakhir</label>
                             <CustomSpacing height={10} />
-                            <Stack direction={'row'} spacing={1}>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'SD'
-                                    />
-                                    <AppCheckBox
-                                        label = 'SMA'
-                                    />
-                                </Stack>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'SMP'
-                                    />
-                                    <AppCheckBox
-                                        label = 'Kuliah'
-                                    />
-                                </Stack>
-                            </Stack>
+                            <AppSchoolCheckbox 
+                                onChange={(data)=>{
+                                    console.log(data)
+                                }}
+                            />
                         </Box>
                     </Box>
                     <Box>
                             <label className='text-black font-semibold'>Ranah Pekerjaan</label>
                             <CustomSpacing height={10} />
-                            <Stack direction={'row'} spacing={1}>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'Tdk Bekerja'
-                                    />
-                                    <AppCheckBox
-                                        label = 'Kesehatan'
-                                    />
-                                </Stack>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'Pelajar/Mhs'
-                                    />
-                                    <AppCheckBox
-                                        label = 'Karyawan'
-                                    />
-                                </Stack>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'Hiburan'
-                                    />
-                                    <AppCheckBox
-                                        label = 'Teknis'
-                                    />
-                                </Stack>
-                                <Stack direction='column' spacing={1}>
-                                    <AppCheckBox
-                                        label = 'Pendidikan'
-                                    />
-                                    <AppCheckBox
-                                        label = 'Lainnya'
-                                    />
-                                </Stack>
-                            </Stack>
+                            <AppJobCheckbox
+                                onChange={(data)=>{
+                                    console.log(data)
+                                }}
+                            />
                         </Box>
                 </Box>
                 <Box className='w-[100%] flex gap-[10px]'>
                     {
                         page == 'product1' ? 
                         <AppButton
-                            text={'Selanjutnya'} 
+                            text={ countProduct == 1 ? 'Simpan'  : 'Selanjutnya'} 
                             type = {'Submit'}
                             fontSize = {'12px'}
-                            onClick = {()=>{
-                                setPage('product2')
-                            }}
+                            onClick = {
+                                countProduct == 1 ? 
+
+                                ()=>{
+                                    console.log('simpan')
+                                } :
+                                ()=>{
+                                    setPage('product2')
+                                }
+                            }
                         /> :  page == 'product2' || page == 'product3' ?
                                 <>
                                     <AppButton
@@ -197,6 +162,11 @@ const AddProductPage = () => {
                                         type = {'Submit'}
                                         fontSize = {'12px'}
                                         onClick = {
+
+                                            countProduct == 2 ? 
+                                            ()=>{
+                                                console.log('simpan')
+                                            } :
                                             page == 'product2' ? 
                                             ()=>{
                                                 setPage('product1')
@@ -207,10 +177,16 @@ const AddProductPage = () => {
                                         }
                                     /> 
                                     <AppButton
-                                        text={page == 'product2' ? 'Selanjutnya' : page == 'product3' ? 'Simpan' : null} 
+                                        text={ countProduct == 2 ? 'Simpan' : page == 'product2' ? 'Selanjutnya' : page == 'product3' ? 'Simpan' : null} 
                                         type = {'Submit'}
                                         fontSize = {'12px'}
                                         onClick = {
+
+                                            countProduct == 3 ? 
+                                            ()=>{
+                                                console.log('simpan')
+                                            } :
+
                                             page == 'product2' ? 
                                             ()=>{
                                                 setPage('product3')

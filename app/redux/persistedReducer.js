@@ -1,12 +1,12 @@
 import { persistReducer } from 'redux-persist';
 import storage from './storage'; 
-import carReducer from './slices/carSlice'
 import authReducer from './slices/authSlice'
+import countInputProductReducer from './slices/countInputProductSlice'
 import { combineReducers } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
-    car : carReducer,
-    auth : authReducer
+    auth : authReducer,
+    countInputProduct : countInputProductReducer,
 })
 
 const persistConfig = {

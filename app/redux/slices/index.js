@@ -1,4 +1,4 @@
-import carSlice from "./carSlice";
+import countInputProductSlice from "./countInputProductSlice";
 import authSlice from "./authSlice";
 
-export{carSlice , authSlice}
+export{countInputProductSlice , authSlice}
