@@ -6,7 +6,7 @@ const AppSubNav = (props) => {
         <>
             <div className="flex items-center gap-[10px]">
                 <h1 className={`text-[12px] font-medium cursor-pointer ${ props.status == 'product1' ? 'text-black' : 'text-opacity-[50%] text-black'  }`} onClick={props.handleSub1} >Produk 1</h1>
-                <FontAwesomeIcon className={`${ props.status == 'product2' ? 'text-black' : 'text-opacity-[50%] text-black'  }`} icon={faChevronRight} style={{ fontSize: '12px' }} />
+                { props.value == 1 ? <FontAwesomeIcon className={`${ props.status == 'product2' ? 'text-black' : 'text-opacity-[50%] text-black'  }`} icon={faChevronRight} style={{ fontSize: '12px' }} /> : null}
                 {
                     props.value == 2 ? 
                     <>
