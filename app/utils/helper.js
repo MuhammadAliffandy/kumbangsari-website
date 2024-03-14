@@ -24,3 +24,12 @@ export const getCookie = (name)=>  {
     }
     return null;
 }
+
+
+export const convertValueCheckbox = (text) => {
+    if(text.search(',') > -1){
+        return text.split(',')
+    }else{
+        return [text]
+    }
+}

@@ -21,6 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { convertValueCheckbox } from '@/app/utils/helper';
 
 const AddProductPage = () => {
 
@@ -30,13 +31,12 @@ const AddProductPage = () => {
     const countProduct = useSelector(state => state.countInputProduct.value)
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const [categoryProduct, setCategoryProduct] = useState('');
     const [page, setPage] = useState('product1');
-    const [ category , setCategory ] = useState('');
-    const [ productName , setProductName ] = useState('');
-    const [ ageRange , setAgeRange ] = useState('');
-    const [ gender , setGender ] = useState('');
-    const [ job , setJob ] = useState('');
+    const [categoryProduct, setCategoryProduct] = useState('');
+    const [ ageRange , setAgeRange ] = useState([]);
+    const [ gender , setGender ] = useState(localStorage.getItem('gender'));
+    const [ school , setSchool ] = useState(localStorage.getItem('school'));
+    const [ job , setJob ] = useState(localStorage.getItem('job'));
 
 
     const handleChangeCategory = (event) => {
@@ -44,9 +44,18 @@ const AddProductPage = () => {
     };
 
     
-    const onSubmit = async (data ) => {
+    const onSubmit = async (data) => {
         try {
+            const jsonData = {
+                productName : data.productName,
+                productCategory : categoryProduct,
+                age : ageRange,
+                school: convertValueCheckbox(school) ,
+                gender : convertValueCheckbox(gender),
+                job: convertValueCheckbox(job),
+            };
 
+            console.log(jsonData)
 
         } catch (error) {
             toast.error('Ada Kesalahan Server')
@@ -103,6 +112,9 @@ const AddProductPage = () => {
                         />
                         <label className='text-black font-semibold'>Umur</label>
                         <AppRangeSlider
+                            onChange={(value)=>{
+                                setAgeRange(value)
+                            }}
                         />
                         {/* checkbox */}
                         <Box className='flex justify-between'>
@@ -110,29 +122,18 @@ const AddProductPage = () => {
                                 <label className='text-black font-semibold'>Gender</label>
                                 <CustomSpacing height={10} />
                                 <AppGenderCheckbox 
-                                    onChange={(data)=>{
-                                        console.log(data)
-                                    }}
                                 />
                             </Box>
                             <Box>
                                 <label className='text-black font-semibold'>Pendidikan Terakhir</label>
                                 <CustomSpacing height={10} />
-                                <AppSchoolCheckbox 
-                                    onChange={(data)=>{
-                                        console.log(data)
-                                    }}
-                                />
+                                <AppSchoolCheckbox />
                             </Box>
                         </Box>
                         <Box>
                                 <label className='text-black font-semibold'>Ranah Pekerjaan</label>
                                 <CustomSpacing height={10} />
-                                <AppJobCheckbox
-                                    onChange={(data)=>{
-                                        console.log(data)
-                                    }}
-                                />
+                                <AppJobCheckbox />
                             </Box>
                     </Box>
                     <Box className='w-[100%] flex gap-[10px]'>

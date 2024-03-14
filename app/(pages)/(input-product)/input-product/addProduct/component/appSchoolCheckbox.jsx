@@ -5,7 +5,7 @@ const AppSchoolCheckbox = (props) => {
     let data = [];
 
     const arrPop = (array, valueToDelete) => {
-        let index = array.indexOf(valueToDelete.toLowerCase());
+        let index = array.indexOf(valueToDelete);
         if (index !== -1) {
             array.splice(index, 1);
         }
@@ -13,11 +13,12 @@ const AppSchoolCheckbox = (props) => {
     }
 
     const handleChange = (value ,label)=>{
-        value === '' ? data = arrPop( data ,label) : data.push(value)
-
-        props.onChange(data)
-
-        return data;
+        if(value === ''){
+            data = arrPop( data ,label)
+        }else{
+            data.push(value);
+        }
+        localStorage.setItem('school',data)
     }
 
     return (
@@ -32,8 +33,8 @@ const AppSchoolCheckbox = (props) => {
                         }}
                     />
                     <AppCheckBox
-                        label = 'SMA'
                         value= 'SMA'
+                        label = 'SMA'
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -41,15 +42,15 @@ const AppSchoolCheckbox = (props) => {
                 </Stack>
                 <Stack direction='column' spacing={1}>
                     <AppCheckBox
-                        label = 'SMP'
                         value= 'SMP'
+                        label = 'SMP'
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
                     />
                     <AppCheckBox
-                        label = 'Kuliah'
                         value= 'kuliah'
+                        label = 'Kuliah'
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

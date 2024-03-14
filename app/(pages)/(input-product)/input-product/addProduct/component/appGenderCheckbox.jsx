@@ -14,13 +14,15 @@ const AppGenderCheckbox = (props) => {
     }
 
     const handleChange = (value ,label)=>{
-        value === '' ? data = arrPop( data ,label) : data.push(value)
+        if(value === ''){
+            data = arrPop( data ,label)
+        }else{
+            data.push(value);
+        }
 
-        props.onChange(data)
-
-        return data;
+        localStorage.setItem('gender',data)
     }
-
+    
     return (
         <>
             <Stack direction='column' spacing={1}>
@@ -28,14 +30,14 @@ const AppGenderCheckbox = (props) => {
                         value= 'pria'
                         label = 'Pria'
                         onChange= {(value , label)=>{
-                            handleChange(value , label)
+                            handleChange(value,label)
                         }}
                         />
                     <AppCheckBox
                         value = 'perempuan'
                         label = 'Perempuan'
                         onChange= {(value , label)=>{
-                            handleChange(value , label)
+                            handleChange(value,label)
                         }}
                     />
             </Stack>
