@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const  AppCheckBox = (props) => {
     const [checked, setChecked] = React.useState(false);
@@ -9,13 +9,22 @@ const  AppCheckBox = (props) => {
         props.onChange( status ? props.value : '' ,props.label)
     };
 
+
+    console.log(props.status)
+
+    React.useEffect(()=>{
+        if(props.status === 'reset'){
+            setChecked(false)
+        }
+    },[props.status])
+
     return (
         <div className="flex items-center">
             <input
                 value = {props.value || ''}
                 type="checkbox"
                 className="h-5 w-5 text-blue-500 focus:ring-blue-400 border-gray-300 rounded-[20px]"
-                checked={ props.status != null ? props.status : checked}
+                checked={checked}
                 onChange={(event)=>{
                     handleChange(event)
                 }}

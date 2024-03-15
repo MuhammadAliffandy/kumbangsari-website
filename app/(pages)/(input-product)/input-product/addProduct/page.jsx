@@ -20,7 +20,7 @@ import AppRangeSlider from '@/app/components/appRangeSlider';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { convertValueCheckbox } from '@/app/utils/helper';
 
 const AddProductPage = () => {
@@ -28,7 +28,6 @@ const AddProductPage = () => {
     const { push } = useRouter()
     const countProduct = useSelector(state => state.countInputProduct.value)
     const { register, handleSubmit, formState: { errors } } = useForm();
-
     const [page, setPage] = useState('product1');
     const [categoryProduct, setCategoryProduct] = useState('');
     const [nameProduct, setNameProduct] = useState('');
@@ -36,22 +35,18 @@ const AddProductPage = () => {
     const [ gender , setGender ] = useState(localStorage.getItem('gender'));
     const [ school , setSchool ] = useState(localStorage.getItem('school'));
     const [ job , setJob ] = useState(localStorage.getItem('job'));
-    const [ checkboxStatus, setCheckboxStatus ] = useState();
-
+    const [ checkboxStatus, setCheckboxStatus ] = useState('');
 
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
     };
 
-
     const clearForm = () => {
         setNameProduct('') 
         setCategoryProduct('') 
-        setCheckboxStatus(false)
     }
     
-
-    const initiateProductForm = () => {
+    const initiateProductForm = (page) => {
 
         clearForm();
 
@@ -64,8 +59,10 @@ const AddProductPage = () => {
             
         }else if(product2Value != '' && page == 'product2'){
             initiateProductValue(JSON.parse(product2Value))
+          
             
         }else if(product3Value != '' && page == 'product3'){
+      
             initiateProductValue(JSON.parse(product3Value))
         }
 
@@ -94,6 +91,7 @@ const AddProductPage = () => {
                 work: convertValueCheckbox(job),
             };
 
+            
             if(page == 'product1'){
                 localStorage.setItem( 'product1' ,JSON.stringify(jsonData) )
             }else if(page == 'product2'){
@@ -104,9 +102,15 @@ const AddProductPage = () => {
             }
 
         } catch (error) {
+            console.log(error)
             toast.error('Ada Kesalahan Server')
         }
     };
+
+    const handlePageClick = (page) => {
+        setPage(page)
+        initiateProductForm(page)
+    }
 
     return(
         <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
@@ -203,14 +207,12 @@ const AddProductPage = () => {
                                 fontSize = {'12px'}
                                 onClick = {
                                     countProduct == 1 ? 
-
                                     ()=>{
                                         console.log('simpan')
                                     } :
                                     (event)=>{
-                                        setPage('product2');
+                                        handlePageClick('product2')
                                         onSubmit(event)
-                                        initiateProductForm()
                                     }
                                 }
                             /> :  page == 'product2' || page == 'product3' ?
@@ -221,19 +223,19 @@ const AddProductPage = () => {
                                             fontSize = {'12px'}
                                             onClick = {
                                                 countProduct == 2 ? 
-                                                ()=>{
-                                                    setPage('product1')
-                                                    onSubmit(event)
-                                                    initiateProductForm()
+                                                (event)=>{
+                                                    event.preventDefault()
+                                                    handlePageClick('product1')
                                                 } :
                                                 page == 'product2' ? 
                                                 (event)=>{
-                                                    setPage('product1')
-                                                    onSubmit(event)
-                                                    initiateProductForm()
+                                                    event.preventDefault()
+                                                    handlePageClick('product1')
+                                    
                                                 } : page == 'product3' ? 
-                                                ()=>{
-                                                    setPage('product2')
+                                                (event)=>{
+                                                    event.preventDefault()
+                                                    handlePageClick('product2')
                                                 } : ()=>{}
                                             }
                                         /> 
@@ -244,16 +246,23 @@ const AddProductPage = () => {
                                             onClick = {
 
                                                 countProduct == 3 ? 
-                                                ()=>{
-                                                    console.log('simpan')
+                                                (event)=>{
+                                                    onSubmit(event)
                                                 } :
-
-                                                page == 'product2' ? 
-                                                ()=>{
-                                                    setPage('product3')
-                                                } : page == 'product3' ? 
-                                                ()=>{
+                                                countProduct == 2 ? 
+                                                (event) => {
                                                     console.log('simpan')
+                                                    onSubmit(event)
+                                                }
+                                                :
+                                                page == 'product2' ? 
+                                                (event)=>{
+                                                    handlePageClick('product3')
+                                                    onSubmit(event)
+                                                } : page == 'product3' ? 
+                                                (event)=>{
+                                                    console.log('simpan')
+                                                    onSubmit(event)
                                                 } : ()=>{}
                                             }
                                         /> 

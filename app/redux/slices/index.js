@@ -1,4 +1,5 @@
 import countInputProductSlice from "./countInputProductSlice";
+import pageProductSlice from "./pageProductSlice";
 import authSlice from "./authSlice";
 
-export{countInputProductSlice , authSlice}
+export{ pageProductSlice , countInputProductSlice , authSlice}
