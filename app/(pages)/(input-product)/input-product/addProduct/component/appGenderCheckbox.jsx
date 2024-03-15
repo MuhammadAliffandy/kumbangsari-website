@@ -4,6 +4,7 @@ import AppCheckBox from '@/app/components/appCheckBox';
 const AppGenderCheckbox = (props) => {
    
     let data = [];
+    const listValue = props.listValue;
 
     const arrPop = (array, valueToDelete) => {
         let index = array.indexOf(valueToDelete.toLowerCase());
@@ -23,13 +24,15 @@ const AppGenderCheckbox = (props) => {
         localStorage.setItem('gender',data)
     }
     
+    console.log( 'itu ' +  listValue)
+
     return (
         <>
             <Stack direction='column' spacing={1}>
                     <AppCheckBox
                         value= 'pria'
                         label = 'Pria'
-                        status = {props.status}
+                        status = { listValue.indexOf('pria') > -1 ? 'added' : listValue.indexOf('pria') < -1 ? 'reset' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}
@@ -37,7 +40,7 @@ const AppGenderCheckbox = (props) => {
                     <AppCheckBox
                         value = 'perempuan'
                         label = 'Perempuan'
-                        status = {props.status}
+                        status = { listValue.indexOf('perempuan') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}

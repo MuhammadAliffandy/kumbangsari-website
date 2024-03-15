@@ -32,14 +32,40 @@ const AddProductPage = () => {
     const [categoryProduct, setCategoryProduct] = useState('');
     const [nameProduct, setNameProduct] = useState('');
     const [ ageRange , setAgeRange ] = useState([]);
-    const [ gender , setGender ] = useState(localStorage.getItem('gender'));
-    const [ school , setSchool ] = useState(localStorage.getItem('school'));
-    const [ job , setJob ] = useState(localStorage.getItem('job'));
+    const [ gender , setGender ] = useState('');
+    const [ school , setSchool ] = useState('');
+    const [ job , setJob ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
+    const product1Value = localStorage.getItem( 'product1')
+    const product2Value = localStorage.getItem( 'product2')
+    const product3Value = localStorage.getItem( 'product3')
 
+
+   
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
     };
+
+    const refreshLocalCheckbox = async () => {
+        localStorage.setItem('gender','')
+        localStorage.setItem('school','')
+        localStorage.setItem('job','')
+    }
+
+    const addedCheckbox = (gender) => {
+        localStorage.setItem('gender',gender)
+    }
+
+    const refreshLocalStorage = () => {
+        localStorage.setItem('product1','')
+        localStorage.setItem('product2','')
+        localStorage.setItem('product3','')
+        refreshLocalCheckbox()
+    }
+
+    useEffect(()=>{
+        refreshLocalStorage()
+    },[])
 
     const clearForm = () => {
         setNameProduct('') 
@@ -51,22 +77,24 @@ const AddProductPage = () => {
 
         await clearForm();
 
-        const product1Value = localStorage.getItem( 'product1')
-        const product2Value = localStorage.getItem( 'product2')
-        const product3Value = localStorage.getItem( 'product3')
-
         if(product1Value != '' && page == 'product1'){
-            initiateProductValue(JSON.parse(product1Value))
+            const product1 = JSON.parse(product1Value);
+            initiateProductValue(product1)
+            console.log('TESTEDDDD 111111')    
+        }
+        
+        if(product2Value != '' && page == 'product2'){
+            const product2 = JSON.parse(product2Value);
+            initiateProductValue(product2)
+            console.log('TESTEDDDD 222222')    
             
-        }else if(product2Value != '' && page == 'product2'){
-            initiateProductValue(JSON.parse(product2Value))
-          
             
-        }else if(product3Value != '' && page == 'product3'){
-      
+        }
+        
+        if(product3Value != '' && page == 'product3'){
+            
             initiateProductValue(JSON.parse(product3Value))
         }
-
         setCheckboxStatus('')
 
     }
@@ -78,6 +106,7 @@ const AddProductPage = () => {
         setSchool(data.education)
         setGender(data.gender)
         setJob(data.work)
+        addedCheckbox(data.gender)
     }
 
     const onSubmit = async (event) => {
@@ -85,24 +114,29 @@ const AddProductPage = () => {
 
             event.preventDefault();
 
+            const genderValue = localStorage.getItem('gender');
+            const schoolValue = localStorage.getItem('school');
+            const jobValue = localStorage.getItem('job');
+            
             const jsonData = {
                 nameProduct :nameProduct,
                 category : categoryProduct,
                 age : ageRange,
-                education: convertValueCheckbox(school) ,
-                gender : convertValueCheckbox(gender),
-                work: convertValueCheckbox(job),
+                education: convertValueCheckbox(schoolValue) ,
+                gender : convertValueCheckbox(genderValue),
+                work: convertValueCheckbox(jobValue),
             };
 
+            console.log('=====> ' +JSON.stringify(jsonData) )
             
             if(page == 'product1'){
-                localStorage.setItem( 'product1' ,JSON.stringify(jsonData) )
+                localStorage.setItem( 'product1' ,JSON.stringify(jsonData))
             }else if(page == 'product2'){
-                localStorage.setItem( 'product2' ,JSON.stringify(jsonData) )
+                localStorage.setItem( 'product2' ,JSON.stringify(jsonData))
             }else if(page == 'product3'){
-                localStorage.setItem( 'product3' ,JSON.stringify(jsonData) )
-
+                localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
             }
+            refreshLocalCheckbox()
 
         } catch (error) {
             console.log(error)
@@ -182,6 +216,7 @@ const AddProductPage = () => {
                                 <CustomSpacing height={10} />
                                 <AppGenderCheckbox 
                                     status = {checkboxStatus}
+                                    listValue = {gender}
                                 />
                             </Box>
                             <Box>
@@ -210,12 +245,13 @@ const AddProductPage = () => {
                                 fontSize = {'12px'}
                                 onClick = {
                                     countProduct == 1 ? 
-                                    ()=>{
+                                    (event)=>{
+                                        onSubmit(event)
                                         console.log('simpan')
                                     } :
-                                    (event)=>{
+                                    async (event)=>{
+                                        await onSubmit(event)
                                         handlePageClick('product2')
-                                        onSubmit(event)
                                     }
                                 }
                             /> :  page == 'product2' || page == 'product3' ?

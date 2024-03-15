@@ -10,11 +10,11 @@ const  AppCheckBox = (props) => {
     };
 
 
-    console.log(props.status)
-
     React.useEffect(()=>{
         if(props.status === 'reset'){
             setChecked(false)
+        }else if (props.status === 'added') {
+            setChecked(true)            
         }
     },[props.status])
 
