@@ -44,11 +44,12 @@ const AddProductPage = () => {
     const clearForm = () => {
         setNameProduct('') 
         setCategoryProduct('') 
+        setCheckboxStatus('reset')
     }
     
-    const initiateProductForm = (page) => {
+    const initiateProductForm = async (page) => {
 
-        clearForm();
+        await clearForm();
 
         const product1Value = localStorage.getItem( 'product1')
         const product2Value = localStorage.getItem( 'product2')
@@ -65,6 +66,8 @@ const AddProductPage = () => {
       
             initiateProductValue(JSON.parse(product3Value))
         }
+
+        setCheckboxStatus('')
 
     }
 
