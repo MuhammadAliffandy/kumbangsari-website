@@ -28,6 +28,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         label = 'SD'
                         value= 'SD'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -35,6 +36,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'SMA'
                         label = 'SMA'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -44,6 +46,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'SMP'
                         label = 'SMP'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -51,6 +54,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'kuliah'
                         label = 'Kuliah'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

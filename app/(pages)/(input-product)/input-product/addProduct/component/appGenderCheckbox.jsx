@@ -29,6 +29,7 @@ const AppGenderCheckbox = (props) => {
                     <AppCheckBox
                         value= 'pria'
                         label = 'Pria'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}
@@ -36,6 +37,7 @@ const AppGenderCheckbox = (props) => {
                     <AppCheckBox
                         value = 'perempuan'
                         label = 'Perempuan'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}

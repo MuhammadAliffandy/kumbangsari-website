@@ -30,6 +30,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Tdk Bekerja'
                         value = 'tidakkerja'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -37,6 +38,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Kesehatan'
                         value = 'kesehatan'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -46,6 +48,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Pelajar/Mhs'
                         value = 'pelajar'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -53,6 +56,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Karyawan'
                         value = 'karyawan'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -62,6 +66,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Hiburan'
                         value = 'hiburan'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -69,6 +74,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Teknis'
                         value = 'teknis'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -78,6 +84,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Pendidikan'
                         value = 'pendidikan'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -85,6 +92,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Lainnya'
                         value = 'lainnya'
+                        status = {props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

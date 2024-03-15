@@ -11,6 +11,7 @@ const AppTextField = (props) => {
     return <TextField
             className={ props.className ? props.className : 'w-[100%]' }
             id={props.id}
+            value = {props.value}
             type = { props.type != 'password' ? props.type : visiblePass ?  'text' : "password"  }
             placeholder={props.placeholder}
             InputProps={
@@ -27,6 +28,7 @@ const AppTextField = (props) => {
             { ...props.validationConfig }
             error = {props.error}
             helperText={props.helperText}
+            onChange={props.onChange}
 
         />
 }

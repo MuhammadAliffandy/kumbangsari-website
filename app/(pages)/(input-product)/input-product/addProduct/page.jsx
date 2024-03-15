@@ -19,13 +19,11 @@ import AppJobCheckbox from '../addProduct/component/appJobCheckbox';
 import AppRangeSlider from '@/app/components/appRangeSlider';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { convertValueCheckbox } from '@/app/utils/helper';
 
 const AddProductPage = () => {
-
-
 
     const { push } = useRouter()
     const countProduct = useSelector(state => state.countInputProduct.value)
@@ -33,29 +31,77 @@ const AddProductPage = () => {
 
     const [page, setPage] = useState('product1');
     const [categoryProduct, setCategoryProduct] = useState('');
+    const [nameProduct, setNameProduct] = useState('');
     const [ ageRange , setAgeRange ] = useState([]);
     const [ gender , setGender ] = useState(localStorage.getItem('gender'));
     const [ school , setSchool ] = useState(localStorage.getItem('school'));
     const [ job , setJob ] = useState(localStorage.getItem('job'));
+    const [ checkboxStatus, setCheckboxStatus ] = useState();
 
 
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
     };
 
+
+    const clearForm = () => {
+        setNameProduct('') 
+        setCategoryProduct('') 
+        setCheckboxStatus(false)
+    }
     
-    const onSubmit = async (data) => {
+
+    const initiateProductForm = () => {
+
+        clearForm();
+
+        const product1Value = localStorage.getItem( 'product1')
+        const product2Value = localStorage.getItem( 'product2')
+        const product3Value = localStorage.getItem( 'product3')
+
+        if(product1Value != '' && page == 'product1'){
+            initiateProductValue(JSON.parse(product1Value))
+            
+        }else if(product2Value != '' && page == 'product2'){
+            initiateProductValue(JSON.parse(product2Value))
+            
+        }else if(product3Value != '' && page == 'product3'){
+            initiateProductValue(JSON.parse(product3Value))
+        }
+
+    }
+
+    const initiateProductValue = (data) => {
+        setNameProduct(data.nameProduct) 
+        setCategoryProduct(data.category) 
+        setAgeRange(data.age)
+        setSchool(data.education)
+        setGender(data.gender)
+        setJob(data.work)
+    }
+
+    const onSubmit = async (event) => {
         try {
+
+            event.preventDefault();
+
             const jsonData = {
-                productName : data.productName,
-                productCategory : categoryProduct,
+                nameProduct :nameProduct,
+                category : categoryProduct,
                 age : ageRange,
-                school: convertValueCheckbox(school) ,
+                education: convertValueCheckbox(school) ,
                 gender : convertValueCheckbox(gender),
-                job: convertValueCheckbox(job),
+                work: convertValueCheckbox(job),
             };
 
-            console.log(jsonData)
+            if(page == 'product1'){
+                localStorage.setItem( 'product1' ,JSON.stringify(jsonData) )
+            }else if(page == 'product2'){
+                localStorage.setItem( 'product2' ,JSON.stringify(jsonData) )
+            }else if(page == 'product3'){
+                localStorage.setItem( 'product3' ,JSON.stringify(jsonData) )
+
+            }
 
         } catch (error) {
             toast.error('Ada Kesalahan Server')
@@ -64,7 +110,7 @@ const AddProductPage = () => {
 
     return(
         <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
-            <Box className='flex justify-between w-[100%] px-[140px] top-0 mt-[40px] absolute z-[12]'> 
+            <Box className='flex justify-between w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}
@@ -78,12 +124,13 @@ const AddProductPage = () => {
                     }}
                 />
             </Box>
-            <Box className='flex flex-col h-[70%] items-center overflow-y-scroll overflow-x-hidden px-[20px] scrollbar scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+            <Box className='flex flex-col h-[70%] items-center overflow-y-scroll pb-[10px] overflow-x-hidden px-[20px] scrollbar scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
                 <AppHeadline 
                     title = {'Data Produk'}
                     subtitle = {''}
                 />
-                <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
+                {/* handle form validation */}
+                <form  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
                     <AppTextWithLine
                             text = 'Informasi Produk'
 
@@ -91,6 +138,7 @@ const AddProductPage = () => {
                     <label className='text-black font-semibold'>Nama Produk</label>
                     <AppTextField
                         id="productName"
+                        value = {nameProduct}
                         type='text'
                         placeholder='Masukkkan nama produk di sini'
                         validationConfig = {register('productName', { 
@@ -98,6 +146,10 @@ const AddProductPage = () => {
                         })}
                         error={Boolean(errors.productName)}
                         helperText={errors.productName && errors.productName.message}
+                        onChange={(event)=>{
+                            const value = event.target.value
+                            setNameProduct(value)
+                        }}
                         />
                     <label className='text-black font-semibold'>Kategori Produk</label>
                     <AppDropDown
@@ -122,20 +174,26 @@ const AddProductPage = () => {
                                 <label className='text-black font-semibold'>Gender</label>
                                 <CustomSpacing height={10} />
                                 <AppGenderCheckbox 
+                                    status = {checkboxStatus}
                                 />
                             </Box>
                             <Box>
                                 <label className='text-black font-semibold'>Pendidikan Terakhir</label>
                                 <CustomSpacing height={10} />
-                                <AppSchoolCheckbox />
+                                <AppSchoolCheckbox 
+                                    status = {checkboxStatus}
+                                />
                             </Box>
                         </Box>
                         <Box>
                                 <label className='text-black font-semibold'>Ranah Pekerjaan</label>
                                 <CustomSpacing height={10} />
-                                <AppJobCheckbox />
+                                <AppJobCheckbox
+                                    status = {checkboxStatus}
+                                />
                             </Box>
                     </Box>
+                    {/* handle button validation  */}
                     <Box className='w-[100%] flex gap-[10px]'>
                         {
                             page == 'product1' ? 
@@ -149,8 +207,10 @@ const AddProductPage = () => {
                                     ()=>{
                                         console.log('simpan')
                                     } :
-                                    ()=>{
-                                        setPage('product2')
+                                    (event)=>{
+                                        setPage('product2');
+                                        onSubmit(event)
+                                        initiateProductForm()
                                     }
                                 }
                             /> :  page == 'product2' || page == 'product3' ?
@@ -160,14 +220,17 @@ const AddProductPage = () => {
                                             type = {'Submit'}
                                             fontSize = {'12px'}
                                             onClick = {
-
                                                 countProduct == 2 ? 
                                                 ()=>{
-                                                    console.log('simpan')
+                                                    setPage('product1')
+                                                    onSubmit(event)
+                                                    initiateProductForm()
                                                 } :
                                                 page == 'product2' ? 
-                                                ()=>{
+                                                (event)=>{
                                                     setPage('product1')
+                                                    onSubmit(event)
+                                                    initiateProductForm()
                                                 } : page == 'product3' ? 
                                                 ()=>{
                                                     setPage('product2')
