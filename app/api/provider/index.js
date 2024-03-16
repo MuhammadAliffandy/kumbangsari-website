@@ -24,9 +24,10 @@ export const PROVIDER_GET = async (pathUrl) => {
     }
 }
 
-export const PROVIDER_POST = async (pathUrl, data) => {
+export const PROVIDER_POST = async (pathUrl, data , token ) => {
     const headers = {
         'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token || ''}`,
         // 'ADS-Key':ADS_KEY
     }
 

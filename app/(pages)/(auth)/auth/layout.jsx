@@ -6,19 +6,19 @@ const Layout = (props) => {
 
     const items = [
         {
-            name: 'Lorem Ipsum 1',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum neque sed nunc maximus tincidunt.',
-            image: 'https://picsum.photos/id/237/200/300',
+            name: 'Optimalisasi konten dengan bantuan AI',
+            description: 'Personalisasi data produk dan generate konten dengan AI sesuai kebutuhanmu!',
+            image: '/images/vector/AI.png',
         },
         {
-            name: 'Lorem Ipsum 2 ',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum neque sed nunc maximus tincidunt.',
-            image: 'https://picsum.photos/id/227/200/300',
+            name: 'Optimalisasi konten dengan bantuan AI',
+            description: 'Personalisasi data produk dan generate konten dengan AI sesuai kebutuhanmu!',
+            image: '/images/vector/picked.png',
         },
         {
             name: 'Lorem Ipsum 3',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum neque sed nunc maximus tincidunt.',
-            image: 'https://picsum.photos/seed/picsum/203/320',
+            image: '/images/vector/statistic.png',
         },
     ];
 

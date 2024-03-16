@@ -31,8 +31,8 @@ const SignInPage = () => {
         try {
             setLoadingProgress(50)
             const res = await loginAuth(data)
-            dispatch(setToken(res.token))
-            push('/dashboard')
+            dispatch(setToken(res.data.token))
+            push('/input-product/addCountProduct')
             setLoadingProgress(100)
         } catch (error) {
             toast.error('Email atau Kata Sandi Salah')

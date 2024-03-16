@@ -22,6 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import { useSelector} from 'react-redux';
 import { convertValueCheckbox } from '@/app/utils/helper';
+import { addProduct } from '@/app/api/repository/inputProductRepository';
 
 const AddProductPage = () => {
 
@@ -33,8 +34,8 @@ const AddProductPage = () => {
     const [nameProduct, setNameProduct] = useState('');
     const [ ageRange , setAgeRange ] = useState([0,10]);
     const [ gender , setGender ] = useState([]);
-    const [ school , setSchool ] = useState('');
-    const [ job , setJob ] = useState('');
+    const [ school , setSchool ] = useState([]);
+    const [ job , setJob ] = useState([]);
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
     const product1Value = localStorage.getItem( 'product1')
     const product2Value = localStorage.getItem( 'product2')
@@ -101,6 +102,18 @@ const AddProductPage = () => {
         
     }   
 
+    const fetchAddProduct = async (data) => {
+       try {
+        const res = await addProduct(data);
+        if(res.status == 'OK'){
+            toast.success('Produk berhasil ditambahkan ')
+        } 
+       } catch (error) {
+            toast.error('Data gagal Ditambahkan')
+       }
+    }
+
+
     const onSubmit = async (event) => {
         try {
             event.preventDefault();
@@ -111,11 +124,11 @@ const AddProductPage = () => {
             
             const jsonData = {
                 nameProduct :nameProduct,
-                category : categoryProduct,
                 age : ageRange,
-                education: convertValueCheckbox(schoolValue) ,
-                gender : convertValueCheckbox(genderValue),
                 work: convertValueCheckbox(jobValue),
+                education: convertValueCheckbox(schoolValue) ,
+                category : categoryProduct,
+                gender : convertValueCheckbox(genderValue),
             };
             
             if(page == 'product1'){
@@ -125,8 +138,12 @@ const AddProductPage = () => {
             }else if(page == 'product3'){
                 localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
             }
-
+            
             refreshLocalCheckbox( '','', '' )
+
+            if(countProduct == 1){
+                await fetchAddProduct(jsonData)
+            }
 
         } catch (error) {
             console.log(error)
@@ -138,6 +155,8 @@ const AddProductPage = () => {
         setPage(page)
         initiateProductForm(page)
     }
+
+
 
     return(
         <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
@@ -247,7 +266,7 @@ const AddProductPage = () => {
                                 type = {'Submit'}
                                 fontSize = {'12px'}
                                 onClick = {
-                                    countProduct == 1 ? 
+                                    countProduct == 1 && page == 'product1' ? 
                                     (event)=>{
                                         onSubmit(event)
                                         console.log('simpan')
