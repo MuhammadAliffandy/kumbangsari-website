@@ -14,7 +14,7 @@ const AppRangeSlider = (props) => {
         <Box sx={{ width: 'auto'}}>
             <Slider
                 getAriaLabel={() => 'Temperature range'}
-                value={value}
+                value={ props.value ? props.value : value}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />

@@ -31,7 +31,7 @@ const AddProductPage = () => {
     const [page, setPage] = useState('product1');
     const [categoryProduct, setCategoryProduct] = useState('');
     const [nameProduct, setNameProduct] = useState('');
-    const [ ageRange , setAgeRange ] = useState([]);
+    const [ ageRange , setAgeRange ] = useState([0,10]);
     const [ gender , setGender ] = useState([]);
     const [ school , setSchool ] = useState('');
     const [ job , setJob ] = useState('');
@@ -64,6 +64,7 @@ const AddProductPage = () => {
     const clearForm = () => {
         setNameProduct('') 
         setCategoryProduct('') 
+        setAgeRange([0,10])
         setCheckboxStatus('reset')
     }
     
@@ -82,7 +83,8 @@ const AddProductPage = () => {
         }
         if(product3Value != '' && page == 'product3'){
             
-            initiateProductValue(JSON.parse(product3Value))
+            const product3 = JSON.parse(product3Value);
+            await initiateProductValue(product3)
         }
         setCheckboxStatus('')
 
@@ -126,8 +128,6 @@ const AddProductPage = () => {
 
             refreshLocalCheckbox( '','', '' )
 
-            console.log('BREAKED')
-
         } catch (error) {
             console.log(error)
             toast.error('Ada Kesalahan Server')
@@ -145,9 +145,19 @@ const AddProductPage = () => {
                 <AppSubNav 
                     status={page}
                     value={countProduct}
-                    handleSub1={()=>{setPage('product1')}}
-                    handleSub2={()=>{setPage('product2')}}
-                    handleSub3={()=>{setPage('product3')}}
+                    handleSub1={()=>{
+                        setPage('product1')
+                        handlePageClick('product1')
+                    }}
+                    handleSub2={()=>{
+                        setPage('product2')
+                        handlePageClick('product2')
+                    }}
+                    handleSub3={()=>{
+                        setPage('product3')
+                        handlePageClick('product3')
+                        
+                    }}
                 />
                 <AppCloseButton
                     onClick = {()=>{
@@ -195,6 +205,7 @@ const AddProductPage = () => {
                         />
                         <label className='text-black font-semibold'>Umur</label>
                         <AppRangeSlider
+                            value = {ageRange}
                             onChange={(value)=>{
                                 setAgeRange(value)
                             }}
@@ -277,24 +288,28 @@ const AddProductPage = () => {
                                             fontSize = {'12px'}
                                             onClick = {
 
-                                                countProduct == 3 ? 
+                                                countProduct == 3 && page == 'product2' ? 
                                                 (event)=>{
+                                                    console.log('simpan 1')
                                                     onSubmit(event)
+                                                    handlePageClick('product3')
                                                 } :
-                                                countProduct == 2 ? 
+                                                countProduct == 2 && page == 'product2'? 
                                                 (event) => {
                                                     console.log('simpan')
                                                     onSubmit(event)
                                                 }
                                                 :
-                                                page == 'product2' ? 
+                                                countProduct == 3 && page == 'product3' ?
                                                 (event)=>{
+                                                    onSubmit(event)
+                                                    console.log('simpan 2')
+                                                    
+                                                } : countProduct == 3 && page == 'product3' ? 
+                                                (event)=>{
+                                                    console.log('simpan 3')
+                                                    event.preventDefault()
                                                     handlePageClick('product3')
-                                                    onSubmit(event)
-                                                } : page == 'product3' ? 
-                                                (event)=>{
-                                                    console.log('simpan')
-                                                    onSubmit(event)
                                                 } : ()=>{}
                                             }
                                         /> 
