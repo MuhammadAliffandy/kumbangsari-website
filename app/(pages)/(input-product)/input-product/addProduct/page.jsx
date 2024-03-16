@@ -141,15 +141,23 @@ const AddProductPage = () => {
             
             refreshLocalCheckbox( '','', '' )
 
-            if(countProduct == 1){
-                await fetchAddProduct(jsonData)
-            }
 
         } catch (error) {
             console.log(error)
             toast.error('Ada Kesalahan Server')
         }
     };
+
+
+    const addProductValidation = async () => {
+
+        const product1Value = localStorage.getItem( 'product1')
+        const product1 = JSON.parse(product1Value);
+
+        if(countProduct == 1){
+            await fetchAddProduct(product1)
+        }
+    }
 
     const handlePageClick = (page) => {
         setPage(page)
@@ -267,8 +275,9 @@ const AddProductPage = () => {
                                 fontSize = {'12px'}
                                 onClick = {
                                     countProduct == 1 && page == 'product1' ? 
-                                    (event)=>{
-                                        onSubmit(event)
+                                    async (event)=>{
+                                        await onSubmit(event)
+                                        addProductValidation()
                                         console.log('simpan')
                                     } :
                                     (event)=>{
