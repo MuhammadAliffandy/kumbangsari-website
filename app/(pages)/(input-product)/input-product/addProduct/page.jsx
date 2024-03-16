@@ -40,23 +40,21 @@ const AddProductPage = () => {
     const product2Value = localStorage.getItem( 'product2')
     const product3Value = localStorage.getItem( 'product3')
 
-
-   
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
     };
 
-    const refreshLocalCheckbox = async () => {
-        localStorage.setItem('gender','')
-        localStorage.setItem('school','')
-        localStorage.setItem('job','')
+    const refreshLocalCheckbox = async (gender,school,job) => {
+        localStorage.setItem('gender',gender)
+        localStorage.setItem('school',school)
+        localStorage.setItem('job',job)
     }
 
     const refreshLocalStorage = () => {
         localStorage.setItem('product1','')
         localStorage.setItem('product2','')
         localStorage.setItem('product3','')
-        refreshLocalCheckbox()
+        refreshLocalCheckbox( '','','' )
     }
 
     useEffect(()=>{
@@ -96,38 +94,37 @@ const AddProductPage = () => {
         setAgeRange(data.age)
         setSchool(data.education)
         setGender(data.gender)
-        setJob(data.work)       
-    }
+        setJob(data.work)    
+        refreshLocalCheckbox( data.gender ,data.education, data.work )
+        
+    }   
 
     const onSubmit = async (event) => {
         try {
-
             event.preventDefault();
-            if( product1Value == '' || product2Value == ''){
 
-                const genderValue = localStorage.getItem('gender');
-                const schoolValue = localStorage.getItem('school');
-                const jobValue = localStorage.getItem('job');
-                
-                const jsonData = {
-                    nameProduct :nameProduct,
-                    category : categoryProduct,
-                    age : ageRange,
-                    education: convertValueCheckbox(schoolValue) ,
-                    gender : convertValueCheckbox(genderValue),
-                    work: convertValueCheckbox(jobValue),
-                };
-                
-                if(page == 'product1'){
-                    localStorage.setItem( 'product1' ,JSON.stringify(jsonData))
-                }else if(page == 'product2'){
-                    localStorage.setItem( 'product2' ,JSON.stringify(jsonData))
-                }else if(page == 'product3'){
-                    localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
-                }
-    
-                refreshLocalCheckbox()
+            const genderValue = localStorage.getItem('gender') ;
+            const schoolValue = localStorage.getItem('school');
+            const jobValue = localStorage.getItem('job');
+            
+            const jsonData = {
+                nameProduct :nameProduct,
+                category : categoryProduct,
+                age : ageRange,
+                education: convertValueCheckbox(schoolValue) ,
+                gender : convertValueCheckbox(genderValue),
+                work: convertValueCheckbox(jobValue),
+            };
+            
+            if(page == 'product1'){
+                localStorage.setItem( 'product1' ,JSON.stringify(jsonData))
+            }else if(page == 'product2'){
+                localStorage.setItem( 'product2' ,JSON.stringify(jsonData))
+            }else if(page == 'product3'){
+                localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
             }
+
+            refreshLocalCheckbox( '','', '' )
 
             console.log('BREAKED')
 

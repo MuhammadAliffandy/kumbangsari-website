@@ -3,7 +3,7 @@ import AppCheckBox from '@/app/components/appCheckBox';
 
 const AppSchoolCheckbox = (props) => {
     let data = [];
-    const listValue = props.listValue;
+    let listValue = props.listValue;
 
     const arrPop = (array, valueToDelete) => {
         let index = array.indexOf(valueToDelete);
@@ -14,12 +14,21 @@ const AppSchoolCheckbox = (props) => {
     }
 
     const handleChange = (value ,label)=>{
-        if(value === ''){
-            data = arrPop( data ,label)
-        }else{
-            data.push(value);
+        if(listValue != ''){
+            if(value === ''){
+                listValue = arrPop( data ,label)
+            }else{
+                listValue.push(value);
+            }
+            localStorage.setItem('school',listValue)
+        }else {
+            if(value === ''){
+                data = arrPop( data ,label)
+            }else{
+                data.push(value);
+            }
+            localStorage.setItem('school',data)
         }
-        localStorage.setItem('school',data)
     }
 
     return (

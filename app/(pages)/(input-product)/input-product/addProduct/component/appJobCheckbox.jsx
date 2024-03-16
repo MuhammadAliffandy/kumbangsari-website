@@ -3,7 +3,7 @@ import AppCheckBox from '@/app/components/appCheckBox';
 
 const AppJobCheckbox = (props) => {
     let data = [];
-    const listValue = props.listValue;
+    let listValue = props.listValue;
     
     const arrPop = (array, valueToDelete) => {
         let index = array.indexOf(valueToDelete.toLowerCase());
@@ -14,13 +14,21 @@ const AppJobCheckbox = (props) => {
     }
 
     const handleChange = (value ,label)=>{
-        if(value === ''){
-            data = arrPop( data ,label)
-        }else{
-            data.push(value);
+        if(listValue != ''){
+            if(value === ''){
+                listValue = arrPop( data ,label)
+            }else{
+                listValue.push(value);
+            }
+            localStorage.setItem('job',listValue)
+        }else {
+            if(value === ''){
+                data = arrPop( data ,label)
+            }else{
+                data.push(value);
+            }
+            localStorage.setItem('job',data)
         }
-
-        localStorage.setItem('job',data)
     }
 
     return (

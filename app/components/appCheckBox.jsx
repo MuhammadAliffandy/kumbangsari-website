@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const  AppCheckBox = (props) => {
     const [checked, setChecked] = React.useState(false);
