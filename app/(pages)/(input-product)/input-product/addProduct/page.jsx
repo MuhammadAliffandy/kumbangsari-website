@@ -21,6 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import { useSelector} from 'react-redux';
+import LoadingBar from 'react-top-loading-bar'
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { addProduct } from '@/app/api/repository/inputProductRepository';
 
@@ -30,6 +31,7 @@ const AddProductPage = () => {
     const countProduct = useSelector(state => state.countInputProduct.value)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [page, setPage] = useState('product1');
+    const [loadingProgress,setLoadingProgress] = useState(0);
     const [categoryProduct, setCategoryProduct] = useState('');
     const [nameProduct, setNameProduct] = useState('');
     const [ ageRange , setAgeRange ] = useState([0,10]);
@@ -97,20 +99,21 @@ const AddProductPage = () => {
         setAgeRange(data.age)
         setSchool(data.education)
         setGender(data.gender)
-        setJob(data.work)    
+        setJob(data.work) 
         refreshLocalCheckbox( data.gender ,data.education, data.work )
         
     }   
 
     const fetchAddProduct = async (data) => {
-       try {
-        const res = await addProduct(data);
-        if(res.status == 'OK'){
-            toast.success('Produk berhasil ditambahkan ')
-        } 
-       } catch (error) {
-            toast.error('Data gagal Ditambahkan')
-       }
+        try {
+            const res = await addProduct(data);
+            if(res.status == 'OK'){
+                toast.success('Produk berhasil ditambahkan ')
+                setLoadingProgress(100)
+            } 
+        } catch (error) {
+                toast.error('Data gagal Ditambahkan')
+        }
     }
 
 
@@ -151,11 +154,35 @@ const AddProductPage = () => {
 
     const addProductValidation = async () => {
 
-        const product1Value = localStorage.getItem( 'product1')
-        const product1 = JSON.parse(product1Value);
+        try {
+            const product1Value = localStorage.getItem( 'product1')
+            const product1 = JSON.parse(product1Value);
+            
+            const product2Value = localStorage.getItem( 'product2')
+            const product2 =  product2Value != '' ? JSON.parse(product2Value) : '';
+            
+            const product3Value = localStorage.getItem( 'product3')
+            const product3 = product3Value != '' ? JSON.parse(product3Value) : '';
 
-        if(countProduct == 1){
-            await fetchAddProduct(product1)
+            setLoadingProgress(50)
+    
+            if(countProduct == 1 && product1Value != '' ){
+                await fetchAddProduct(product1)
+            }else if(countProduct == 2 && product1Value != '' &&  product2Value != '') {
+                await fetchAddProduct(product1)
+                await fetchAddProduct(product2)
+                
+            }else if (countProduct == 3 && product1Value != '' &&  product2Value != '' &&  product3Value != '') {
+                await fetchAddProduct(product1)
+                await fetchAddProduct(product2)
+                await fetchAddProduct(product3)
+            }
+
+            clearForm()
+            push('/dashboard')
+        } catch (error) {
+            console.log(error)
+            toast.error('Server error')
         }
     }
 
@@ -164,25 +191,39 @@ const AddProductPage = () => {
         initiateProductForm(page)
     }
 
+    const handleNavClick = (page) => {
+
+        if(product1Value == '' && page == 'product1' || product2Value == '' && page == 'product2' || product3Value == '' && page == 'product3'){
+            const pageInfo = page == 'product2' ? 'Halaman 1' : page == 'product3' ? 'Halaman 2' : ''
+            toast.error(`Mohon ${pageInfo} diisi terlebih dahulu`)
+        }else{
+            setPage(page)
+            initiateProductForm(page)
+        }
+
+    }
+
 
 
     return(
         <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
+            <LoadingBar 
+                color={'blue'} 
+                progress={loadingProgress} 
+                onLoaderFinished={() => setLoadingProgress(0)
+            } />
             <Box className='flex justify-between w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}
                     handleSub1={()=>{
-                        setPage('product1')
-                        handlePageClick('product1')
+                        handleNavClick('product1')
                     }}
                     handleSub2={()=>{
-                        setPage('product2')
-                        handlePageClick('product2')
+                        handleNavClick('product2')
                     }}
                     handleSub3={()=>{
-                        setPage('product3')
-                        handlePageClick('product3')
+                        handleNavClick('product3')
                         
                     }}
                 />
@@ -296,7 +337,6 @@ const AddProductPage = () => {
                                                 (event)=>{
                                                     event.preventDefault()
                                                     handlePageClick('product1')
-                                                    console.log('kembali')
                                                 } :
                                                 page == 'product2' ? 
                                                 (event)=>{
@@ -318,24 +358,22 @@ const AddProductPage = () => {
 
                                                 countProduct == 3 && page == 'product2' ? 
                                                 (event)=>{
-                                                    console.log('simpan 1')
                                                     onSubmit(event)
                                                     handlePageClick('product3')
                                                 } :
                                                 countProduct == 2 && page == 'product2'? 
-                                                (event) => {
-                                                    console.log('simpan')
-                                                    onSubmit(event)
+                                                async (event) => {
+                                                    await onSubmit(event)
+                                                    addProductValidation()
                                                 }
                                                 :
                                                 countProduct == 3 && page == 'product3' ?
-                                                (event)=>{
-                                                    onSubmit(event)
-                                                    console.log('simpan 2')
+                                                async (event)=>{
+                                                    await onSubmit(event)
+                                                    addProductValidation()
                                                     
                                                 } : countProduct == 3 && page == 'product3' ? 
                                                 (event)=>{
-                                                    console.log('simpan 3')
                                                     event.preventDefault()
                                                     handlePageClick('product3')
                                                 } : ()=>{}

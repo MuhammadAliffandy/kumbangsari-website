@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
-import { loginAuth } from '@/app/api/repository/authRepository';
+import { getCurrentUser, loginAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton';
 import AppHeadline from '@/app/components/appHeadline';
 import AppTextField from '@/app/components/appTextField';
@@ -32,7 +32,18 @@ const SignInPage = () => {
             setLoadingProgress(50)
             const res = await loginAuth(data)
             dispatch(setToken(res.data.token))
-            push('/input-product/addCountProduct')
+
+            const currentUser = await getCurrentUser(); 
+
+            if(currentUser.status == 'OK'){
+
+                if(currentUser.data.countProduct > 0){
+                    push('/dashboard')
+                }else{
+                    push('/input-product/addCountProduct')
+                }
+            }
+
             setLoadingProgress(100)
         } catch (error) {
             toast.error('Email atau Kata Sandi Salah')
