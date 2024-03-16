@@ -3,6 +3,7 @@ import AppCheckBox from '@/app/components/appCheckBox';
 
 const AppSchoolCheckbox = (props) => {
     let data = [];
+    const listValue = props.listValue;
 
     const arrPop = (array, valueToDelete) => {
         let index = array.indexOf(valueToDelete);
@@ -28,7 +29,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         label = 'SD'
                         value= 'SD'
-                        status = {props.status}
+                        status = {listValue.indexOf('SD') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -36,7 +37,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'SMA'
                         label = 'SMA'
-                        status = {props.status}
+                        status = {listValue.indexOf('SMA') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -46,7 +47,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'SMP'
                         label = 'SMP'
-                        status = {props.status}
+                        status = {listValue.indexOf('SMP') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -54,7 +55,7 @@ const AppSchoolCheckbox = (props) => {
                     <AppCheckBox
                         value= 'kuliah'
                         label = 'Kuliah'
-                        status = {props.status}
+                        status = {listValue.indexOf('kuliah') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

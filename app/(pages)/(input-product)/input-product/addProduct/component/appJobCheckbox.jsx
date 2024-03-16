@@ -3,7 +3,8 @@ import AppCheckBox from '@/app/components/appCheckBox';
 
 const AppJobCheckbox = (props) => {
     let data = [];
-
+    const listValue = props.listValue;
+    
     const arrPop = (array, valueToDelete) => {
         let index = array.indexOf(valueToDelete.toLowerCase());
         if (index !== -1) {
@@ -20,7 +21,6 @@ const AppJobCheckbox = (props) => {
         }
 
         localStorage.setItem('job',data)
-        return data;
     }
 
     return (
@@ -30,7 +30,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Tdk Bekerja'
                         value = 'tidakkerja'
-                        status = {props.status}
+                        status = {listValue.indexOf('tidakkerja') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -38,7 +38,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Kesehatan'
                         value = 'kesehatan'
-                        status = {props.status}
+                        status = {listValue.indexOf('kesehatan') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -48,7 +48,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Pelajar/Mhs'
                         value = 'pelajar'
-                        status = {props.status}
+                        status = {listValue.indexOf('pelajar') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -56,7 +56,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Karyawan'
                         value = 'karyawan'
-                        status = {props.status}
+                        status = {listValue.indexOf('karyawan') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -66,7 +66,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Hiburan'
                         value = 'hiburan'
-                        status = {props.status}
+                        status = {listValue.indexOf('hiburan') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -74,7 +74,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Teknis'
                         value = 'teknis'
-                        status = {props.status}
+                        status = {listValue.indexOf('teknis') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -84,7 +84,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Pendidikan'
                         value = 'pendidikan'
-                        status = {props.status}
+                        status = {listValue.indexOf('pendidikan') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -92,7 +92,7 @@ const AppJobCheckbox = (props) => {
                     <AppCheckBox
                         label = 'Lainnya'
                         value = 'lainnya'
-                        status = {props.status}
+                        status = {listValue.indexOf('lainnya') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

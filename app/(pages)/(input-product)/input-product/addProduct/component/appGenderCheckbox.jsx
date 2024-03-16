@@ -24,15 +24,13 @@ const AppGenderCheckbox = (props) => {
         localStorage.setItem('gender',data)
     }
     
-    console.log( 'itu ' +  listValue)
-
     return (
         <>
             <Stack direction='column' spacing={1}>
                     <AppCheckBox
                         value= 'pria'
                         label = 'Pria'
-                        status = { listValue.indexOf('pria') > -1 ? 'added' : listValue.indexOf('pria') < -1 ? 'reset' : props.status}
+                        status = { listValue.indexOf('pria') > -1 ? 'added' : props.status}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}

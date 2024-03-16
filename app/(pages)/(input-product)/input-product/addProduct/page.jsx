@@ -32,7 +32,7 @@ const AddProductPage = () => {
     const [categoryProduct, setCategoryProduct] = useState('');
     const [nameProduct, setNameProduct] = useState('');
     const [ ageRange , setAgeRange ] = useState([]);
-    const [ gender , setGender ] = useState('');
+    const [ gender , setGender ] = useState([]);
     const [ school , setSchool ] = useState('');
     const [ job , setJob ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
@@ -50,10 +50,6 @@ const AddProductPage = () => {
         localStorage.setItem('gender','')
         localStorage.setItem('school','')
         localStorage.setItem('job','')
-    }
-
-    const addedCheckbox = (gender) => {
-        localStorage.setItem('gender',gender)
     }
 
     const refreshLocalStorage = () => {
@@ -79,18 +75,13 @@ const AddProductPage = () => {
 
         if(product1Value != '' && page == 'product1'){
             const product1 = JSON.parse(product1Value);
-            initiateProductValue(product1)
-            console.log('TESTEDDDD 111111')    
+            await initiateProductValue(product1)
         }
         
         if(product2Value != '' && page == 'product2'){
             const product2 = JSON.parse(product2Value);
-            initiateProductValue(product2)
-            console.log('TESTEDDDD 222222')    
-            
-            
+            await initiateProductValue(product2)
         }
-        
         if(product3Value != '' && page == 'product3'){
             
             initiateProductValue(JSON.parse(product3Value))
@@ -105,38 +96,40 @@ const AddProductPage = () => {
         setAgeRange(data.age)
         setSchool(data.education)
         setGender(data.gender)
-        setJob(data.work)
-        addedCheckbox(data.gender)
+        setJob(data.work)       
     }
 
     const onSubmit = async (event) => {
         try {
 
             event.preventDefault();
+            if( product1Value == '' || product2Value == ''){
 
-            const genderValue = localStorage.getItem('gender');
-            const schoolValue = localStorage.getItem('school');
-            const jobValue = localStorage.getItem('job');
-            
-            const jsonData = {
-                nameProduct :nameProduct,
-                category : categoryProduct,
-                age : ageRange,
-                education: convertValueCheckbox(schoolValue) ,
-                gender : convertValueCheckbox(genderValue),
-                work: convertValueCheckbox(jobValue),
-            };
-
-            console.log('=====> ' +JSON.stringify(jsonData) )
-            
-            if(page == 'product1'){
-                localStorage.setItem( 'product1' ,JSON.stringify(jsonData))
-            }else if(page == 'product2'){
-                localStorage.setItem( 'product2' ,JSON.stringify(jsonData))
-            }else if(page == 'product3'){
-                localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
+                const genderValue = localStorage.getItem('gender');
+                const schoolValue = localStorage.getItem('school');
+                const jobValue = localStorage.getItem('job');
+                
+                const jsonData = {
+                    nameProduct :nameProduct,
+                    category : categoryProduct,
+                    age : ageRange,
+                    education: convertValueCheckbox(schoolValue) ,
+                    gender : convertValueCheckbox(genderValue),
+                    work: convertValueCheckbox(jobValue),
+                };
+                
+                if(page == 'product1'){
+                    localStorage.setItem( 'product1' ,JSON.stringify(jsonData))
+                }else if(page == 'product2'){
+                    localStorage.setItem( 'product2' ,JSON.stringify(jsonData))
+                }else if(page == 'product3'){
+                    localStorage.setItem( 'product3' ,JSON.stringify(jsonData))
+                }
+    
+                refreshLocalCheckbox()
             }
-            refreshLocalCheckbox()
+
+            console.log('BREAKED')
 
         } catch (error) {
             console.log(error)
@@ -224,6 +217,7 @@ const AddProductPage = () => {
                                 <CustomSpacing height={10} />
                                 <AppSchoolCheckbox 
                                     status = {checkboxStatus}
+                                    listValue = {school}
                                 />
                             </Box>
                         </Box>
@@ -232,6 +226,7 @@ const AddProductPage = () => {
                                 <CustomSpacing height={10} />
                                 <AppJobCheckbox
                                     status = {checkboxStatus}
+                                    listValue = {job}
                                 />
                             </Box>
                     </Box>
@@ -249,9 +244,9 @@ const AddProductPage = () => {
                                         onSubmit(event)
                                         console.log('simpan')
                                     } :
-                                    async (event)=>{
-                                        await onSubmit(event)
+                                    (event)=>{
                                         handlePageClick('product2')
+                                        onSubmit(event)
                                     }
                                 }
                             /> :  page == 'product2' || page == 'product3' ?
@@ -265,6 +260,7 @@ const AddProductPage = () => {
                                                 (event)=>{
                                                     event.preventDefault()
                                                     handlePageClick('product1')
+                                                    console.log('kembali')
                                                 } :
                                                 page == 'product2' ? 
                                                 (event)=>{

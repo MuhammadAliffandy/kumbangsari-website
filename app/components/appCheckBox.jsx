@@ -8,13 +8,18 @@ const  AppCheckBox = (props) => {
         setChecked(status);
         props.onChange( status ? props.value : '' ,props.label)
     };
+    
 
+    const valueInitiate = (check) => {
+        return check ? props.value : ''
+    }
 
     React.useEffect(()=>{
         if(props.status === 'reset'){
             setChecked(false)
         }else if (props.status === 'added') {
-            setChecked(true)            
+            setChecked(true)   
+            valueInitiate(true)         
         }
     },[props.status])
 
