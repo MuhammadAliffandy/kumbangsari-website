@@ -14,7 +14,7 @@ import AppTextField from '@/app/components/appTextField/appTextField';
 import { ToastContainer, toast } from "react-toastify";
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingBar from 'react-top-loading-bar'
+import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import "../../../../globals.css";
 
 import { useState } from 'react';
@@ -34,8 +34,6 @@ const SignInPage = () => {
             dispatch(setToken(res.data.token))
 
             const currentUser = await getCurrentUser(); 
-
-            console.log(currentUser)
 
             if(currentUser.status == 'OK'){
                 if(currentUser.data.countProduct > 0){
@@ -61,8 +59,7 @@ const SignInPage = () => {
                     }}
                 />
             </Box>
-            <LoadingBar 
-                color={'blue'} 
+            <AppLoadingBar 
                 progress={loadingProgress} 
                 onLoaderFinished={() => setLoadingProgress(0)
             } />

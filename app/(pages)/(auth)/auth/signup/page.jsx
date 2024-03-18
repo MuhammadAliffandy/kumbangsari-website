@@ -13,7 +13,7 @@ import { createAuth } from '@/app/api/repository/authRepository';
 import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
-import LoadingBar from 'react-top-loading-bar'
+import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import { useState } from 'react';
 
 
@@ -53,8 +53,8 @@ const SignUpPage  = () => {
 
     return(
             <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
-                    <LoadingBar 
-                        color={'blue'} 
+                    <AppLoadingBar 
+                        
                         progress={loadingProgress} 
                         onLoaderFinished={() => setLoadingProgress(0)
                     } />

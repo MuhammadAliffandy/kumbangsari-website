@@ -9,7 +9,7 @@ import { validatePassword, } from '../../component/validation';
 import {  verifyPasswordAuth } from '@/app/api/repository/authRepository';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingBar from 'react-top-loading-bar'
+import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import AppButton from '@/app/components/appButton/appButton';
 import AppTextField from '@/app/components/appTextField/appTextField'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
@@ -67,8 +67,8 @@ const  ResetPasswordPage = () => {
                         }}
                     />
                 </Box>
-                    <LoadingBar 
-                        color={'blue'} 
+                    <AppLoadingBar 
+                        
                         progress={loadingProgress} 
                         onLoaderFinished={() => setLoadingProgress(0)
                     } />

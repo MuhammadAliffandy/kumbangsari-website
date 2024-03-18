@@ -21,7 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import { useSelector} from 'react-redux';
-import LoadingBar from 'react-top-loading-bar'
+import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { addProduct } from '@/app/api/repository/inputProductRepository';
 
@@ -207,8 +207,8 @@ const AddProductPage = () => {
 
     return(
         <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px]  w-[100%] relative'>
-            <LoadingBar 
-                color={'blue'} 
+            <AppLoadingBar 
+                
                 progress={loadingProgress} 
                 onLoaderFinished={() => setLoadingProgress(0)
             } />

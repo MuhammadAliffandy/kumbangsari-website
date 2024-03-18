@@ -15,7 +15,7 @@ import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingBar from 'react-top-loading-bar'
+import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import { sendOTPAuth, verificationOTPAuth } from '@/app/api/repository/authRepository';
 import OtpInput from 'react-otp-input';
 
@@ -104,8 +104,8 @@ const ForgotPasswordPage = ()  => {
                     }}
                 />
             </Box>
-            <LoadingBar 
-                color={'blue'} 
+            <AppLoadingBar 
+                
                 progress={loadingProgress} 
                 onLoaderFinished={() => setLoadingProgress(0)
             } />
