@@ -1,14 +1,14 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail } from '../component/validation';
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppTextField from '@/app/components/appTextField';
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppTextField from '@/app/components/appTextField/appTextField';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { resetPasswordAuth } from '@/app/api/repository/authRepository';

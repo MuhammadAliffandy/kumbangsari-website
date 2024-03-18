@@ -2,7 +2,7 @@
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack'
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , SubmitHandler } from 'react-hook-form';
 import { useRouter , useParams } from 'next/navigation';
 import { validatePassword, } from '../../component/validation';
@@ -10,10 +10,10 @@ import {  verifyPasswordAuth } from '@/app/api/repository/authRepository';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
-import AppButton from '@/app/components/appButton';
-import AppTextField from '@/app/components/appTextField'
-import AppCloseButton from '@/app/components/appCloseButton';
-import AppHeadline from '@/app/components/appHeadline';
+import AppButton from '@/app/components/appButton/appButton';
+import AppTextField from '@/app/components/appTextField/appTextField'
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import { useState } from 'react';
 
 

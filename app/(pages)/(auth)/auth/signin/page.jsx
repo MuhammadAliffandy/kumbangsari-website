@@ -1,18 +1,18 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
 import { getCurrentUser, loginAuth } from '@/app/api/repository/authRepository';
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppTextField from '@/app/components/appTextField';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppTextField from '@/app/components/appTextField/appTextField';
 import { ToastContainer, toast } from "react-toastify";
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
 import "../../../../globals.css";
@@ -35,8 +35,9 @@ const SignInPage = () => {
 
             const currentUser = await getCurrentUser(); 
 
-            if(currentUser.status == 'OK'){
+            console.log(currentUser)
 
+            if(currentUser.status == 'OK'){
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
                 }else{

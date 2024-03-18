@@ -6,13 +6,13 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useState  , useEffect} from 'react';
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'

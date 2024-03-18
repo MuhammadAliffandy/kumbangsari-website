@@ -1,22 +1,22 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateText } from '../.../../../../(auth)/auth/component/validation';
 import { listDropCategory }  from '@/app/utils/model'
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppTextField from '@/app/components/appTextField';
-import AppTextWithLine from '@/app/components/appTextWithLine';
-import AppDropDown from '@/app/components/appDropDown';
-import AppSubNav from '@/app/components/appSubNav';
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppTextField from '@/app/components/appTextField/appTextField';
+import AppTextWithLine from '@/app/components/appTextWithLine/appTextWithLine';
+import AppDropDown from '@/app/components/appDropDown/appDropDown';
+import AppSubNav from '@/app/components/appSubNavigation/appSubNav';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import AppGenderCheckbox from '../addProduct/component/appGenderCheckbox';
 import AppSchoolCheckbox from '../addProduct/component/appSchoolCheckbox';
 import AppJobCheckbox from '../addProduct/component/appJobCheckbox';
-import AppRangeSlider from '@/app/components/appRangeSlider';
+import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';

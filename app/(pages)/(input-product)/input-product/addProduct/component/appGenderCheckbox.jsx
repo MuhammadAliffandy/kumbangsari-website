@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack';
-import AppCheckBox from '@/app/components/appCheckBox';
+import AppCheckBox from '@/app/components/appCheckBox/appCheckBox';
 
 const AppGenderCheckbox = (props) => {
    

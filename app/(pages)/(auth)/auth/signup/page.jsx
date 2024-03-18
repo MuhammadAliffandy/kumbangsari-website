@@ -1,18 +1,18 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import AppTextField from '@/app/components/appTextField'
+import AppTextField from '@/app/components/appTextField/appTextField'
 import Stack from '@mui/material/Stack'
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useForm , } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '../component/validation';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { createAuth } from '@/app/api/repository/authRepository';
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react';
 

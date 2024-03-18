@@ -1,17 +1,17 @@
 'use client'
 
 import Box from '@mui/material/Box';
-import CustomSpacing from '@/app/components/customSpacing';
+import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useRouter } from 'next/navigation';
 import { setCountInputProduct } from '@/app/redux/slices/countInputProductSlice';
-import AppButton from '@/app/components/appButton';
-import AppHeadline from '@/app/components/appHeadline';
-import AppCloseButton from '@/app/components/appCloseButton';
+import AppButton from '@/app/components/appButton/appButton';
+import AppHeadline from '@/app/components/appHeadline/appHeadline';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import AppDropDown from '../../../../components/appDropDown';
+import AppDropDown from '../../../../components/appDropDown/appDropDown';
 
 
 const AddCountProductPage = () => {

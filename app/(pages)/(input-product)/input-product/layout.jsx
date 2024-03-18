@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import AppCarousel from '@/app/components/appCarousel';
+import AppCarousel from '@/app/components/appCaraousel/appCaraousel';
 
 
 const Layout = (props) => {
