@@ -8,9 +8,9 @@ function AppCarousel(props) {
 
     const renderCustomItem = (item, index) => (
         <div className='h-[80%] flex flex-col items-center justify-center gap-[20px]' key={index}>
-            <img className='w-[460px] h-[360px] bg-transparent rounded-[15px]' src={item.image} alt={item.name} />
-            <h2 className='text-black text-[28px] text-center font-bold font-poppins'>{item.name}</h2>
-            <p className='text-black text-[14px] text-center font-medium  font-poppins' >{item.description}</p>
+            <img className='w-[420px] h-[320px] bg-transparent rounded-[15px]' src={item.image} alt={item.name} />
+            <h2 className='text-black text-[24px] text-center font-bold font-poppins'>{item.name}</h2>
+            <p className='text-black text-[12px] text-center font-medium  font-poppins' >{item.description}</p>
         </div>
     );
 

@@ -11,14 +11,14 @@ const Layout = (props) => {
             image: '/images/vector/AI.png',
         },
         {
-            name: 'Optimalisasi konten dengan bantuan AI',
-            description: 'Personalisasi data produk dan generate konten dengan AI sesuai kebutuhanmu!',
-            image: '/images/vector/picked.png',
+            name: 'Dashboard analitik unggahan konten',
+            description: 'Lihat rekap unggahan seluruh konten dan produkmu hanya dalam satu halaman!',
+            image: '/images/vector/statistic.png',
         },
         {
-            name: 'Lorem Ipsum 3',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum neque sed nunc maximus tincidunt.',
-            image: '/images/vector/statistic.png',
+            name: 'Efisiensi waktu dan penjadwalan yang terstruktur',
+            description: 'Tingkatkan efisiensi pengelolaan konten melalui penjadwalan dan auto-posting ke dalam seluruh akun!',
+            image: '/images/vector/content.png',
         },
     ];
 

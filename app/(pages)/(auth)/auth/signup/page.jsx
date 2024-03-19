@@ -14,6 +14,8 @@ import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
+import AppAnimationLayout from '@/app/components/appAnimation/appAnimationLayout';
+import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton';
 import { useState } from 'react';
 
 
@@ -61,91 +63,98 @@ const SignUpPage  = () => {
                     <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
                         <AppCloseButton
                             onClick = {()=>{
-                                push('/')
+                                push('/auth/signin')
                             }}
                         />
                     </Box>
-                    <AppHeadline 
-                        title = {'Selamat Datang!'}
-                        subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
-                    />
-                    <CustomSpacing height = {20} />
-                    <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
-                        <label className='text-black font-semibold'>Nama</label>
-                        <AppTextField
-                                id="name"
-                                placeholder='Masukkan nama lengkap di sini'
-                                validationConfig = {register('name', 
-                                    {
-                                        validate: validateName
-                                    })}
-                                error={Boolean(errors.name)}
-                                helperText={errors.name && errors.name.message}
+                    <AppAnimationLayout>
+                        <Box className='overflow-y-scroll h-[90vh] overflow-x-hidden px-[20px] py-[10px] scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                            <AppHeadline 
+                                title = {'Selamat Datang!'}
+                                subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }
                             />
-                        <Stack direction="row" spacing={2}>   
-                            <Box className='flex flex-col gap-[10px]'>
-                                <label className='text-black font-semibold'>Email</label>
+                            <CustomSpacing height = {20} />
+                            <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                                <label className='text-black font-semibold'>Nama</label>
                                 <AppTextField
-                                        id="email"
-                                        type='email'
-                                        placeholder='Masukkan email di sini'
-                                        validationConfig = {register('email', {
-                                            validate : validateEmail
-                                        })}
-                                        error={Boolean(errors.email)}
-                                        helperText={errors.email && errors.email.message}
+                                        id="name"
+                                        placeholder='Masukkan nama lengkap di sini'
+                                        validationConfig = {register('name', 
+                                            {
+                                                validate: validateName
+                                            })}
+                                        error={Boolean(errors.name)}
+                                        helperText={errors.name && errors.name.message}
                                     />
-                            </Box>
-                            <Box className='flex flex-col gap-[10px]'>
-                                <label className='text-black font-semibold'>Nomor Telepon</label>
-                                <AppTextField            
-                                        id="phoneNumber"
-                                        placeholder='Masukkan no telepon di sini'
-                                        validationConfig = {register('phoneNumber', { 
-                                            validate: validatePhoneNumber 
+                                <Stack direction="row" spacing={2}>   
+                                    <Box className='flex flex-col gap-[10px]'>
+                                        <label className='text-black font-semibold'>Email</label>
+                                        <AppTextField
+                                                id="email"
+                                                type='email'
+                                                placeholder='Masukkan email di sini'
+                                                validationConfig = {register('email', {
+                                                    validate : validateEmail
+                                                })}
+                                                error={Boolean(errors.email)}
+                                                helperText={errors.email && errors.email.message}
+                                            />
+                                    </Box>
+                                    <Box className='flex flex-col gap-[10px]'>
+                                        <label className='text-black font-semibold'>Nomor Telepon</label>
+                                        <AppTextField            
+                                                id="phoneNumber"
+                                                placeholder='Masukkan no telepon di sini'
+                                                validationConfig = {register('phoneNumber', { 
+                                                    validate: validatePhoneNumber 
+                                                })}
+                                                error={Boolean(errors.phoneNumber)}
+                                            />
+                                    </Box>
+                                </Stack> 
+                                <label className='text-black font-semibold'>Kata Sandi</label>
+                                <AppTextField
+                                        id="password"
+                                        placeholder='Masukkan kata sandi di sini'
+                                        type={"password"} 
+                                        validationConfig = {register('password', {
+                                            validate : validatePassword
                                         })}
-                                        error={Boolean(errors.phoneNumber)}
+                                        error={Boolean(errors.password)}
+                                        helperText={errors.password && errors.password.message}
+                                    
                                     />
+                                <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
+                                <AppTextField
+                        
+                                        id="confirmPassword"
+                                        placeholder='Masukkan konfirmasi kata sandi di sini'
+                                        type={"password"  } 
+                                        validationConfig = {register('confirmPassword', {
+                                        required: 'Password harus sama',
+                                            validate: value => value === password || 'Password tidak cocok'
+                                        })}
+                                        error={Boolean(errors.confirmPassword)}
+                                        helperText={errors.confirmPassword && errors.confirmPassword.message}
+                                    />
+                                <AppAnimationButton>   
+                                    <AppButton
+                                            text={'Daftar Sekarang'} 
+                                            type = {'Submit'}
+                                            fontSize = {'12px'}
+                                            onClick = {()=>{}}
+                                    />
+                                </AppAnimationButton>
+                            </form>
+                            <CustomSpacing height={'10px'}/>
+                            <Box className = 'w-[100%] flex justify-center'>
+                                    <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
+                                    <CustomSpacing width = {5}/>
+                                    <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
                             </Box>
-                        </Stack> 
-                        <label className='text-black font-semibold'>Kata Sandi</label>
-                        <AppTextField
-                                id="password"
-                                placeholder='Masukkan kata sandi di sini'
-                                type={"password"} 
-                                validationConfig = {register('password', {
-                                    validate : validatePassword
-                                })}
-                                error={Boolean(errors.password)}
-                                helperText={errors.password && errors.password.message}
-                            
-                            />
-                        <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
-                        <AppTextField
-                
-                                id="confirmPassword"
-                                placeholder='Masukkan konfirmasi kata sandi di sini'
-                                type={"password"  } 
-                                validationConfig = {register('confirmPassword', {
-                                required: 'Password harus sama',
-                                    validate: value => value === password || 'Password tidak cocok'
-                                })}
-                                error={Boolean(errors.confirmPassword)}
-                                helperText={errors.confirmPassword && errors.confirmPassword.message}
-                            />
-                        <AppButton
-                                text={'Daftar Sekarang'} 
-                                type = {'Submit'}
-                                fontSize = {'12px'}
-                                onClick = {()=>{}}
-                        />
-                    </form>
-                    <CustomSpacing height={'10px'}/>
-                    <Box className = 'w-[100%] flex justify-center'>
-                            <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Sudah punya akun?</p>
-                            <CustomSpacing width = {5}/>
-                            <p  onClick = {()=>{push('/auth/signin')}}  className='text-black cursor-pointer text-[14px] font-bold'>Masuk</p>
-                    </Box>
+                        </Box>
+                    </AppAnimationLayout>
+                    
                     <ToastContainer
                         autoClose={800}
                     />
