@@ -68,7 +68,7 @@ const SignUpPage  = () => {
                         />
                     </Box>
                     <AppAnimationLayout>
-                        <Box className='overflow-y-scroll h-[90vh] overflow-x-hidden px-[20px] py-[10px] scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='overflow-y-scroll h-[98vh] overflow-x-hidden px-[20px] py-[10px] scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppHeadline 
                                 title = {'Selamat Datang!'}
                                 subtitle = {'Daftarkan akun dan mulai manajemen kontenmu!' }

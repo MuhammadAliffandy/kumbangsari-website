@@ -63,7 +63,7 @@ const  ResetPasswordPage = () => {
                 <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
                     <AppCloseButton
                         onClick = {()=>{
-                            push('/')
+                            push('/auth/signin')
                         }}
                     />
                 </Box>
