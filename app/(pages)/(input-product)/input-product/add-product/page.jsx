@@ -215,10 +215,6 @@ const AddProductPage = () => {
                 onLoaderFinished={() => setLoadingProgress(0)
             } />
 
-            <AppAnimationLayout>
-
-            </AppAnimationLayout>
-
             <Box className='flex justify-between w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}

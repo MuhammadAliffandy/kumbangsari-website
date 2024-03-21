@@ -1,4 +1,4 @@
-import AppLayout from "./component/AppLayout";
+import AppLayout from "./component/appLayout";
 
 const DashboardPage = () => {
     return (
