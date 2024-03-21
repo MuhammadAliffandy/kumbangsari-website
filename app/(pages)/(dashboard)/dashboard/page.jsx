@@ -1,14 +1,13 @@
-
-import { Box } from '@mui/material'
+import AppLayout from "./component/AppLayout";
 
 const DashboardPage = () => {
-    return(
-        <>
-            <Box>
-                <h1 className='text-black' >DashBoard Page</h1>
-            </Box>
-        </>
+    return (
+        <AppLayout title='Dashboard'>
+            <h1 className="text-black">
+                ini adalah dashboard page
+            </h1>
+        </AppLayout>
     ) 
 }
 
-export default  DashboardPage ;
+export default DashboardPage;
