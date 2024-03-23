@@ -15,3 +15,14 @@ export const listDropCategory = [
     {value : 'jasaLayanan' , text : 'Jasa dan Layanan'},
     {value : 'lainnya' , text : 'lainnya'},
 ];
+
+export const listDropPlatform = [
+    {value : 'fb' , text : 'Facebook'},
+    {value : 'twitter' , text : 'Twitter'},
+    {value : 'ig' , text : 'Instagram'},
+];
+
+export const listDropLanguageStyle = [
+    {value : 'unik' , text : 'Unik'},
+    {value : 'santay' , text : 'Santay'},
+];

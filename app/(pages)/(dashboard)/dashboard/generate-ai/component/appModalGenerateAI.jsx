@@ -11,6 +11,7 @@ import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 
 import { useState } from 'react';
+import { listDropLanguageStyle, listDropPlatform } from '../../../../../utils/model';
 
 const  AppModalGenerateAI = (props ) => {
 
@@ -18,23 +19,58 @@ const  AppModalGenerateAI = (props ) => {
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [languageStyle , setLanguageStyle] = useState('')
+    const [isCaptionName , setIsCaptionName] = useState(false)
+    const [contentType , setContentType] = useState([])
 
     const listItem = [
         {value : 1 , text : 'Satu'},
         {value : 2 , text : 'Dua'},
         {value : 3 , text : 'Tiga'},
     ]
+    
+    const arrPop = (array, valueToDelete) => {
+        let index = array.indexOf(valueToDelete.toLowerCase());
+        if (index !== -1) {
+            array.splice(index, 1);
+        }
+        return array
+    }
+    
 
     const handleChangeProduct = (event) => {
         setProduct(event.target.value)
     }
 
     const handleChangePlatform = (event) => {
-        setPlatform(event)
+        setPlatform(event.target.value)
     }
 
     const handleLanguageStyle = (event) => {
-        setLanguageStyle(event)
+        setLanguageStyle(event.target.value)
+    }
+
+    const onGenerate = () => {
+        console.log('TESTED')
+        const data = {
+            contentTitle : contentTitle,
+            isCaptionName: isCaptionName,
+            product : product,
+            platform: platform,
+            contentType : contentType,
+            languageStyle: languageStyle,
+        }
+
+        console.log(data)
+    }
+
+
+    const handleCheckBox = (value ,label)=>{
+        if(value === ''){
+            setContentType(arrPop(contentType ,label))
+        }else{
+            contentType.push(value);
+        }
+
     }
 
 
@@ -80,10 +116,10 @@ const  AppModalGenerateAI = (props ) => {
                                     onChange={handleChangeProduct}
                                 />
                             <AppCheckBox
-                                value= 'test'
+                                value= 'true'
                                 label = 'Sertakan nama produk ke caption'
                                 onChange= {(value , label)=>{
-
+                                    value == 'true' ? setIsCaptionName(true) : setIsCaptionName(false)
                                 }}
                             />
                         </Box>
@@ -92,7 +128,7 @@ const  AppModalGenerateAI = (props ) => {
                             <AppDropDown
                                     value={platform}
                                     placeholder={'Pilih Nama Platform'}
-                                    listItem = {listItem}
+                                    listItem = {listDropPlatform}
                                     onChange={handleChangePlatform}
                             />
                         </Box>
@@ -103,24 +139,24 @@ const  AppModalGenerateAI = (props ) => {
                         <label className='text-black font-semibold'>Jenis Konten</label>
                         <Box className ='flex gap-[100px]'>
                             <AppCheckBox
-                            value= 'test'
+                            value= 'caption'
                             label = 'Caption'
                             onChange= {(value , label)=>{
-
+                                handleCheckBox(value,label)
                             }}
                             />
                             <AppCheckBox
-                                value= 'test'
+                                value= 'hashtag'
                                 label = 'Hashtag'
                                 onChange= {(value , label)=>{
-
+                                    handleCheckBox(value,label)
                                 }}
                             />
                             <AppCheckBox
-                                value= 'test'
+                                value= 'gambar'
                                 label = 'Gambar'
                                 onChange= {(value , label)=>{
-
+                                    handleCheckBox(value,label)
                                 }}
                             />
                         </Box>
@@ -131,7 +167,7 @@ const  AppModalGenerateAI = (props ) => {
                     <AppDropDown
                             value={languageStyle}
                             placeholder={'Pilih Gaya Bahasa'}
-                            listItem = {listItem}
+                            listItem = {listDropLanguageStyle}
                             onChange={handleLanguageStyle}
                         />
                 </Box>
@@ -141,7 +177,7 @@ const  AppModalGenerateAI = (props ) => {
                                 text={'Generate'} 
                                 type = {'button'}
                                 fontSize = {'12px'}
-                                onClick = {()=>{}}
+                                onClick = {onGenerate}
                             />
                         </Box>
                 </Box>
