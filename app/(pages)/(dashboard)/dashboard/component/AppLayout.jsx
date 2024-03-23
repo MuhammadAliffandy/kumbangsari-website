@@ -22,8 +22,9 @@ const AppLayout = (props) => {
     return (
             <Box className='w-[100vw] h-[100vh] flex'>
                 <Box className = 'w-[14%] h-[100vh] bg-NEUTRAL-100 flex flex-col items-center gap-[10px] border-r-[1px] border-r-TEXT-4 '>
-                    <Box className='py-[10px]'>
-                        <Typography className='text-black'>Logo + Nama</Typography>
+                    <Box className='py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]'>
+                        <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
+                        <p className='text-black font-poppins text-[24px] font-semibold'>Planify</p>
                     </Box>
 
                     <Box className='w-[100%] h-[100%] flex flex-col gap-[10px] justify-between '>
