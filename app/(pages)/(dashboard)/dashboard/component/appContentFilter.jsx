@@ -5,7 +5,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const AppContentFilter = (props) => {
     return(
-        <Box className=' flex px-[20px] py-[10px] items-center justify-between bg-TEXT-5 rounded-[20px]'>
+        <Box className=' flex px-[20px] py-[10px] items-center justify-between bg-TEXT-5 rounded-[20px] shadow-CUSTOM-2'>
             <Box className= 'flex gap-[10px] items-center '>
                 <img className='w-[40px] h-[40px] rounded-[100%]' src={props.iconImage}/>
                 <Box className='flex flex-col gap-[2px]'>

@@ -1,5 +1,6 @@
 import moment from "moment";
-
+import { format } from 'date-fns';
+import idLocale from 'date-fns/locale/id';
 
 export const formattedDate = (date)=> {
     const formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -25,11 +26,16 @@ export const getCookie = (name)=>  {
     return null;
 }
 
-
 export const convertValueCheckbox = (text) => {
     if(text.search(',') > -1){
         return text.split(',')
     }else{
         return [text]
     }
+}
+
+export const dateIndonesianNow = () => {
+    const now = new Date();
+    const formattedDate = format(now, "EEEE, dd MMMM yyyy", { locale: idLocale });
+    return formattedDate;
 }
