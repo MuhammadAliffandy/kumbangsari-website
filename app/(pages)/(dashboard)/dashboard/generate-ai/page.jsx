@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import AppLayout from "../component/appLayout";
@@ -10,12 +10,72 @@ import AppModalGenerateAI from "./component/appModalGenerateAI";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 
 
 const GenerateAIPage = () => {
 
     const [openModalAI , setOpenModalAI ] = useState(false)
+    const [prev , setPrev ] = useState(true)
+    const [contentAI , setContentAI ] = useState([])
+
+
+    const listContent = [
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+        {
+            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+            hashtag : '#ansd #sdjadl #djaskdk'
+        },
+    ]
+
+
+    const pagination = () => {
+        
+        const filterData = listContent.filter((data, index) => index + 1 < 5);
+        setContentAI(filterData);
+    
+    }
+
+    const paginationMax  = () => {
+        setPrev(!prev)
+        setContentAI(listContent)
+    }
+    const paginationMin  = () => {
+        setPrev(!prev)
+        pagination()
+    }
+
+    useEffect(()=>{
+        pagination()
+    },[])
+
 
     return (
         <AppLayout title='Generate AI'>
@@ -26,7 +86,7 @@ const GenerateAIPage = () => {
                     <Box className='rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4'>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
+                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[10px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
                                 onClick={()=>{setOpenModalAI(!openModalAI)}}
                             >
                                 <FontAwesomeIcon icon={faPlus} color={'black'} ></FontAwesomeIcon>
@@ -34,55 +94,31 @@ const GenerateAIPage = () => {
                             </AppCustomButton>
                         </Box>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                    <AppContent
-                                        // caption = {}
-                                        // hashtag = { }
-                                        onClick={()=>{}}
-                                    />
-                            </Grid>
-                    
+                            {
+                                contentAI.map((data,index) => {
+                                    return ( 
+                                        <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
+                                                <AppContent
+                                                    image={data.image}
+                                                    caption = {data.caption}
+                                                    hashtag = {data.hashtag}
+                                                    onClick={()=>{}}
+                                                />
+                                        </Grid>
+                                    )
+                                })
+                            }
                         </Grid>
+                        <Box className = 'w-[100%] flex items-center justify-center'>
+                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
+                                    onClick={()=>{prev ?  paginationMax() : paginationMin()}}
+                                >
+                                    <p className="text-TEXT-1 font-bold text-[14px]">{prev ? 'Selanjutnya' : 'Sebelumnya'}</p>
+                                    <FontAwesomeIcon icon={prev ? faChevronDown : faChevronUp} color={'black'} ></FontAwesomeIcon>
+                            </AppCustomButton>
+                        </Box>
                     </Box>
+        
                     <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} />
                 </Box>
                 {/* ================== */}
