@@ -50,7 +50,7 @@ const  AppModalGenerateAI = (props ) => {
     }
 
     const onGenerate = () => {
-        console.log('TESTED')
+    
         const data = {
             contentTitle : contentTitle,
             isCaptionName: isCaptionName,

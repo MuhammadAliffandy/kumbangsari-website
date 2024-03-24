@@ -68,7 +68,6 @@ const GenerateAIPage = () => {
                             </Grid>
                             <Grid item xs={6}>
                                     <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
                                         // caption = {}
                                         // hashtag = { }
                                         onClick={()=>{}}
@@ -76,7 +75,6 @@ const GenerateAIPage = () => {
                             </Grid>
                             <Grid item xs={6}>
                                     <AppContent
-                                        image={'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
                                         // caption = {}
                                         // hashtag = { }
                                         onClick={()=>{}}
