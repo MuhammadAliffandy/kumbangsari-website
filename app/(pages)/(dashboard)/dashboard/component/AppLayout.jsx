@@ -15,8 +15,12 @@ const AppLayout = (props) => {
     const { push } = useRouter();
     const [dateNow, setDateNow] = useState('');
 
+    const setDate = () => {
+        setDateNow(dateIndonesianNow())
+    }
+
     useEffect(()=>{
-        setDateNow(dateIndonesianNow)
+        setDate()
     }, [] )
 
     return (

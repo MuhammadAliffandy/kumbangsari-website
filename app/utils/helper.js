@@ -34,8 +34,21 @@ export const convertValueCheckbox = (text) => {
     }
 }
 
-export const dateIndonesianNow = () => {
+
+export const formattedDateNumber = () => {
     const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); 
+    const day = String(now.getDate() + 2).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate
+}
+
+export const dateIndonesianNow = () => {
+
+    const now = new Date()
     const formattedDate = format(now, "EEEE, dd MMMM yyyy", { locale: idLocale });
     return formattedDate;
 }

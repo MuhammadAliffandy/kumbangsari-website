@@ -1,0 +1,54 @@
+'use client'
+
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box'
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
+import AppButton from '@/app/components/appButton/appButton';
+import AppCustomButton from '@/app/components/appButton/appCustomButton';
+
+const AppModalDetailContent = (props) => {
+    return (
+        <Modal 
+            open={props.open}
+            className='flex flex-col justify-center items-center'
+        >
+            <Box className = 'w-[50%] h-[60%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]'>
+                {/* headline */}
+                <Box className = 'flex justify-between'>
+                    <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
+                    <Box className='flex items-center gap-[15px]'>
+                        <AppCustomButton className=' bg-white ' onClick={props.onEditButton}>
+                            <img className='w-[18px] h-[18px] ' src={'/images/icon/filter.png'}/>
+                        </AppCustomButton>
+                        <AppCloseButton
+                            onClick = {()=>{
+                                props.onCloseButton(false)
+                            }}
+                        />
+                    </Box>
+                </Box>
+                {/* content  */}
+                <Box className='flex gap-[20px] w-[100%] h-[100%]'>
+                    <Box className='flex flex-col gap-[20px] justify-center w-[50%]'>
+                        <img className='w-[100%] h-[100%] rounded-[15px]' src={props.image}/>
+                        <AppButton 
+                            text ={'Unggah Sekarang'}
+                            type={'submit'}
+                            onClick={props.onClick}
+                        />
+                    </Box>
+                    <Box className = 'flex flex-col gap-[8px] w-[50%]'> 
+                        { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold'>{props.caption}</p> : null}
+                        {  props.hashtag ? <p className='text-[14px] text-PRIMARY-400'>{props.hashtag}</p> : null }
+                        <Box className = 'flex gap-[10px] items-center'>
+                            <img className='w-[20px] h-[20px] rounded-[100%]' src={'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9'}/>
+                            <p className='text-TEXT-3 text-[13px] font-medium'>{ props.productName || 'Bakso aci mantap'}</p>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        </Modal>
+    )
+}
+
+export default AppModalDetailContent;

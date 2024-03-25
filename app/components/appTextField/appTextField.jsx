@@ -29,6 +29,7 @@ const AppTextField = (props) => {
             error = {props.error}
             helperText={props.helperText}
             onChange={props.onChange}
+            onClick={props.onClick}
 
         />
 }
