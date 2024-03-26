@@ -3,13 +3,17 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
+import Grid from '@mui/material/Grid'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppButton from '@/app/components/appButton/appButton';
+import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import AppTextField from '@/app/components/appTextField/appTextField'
 import AppTextFieldImage from '@/app/components/appTextField/appTextFieldImage'
 import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelection';
+import AppPopupCaption from '../popup/appPopupCaption';
+import AppPopupImage from '../popup/appPopupImage';
 import { listDropPlatform } from '@/app/utils/model';
 import { useState } from 'react';
 
@@ -25,6 +29,24 @@ const AppModalEditContent = (props) => {
     const [timeUp , setTimeUp] = useState('')
     const [UpNow , setUpNow] = useState(false)
 
+    const [openModalCaption , setOpenModalCaption ] = useState(false)
+    const [openModalImage , setOpenModalImage ] = useState(false)
+
+    const listHashtagExample = [
+        '#makanan',
+        '#music',
+        '#baksomantap',
+        '#olahraga',
+        '#minuman',
+        '#yummy',
+        '#surabaya',
+        '#snack',
+        '#minuman',
+        '#yummy',
+        '#surabaya',
+        '#snack',
+    ]
+
     const hashtagOptions = [
         { value: '#apple', label: '#Apple' },
         { value: '#banana', label: '#Banana' },
@@ -32,11 +54,9 @@ const AppModalEditContent = (props) => {
         { value: '#grape', label: '#Grape' },
     ];
 
-
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
-
 
     return(
         <Modal 
@@ -59,6 +79,7 @@ const AppModalEditContent = (props) => {
                 <Box className='flex  gap-[20px] w-[100%] h-[80%]'>
                     {/* form */}
                     <Box className='w-[60%] h-[100%] pr-[10px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        {/* content title */}
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Judul  Konten</label>
                             <AppTextField
@@ -75,6 +96,7 @@ const AppModalEditContent = (props) => {
                         {/*  */}
                         <Box>
                             <Stack direction="row" spacing={2}>   
+                            {/* product */}
                                 <Box className='w-[100%] flex flex-col gap-[10px]'>
                                     <label className='text-black font-semibold'>Produk</label>
                                     <AppTextField
@@ -89,6 +111,7 @@ const AppModalEditContent = (props) => {
                                     />
                                 </Box>
                                 <Box className='w-[100%] flex flex-col gap-[10px]'>
+                                    {/* platform */}
                                     <label className='text-black font-semibold'>Platform</label>
                                     <AppDropDown
                                             value={platform}
@@ -100,12 +123,16 @@ const AppModalEditContent = (props) => {
                             </Stack>
                         </Box>
                         {/*  */}
+                        
+
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Gambar</label>
                             <AppTextFieldImage
                                 onClick={(value)=>{}}
                             />
+                            <AppPopupImage/>
                         </Box>
+
                         {/*  */}
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Caption</label>
@@ -119,13 +146,29 @@ const AppModalEditContent = (props) => {
                                     setCaption(value)
                                 }}
                             />
+
+                            <AppPopupCaption/>
+
+
                         </Box>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Hashtag</label>
                             <AppMultiSelection
                                 defaultValue = {hashtagOptions}
-                                
                             />
+                            <Grid container spacing={1}>
+                            {
+                                listHashtagExample.map((data,index) => {
+                                    return ( 
+                                        <Grid key = {index} item xs={2}>
+                                            <Box className ='px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px]'>
+                                                {data}
+                                            </Box>
+                                        </Grid>
+                                    )
+                                })
+                            }
+                            </Grid>
                         </Box>
                         {/*  */}
                         <Box>

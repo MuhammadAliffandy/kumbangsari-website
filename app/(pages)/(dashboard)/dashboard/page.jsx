@@ -10,6 +10,9 @@ const DashboardPage = () => {
 
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalEdit , setOpenModalEdit ] = useState(false)
+    const [openModalCaption , setOpenModalCaption ] = useState(false)
+    const [openModalImage , setOpenModalImage ] = useState(false)
+    const [isPopoverOpen, setIsPopoverOpen ] = useState(false)
 
     return (
         <AppLayout title='Dashboard'>
@@ -20,17 +23,16 @@ const DashboardPage = () => {
             
                 text={'test modal detail'}
                 onClick = {()=>{
-                    setOpenModalDetail(!openModalDetail)
+                    setOpenModalImage(!openModalImage)
                 }}
             />
             <AppButton
             
-                text={'test modal edit'}
+                text={'test modal caption'}
                 onClick = {()=>{
-                    setOpenModalEdit(!openModalEdit)
+                    setOpenModalCaption(!openModalCaption)
                 }}
             />
-
 
             <AppModalEditContent
                 open={openModalEdit}

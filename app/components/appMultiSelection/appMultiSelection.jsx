@@ -30,36 +30,36 @@ const  AppMultiSelection = (props) =>  {
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
-          border: '2px solid #4062BB',
+          border: '2px solid black',
           '&:hover': {
-            borderColor: '#4062BB', 
+            borderColor: 'black', 
           },
           borderRadius: '20px' ,
           backgroundColor: 'transparent',
           padding: '10px',
-          color:'#4062BB'
+          color:'black'
 
         }),
         multiValue: (styles, ) => {
           return {
             ...styles,
             backgroundColor: 'transparent',
-            border: "2px solid #4062BB",
+            border: "2px solid black",
             padding : '4px 8px',
             borderRadius: '15px'
           };
         },
         multiValueLabel: (styles, ) => ({
           ...styles,
-          color: '#4062BB',
+          color: 'black',
         }),
         multiValueRemove: (styles, ) => ({
           ...styles,
-          color: '#4062BB',
+          color: 'black',
           ':hover': {
             backgroundColor: 'rgba(220,220,220,0.20)',
             borderRadius : '10px',
-            color: '#4062BB',
+            color: 'black',
           },
         }),
       }}
