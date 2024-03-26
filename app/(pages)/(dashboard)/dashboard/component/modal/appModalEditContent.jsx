@@ -9,6 +9,7 @@ import AppTextField from '@/app/components/appTextField/appTextField'
 import AppTextFieldImage from '@/app/components/appTextField/appTextFieldImage'
 import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
+import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelection';
 import { listDropPlatform } from '@/app/utils/model';
 import { useState } from 'react';
 
@@ -23,6 +24,14 @@ const AppModalEditContent = (props) => {
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
     const [UpNow , setUpNow] = useState(false)
+
+    const hashtagOptions = [
+        { value: '#apple', label: '#Apple' },
+        { value: '#banana', label: '#Banana' },
+        { value: '#orange', label: '#Orange' },
+        { value: '#grape', label: '#Grape' },
+    ];
+
 
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
@@ -49,7 +58,7 @@ const AppModalEditContent = (props) => {
                 {/* content  */}
                 <Box className='flex  gap-[20px] w-[100%] h-[80%]'>
                     {/* form */}
-                    <Box className='w-[60%] h-[100%] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='w-[60%] h-[100%] pr-[10px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Judul  Konten</label>
                             <AppTextField
@@ -113,24 +122,9 @@ const AppModalEditContent = (props) => {
                         </Box>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Hashtag</label>
-                            <AppTextField
-                                id="hashtag"
-                                value = {hashtag}
-                                type='text'
-                                placeholder='Masukkkan nama Hashtag di sini'
-                                InputProps={
-                                    {
-                                        style: {
-                                            color : '#7591D2',
-                                            borderRadius: "15px",
-                                            backgroundColor: '#F7F9F9'
-                                        },
-                                    }
-                                }
-                                onChange={(event)=>{
-                                    const value = event.target.value
-                                    setHashtag(value)
-                                }}
+                            <AppMultiSelection
+                                defaultValue = {hashtagOptions}
+                                
                             />
                         </Box>
                         {/*  */}
@@ -156,8 +150,7 @@ const AppModalEditContent = (props) => {
                                         }}
                                     />
                                 </Box>
-                                <Box className='w-[100%] flex flex-col gap-[10px]'>
-                                    <label className='text-black font-semibold'></label>
+                                <Box className='w-[100%] flex flex-col gap-[10px] justify-center'>
                                     <AppTextField
                                         id="time"
                                         value = { timeUp }
@@ -175,7 +168,7 @@ const AppModalEditContent = (props) => {
                     </Box >
                     <Box style={{ width : '2px' , height:'90%' }} className='bg-black bg-opacity-[10%]'></Box>
                     {/* preview */}
-                    <Box className = 'w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className = 'w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>

@@ -30,6 +30,8 @@ const DashboardPage = () => {
                     setOpenModalEdit(!openModalEdit)
                 }}
             />
+
+
             <AppModalEditContent
                 open={openModalEdit}
                 onCloseButton = {(value)=> {setOpenModalEdit(value)}}
