@@ -28,7 +28,7 @@ const  AppCheckBox = (props) => {
             <input
                 value = {props.value || ''}
                 type="checkbox"
-                className="h-5 w-5 text-blue-500 focus:ring-blue-400 border-gray-300 rounded-[20px]"
+                className="h-5 w-5 text-blue-500 focus:ring-blue-400 border-gray-300 rounded-[50%]"
                 checked={checked}
                 onChange={(event)=>{
                     handleChange(event)

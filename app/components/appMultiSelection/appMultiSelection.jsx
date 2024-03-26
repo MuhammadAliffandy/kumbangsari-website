@@ -57,8 +57,9 @@ const  AppMultiSelection = (props) =>  {
           ...styles,
           color: '#4062BB',
           ':hover': {
-            backgroundColor: 'red',
-            color: 'white',
+            backgroundColor: 'rgba(220,220,220,0.20)',
+            borderRadius : '10px',
+            color: '#4062BB',
           },
         }),
       }}

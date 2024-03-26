@@ -8,6 +8,8 @@ import AppContent from '@/app/components/appContent/appContent'
 import AppContentFilter from "../component/appContentFilter"
 import AppModalGenerateAI from "./component/appModalGenerateAI";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
+import AppModalDetailContent from '../component/modal/appModalDetailContent';
+import AppModalEditContent from '../component/modal/appModalEditContent';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +20,8 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 const GenerateAIPage = () => {
 
     const [openModalAI , setOpenModalAI ] = useState(false)
+    const [openModalDetail , setOpenModalDetail ] = useState(false)
+    const [openModalEdit , setOpenModalEdit ] = useState(false)
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
 
@@ -102,7 +106,9 @@ const GenerateAIPage = () => {
                                                     image={data.image}
                                                     caption = {data.caption}
                                                     hashtag = {data.hashtag}
-                                                    onClick={()=>{}}
+                                                    onClick={()=>{
+                                                        setOpenModalDetail(!openModalDetail)
+                                                    }}
                                                 />
                                         </Grid>
                                     )
@@ -170,6 +176,22 @@ const GenerateAIPage = () => {
                     </Box>
                 </Box>
             </Box>
+            <AppModalEditContent
+                open={openModalEdit}
+                onCloseButton = {(value)=> {setOpenModalEdit(value)}}
+            />
+            <AppModalDetailContent
+                open= {openModalDetail}
+                image = {'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
+                // caption = {'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'}
+                // hashtag = {'#bakso #wedhus #gatau'}
+                onClick = {()=> {}}
+                onEditButton = {()=> {
+                    setOpenModalDetail(false)
+                    setOpenModalEdit(true)
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+            />
         </AppLayout>
     ) 
 }

@@ -35,7 +35,7 @@ const AppTextFieldImage = (props) =>  {
                             borderRadius: "15px",
                             backgroundColor: '#F7F9F9'
                         },
-                        endAdornment: <InputAdornment className='cursor-pointer'position="end"><img className='w-[18px] h-[18px] ' src={'/images/icon/filter.png'}/> </InputAdornment>
+                        endAdornment: <InputAdornment className='cursor-pointer'position="end"><img className='w-[18px] h-[18px] ' src={'/images/icon/gallery-edit.png'}/> </InputAdornment>
                     }
                 }
                 onClick={()=>{
