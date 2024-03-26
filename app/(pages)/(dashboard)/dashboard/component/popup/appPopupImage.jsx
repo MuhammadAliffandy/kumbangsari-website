@@ -35,7 +35,6 @@ const AppPopupImage = (props) => {
                         </Grid>
                     </Box>
                 </Box>
-                
             }>
             <div className='relative'>
                 <AppCustomButton

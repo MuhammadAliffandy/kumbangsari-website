@@ -15,7 +15,18 @@ import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelect
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
 import { listDropPlatform } from '@/app/utils/model';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+const contentDummy = 
+    {
+        contentTitle: 'Bakso aci Mantap',
+        productName: 'Bakso aci',
+        image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
+        caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        hashtag : '#lorem #ipsum #simply'
+    }
+
+
 
 const AppModalEditContent = (props) => {
 
@@ -47,6 +58,7 @@ const AppModalEditContent = (props) => {
         '#snack',
     ]
 
+
     const hashtagOptions = [
         { value: '#apple', label: '#Apple' },
         { value: '#banana', label: '#Banana' },
@@ -57,6 +69,17 @@ const AppModalEditContent = (props) => {
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
+
+    const getContentUser = () => {
+        setContentTitle(contentDummy.contentTitle)
+        setProduct(contentDummy.productName)
+        setProductImage(contentDummy.image)
+        setCaption(contentDummy.caption)
+    }
+
+    useEffect(()=>{
+        getContentUser()
+    },[])
 
     return(
         <Modal 
@@ -215,9 +238,9 @@ const AppModalEditContent = (props) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>
-                        <img className='w-[70%] h-[50%] rounded-[15px]' src='https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'/>
+                        <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/>
                         <Box className = 'flex flex-col gap-[8px] p-[10px] rounded-[15px] border-[1px] border-TEXT-1 '>
-                            <p className='text-[14px] text-TEXT-1 font-semibold'>{props.caption || 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'}</p>
+                            <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-words whitespace-normal'>{ caption }</p>
                             <p className='text-[14px] text-PRIMARY-400'>{props.hashtag ?? '#bakso #wedhus #gatau'}</p>
                         </Box>
                     </Box>

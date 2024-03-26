@@ -3,7 +3,6 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import AppTextField from '@/app/components/appTextField/appTextField'
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppDropDown from '@/app/components/appDropDown/appDropDown'
@@ -20,22 +19,15 @@ const  AppModalGenerateAI = (props ) => {
     const [platform , setPlatform] = useState('')
     const [languageStyle , setLanguageStyle] = useState('')
     const [isCaptionName , setIsCaptionName] = useState(false)
-    const [contentType , setContentType] = useState([])
+    const [image , setImage] = useState(false)
+    const [hashtag , setHashtag] = useState(false)
+    const [caption , setCaption] = useState(false)
 
     const listItem = [
         {value : 1 , text : 'Satu'},
         {value : 2 , text : 'Dua'},
         {value : 3 , text : 'Tiga'},
     ]
-    
-    const arrPop = (array, valueToDelete) => {
-        let index = array.indexOf(valueToDelete.toLowerCase());
-        if (index !== -1) {
-            array.splice(index, 1);
-        }
-        return array
-    }
-    
 
     const handleChangeProduct = (event) => {
         setProduct(event.target.value)
@@ -56,23 +48,14 @@ const  AppModalGenerateAI = (props ) => {
             isCaptionName: isCaptionName,
             product : product,
             platform: platform,
-            contentType : contentType,
+            image: image,
+            caption : caption ,
+            hashtag: hashtag,
             languageStyle: languageStyle,
         }
 
         console.log(data)
     }
-
-
-    const handleCheckBox = (value ,label)=>{
-        if(value === ''){
-            setContentType(arrPop(contentType ,label))
-        }else{
-            contentType.push(value);
-        }
-
-    }
-
 
     return(
         <Modal 
@@ -139,24 +122,24 @@ const  AppModalGenerateAI = (props ) => {
                         <label className='text-black font-semibold'>Jenis Konten</label>
                         <Box className ='flex gap-[100px]'>
                             <AppCheckBox
-                            value= 'caption'
-                            label = 'Caption'
-                            onChange= {(value , label)=>{
-                                handleCheckBox(value,label)
-                            }}
+                                value= 'caption'
+                                label = 'Caption'
+                                onChange= {(value , label)=>{
+                                    value == '' ? setCaption(false)  : setCaption(true)
+                                }}
                             />
                             <AppCheckBox
                                 value= 'hashtag'
                                 label = 'Hashtag'
                                 onChange= {(value , label)=>{
-                                    handleCheckBox(value,label)
+                                    value == '' ? setHashtag(false)  : setHashtag(true)
                                 }}
                             />
                             <AppCheckBox
                                 value= 'gambar'
                                 label = 'Gambar'
                                 onChange= {(value , label)=>{
-                                    handleCheckBox(value,label)
+                                    value == '' ? setImage(false)  : setImage(true)
                                 }}
                             />
                         </Box>

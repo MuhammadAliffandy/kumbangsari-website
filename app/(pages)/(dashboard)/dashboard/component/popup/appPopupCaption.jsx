@@ -34,10 +34,9 @@ const AppPopupCaption = (props) => {
                 </Box>
                 
             }>
-            {/* Content yang akan ditempatkan dalam popover */}
             <div className='relative'>
                 <AppCustomButton
-                    className='flex items-center gap-[5px]'
+                    className='flex items-center gap-[5px]'s
                     onMouseEnter={() => setOpen(true)}
                 >
                         <img className='w-[14px] h-[14px]' src='/images/icon/sparkling.png' alt="Sparkling icon" />
