@@ -23,6 +23,10 @@ export const listDropPlatform = [
 ];
 
 export const listDropLanguageStyle = [
-    {value : 'unik' , text : 'Unik'},
-    {value : 'santay' , text : 'Santay'},
+    {value : 'menyenangkan' , text : 'Menyenangkan'},
+    {value : 'lucu' , text : 'Lucu'},
+    {value : 'formal' , text : 'Formal'},
+    {value : 'informatif' , text : 'Informatif'},
+    {value : 'kasual' , text : 'Kasual'},
+    {value : 'persuasif' , text : 'Persuasif'},
 ];

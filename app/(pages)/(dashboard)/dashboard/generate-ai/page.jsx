@@ -144,6 +144,7 @@ const GenerateAIPage = () => {
                             contentTypes = {'Gambar, caption, hasgtag'}
                             iconImage = {'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9'}
                             onClick= {()=>{}}
+                            onDeleteButton={()=>{}}
                         />
                         <AppContentFilter
                             title = {'Khasiat Bakso Aci'}
@@ -151,6 +152,7 @@ const GenerateAIPage = () => {
                             contentTypes = {'Gambar, caption, hasgtag'}
                             iconImage = {'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM'}
                             onClick= {()=>{}}
+                            onDeleteButton={()=>{}}
                         />
                         <AppContentFilter
                             title = {'Khasiat Bakso Aci'}
@@ -158,20 +160,8 @@ const GenerateAIPage = () => {
                             contentTypes = {'Gambar, caption, hasgtag'}
                             iconImage = {'https://store-images.s-microsoft.com/image/apps.60673.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.5d82b7eb-9734-4b51-b65d-a0383348ab1b?h=464'}
                             onClick= {()=>{}}
-                        />
-                        <AppContentFilter
-                            title = {'Khasiat Bakso Aci'}
-                            subtitle = {'Bakso Aci Mantap'}
-                            contentTypes = {'Gambar, caption, hasgtag'}
-                            iconImage = {'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9'}
-                            onClick= {()=>{}}
-                        />
-                        <AppContentFilter
-                            title = {'Khasiat Bakso Aci'}
-                            subtitle = {'Bakso Aci Mantap'}
-                            contentTypes = {'Gambar, caption, hasgtag'}
-                            iconImage = {'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM'}
-                            onClick= {()=>{}}
+                            onDeleteButton={()=>{}}
+
                         />
                     </Box>
                 </Box>
