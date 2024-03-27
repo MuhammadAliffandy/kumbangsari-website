@@ -51,7 +51,7 @@ const contentDummy =
 const AppModalEditContent = (props) => {
 
     const [contentTitle , setContentTitle] = useState('')
-    const [productImage , setProductImage] = useState('')
+    const [productImage , setProductImage] = useState(null)
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [caption , setCaption] = useState('')
@@ -61,38 +61,50 @@ const AppModalEditContent = (props) => {
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
     const [UpNow , setUpNow] = useState(false)
-    const [openModalCaption , setOpenModalCaption ] = useState(false)
-    const [openModalImage , setOpenModalImage ] = useState(false)
-
-;
 
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
+    }
+
+    const handleChangeImage = (value) => {
+        if (value) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setProductImage(reader.result);
+            };
+            reader.readAsDataURL(value);
+        }
+    }
+
+    const convertHashtagString = (item) => {
+        const arr = [];
+
+        if(item != null ){
+            item.map(data => arr.push(data.value))
+            setHashtagString(arr.join(' ')) 
+        }
     }
 
     const getContentUser = () => {
         setContentTitle(contentDummy.contentTitle)
         setProduct(contentDummy.productName)
         setProductImage(contentDummy.image)
+        setPlatform('fb')
         setCaption(contentDummy.caption)
         setHashtag(hashtagOptions)
+        localStorage.setItem('hashtag',JSON.stringify(hashtagOptions))
         setHashtagAI(listHashtagExample)
+        convertHashtagString(hashtagOptions)
+    }
 
+
+    const handleEditContent = () => {
+        
     }
 
     useEffect(()=>{
         getContentUser()
-        convertHashtagString()
     },[])
-
-    const convertHashtagString = (hashtag) => {
-        const arr = [];
-
-        if(hashtag != null ){
-            hashtag.map(data => arr.push(data.value))
-            setHashtagString(arr.join(' ')) 
-        }
-    }
 
     return(
         <Modal 
@@ -159,14 +171,11 @@ const AppModalEditContent = (props) => {
                             </Stack>
                         </Box>
                         {/*  */}
-                        
 
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Gambar</label>
                             <AppTextFieldImage
-                                onClick={(value)=>{
-                                    console.log(value)
-                                }}
+                                onClick={handleChangeImage}
                             />
                             <AppPopupImage/>
                         </Box>
@@ -195,7 +204,11 @@ const AppModalEditContent = (props) => {
                                 options = { options }
                                 onChange = {(value)=>{
                                     setHashtag(value)
+                                    localStorage.setItem('hashtag',JSON.stringify(value))
                                     convertHashtagString(value)
+
+                                    const filteredHashtagAI = listHashtagExample.filter(item => !value.includes(item));
+                                    setHashtagAI(filteredHashtagAI)
                                 }}
                             />
                             <Grid container spacing={1}>
@@ -210,9 +223,10 @@ const AppModalEditContent = (props) => {
                                                 })
                                                 setHashtagAI(popData)
 
-                                                const filteredDataArr = options.filter(value => !popData.includes(value));
-                                                convertHashtagString(filteredDataArr)
-                
+                                                const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))              
+                                                const filteredDataArr = listHashtagExample.filter(value => !popData.includes(value));
+                                                const matchHashtag = [...hashtagKeep,...filteredDataArr]
+                                                convertHashtagString(matchHashtag)
                                                 
                                             }}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px]'>
                                                 {data.value}
@@ -235,7 +249,7 @@ const AppModalEditContent = (props) => {
                                         placeholder='Pilih Tanggal Unggah'
                                         onChange={(event)=>{
                                             const value = event.target.value
-                                        
+                                            setDateUp(value)
                                         }}
                                     />
                                     <AppCheckBox
@@ -252,10 +266,9 @@ const AppModalEditContent = (props) => {
                                         value = { timeUp }
                                         type='time'
                                         placeholder='Pilih Jam Unggah'
-                                
                                         onChange={(event)=>{
                                             const value = event.target.value
-                                            
+                                            setTimeUp(value)
                                         }}
                                     />
                                 </Box>
@@ -283,7 +296,9 @@ const AppModalEditContent = (props) => {
                                 className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Keluar'} 
                                 type = {'button'}
-                                onClick={()=>{}}
+                                onClick={()=>{
+                                    props.onCloseButton(false)
+                                }}
                             />
                         </Box>
                         <Box className='w-[15%]'>
@@ -291,7 +306,9 @@ const AppModalEditContent = (props) => {
                                 className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Simpan'} 
                                 type = {'button'}
-                                onClick={()=>{}}
+                                onClick={()=>{
+                                    
+                                }}
                             />
                         </Box>
                     </Box>
