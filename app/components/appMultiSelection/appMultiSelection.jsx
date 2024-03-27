@@ -21,11 +21,12 @@ const  AppMultiSelection = (props) =>  {
     <Select
       components={customComponents}
       closeMenuOnSelect={false}
-      defaultValue={ props.defaultValue || [colourOptions[0], colourOptions[1]]}
+      value={ props.value}
       isMulti
       isSearchable={false}
       options={ props.options || colourOptions}
       menuIsOpen={false}
+      onChange={(value) => { props.onChange(value) }}
       classNamePrefix={'border-[1px]'}
       styles={{
         control: (baseStyles, state) => ({

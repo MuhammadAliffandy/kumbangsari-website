@@ -8,7 +8,7 @@ const AppTextFieldImage = (props) =>  {
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-        console.log('File yang dipilih:', file);
+        props.onClick(event.target.files[0]) 
     };
 
     const handleButtonClick = () => {
@@ -22,11 +22,13 @@ const AppTextFieldImage = (props) =>  {
                 ref={inputFileRef}
                 accept=".jpg, .jpeg, .png"
                 style={{ display: 'none' }}
-                onChange={handleFileChange}
+                onChange={
+                    handleFileChange
+                }
             />
             <AppTextField
                 id="image"
-                value = { file ?  file.name : null}
+                value = { file ?  file.name : ''}
                 type='text'
                 placeholder='Masukkkan gambar Product konten di sini'
                 InputProps={
@@ -40,7 +42,6 @@ const AppTextFieldImage = (props) =>  {
                 }
                 onClick={()=>{
                     handleButtonClick()
-                    props.onClick(file) 
                 }}
             />
         </div>

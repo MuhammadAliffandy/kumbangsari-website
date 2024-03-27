@@ -5,6 +5,7 @@ import AppLayout from "./component/appLayout";
 import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalEditContent from './component/modal/appModalEditContent';
 import { useState } from "react";
+import MySelect from "../../../components/appMultiSelection/appExample";
 
 const DashboardPage = () => {
 
@@ -33,6 +34,10 @@ const DashboardPage = () => {
                     setOpenModalCaption(!openModalCaption)
                 }}
             />
+
+
+
+            <MySelect/>
 
             <AppModalEditContent
                 open={openModalEdit}
