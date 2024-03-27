@@ -1,11 +1,10 @@
-import { BASE_URL } from "@/app/utils/constants";
+import { BASE_URL } from "@/app/utils/constant";
 import axios from "axios";
 
 export const PROVIDER_GET = async (pathUrl, token) => {
     const headers = {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${token || ''}`,
-        // 'ADS-Key':ADS_KEY
     }
 
     try {
@@ -14,7 +13,7 @@ export const PROVIDER_GET = async (pathUrl, token) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response.data;
+                return response;
             case 403:
                 throw new Error("forbidden");
             default:
@@ -25,11 +24,10 @@ export const PROVIDER_GET = async (pathUrl, token) => {
     }
 }
 
-export const PROVIDER_POST = async (pathUrl, data , token ) => {
+export const PROVIDER_POST = async (pathUrl, data , token) => {
     const headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': typeof data == 'object' ? 'application/json' : 'multipart/form-data',
         "Authorization": `Bearer ${token || ''}`,
-        // 'ADS-Key':ADS_KEY
     }
 
     try {
@@ -38,7 +36,7 @@ export const PROVIDER_POST = async (pathUrl, data , token ) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response.data;
+                return response;
             default:
                 throw new Error("error");
         }
@@ -48,11 +46,11 @@ export const PROVIDER_POST = async (pathUrl, data , token ) => {
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
-                        throw errorResponse.data;
+                        throw errorResponse;
                     case 403:
                         throw new Error("forbidden");
                     case 404:
-                        throw errorResponse.data;
+                        throw errorResponse;
                     default:
                         throw new Error("error");
                 }
@@ -62,19 +60,27 @@ export const PROVIDER_POST = async (pathUrl, data , token ) => {
     }
 }
 
-export const PROVIDER_DELETE = async (pathUrl) => {
+export const PROVIDER_DELETE = async (pathUrl , data , token ) => {
     const headers = {
-        'Content-Type': 'application/json',
-        // 'ADS-Key':ADS_KEY
+        'Content-Type': 'application/json' ,
+        "Authorization": `Bearer ${token || ''}`,
     }
 
     try {
-        const response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
+        
+        let response;
+        
+        if(data){
+            response = await axios.delete(`${BASE_URL}/${pathUrl}`, data, { headers });
+        }else{
+            response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
+        }
+
 
         switch (response.status) {
             case 200:
             case 201:
-                return response.data;
+                return response;
             default:
                 throw new Error("error");
         }
@@ -84,11 +90,11 @@ export const PROVIDER_DELETE = async (pathUrl) => {
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
-                        throw errorResponse.data;
+                        throw errorResponse;
                     case 403:
                         throw new Error("forbidden");
                     case 404:
-                        throw errorResponse.data;
+                        throw errorResponse;
                     default:
                         throw new Error("error");
                 }
@@ -98,10 +104,10 @@ export const PROVIDER_DELETE = async (pathUrl) => {
     }
 }
 
-export const PROVIDER_PUT = async (pathUrl, data) => {
+export const PROVIDER_PUT = async (pathUrl, data , token) => {
     const headers = {
-        'Content-Type': 'application/json',
-        // 'ADS-Key':ADS_KEY
+        'Content-Type': typeof data == 'object' ? 'application/json' : 'multipart/form-data',
+        "Authorization": `Bearer ${token || ''}`,
     }
 
     try {
@@ -110,7 +116,7 @@ export const PROVIDER_PUT = async (pathUrl, data) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response.data;
+                return response;
             default:
                 throw new Error("error");
         }
@@ -120,11 +126,47 @@ export const PROVIDER_PUT = async (pathUrl, data) => {
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
-                        throw errorResponse.data;
+                        throw errorResponse;
                     case 403:
                         throw new Error("forbidden");
                     case 404:
-                        throw errorResponse.data;
+                        throw errorResponse;
+                    default:
+                        throw new Error("error");
+                }
+            }
+        }
+        throw err;
+    }
+}
+
+export const PROVIDER_PATCH = async (pathUrl, data , token) => {
+    const headers = {
+        'Content-Type': typeof data == 'object' ? 'application/json' : 'multipart/form-data',
+        "Authorization": `Bearer ${token || ''}`,
+    }
+
+    try {
+        const response = await axios.patch(`${BASE_URL}/${pathUrl}`, data, { headers });
+
+        switch (response.status) {
+            case 200:
+            case 201:
+                return response;
+            default:
+                throw new Error("error");
+        }
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const errorResponse = err.response;
+            if (errorResponse) {
+                switch (errorResponse.status) {
+                    case 401:
+                        throw errorResponse;
+                    case 403:
+                        throw new Error("forbidden");
+                    case 404:
+                        throw errorResponse;
                     default:
                         throw new Error("error");
                 }

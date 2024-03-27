@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react';
 import { useSelector} from 'react-redux';
 import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import { convertValueCheckbox } from '@/app/utils/helper';
-import { addProduct } from '@/app/api/repository/inputProductRepository';
+import { addProduct } from '@/app/api/repository/productRepository';
 
 const AddProductPage = () => {
 
