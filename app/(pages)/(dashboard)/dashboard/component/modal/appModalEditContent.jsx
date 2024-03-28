@@ -69,6 +69,15 @@ const AppModalEditContent = (props) => {
         }
     }
 
+    const convertHashtagStringToJson = (item) => {
+        const arr = item.split(' ')
+
+        const hashtagValue = arr.map(data => {
+            return  { value: data, label: data }
+        })
+
+        return hashtagValue;
+    }
     const convertHashtagString = (item) => {
         const arr = [];
 
@@ -85,10 +94,10 @@ const AppModalEditContent = (props) => {
         setProductImage(contentAI.image)
         setPlatform(contentAI.platform)
         setCaption(contentAI.caption)
-        setHashtag(hashtagOptions)
-        localStorage.setItem('hashtag',JSON.stringify(hashtagOptions))
+        setHashtag(convertHashtagStringToJson(contentAI.hashtag))
+        localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
         setHashtagAI(listHashtagExample)
-        convertHashtagString(hashtagOptions)
+        convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
     }
 
 
