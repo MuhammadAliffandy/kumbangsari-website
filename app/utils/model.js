@@ -17,9 +17,9 @@ export const listDropCategory = [
 ];
 
 export const listDropPlatform = [
-    {value : 'fb' , text : 'Facebook'},
+    {value : 'facebook' , text : 'Facebook'},
     {value : 'twitter' , text : 'Twitter'},
-    {value : 'ig' , text : 'Instagram'},
+    {value : 'instagram' , text : 'Instagram'},
 ];
 
 export const listDropLanguageStyle = [

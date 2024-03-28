@@ -32,10 +32,10 @@ const SignInPage = () => {
         try {
             setLoadingProgress(50)
             const res = await loginAuth(data)
+            
             dispatch(setToken(res.data.token))
 
             const currentUser = await getCurrentUser(); 
-
             if(currentUser.status == 'OK'){
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
@@ -46,6 +46,7 @@ const SignInPage = () => {
 
             setLoadingProgress(100)
         } catch (error) {
+            setLoadingProgress(100)
             toast.error('Email atau Kata Sandi Salah')
         }
     };

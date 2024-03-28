@@ -14,16 +14,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from "react-redux";
 
 
 
 const GenerateAIPage = () => {
 
+    const generateListContent = useSelector(state => state.generateAI.value)
     const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalEdit , setOpenModalEdit ] = useState(false)
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
+    const [contentDetail , setContentDetail ] = useState()
 
 
     const listContent = [
@@ -59,12 +62,19 @@ const GenerateAIPage = () => {
         },
     ]
 
-
     const pagination = () => {
         
-        const filterData = listContent.filter((data, index) => index + 1 < 5);
-        setContentAI(filterData);
-    
+        // console.log(listContent)
+        // console.log(generateListContent)
+
+        // if(generateListContent){
+        //     const filterData = generateListContent.filter((data, index) => index + 1 < 5);
+        //     setContentAI(filterData);
+        // }else{
+        //     setContentAI(listContent);
+            
+        // }
+        setContentAI(generateListContent);
     }
 
     const paginationMax  = () => {
@@ -99,6 +109,8 @@ const GenerateAIPage = () => {
                         </Box>
                         <Grid container spacing={2}>
                             {
+                                contentAI != null ?
+
                                 contentAI.map((data,index) => {
                                     return ( 
                                         <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
@@ -108,11 +120,12 @@ const GenerateAIPage = () => {
                                                     hashtag = {data.hashtag}
                                                     onClick={()=>{
                                                         setOpenModalDetail(!openModalDetail)
+                                                        setContentDetail(data)
                                                     }}
                                                 />
                                         </Grid>
                                     )
-                                })
+                                }) : <p>data belum ada</p>
                             }
                         </Grid>
                         <Box className = 'w-[100%] flex items-center justify-center'>
@@ -172,9 +185,9 @@ const GenerateAIPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetail}
-                image = {'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg'}
-                caption = {'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'}
-                hashtag = {'#bakso #wedhus #gatau'}
+                image = {  contentDetail ? contentDetail.image : ''}
+                caption = {  contentDetail ? contentDetail.caption : ''}
+                hashtag = {  contentDetail ? contentDetail.hashtag : ""}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)

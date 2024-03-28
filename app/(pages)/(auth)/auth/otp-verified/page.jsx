@@ -59,6 +59,7 @@ const ForgotPasswordPage = ()  => {
                 notify()
             }
         } catch (error) {
+            setLoadingProgress(100)
             toast.error('Ada Kesalahan Server');
         }
     };

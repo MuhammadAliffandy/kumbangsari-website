@@ -9,13 +9,20 @@ import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { listDropLanguageStyle, listDropPlatform } from '../../../../../utils/model';
+import { generateAI } from '../../../../../api/repository/contentRepository';
+import { getProductByUser } from '../../../../../api/repository/productRepository';
+import { useDispatch } from 'react-redux';
+import { setGenerateAIList } from '@/app/redux/slices/generateAISlice';
 
 const  AppModalGenerateAI = (props ) => {
 
+    const dispatch = useDispatch()
+
     const [contentTitle , setContentTitle] = useState('')
     const [product , setProduct] = useState('')
+    const [productList , setProductList] = useState([])
     const [platform , setPlatform] = useState('')
     const [languageStyle , setLanguageStyle] = useState('')
     const [isCaptionName , setIsCaptionName] = useState(false)
@@ -23,11 +30,6 @@ const  AppModalGenerateAI = (props ) => {
     const [hashtag , setHashtag] = useState(false)
     const [caption , setCaption] = useState(false)
 
-    const listItem = [
-        {value : 1 , text : 'Satu'},
-        {value : 2 , text : 'Dua'},
-        {value : 3 , text : 'Tiga'},
-    ]
 
     const handleChangeProduct = (event) => {
         setProduct(event.target.value)
@@ -41,21 +43,67 @@ const  AppModalGenerateAI = (props ) => {
         setLanguageStyle(event.target.value)
     }
 
-    const onGenerate = () => {
+
+    const getUserProduct = async () => {
+        const res = await getProductByUser();
+        if(res.status = 'OK'){
+        
+            const productList = res.data.map(item => {
+                return {value: item.idProduct , text : item.nameProduct}
+            })
+
+            setProductList(productList)
+        }
+    }
+
+    const mappingGenerateAIValue = (data) => {
+
+        const generateValue = { 
+            caption : data.caption ,
+            hashtag : data.hashtag,
+            image : data.imageUrl, 
+        }
+
+        const mappingArray = generateValue.caption.map((data,index)=>{
+
+            return { 
+                image : generateValue.image[index], 
+                caption : generateValue.caption[index].content ,
+                hashtag : generateValue.hashtag[index].content,
+                productName : productList[data.idProduct - 1],
+                platform : data.platform
+
+            }
+        }) 
+
+        dispatch(setGenerateAIList(mappingArray))
+        return mappingArray;
+    }
+
+    const onGenerate = async () => {
     
         const data = {
             contentTitle : contentTitle,
-            isCaptionName: isCaptionName,
-            product : product,
+            idProduct : product,
+            nameProduct:isCaptionName,
             platform: platform,
+            style: languageStyle,
             image: image,
             caption : caption ,
             hashtag: hashtag,
-            languageStyle: languageStyle,
         }
 
-        console.log(data)
+        const res = await generateAI(data);
+
+        if(res.status = 'OK'){
+            const mapping = mappingGenerateAIValue(res.data);
+            window.location.reload();
+        }
     }
+
+    useEffect(()=>{
+        getUserProduct()
+    },[])
 
     return(
         <Modal 
@@ -95,7 +143,7 @@ const  AppModalGenerateAI = (props ) => {
                             <AppDropDown
                                     value={product}
                                     placeholder={'Pilih Nama Produk'}
-                                    listItem = {listItem}
+                                    listItem = {productList}
                                     onChange={handleChangeProduct}
                                 />
                             <AppCheckBox

@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/app/utils/constant";
+import { BASE_URL } from "@/app/utils/constants";
 import axios from "axios";
 
 export const PROVIDER_GET = async (pathUrl, token) => {
@@ -13,7 +13,7 @@ export const PROVIDER_GET = async (pathUrl, token) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response;
+                return response.data;
             case 403:
                 throw new Error("forbidden");
             default:
@@ -36,13 +36,13 @@ export const PROVIDER_POST = async (pathUrl, data , token) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response;
+                return response.data;
             default:
                 throw new Error("error");
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response;
+            const errorResponse = err.response.data;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
@@ -80,13 +80,13 @@ export const PROVIDER_DELETE = async (pathUrl , data , token ) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response;
+                return response.data;
             default:
                 throw new Error("error");
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response;
+            const errorResponse = err.response.data;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
@@ -116,13 +116,13 @@ export const PROVIDER_PUT = async (pathUrl, data , token) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response;
+                return response.data;
             default:
                 throw new Error("error");
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response;
+            const errorResponse = err.response.data;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
@@ -152,13 +152,13 @@ export const PROVIDER_PATCH = async (pathUrl, data , token) => {
         switch (response.status) {
             case 200:
             case 201:
-                return response;
+                return response.data;
             default:
                 throw new Error("error");
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response;
+            const errorResponse = err.response.data;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:

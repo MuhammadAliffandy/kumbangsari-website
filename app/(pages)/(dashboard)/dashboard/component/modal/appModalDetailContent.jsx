@@ -12,7 +12,7 @@ const AppModalDetailContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = {`${props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[50%]' :  'w-[25%]'} h-[54%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
+            <Box className = {`${props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-[60%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
