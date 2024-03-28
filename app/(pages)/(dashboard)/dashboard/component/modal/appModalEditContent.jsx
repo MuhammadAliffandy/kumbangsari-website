@@ -16,15 +16,7 @@ import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
-
-const contentDummy = 
-    {
-        contentTitle: 'Bakso aci Mantap',
-        productName: 'Bakso aci',
-        image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-        caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        hashtag : '#lorem #ipsum #simply'
-    }
+import { useSelector } from 'react-redux';
 
     const listHashtagExample = [
         { value: '#makanan', label: '#makanan' },
@@ -50,6 +42,7 @@ const contentDummy =
 
 const AppModalEditContent = (props) => {
 
+    const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
     const [productImage , setProductImage] = useState(null)
     const [product , setProduct] = useState('')
@@ -86,11 +79,12 @@ const AppModalEditContent = (props) => {
     }
 
     const getContentUser = () => {
-        setContentTitle(contentDummy.contentTitle)
-        setProduct(contentDummy.productName)
-        setProductImage(contentDummy.image)
-        setPlatform('fb')
-        setCaption(contentDummy.caption)
+        console.log(contentAI)
+        setContentTitle(contentAI.contentTitle)
+        setProduct(contentAI.productName)
+        setProductImage(contentAI.image)
+        setPlatform(contentAI.platform)
+        setCaption(contentAI.caption)
         setHashtag(hashtagOptions)
         localStorage.setItem('hashtag',JSON.stringify(hashtagOptions))
         setHashtagAI(listHashtagExample)

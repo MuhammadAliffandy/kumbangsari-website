@@ -21,6 +21,7 @@ import { generateAI } from '../../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../../api/repository/productRepository';
 import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
+import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 
 const GenerateAIPage = () => {
 
@@ -239,6 +240,8 @@ const GenerateAIPage = () => {
                 onEditButton = {()=> {
                     setOpenModalDetail(false)
                     setOpenModalEdit(true)
+                    dispatch(setGenerateAI(contentDetail)) 
+
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
             />

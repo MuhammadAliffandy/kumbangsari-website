@@ -76,7 +76,8 @@ const  AppModalGenerateAI = (props ) => {
                 caption : generateValue.caption[index].content ,
                 hashtag : generateValue.hashtag[index].content,
                 productName : productList[currentData.idProduct - 1].text,
-                platform : currentData.platform
+                platform : currentData.platform,
+                contentTitle : currentData.contentTitle
             }
         }) 
 
