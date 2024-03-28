@@ -13,13 +13,17 @@ import { useEffect, useState } from 'react';
 import { listDropLanguageStyle, listDropPlatform } from '../../../../../utils/model';
 import { generateAI } from '../../../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../../../api/repository/productRepository';
-import { useDispatch } from 'react-redux';
-import { setGenerateAIList } from '@/app/redux/slices/generateAISlice';
+import { useDispatch , useSelector} from 'react-redux';
+import { setGenerateAIList} from '@/app/redux/slices/generateAISlice';
+import { setGenerateHistory }  from '@/app/redux/slices/generateAIHistorySlice';
+import { createContentHistory, updateContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
+import { getCookie } from '@/app/utils/helper';
+
 
 const  AppModalGenerateAI = (props ) => {
 
     const dispatch = useDispatch()
-
+    const generateFieldHistory = useSelector(state =>  state.generateAIHistory.value )
     const [contentTitle , setContentTitle] = useState('')
     const [product , setProduct] = useState('')
     const [productList , setProductList] = useState([])
@@ -57,6 +61,7 @@ const  AppModalGenerateAI = (props ) => {
     }
 
     const mappingGenerateAIValue = (data) => {
+        const currentData = data;
 
         const generateValue = { 
             caption : data.caption ,
@@ -70,9 +75,8 @@ const  AppModalGenerateAI = (props ) => {
                 image : generateValue.image[index], 
                 caption : generateValue.caption[index].content ,
                 hashtag : generateValue.hashtag[index].content,
-                productName : productList[data.idProduct - 1],
-                platform : data.platform
-
+                productName : productList[currentData.idProduct - 1].value,
+                platform : currentData.platform
             }
         }) 
 
@@ -94,15 +98,39 @@ const  AppModalGenerateAI = (props ) => {
         }
 
         const res = await generateAI(data);
-
+        
         if(res.status = 'OK'){
-            const mapping = mappingGenerateAIValue(res.data);
-            window.location.reload();
+            dispatch( setGenerateHistory(data) )
+
+            if(getCookie('generateContentHistory') != null ){
+                dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text, }))
+            }else{
+                dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text, }))
+            }
+
+            const mapping = await mappingGenerateAIValue(res.data);
+            props.onClick(mapping)
+            console.log('GENERATE OK')
         }
     }
 
+
+    const handleGenerateHistory = () => {
+
+        if(generateFieldHistory != null){
+            setContentTitle(generateFieldHistory.contentTitle)
+            setProduct(generateFieldHistory.idProduct)
+            setPlatform(generateFieldHistory.platform)
+            setLanguageStyle(generateFieldHistory.style)
+        }   
+    }
+
     useEffect(()=>{
-        getUserProduct()
+        handleGenerateHistory()
+    },[])
+
+    useEffect(()=>{
+        getUserProduct() 
     },[])
 
     return(
@@ -110,7 +138,7 @@ const  AppModalGenerateAI = (props ) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = 'w-[60%] h-[82%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[25px]'>
+            <Box className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[25px]'>
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[24px] font-bold text-black' >Generate Ai</p>
                     <AppCloseButton

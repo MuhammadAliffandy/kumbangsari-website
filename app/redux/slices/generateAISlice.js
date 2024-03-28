@@ -11,12 +11,12 @@ const generateAISlice = createSlice({
             state.value = getCookie('generateAIHistory');
         },
         setGenerateAIList: (state , action) => {
-            const token = action.payload;
-            setCookie('generateAIHistory',token,365);
-            state.value = token
+            const generateList = action.payload;
+            setCookie('generateAIHistory',generateList,365);
+            state.value = generateList
         },
     },
 });
 
-export const { getGenerateAIList, setGenerateAIList } = generateAISlice.actions;
+export const { getGenerateAIList, setGenerateAIList} = generateAISlice.actions;
 export default generateAISlice.reducer;

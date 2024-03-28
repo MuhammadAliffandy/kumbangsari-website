@@ -2,6 +2,8 @@ import { persistReducer } from 'redux-persist';
 import storage from './storage'; 
 import authReducer from './slices/authSlice'
 import generateAIReducer from './slices/generateAISlice'
+import generateAIHistoryReducer from './slices/generateAIHistorySlice'
+import generateAIContentHistoryReducer from './slices/generateAIContentHistorySlice'
 import countInputProductReducer from './slices/countInputProductSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 
@@ -9,6 +11,8 @@ const rootReducer = combineReducers({
     auth : authReducer,
     countInputProduct : countInputProductReducer,
     generateAI : generateAIReducer, 
+    generateAIHistory : generateAIHistoryReducer,
+    generateAIContentHistory : generateAIContentHistoryReducer,
 })
 
 const persistConfig = {

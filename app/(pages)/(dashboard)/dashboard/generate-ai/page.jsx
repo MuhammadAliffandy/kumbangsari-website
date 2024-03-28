@@ -10,16 +10,21 @@ import AppModalGenerateAI from "./component/appModalGenerateAI";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from '../component/modal/appModalDetailContent';
 import AppModalEditContent from '../component/modal/appModalEditContent';
+import { setGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
-
-
+import { generateAI } from '../../../../api/repository/contentRepository';
+import { getProductByUser } from '../../../../api/repository/productRepository';
+import { deleteContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
+import { useDispatch } from "react-redux";
 
 const GenerateAIPage = () => {
 
+    const dispatch = useDispatch()
+    const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
     const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
@@ -27,40 +32,8 @@ const GenerateAIPage = () => {
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
+    const [productList , setProductList] = useState([])
 
-
-    const listContent = [
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-        {
-            image : 'https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg',
-            caption : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            hashtag : '#ansd #sdjadl #djaskdk'
-        },
-    ]
 
     const pagination = () => {
         
@@ -77,16 +50,75 @@ const GenerateAIPage = () => {
         setContentAI(generateListContent);
     }
 
+    
     const paginationMax  = () => {
         setPrev(!prev)
-        setContentAI(listContent)
+        setContentAI(generateListContent)
     }
     const paginationMin  = () => {
         setPrev(!prev)
         pagination()
     }
 
+    const getUserProduct = async () => {
+        const res = await getProductByUser();
+        if(res.status = 'OK'){
+        
+            const productList = res.data.map(item => {
+                return {value: item.idProduct , text : item.nameProduct}
+            })
+
+            setProductList(productList)
+        }
+    }
+
+
+    const mappingGenerateAIValue = (data) => {
+        const currentData = data;
+
+        const generateValue = { 
+            caption : data.caption ,
+            hashtag : data.hashtag,
+            image : data.imageUrl, 
+        }
+
+        const mappingArray = generateValue.caption.map((data,index)=>{
+
+            return { 
+                image : generateValue.image[index], 
+                caption : generateValue.caption[index].content ,
+                hashtag : generateValue.hashtag[index].content,
+                productName : productList[currentData.idProduct - 1].text,
+                platform : currentData.platform
+            }
+        }) 
+        return mappingArray;
+    }
+
+    const onGenerateByHistory = async (data) => {
+    
+        const content = {
+            contentTitle : data.contentTitle,
+            idProduct : data.idProduct,
+            nameProduct: data.nameProduct,
+            platform: data.platform,
+            style: data.style,
+            image: data.image,
+            caption : data.caption ,
+            hashtag: data.hashtag,
+        }
+
+        const res = await generateAI(content);
+        
+        if(res.status = 'OK'){
+            const contentAIByHistory = await mappingGenerateAIValue(res.data);
+            setContentAI(contentAIByHistory)
+            console.log('GENERATE BY HISTORY OK')
+        }
+    }
+
     useEffect(()=>{
+        getUserProduct() 
         pagination()
     },[])
 
@@ -109,7 +141,7 @@ const GenerateAIPage = () => {
                         </Box>
                         <Grid container spacing={2}>
                             {
-                                contentAI != null ?
+                                contentAI != []?
 
                                 contentAI.map((data,index) => {
                                     return ( 
@@ -137,8 +169,7 @@ const GenerateAIPage = () => {
                             </AppCustomButton>
                         </Box>
                     </Box>
-        
-                    <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} />
+
                 </Box>
                 {/* ================== */}
                 <Box className='w-[30%] p-[20px]'>
@@ -151,43 +182,48 @@ const GenerateAIPage = () => {
                                 <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>
                             </AppCustomButton>
                         </Box>
-                        <AppContentFilter
-                            title = {'Khasiat Bakso Aci'}
-                            subtitle = {'Bakso Aci Mantap'}
-                            contentTypes = {'Gambar, caption, hasgtag'}
-                            iconImage = {'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9'}
-                            onClick= {()=>{}}
-                            onDeleteButton={()=>{}}
-                        />
-                        <AppContentFilter
-                            title = {'Khasiat Bakso Aci'}
-                            subtitle = {'Bakso Aci Mantap'}
-                            contentTypes = {'Gambar, caption, hasgtag'}
-                            iconImage = {'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM'}
-                            onClick= {()=>{}}
-                            onDeleteButton={()=>{}}
-                        />
-                        <AppContentFilter
-                            title = {'Khasiat Bakso Aci'}
-                            subtitle = {'Bakso Aci Mantap'}
-                            contentTypes = {'Gambar, caption, hasgtag'}
-                            iconImage = {'https://store-images.s-microsoft.com/image/apps.60673.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.5d82b7eb-9734-4b51-b65d-a0383348ab1b?h=464'}
-                            onClick= {()=>{}}
-                            onDeleteButton={()=>{}}
+                            {
+                                generateAIContentHistory != [] ? 
 
-                        />
+                                generateAIContentHistory.map(data => {
+                                    
+                                    return(
+                                        <AppContentFilter
+                                            title = {data.contentTitle}
+                                            subtitle = {data.productName}
+                                            contentTypes = {'Gambar, caption, hasgtag'}
+                                            platform = {data.platform}
+                                            onClick= {()=>{
+                                                // onGenerateByHistory(data)
+                                            }}
+                                            onDeleteButton={()=>{
+                                                dispatch(deleteContentHistory(data))
+                                            }}
+                                        />
+                                    )
+                                })
+                        
+                                : null
+                            }
                     </Box>
                 </Box>
-            </Box>
+            </Box>     
+            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
+                onClick = { value => {  setContentAI(value)} }
+            />
             <AppModalEditContent
                 open={openModalEdit}
-                onCloseButton = {(value)=> {setOpenModalEdit(value)}}
+                onCloseButton = {(value)=> {
+                    setOpenModalEdit(value)
+                }}
             />
             <AppModalDetailContent
                 open= {openModalDetail}
                 image = {  contentDetail ? contentDetail.image : ''}
                 caption = {  contentDetail ? contentDetail.caption : ''}
                 hashtag = {  contentDetail ? contentDetail.hashtag : ""}
+                platform =  {  contentDetail ? contentDetail.platform : ""}
+                productName =  {  contentDetail ? contentDetail.productName : ""}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)
