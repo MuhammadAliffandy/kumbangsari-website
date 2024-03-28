@@ -10,8 +10,8 @@ const AppContentFilter = (props) => {
 
     return(
         <AppAnimationContent>
-            <Box onMouseEnter={()=>{setIsHover(true)}} onMouseLeave={()=>{setIsHover(false)}} onClick={props.onClick} className={`${isHover ? 'border-[1px] border-PRIMARY-500' : ''} flex px-[20px] py-[10px] items-center justify-between bg-TEXT-5 rounded-[20px] shadow-CUSTOM-2`}   >
-                <Box className= 'flex gap-[10px] items-center '>
+            <Box onMouseEnter={()=>{setIsHover(true)}} onMouseLeave={()=>{setIsHover(false)}} className={`${isHover ? 'border-[1px] border-PRIMARY-500' : ''} flex px-[20px] py-[10px] items-center justify-between bg-TEXT-5 rounded-[20px] shadow-CUSTOM-2`}   >
+                <Box className= 'flex gap-[10px] items-center cursor-pointer'  onClick={props.onClick}>
                     <img className='w-[40px] h-[40px] rounded-[100%]' src={ props.platform == 'facebook'? listPlatform.facebook : props.platform == 'instagram'? listPlatform.instagram : props.platform == 'twitter'? listPlatform.twitter : null  }/>
                     <Box className='flex flex-col gap-[2px'>
                         <p className={`${isHover ? 'text-PRIMARY-300' : 'text-TEXT-4'} text-[12px]`}>{ props.subtitle || 'Bakso aci mantap'}</p>

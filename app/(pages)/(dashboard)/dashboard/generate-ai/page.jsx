@@ -10,6 +10,7 @@ import AppModalGenerateAI from "./component/appModalGenerateAI";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from '../component/modal/appModalDetailContent';
 import AppModalEditContent from '../component/modal/appModalEditContent';
+import AppPopupFilter from '../component/popup/appPopupFilter'
 import { setGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -18,7 +19,7 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
 import { generateAI } from '../../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../../api/repository/productRepository';
-import { deleteContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
+import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
 
 const GenerateAIPage = () => {
@@ -33,6 +34,8 @@ const GenerateAIPage = () => {
     const [contentAI , setContentAI ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
     const [productList , setProductList] = useState([])
+
+
 
 
     const pagination = () => {
@@ -177,10 +180,18 @@ const GenerateAIPage = () => {
                     <Box className= ' rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4'>
                         <Box className='flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Penelusuran</p>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onClick={()=>{}}>
-                                <img className='w-[18px] h-[18px] ' src={'/images/icon/filter.png'}/>
-                                <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>
-                            </AppCustomButton>
+                            <AppPopupFilter
+                                product = { productList}
+                                onCheckProduct = {(value)=>{ 
+                                    dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
+                                    console.log(value)
+                                }}
+                                onCheckPlatform = {(value)=>{ 
+                                    dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
+                                    console.log(value)
+                                    
+                                }}
+                            />
                         </Box>
                             {
                                 generateAIContentHistory != [] ? 
@@ -194,7 +205,7 @@ const GenerateAIPage = () => {
                                             contentTypes = {'Gambar, caption, hasgtag'}
                                             platform = {data.platform}
                                             onClick= {()=>{
-                                                // onGenerateByHistory(data)
+                                                onGenerateByHistory(data)
                                             }}
                                             onDeleteButton={()=>{
                                                 dispatch(deleteContentHistory(data))
