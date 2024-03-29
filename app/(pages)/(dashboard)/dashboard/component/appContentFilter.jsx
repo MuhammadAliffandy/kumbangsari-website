@@ -19,7 +19,7 @@ const AppContentFilter = (props) => {
                         <p className={`${isHover ? 'text-PRIMARY-300' : 'text-TEXT-4'} text-[12px]`}>{ props.contentTypes || 'Gambar, caption, hasgtag'  }</p>
                     </Box>
                 </Box>
-                <button type={'button'} onClick={props.onDeleteButton} className={`bg-transparent`}>
+                <button type={'button'} onClick={props.onDeleteButton} className={`bg-transparent px-[10px]`}>
                     <img className='w-[22px] h-[22px] ' src={`/images/icon/${isHover? 'trash-blue.png':'trash.png'}`}/>
                 </button>
             </Box>

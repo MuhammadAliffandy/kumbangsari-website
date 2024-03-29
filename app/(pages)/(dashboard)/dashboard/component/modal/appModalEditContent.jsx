@@ -291,7 +291,7 @@ const AppModalEditContent = (props) => {
                                                 const matchHashtag = [...hashtagKeep,...filteredDataArr]
                                                 convertHashtagString(matchHashtag)
                                                 
-                                            }}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px]'>
+                                            }}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px] truncate'>
                                                 {data.value}
                                             </Box>
                                         </Grid>

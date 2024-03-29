@@ -22,9 +22,13 @@ import { getProductByUser } from '../../../../api/repository/productRepository';
 import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
+import { useMediaQuery } from "react-responsive";
 
 const GenerateAIPage = () => {
 
+    const sm = useMediaQuery({ maxWidth: 640 });
+    const md = useMediaQuery({ maxWidth: 768 });
+    const lg = useMediaQuery({ maxWidth: 1024 });
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
@@ -39,9 +43,6 @@ const GenerateAIPage = () => {
 
     const pagination = () => {
         
-        // console.log(listContent)
-        // console.log(generateListContent)
-
         if(generateListContent){
             const filterData = generateListContent.filter((data, index) => index + 1 < 7);
             setContentAI(filterData);
@@ -50,7 +51,6 @@ const GenerateAIPage = () => {
             
         }
     }
-
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
@@ -125,7 +125,7 @@ const GenerateAIPage = () => {
 
     const paginationMax  = () => {
         setPrev(!prev)
-        refreshGenerateAI()
+        // refreshGenerateAI()
         setContentAI(generateListContent)
 
     }
@@ -143,11 +143,13 @@ const GenerateAIPage = () => {
 
     return (
         <AppLayout title='Generate AI'>
-
-            <Box className='flex'>
-                {/* ================== */}
-                <Box className='w-[70%] py-[20px] pl-[20px] '>
-                    <Box className='rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4'>
+            <Box className={`flex flex-grow ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
+                {/* 
+                *
+                *
+                */}
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : 'w-[71%] pl-[20px]'  } pt-[20px] h-[100%]`}>
+                    <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
                             <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[10px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
@@ -157,28 +159,30 @@ const GenerateAIPage = () => {
                                 <p className="text-TEXT-1 font-bold text-[14px]">Generate AI</p>
                             </AppCustomButton>
                         </Box>
-                        <Grid container spacing={2}>
-                            {
-                                contentAI != []?
+                        <Box  className='h-[64.5vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                            <Grid container direction={ sm ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" pr-[10px] " >
+                                {
+                                    contentAI != [] ?
 
-                                contentAI.map((data,index) => {
-                                    return ( 
-                                        <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
-                                                <AppContent
-                                                    key={index}
-                                                    image={data.image}
-                                                    caption = {data.caption}
-                                                    hashtag = {data.hashtag}
-                                                    onClick={()=>{
-                                                        setOpenModalDetail(!openModalDetail)
-                                                        setContentDetail(data)
-                                                    }}
-                                                />
-                                        </Grid>
-                                    )
-                                }) : <p>data belum ada</p>
-                            }
-                        </Grid>
+                                    contentAI.map((data,index) => {
+                                        return ( 
+                                            <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
+                                                    <AppContent
+                                                        key={index}
+                                                        image={data.image}
+                                                        caption = {data.caption}
+                                                        hashtag = {data.hashtag}
+                                                        onClick={()=>{
+                                                            setOpenModalDetail(!openModalDetail)
+                                                            setContentDetail(data)
+                                                        }}
+                                                    />
+                                            </Grid>
+                                        )
+                                    }) : <p>data belum ada</p>
+                                }
+                            </Grid>
+                        </Box>
                         <Box className = 'w-[100%] flex items-center justify-center'>
                             <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
                                     onClick={()=>{prev ?  paginationMax() : paginationMin()}}
@@ -190,10 +194,13 @@ const GenerateAIPage = () => {
                     </Box>
 
                 </Box>
-                {/* ================== */}
-                <Box className='w-[30%] p-[20px]'>
+                {/* 
+                *
+                *
+                */}
+                <Box className={`${ sm ? 'w-[100%]' : ' w-[29%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
-                    <Box className= ' rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4'>
+                    <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Penelusuran</p>
                             <AppPopupFilter
@@ -209,7 +216,8 @@ const GenerateAIPage = () => {
                                 }}
                             />
                         </Box>
-                            {
+                        <Box className='h-[70vh] py-[10px]  pl-[2px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        {
                                 generateAIContentHistory != [] ? 
 
                                 generateAIContentHistory.map((data,index) => {
@@ -231,11 +239,13 @@ const GenerateAIPage = () => {
                                     )
                                 })
                         
-                                : null
+                                : <p>Anda belum Melakukan Generate</p>
                             }
+                        </Box>
                     </Box>
                 </Box>
-            </Box>     
+            </Box>    
+             {/*  */}
             <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
                 onClick = { value => {  setContentAI(value)} }
             />
@@ -247,11 +257,11 @@ const GenerateAIPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetail}
-                image = {  contentDetail ? contentDetail.image : ''}
-                caption = {  contentDetail ? contentDetail.caption : ''}
-                hashtag = {  contentDetail ? contentDetail.hashtag : ""}
-                platform =  {  contentDetail ? contentDetail.platform : ""}
-                productName =  {  contentDetail ? contentDetail.productName : ""}
+                image = {contentDetail ? contentDetail.image : ''}
+                caption = {contentDetail ? contentDetail.caption : ''}
+                hashtag = {contentDetail ? contentDetail.hashtag : ""}
+                platform = {contentDetail ? contentDetail.platform : ""}
+                productName = {contentDetail ? contentDetail.productName : ""}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)
