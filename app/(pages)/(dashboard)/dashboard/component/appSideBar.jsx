@@ -6,7 +6,16 @@ import Box from '@mui/material/Box'
 const AppSidebar = (props)=> {
     const { push } = useRouter();
     return(
-        <Box className = { props.isDrawer ? 'w-[40vw]'  : `w-auto `}>
+        <Box className = { props.isDrawer ? 'w-[40vw] h-[100vh] gap-[10px] flex flex-col '  : `w-[100%] `}>
+            {props.isDrawer ? 
+                <Box className={`py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]`}>
+                    <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
+                    <p className='text-black font-poppins text-[24px] font-semibold'>Planify</p>
+                </Box>
+
+                : null
+
+            }
             <Box className={`w-[100%]  flex flex-col gap-[10px] ${props.isDrawer ? 'h-[100vh] justify-between ' : 'h-[100%] '}`}>
                 <Box className='flex flex-col  '>
                     <AppNavSidebar
@@ -50,13 +59,15 @@ const AppSidebar = (props)=> {
                         onClick={()=>{push('/dashboard/profile')}}
                     />
                 </Box>
-                <AppNavSidebar
-                    isDrawer={props.isDrawer }
-                    text={'Keluar'}
-                    icon={'logout.png'}
-                    onlyButton = {true}
-                    onClick={()=>{}}
-                />
+                <div className='mb-[20px]'>
+                    <AppNavSidebar
+                        isDrawer={props.isDrawer }
+                        text={'Keluar'}
+                        icon={'logout.png'}
+                        onlyButton = {true}
+                        onClick={()=>{}}
+                    />
+                </div>
             </Box>
         </Box>
     )

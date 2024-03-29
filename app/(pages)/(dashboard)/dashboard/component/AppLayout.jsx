@@ -51,6 +51,7 @@ const AppLayout = (props) => {
                             { xl ? '' : <p className='text-black font-poppins text-[24px] font-semibold'>Planify</p>}
                         </Box>
                         <AppSidebar
+                            isDrawer = {false}
                             title = {props.title}
                         />
                     </Box>
@@ -60,7 +61,6 @@ const AppLayout = (props) => {
                         <Box className = 'flex items-center gap-[20px]' >
                             {
                                 sm || lg || md ? 
-
 
                                 <AppDrawer>
                                     <AppSidebar
