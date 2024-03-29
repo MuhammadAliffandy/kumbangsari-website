@@ -12,11 +12,18 @@ const generateAISlice = createSlice({
         },
         setGenerateAIList: (state , action) => {
             const generateList = action.payload;
-            setCookie('generateAIHistory',generateList,365);
+            setCookie('generateAIHistory',JSON.stringify(generateList),365);
+            state.value = generateList
+        },
+        updateGenerateAIList: (state , action) => {
+            const generateList = JSON.parse(getCookie('generateAIHistory'));
+            const generate = action.payload;
+            generateList.push(...generate)
+            setCookie('generateAIHistory',JSON.stringify(generateList),365);
             state.value = generateList
         },
     },
 });
 
-export const { getGenerateAIList, setGenerateAIList} = generateAISlice.actions;
+export const { getGenerateAIList, setGenerateAIList , updateGenerateAIList} = generateAISlice.actions;
 export default generateAISlice.reducer;

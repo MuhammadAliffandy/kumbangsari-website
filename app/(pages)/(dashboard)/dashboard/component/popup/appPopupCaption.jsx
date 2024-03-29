@@ -21,15 +21,18 @@ const AppPopupCaption = (props) => {
                     </Box>
                     {/* content  */}
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
-                        <Box className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
-                            <p>Terinspirasi dari kreativitas kuliner: Bakso Aci, camilan lezat yang mengandung banyak zat besi dan Nutrisi Penting untuk Mendukung Kesehatan Tubuh Anda.</p>
-                        </Box>
-                        <Box className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
-                            <p>Terinspirasi dari kreativitas kuliner: Bakso Aci, camilan lezat yang mengandung banyak zat besi dan Nutrisi Penting untuk Mendukung Kesehatan Tubuh Anda.</p>
-                        </Box>
-                        <Box className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
-                            <p>Terinspirasi dari kreativitas kuliner: Bakso Aci, camilan lezat yang mengandung banyak zat besi dan Nutrisi Penting untuk Mendukung Kesehatan Tubuh Anda.</p>
-                        </Box>
+                        {
+
+                            props.captions != null ?
+
+                            props.captions.map((data,index)=>{
+                                return(
+                                    <Box key = { index } onClick={()=>{props.onClick(data)}} className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
+                                        <p>{data}</p>
+                                    </Box>
+                                ) 
+                            }) : null
+                        } 
                     </Box>
                 </Box>
                 

@@ -47,7 +47,6 @@ const  AppModalGenerateAI = (props ) => {
         setLanguageStyle(event.target.value)
     }
 
-
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
@@ -77,7 +76,8 @@ const  AppModalGenerateAI = (props ) => {
                 hashtag : generateValue.hashtag[index].content,
                 productName : productList[currentData.idProduct - 1].text,
                 platform : currentData.platform,
-                contentTitle : currentData.contentTitle
+                contentTitle : currentData.contentTitle,
+                idContent : currentData.idContent,
             }
         }) 
 

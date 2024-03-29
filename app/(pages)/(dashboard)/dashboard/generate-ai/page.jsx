@@ -11,13 +11,13 @@ import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from '../component/modal/appModalDetailContent';
 import AppModalEditContent from '../component/modal/appModalEditContent';
 import AppPopupFilter from '../component/popup/appPopupFilter'
-import { setGenerateAIList} from '@/app/redux/slices/generateAISlice';
+import { setGenerateAIList, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
-import { generateAI } from '../../../../api/repository/contentRepository';
+import { generateAI, refreshAI } from '../../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../../api/repository/productRepository';
 import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
@@ -37,45 +37,30 @@ const GenerateAIPage = () => {
     const [productList , setProductList] = useState([])
 
 
-
-
     const pagination = () => {
         
         // console.log(listContent)
         // console.log(generateListContent)
 
-        // if(generateListContent){
-        //     const filterData = generateListContent.filter((data, index) => index + 1 < 5);
-        //     setContentAI(filterData);
-        // }else{
-        //     setContentAI(listContent);
+        if(generateListContent){
+            const filterData = generateListContent.filter((data, index) => index + 1 < 7);
+            setContentAI(filterData);
+        }else{
+            setContentAI(generateListContent);
             
-        // }
-        setContentAI(generateListContent);
+        }
     }
 
-    
-    const paginationMax  = () => {
-        setPrev(!prev)
-        setContentAI(generateListContent)
-    }
-    const paginationMin  = () => {
-        setPrev(!prev)
-        pagination()
-    }
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-        
             const productList = res.data.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
-
             setProductList(productList)
         }
     }
-
 
     const mappingGenerateAIValue = (data) => {
         const currentData = data;
@@ -99,6 +84,23 @@ const GenerateAIPage = () => {
         return mappingArray;
     }
 
+    
+    const refreshGenerateAI = async () => {
+        const data = {
+            idContent : generateListContent[0].idContent,
+            nameProduct :true,
+            image: true, 
+            caption : true,
+            hashtag: true,
+        }
+        const res = await refreshAI(data)
+        if(res.status == 'OK'){
+            const newGenerate =  mappingGenerateAIValue(res.data) 
+            dispatch(updateGenerateAIList(newGenerate))
+        }
+    }
+
+
     const onGenerateByHistory = async (data) => {
     
         const content = {
@@ -120,6 +122,18 @@ const GenerateAIPage = () => {
             console.log('GENERATE BY HISTORY OK')
         }
     }
+
+    const paginationMax  = () => {
+        setPrev(!prev)
+        refreshGenerateAI()
+        setContentAI(generateListContent)
+
+    }
+    const paginationMin  = () => {
+        setPrev(!prev)
+        pagination()
+    }
+
 
     useEffect(()=>{
         getUserProduct() 
@@ -151,6 +165,7 @@ const GenerateAIPage = () => {
                                     return ( 
                                         <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
                                                 <AppContent
+                                                    key={index}
                                                     image={data.image}
                                                     caption = {data.caption}
                                                     hashtag = {data.hashtag}
@@ -197,10 +212,11 @@ const GenerateAIPage = () => {
                             {
                                 generateAIContentHistory != [] ? 
 
-                                generateAIContentHistory.map(data => {
+                                generateAIContentHistory.map((data,index) => {
                                     
                                     return(
                                         <AppContentFilter
+                                            key={index}
                                             title = {data.contentTitle}
                                             subtitle = {data.productName}
                                             contentTypes = {'Gambar, caption, hasgtag'}

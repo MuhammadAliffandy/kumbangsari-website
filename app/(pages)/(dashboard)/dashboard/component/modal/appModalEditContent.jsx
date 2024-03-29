@@ -17,6 +17,7 @@ import AppPopupImage from '../popup/appPopupImage';
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 
     const listHashtagExample = [
         { value: '#makanan', label: '#makanan' },
@@ -54,7 +55,10 @@ const AppModalEditContent = (props) => {
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
     const [UpNow , setUpNow] = useState(false)
-
+    const [ captionRecommendation , setCaptionRecommendation ] = useState([])
+    const [ imageRecommendation , setImageRecommendation ] = useState([])
+    const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
+    
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
@@ -87,27 +91,73 @@ const AppModalEditContent = (props) => {
         }
     }
 
-    const getContentUser = () => {
-        console.log(contentAI)
-        setContentTitle(contentAI.contentTitle)
-        setProduct(contentAI.productName)
-        setProductImage(contentAI.image)
-        setPlatform(contentAI.platform)
-        setCaption(contentAI.caption)
-        setHashtag(convertHashtagStringToJson(contentAI.hashtag))
-        localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
-        setHashtagAI(listHashtagExample)
-        convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+    const convertResRecommendationAI = (data) => {
+        if(data != []){
+            return data.map(item => { return item.content })
+        }else{
+            return []
+        }
     }
 
+    const getRecommendationAI = async () => {
+        if (props.open){
+            const dataCaption = {
+                idContent : contentAI.idContent,
+                nameProduct :true,
+                image: false, 
+                caption : true,
+                hashtag: false,
+                isOne:true,
+            }
+            const dataImage = {
+                idContent : contentAI.idContent,
+                nameProduct :true,
+                image: true, 
+                caption : false,
+                hashtag: false,
+                isOne:true,
+            }
+            const dataHashtag = {
+                idContent : contentAI.idContent,
+                nameProduct :true,
+                image: false, 
+                caption : false,
+                hashtag: true,
+                isOne:true,
+            }
+            const resCaption = await refreshAI(dataCaption)
+            const resImage = await refreshAI(dataImage)
+            const resHashtag = await refreshAI(dataHashtag)
+
+            if(resCaption.status == 'OK') setCaptionRecommendation(convertResRecommendationAI(resCaption.data.data))
+            if(resImage.status == 'OK') setImageRecommendation(resImage.data.data)
+            if(resHashtag.status == 'OK') setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data.data).join(' ')))
+        }
+    }
+
+    const getContentUser = () => {
+        if (props.open){
+            setContentTitle(contentAI.contentTitle)
+            setProduct(contentAI.productName)
+            setProductImage(contentAI.image)
+            setPlatform(contentAI.platform)
+            setCaption(contentAI.caption)
+            setHashtag(convertHashtagStringToJson(contentAI.hashtag))
+            localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
+            convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+        }
+
+    }
 
     const handleEditContent = () => {
-        
+        console.log('SIMPAN')
+
     }
 
     useEffect(()=>{
         getContentUser()
-    },[])
+        getRecommendationAI()
+    },[props.open])
 
     return(
         <Modal 
@@ -180,7 +230,12 @@ const AppModalEditContent = (props) => {
                             <AppTextFieldImage
                                 onClick={handleChangeImage}
                             />
-                            <AppPopupImage/>
+                            <AppPopupImage
+                                images={imageRecommendation}
+                                onClick ={(value)=>{
+                                    setImage(value)
+                                }}
+                            />
                         </Box>
 
                         {/*  */}
@@ -197,7 +252,12 @@ const AppModalEditContent = (props) => {
                                 }}
                             />
 
-                            <AppPopupCaption/>
+                            <AppPopupCaption
+                                captions={captionRecommendation}
+                                onClick ={(value)=>{
+                                    setCaption(value)
+                                }}
+                            />
                         </Box>
                         {/*  */}
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
@@ -310,7 +370,8 @@ const AppModalEditContent = (props) => {
                                 text={'Simpan'} 
                                 type = {'button'}
                                 onClick={()=>{
-                                    
+
+                                    handleEditContent()
                                 }}
                             />
                         </Box>

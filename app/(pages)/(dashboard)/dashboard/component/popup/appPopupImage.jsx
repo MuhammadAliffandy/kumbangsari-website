@@ -23,15 +23,19 @@ const AppPopupImage = (props) => {
                     {/* content  */}
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
                         <Grid container spacing={2}>
-                            <Grid item xs={4}>
-                                <img className='w-[100%] h-auto rounded-[15px]' src='https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg' />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <img className='w-[100%] h-auto rounded-[15px]' src='https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg' />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <img className='w-[100%] h-auto rounded-[15px]' src='https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg' />
-                            </Grid>
+                            {
+                                props.images != null ?
+
+                                props.images.map((data,index)=>{
+                                    return(
+                                        <Grid onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
+                                            <img className='w-[100%] h-auto rounded-[15px]' src={data} />
+                                        </Grid>
+                                    )
+                                })   
+
+                                : null
+                            }
                         </Grid>
                     </Box>
                 </Box>

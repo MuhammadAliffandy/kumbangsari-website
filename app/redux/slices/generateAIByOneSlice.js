@@ -11,9 +11,9 @@ const generateAIByOneSlice = createSlice({
             state.value = getCookie('generateAIByOne');
         },
         setGenerateAI: (state , action) => {
-            const generateList = action.payload;
-            setCookie('generateAIHistory',generateList,365);
-            state.value = generateList
+            const generateAI = action.payload;
+            setCookie('generateAIByOne',generateAI,365);
+            state.value = generateAI
         },
     },
 });

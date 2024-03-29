@@ -57,9 +57,10 @@ const AppPopupFilter = (props) => {
                         <label className='text-black font-semibold'>Produk</label>
                         <Box className ='flex gap-[40px]'>
                             {
-                                props.product.map(data => {
+                                props.product.map((data,index)=> {
                                     return(
                                         <AppCheckBox
+                                            key = {index}
                                             value= {data.text}
                                             label = {data.text}
                                             onChange= {(value , label)=>{
