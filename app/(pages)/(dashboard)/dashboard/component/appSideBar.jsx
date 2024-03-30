@@ -16,7 +16,7 @@ const AppSidebar = (props)=> {
                 : null
 
             }
-            <Box className={`w-[100%]  flex flex-col gap-[10px] ${props.isDrawer ? 'h-[100vh] justify-between ' : 'h-[100%] '}`}>
+            <Box className={`w-[100%]  flex flex-col gap-[10px] ${props.isDrawer ? 'h-[90vh] justify-between ' : 'h-[90vh]  justify-between '}`}>
                 <Box className='flex flex-col  '>
                     <AppNavSidebar
                         isDrawer={props.isDrawer }

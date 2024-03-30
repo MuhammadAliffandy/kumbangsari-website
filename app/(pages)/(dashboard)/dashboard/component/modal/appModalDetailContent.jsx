@@ -6,8 +6,14 @@ import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppButton from '@/app/components/appButton/appButton';
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
+import { useMediaQuery } from "react-responsive";
 
 const AppModalDetailContent = (props) => {
+
+    const sm = useMediaQuery({ maxWidth: 640 });
+    const md = useMediaQuery({ maxWidth: 768 });
+    const lg = useMediaQuery({ maxWidth: 1024 });
+    const xl = useMediaQuery({ maxWidth: 1280 });
 
 
     return (
@@ -15,7 +21,7 @@ const AppModalDetailContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = {`${props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
+            <Box className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>

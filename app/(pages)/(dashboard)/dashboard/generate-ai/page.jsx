@@ -11,7 +11,7 @@ import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from '../component/modal/appModalDetailContent';
 import AppModalEditContent from '../component/modal/appModalEditContent';
 import AppPopupFilter from '../component/popup/appPopupFilter'
-import { setGenerateAIList, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
+import { updateGenerateAI, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -29,6 +29,7 @@ const GenerateAIPage = () => {
     const sm = useMediaQuery({ maxWidth: 640 });
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
+    const xl = useMediaQuery({ maxWidth: 1280 });
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
@@ -125,7 +126,7 @@ const GenerateAIPage = () => {
 
     const paginationMax  = () => {
         setPrev(!prev)
-        // refreshGenerateAI()
+        refreshGenerateAI()
         setContentAI(generateListContent)
 
     }
@@ -148,7 +149,7 @@ const GenerateAIPage = () => {
                 *
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : 'w-[71%] pl-[20px]'  } pt-[20px] h-[100%]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[71%] pl-[20px]'  } pt-[20px] h-[100%]`}>
                     <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
@@ -160,8 +161,9 @@ const GenerateAIPage = () => {
                             </AppCustomButton>
                         </Box>
                         <Box  className='h-[64.5vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                            <Grid container direction={ sm ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" pr-[10px] " >
+                            <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" pr-[10px] " >
                                 {
+                        
                                     contentAI != [] ?
 
                                     contentAI.map((data,index) => {
@@ -179,7 +181,7 @@ const GenerateAIPage = () => {
                                                     />
                                             </Grid>
                                         )
-                                    }) : <p>data belum ada</p>
+                                    }) : null
                                 }
                             </Grid>
                         </Box>
@@ -198,7 +200,7 @@ const GenerateAIPage = () => {
                 *
                 *
                 */}
-                <Box className={`${ sm ? 'w-[100%]' : ' w-[29%]' } h-[100%] p-[20px]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[29%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
                     <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between w-[100%]'>
@@ -216,7 +218,7 @@ const GenerateAIPage = () => {
                                 }}
                             />
                         </Box>
-                        <Box className='h-[70vh] py-[10px]  pl-[2px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='h-[70vh] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
                                 generateAIContentHistory != [] ? 
 

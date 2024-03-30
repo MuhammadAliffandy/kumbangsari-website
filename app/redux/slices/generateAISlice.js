@@ -15,6 +15,19 @@ const generateAISlice = createSlice({
             setCookie('generateAIHistory',JSON.stringify(generateList),365);
             state.value = generateList
         },
+        updateGenerateAI: (state , action) => {
+            const generateList = JSON.parse(getCookie('generateAIHistory'));
+            const generate = action.payload;
+
+            for( let i = 0 ; i < generateList.length ; i ++ ){
+                if(generateList[i].caption == generate.prevData.caption && generateList[i].hashtag ==  generate.prevData.hashtag) {
+                    generateList[i] = generate.newData
+                }
+            }
+
+            setCookie('generateAIHistory',JSON.stringify(generateList),365);
+            state.value = generateList
+        },
         updateGenerateAIList: (state , action) => {
             const generateList = JSON.parse(getCookie('generateAIHistory'));
             const generate = action.payload;
@@ -25,5 +38,5 @@ const generateAISlice = createSlice({
     },
 });
 
-export const { getGenerateAIList, setGenerateAIList , updateGenerateAIList} = generateAISlice.actions;
+export const { getGenerateAIList, setGenerateAIList , updateGenerateAIList , updateGenerateAI} = generateAISlice.actions;
 export default generateAISlice.reducer;

@@ -16,10 +16,17 @@
   }
 }
 
-* {
+/* @font-face {
+  font-family: "Poppins";
+  src: url(sansation_light.woff);
+} */
+
+* , body{
   font-family: "Poppins";
   font-style: normal;
 }
+
+
 
 body {
   color: rgb(var(--foreground-rgb));

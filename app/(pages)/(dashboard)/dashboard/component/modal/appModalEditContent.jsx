@@ -6,7 +6,6 @@ import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppButton from '@/app/components/appButton/appButton';
-import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import AppTextField from '@/app/components/appTextField/appTextField'
 import AppTextFieldImage from '@/app/components/appTextField/appTextFieldImage'
 import AppDropDown from '@/app/components/appDropDown/appDropDown'
@@ -14,10 +13,12 @@ import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelection';
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
+import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import { useDispatch } from 'react-redux';
 
     const listHashtagExample = [
         { value: '#makanan', label: '#makanan' },
@@ -43,6 +44,7 @@ import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 
 const AppModalEditContent = (props) => {
 
+    const dispatch = useDispatch();
     const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
     const [productImage , setProductImage] = useState(null)
@@ -150,7 +152,24 @@ const AppModalEditContent = (props) => {
     }
 
     const handleEditContent = () => {
-        console.log('SIMPAN')
+        convertHashtagString(hashtag);
+
+        const data = {
+            caption : caption ,
+            contentTitle : contentTitle,
+            hashtag: hashtagString,
+            idContent: contentAI.idContent,
+            image: productImage,
+            platform: platform,
+            productName: product,   
+        }
+
+        const dataUpdated = {
+            prevData : contentAI,
+            newData : data ,
+        }
+
+        dispatch(updateGenerateAI(dataUpdated))
 
     }
 

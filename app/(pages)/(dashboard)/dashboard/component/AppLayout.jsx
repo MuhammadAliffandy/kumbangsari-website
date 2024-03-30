@@ -11,8 +11,6 @@ import { useEffect , useState } from 'react'
 import { dateIndonesianNow } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 
-
-
 const AppLayout = (props) => {
 
     const sm = useMediaQuery({ maxWidth: 640 });
@@ -41,7 +39,7 @@ const AppLayout = (props) => {
     return (
             <Box className='w-[100vw] h-[100vh] flex'>
                 {
-                    sm ? 
+                    sm  || md || lg? 
                         null
                     :
 
@@ -56,7 +54,7 @@ const AppLayout = (props) => {
                         />
                     </Box>
                 }
-                <Box className={` ${ sm ? 'w-[100%]' : 'w-[96%]' } h-[100vh] flex  flex-col`}>
+                <Box className={` ${ sm || md || lg ? 'w-[100%]' : 'w-[96%]' } h-[100vh] flex  flex-col`}>
                     <nav className='w-[100%] h-auto bg-NEUTRAL-100 py-[15px] px-[30px] flex items-center justify-between border-b-[1px] border-b-TEXT-4 '>
                         <Box className = 'flex items-center gap-[20px]' >
                             {
