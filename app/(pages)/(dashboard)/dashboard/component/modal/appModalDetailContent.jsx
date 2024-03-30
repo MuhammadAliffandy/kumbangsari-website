@@ -2,8 +2,8 @@
 
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
-import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppButton from '@/app/components/appButton/appButton';
+import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
 import { useMediaQuery } from "react-responsive";

@@ -46,7 +46,7 @@ const AppLayout = (props) => {
                     <Box className = 'w-[14%] h-[100vh] bg-NEUTRAL-100 flex flex-col items-center gap-[10px] border-r-[1px] border-r-TEXT-4 '>
                         <Box className={`py-[10px] pl-[10%] flex items-center ${xl ? 'justify-center' : 'justify-start' } gap-[8px] w-[100%]`}>
                             <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
-                            { xl ? '' : <p className='text-black font-poppins text-[24px] font-semibold'>Planify</p>}
+                            { xl ? '' : <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>}
                         </Box>
                         <AppSidebar
                             isDrawer = {false}

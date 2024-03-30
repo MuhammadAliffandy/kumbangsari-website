@@ -8,7 +8,6 @@ import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
-
 import { useEffect, useState } from 'react';
 import { listDropLanguageStyle, listDropPlatform } from '../../../../../utils/model';
 import { generateAI } from '../../../../../api/repository/contentRepository';
@@ -71,9 +70,9 @@ const  AppModalGenerateAI = (props ) => {
         const mappingArray = generateValue.caption.map((data,index)=>{
 
             return { 
-                image : generateValue.image[index], 
-                caption : generateValue.caption[index].content ,
-                hashtag : generateValue.hashtag[index].content,
+                image : !generateValue.image ? null : generateValue.image[index] , 
+                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
+                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
                 productName : productList[currentData.idProduct - 1].text,
                 platform : currentData.platform,
                 contentTitle : currentData.contentTitle,
@@ -87,6 +86,8 @@ const  AppModalGenerateAI = (props ) => {
 
     const onGenerate = async () => {
     
+        let load = true ;
+        props.onLoad(load)
         const data = {
             contentTitle : contentTitle,
             idProduct : product,
@@ -110,8 +111,9 @@ const  AppModalGenerateAI = (props ) => {
             }
 
             const mapping = await mappingGenerateAIValue(res.data);
-            props.onClick(mapping)
             console.log('GENERATE OK')
+            props.onLoad(load = false)
+            props.onClick(mapping)
         }
     }
 

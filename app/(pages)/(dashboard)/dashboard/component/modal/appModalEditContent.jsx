@@ -283,13 +283,13 @@ const AppModalEditContent = (props) => {
                             <label className='text-black font-semibold' >Hashtag</label>
                             <AppMultiSelection
                                 value = {hashtag}
-                                options = { options }
+                                options = { [ ...hashtagString , ...hashtagAI ] }
                                 onChange = {(value)=>{
                                     setHashtag(value)
                                     localStorage.setItem('hashtag',JSON.stringify(value))
                                     convertHashtagString(value)
 
-                                    const filteredHashtagAI = listHashtagExample.filter(item => !value.includes(item));
+                                    const filteredHashtagAI = hashtagAI.filter(item => !value.includes(item));
                                     setHashtagAI(filteredHashtagAI)
                                 }}
                             />
@@ -306,7 +306,7 @@ const AppModalEditContent = (props) => {
                                                 setHashtagAI(popData)
 
                                                 const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))              
-                                                const filteredDataArr = listHashtagExample.filter(value => !popData.includes(value));
+                                                const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
                                                 const matchHashtag = [...hashtagKeep,...filteredDataArr]
                                                 convertHashtagString(matchHashtag)
                                                 
@@ -363,7 +363,7 @@ const AppModalEditContent = (props) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>
-                        <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/>
+                        {!productImage ? null : <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/> }
                         <Box className = 'flex flex-col gap-[8px] p-[10px] rounded-[15px] border-[1px] border-TEXT-1 '>
                             <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-all whitespace-normal'>{ caption }</p>
                             <p className='text-[14px] text-PRIMARY-400'>{hashtagString}</p>

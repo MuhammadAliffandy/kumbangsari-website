@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import CircularProgress from '@mui/material/CircularProgress'
 import AppLayout from "../component/appLayout";
 import AppContent from '@/app/components/appContent/appContent'
+import AppModal from '@/app/components/appModal/appModal'
 import AppContentFilter from "../component/appContentFilter"
 import AppModalGenerateAI from "./component/appModalGenerateAI";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
@@ -33,7 +35,9 @@ const GenerateAIPage = () => {
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
+
     const [openModalAI , setOpenModalAI ] = useState(false)
+    const [openModalLoading , setOpenModalLoading ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalEdit , setOpenModalEdit ] = useState(false)
     const [prev , setPrev ] = useState(true)
@@ -103,7 +107,8 @@ const GenerateAIPage = () => {
 
 
     const onGenerateByHistory = async (data) => {
-    
+        
+        setOpenModalLoading(true)
         const content = {
             contentTitle : data.contentTitle,
             idProduct : data.idProduct,
@@ -119,8 +124,10 @@ const GenerateAIPage = () => {
         
         if(res.status = 'OK'){
             const contentAIByHistory = await mappingGenerateAIValue(res.data);
+            setOpenModalLoading(false)
             setContentAI(contentAIByHistory)
             console.log('GENERATE BY HISTORY OK')
+
         }
     }
 
@@ -233,6 +240,7 @@ const GenerateAIPage = () => {
                                             platform = {data.platform}
                                             onClick= {()=>{
                                                 onGenerateByHistory(data)
+                                                
                                             }}
                                             onDeleteButton={()=>{
                                                 dispatch(deleteContentHistory(data))
@@ -249,7 +257,16 @@ const GenerateAIPage = () => {
             </Box>    
              {/*  */}
             <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
-                onClick = { value => {  setContentAI(value)} }
+                onClick = { ( value ) => {  
+                    setContentAI(value) 
+                }}
+                onLoad = {
+                    (load)=>{
+                        setOpenModalLoading(load)
+                        setOpenModalAI(false)
+                    }
+
+                }
             />
             <AppModalEditContent
                 open={openModalEdit}
@@ -273,7 +290,20 @@ const GenerateAIPage = () => {
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
             />
-    
+            <AppModal
+                    withClose = {false}
+                    open = {openModalLoading}
+                    width={'w-[35%]'}
+                >
+                    <Box className ='flex flex-col items-center gap-[40px]'>
+                        <CircularProgress style={{color : '#F45B69'}}  />
+                        <Box className='flex flex-col items-center '>
+                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
+                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                        </Box>
+                    </Box>
+            </AppModal>
+
         </AppLayout>
     ) 
 }
