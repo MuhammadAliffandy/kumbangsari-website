@@ -35,9 +35,18 @@ const generateAIContentHistorySlice = createSlice({
         filterContentHistory: (state , action) => {
             const data = JSON.parse(getCookie('generateContentHistory'));
             const checkboxIndicator = action.payload;
+            console.log(checkboxIndicator)
             const dataFiltered = data.filter(item => {
-                return checkboxIndicator.product.indexOf(item.productName) > -1 || checkboxIndicator.platform.indexOf(item.platform) > -1
+                if( checkboxIndicator.product.length == 0 && checkboxIndicator.platform.length == 0){
+                    return item;
+                }else{
+                    return checkboxIndicator.product.indexOf(item.productName) > -1 || checkboxIndicator.platform.indexOf(item.platform) > -1
+                }
             });
+
+
+
+
             state.value = dataFiltered
         },
         

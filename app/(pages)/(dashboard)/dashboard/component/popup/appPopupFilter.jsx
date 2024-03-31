@@ -38,6 +38,7 @@ const AppPopupFilter = (props) => {
         }
         allCheckbox.product = product
         props.onCheckProduct(allCheckbox)
+        
     }
 
     return (
@@ -64,6 +65,7 @@ const AppPopupFilter = (props) => {
                                             key = {index}
                                             value= {data.text}
                                             label = {data.text}
+                                            status = {props.listProductCheckbox.indexOf(data.text) > -1 ? 'added' : 'reset'}
                                             onChange= {(value , label)=>{
                                                 handleCheckProduct(value,label)
                                             }}
@@ -79,6 +81,7 @@ const AppPopupFilter = (props) => {
                             <AppCheckBox
                                 value= 'instagram'
                                 label = 'Instagram'
+                                status = {props.listPlatformCheckbox.indexOf('instagram') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)
                                 }}
@@ -86,6 +89,7 @@ const AppPopupFilter = (props) => {
                             <AppCheckBox
                                 value= 'facebook'
                                 label = 'Facebook'
+                                status = {props.listPlatformCheckbox.indexOf('facebook') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)
                                 }}
@@ -93,6 +97,7 @@ const AppPopupFilter = (props) => {
                             <AppCheckBox
                                 value= 'twitter'
                                 label = 'Twitter'
+                                status = {props.listPlatformCheckbox.indexOf('twitter') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)
                                 }}

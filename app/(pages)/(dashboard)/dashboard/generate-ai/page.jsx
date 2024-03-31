@@ -32,6 +32,7 @@ const GenerateAIPage = () => {
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
+
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
@@ -44,6 +45,8 @@ const GenerateAIPage = () => {
     const [contentAI , setContentAI ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
     const [productList , setProductList] = useState([])
+    const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
+    const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
 
 
     const pagination = () => {
@@ -216,10 +219,14 @@ const GenerateAIPage = () => {
                             <AppPopupFilter
                                 isResponsive = { xl ? true : false  }
                                 product = { productList}
+                                listProductCheckbox={productCheckBoxFilter}
+                                listPlatformCheckbox={platformCheckBoxFilter}
                                 onCheckProduct = {(value)=>{ 
+                                    setProductCheckboxFilter(value.product)
                                     dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
                                 }}
                                 onCheckPlatform = {(value)=>{ 
+                                    setPlatformCheckboxFilter(value.platform)
                                     dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
 
                                 }}
