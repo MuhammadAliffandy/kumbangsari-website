@@ -5,6 +5,7 @@ import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { useState } from 'react';
 
 const AppPopupFilter = (props) => {
+    
     const [open, setOpen] = useState(false);
     const [product , setProduct ] = useState([])
     const [platform , setPlatform ] = useState([])
@@ -42,8 +43,8 @@ const AppPopupFilter = (props) => {
     return (
         <Popover
             isOpen={open}
-            positions={[ 'right', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingRight: '2%', paddingTop: '1%'}}
+            positions={ props.isResponsive ? ['bottom'] : [ 'right', 'bottom']}
+            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '40%': '2%', paddingTop: '1%'}}
             onClickOutside={()=> setOpen(false)}
             align="center"
             content={
@@ -106,7 +107,7 @@ const AppPopupFilter = (props) => {
                     setOpen(true)
                 }}>
                         <img className='w-[18px] h-[18px] ' src={'/images/icon/filter.png'}/>
-                        <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>
+                        {props.isResponsive ? null : <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>} 
                 </AppCustomButton>
             </div>
     </Popover>

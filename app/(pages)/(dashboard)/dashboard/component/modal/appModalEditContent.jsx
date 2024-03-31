@@ -20,26 +20,26 @@ import { useSelector } from 'react-redux';
 import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 import { useDispatch } from 'react-redux';
 
-    const listHashtagExample = [
-        { value: '#makanan', label: '#makanan' },
-        { value: '#music', label: '#music' },
-        { value: '#baksomantap', label: '#baksomantap' },
-        { value: '#olahraga', label: '#olahraga' },
-        { value: '#minuman', label: '#minuman' },
-        { value: '#yummy', label: '#yummy' },
-        { value: '#surabaya', label: '#surabaya' },
-        { value: '#snack', label: '#snack' },
-    ];
+    // const listHashtagExample = [
+    //     { value: '#makanan', label: '#makanan' },
+    //     { value: '#music', label: '#music' },
+    //     { value: '#baksomantap', label: '#baksomantap' },
+    //     { value: '#olahraga', label: '#olahraga' },
+    //     { value: '#minuman', label: '#minuman' },
+    //     { value: '#yummy', label: '#yummy' },
+    //     { value: '#surabaya', label: '#surabaya' },
+    //     { value: '#snack', label: '#snack' },
+    // ];
 
 
-    const hashtagOptions = [
-        { value: '#apple', label: '#Apple' },
-        { value: '#banana', label: '#Banana' },
-        { value: '#orange', label: '#Orange' },
-        { value: '#grape', label: '#Grape' },
-    ]
+    // const hashtagOptions = [
+    //     { value: '#apple', label: '#Apple' },
+    //     { value: '#banana', label: '#Banana' },
+    //     { value: '#orange', label: '#Orange' },
+    //     { value: '#grape', label: '#Grape' },
+    // ]
 
-    const options = [ ...listHashtagExample , ...hashtagOptions ]
+    // const options = [ ...listHashtagExample , ...hashtagOptions ]
 
 
 const AppModalEditContent = (props) => {
@@ -144,9 +144,11 @@ const AppModalEditContent = (props) => {
             setProductImage(contentAI.image)
             setPlatform(contentAI.platform)
             setCaption(contentAI.caption)
-            setHashtag(convertHashtagStringToJson(contentAI.hashtag))
-            localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
-            convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+            if(contentAI.hashtag != null){
+                setHashtag(convertHashtagStringToJson(contentAI.hashtag))
+                localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
+                convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+            }
         }
 
     }
@@ -305,9 +307,13 @@ const AppModalEditContent = (props) => {
                                                 })
                                                 setHashtagAI(popData)
 
-                                                const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))              
+                                                const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
+                                
                                                 const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
+                            
                                                 const matchHashtag = [...hashtagKeep,...filteredDataArr]
+                                                localStorage.setItem('hashtag',JSON.stringify(matchHashtag))
+                                                // to created hashtag string at ui 
                                                 convertHashtagString(matchHashtag)
                                                 
                                             }}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px] truncate'>

@@ -76,14 +76,16 @@ const GenerateAIPage = () => {
             image : data.imageUrl, 
         }
 
-        const mappingArray = generateValue.caption.map((data,index)=>{
+        const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
 
+        const mappingArray = lengthData.map((data,index)=>{
             return { 
-                image : generateValue.image[index], 
-                caption : generateValue.caption[index].content ,
-                hashtag : generateValue.hashtag[index].content,
+                image : !generateValue.image ? null : generateValue.image[index] , 
+                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
+                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
                 productName : productList[currentData.idProduct - 1].text,
-                platform : currentData.platform
+                platform : currentData.platform,
+                idContent: currentData.idContent,
             }
         }) 
         return mappingArray;
@@ -142,7 +144,6 @@ const GenerateAIPage = () => {
         pagination()
     }
 
-
     useEffect(()=>{
         getUserProduct() 
         pagination()
@@ -168,7 +169,7 @@ const GenerateAIPage = () => {
                             </AppCustomButton>
                         </Box>
                         <Box  className='h-[64.5vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                            <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" pr-[10px] " >
+                            <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
                                     contentAI != [] ?
@@ -213,15 +214,14 @@ const GenerateAIPage = () => {
                         <Box className='flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Penelusuran</p>
                             <AppPopupFilter
+                                isResponsive = { xl ? true : false  }
                                 product = { productList}
                                 onCheckProduct = {(value)=>{ 
                                     dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
-                                    console.log(value)
                                 }}
                                 onCheckPlatform = {(value)=>{ 
                                     dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
-                                    console.log(value)
-                                    
+
                                 }}
                             />
                         </Box>
@@ -231,16 +231,21 @@ const GenerateAIPage = () => {
 
                                 generateAIContentHistory.map((data,index) => {
                                     
+                                    const contentTypes = [  
+                                        data.caption ? 'Caption' : null,  
+                                        data.hashtag ? 'Hashtag' : null,  
+                                        data.image ? 'Gambar' : null,  
+                                    ]
+
                                     return(
                                         <AppContentFilter
                                             key={index}
                                             title = {data.contentTitle}
                                             subtitle = {data.productName}
-                                            contentTypes = {'Gambar, caption, hasgtag'}
+                                            contentTypes = {contentTypes.join(',').split(/,,|, /)}
                                             platform = {data.platform}
                                             onClick= {()=>{
                                                 onGenerateByHistory(data)
-                                                
                                             }}
                                             onDeleteButton={()=>{
                                                 dispatch(deleteContentHistory(data))
@@ -265,7 +270,6 @@ const GenerateAIPage = () => {
                         setOpenModalLoading(load)
                         setOpenModalAI(false)
                     }
-
                 }
             />
             <AppModalEditContent

@@ -67,7 +67,9 @@ const  AppModalGenerateAI = (props ) => {
             image : data.imageUrl, 
         }
 
-        const mappingArray = generateValue.caption.map((data,index)=>{
+        const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
+
+        const mappingArray = lengthData.map((data,index)=>{
 
             return { 
                 image : !generateValue.image ? null : generateValue.image[index] , 
@@ -98,16 +100,15 @@ const  AppModalGenerateAI = (props ) => {
             caption : caption ,
             hashtag: hashtag,
         }
-
         const res = await generateAI(data);
         
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
             dispatch( setGenerateHistory(data) )
 
             if(getCookie('generateContentHistory') != null ){
-                dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text, }))
+                dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
             }else{
-                dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text, }))
+                dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
             }
 
             const mapping = await mappingGenerateAIValue(res.data);

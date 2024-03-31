@@ -10,7 +10,7 @@ const AppSidebar = (props)=> {
             {props.isDrawer ? 
                 <Box className={`py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]`}>
                     <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
-                    <p className='text-black font-poppins text-[24px] font-semibold'>Planify</p>
+                    <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
                 </Box>
 
                 : null

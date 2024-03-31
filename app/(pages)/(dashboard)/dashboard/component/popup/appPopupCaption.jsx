@@ -2,6 +2,8 @@ import { Popover } from 'react-tiny-popover';
 import Box from '@mui/material/Box';
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { useState } from 'react';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const AppPopupCaption = (props) => {
     const [open, setOpen] = useState(false);
@@ -31,7 +33,9 @@ const AppPopupCaption = (props) => {
                                         <p>{data}</p>
                                     </Box>
                                 ) 
-                            }) : null
+                            }) : <div className='w-[40vw] flex flex-col'>
+                                        <Skeleton style={{ width: '40%' }} height={10} count={3} />
+                                </div>
                         } 
                     </Box>
                 </Box>
