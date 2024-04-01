@@ -160,7 +160,7 @@ const GenerateAIPage = () => {
                 *
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[71%] pl-[20px]'  } pt-[20px] h-[100%]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } pt-[20px] h-[100%]`}>
                     <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
@@ -211,7 +211,7 @@ const GenerateAIPage = () => {
                 *
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[29%]' } h-[100%] p-[20px]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
                     <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4 '>
                         <Box className='flex items-center justify-between w-[100%]'>
