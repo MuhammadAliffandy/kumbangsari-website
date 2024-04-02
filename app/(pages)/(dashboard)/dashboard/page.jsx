@@ -13,6 +13,7 @@ import AppContentFilter from "./component/appContentFilter"
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalAddContent from './component/modal/appModalAddContent';
+import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import { updateGenerateAI, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -26,6 +27,7 @@ import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
 import AppButton from "@/app/components/appButton/appButton";
+import { useRouter } from "next/navigation";
 
 function createData(time, contentTitle, productName, contentTypes, platform) {
     return { time, contentTitle, productName, contentTypes, platform };
@@ -62,19 +64,20 @@ const DashboardPage = () => {
     const xl = useMediaQuery({ maxWidth: 1280 });
 
     const dispatch = useDispatch()
+    const { push } = useRouter()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
 
     const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalLoading , setOpenModalLoading ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
+    const [openModalDetailPreview , setOpenModalDetailPreview ] = useState(false)
     const [openModalAdd , setOpenModalAdd ] = useState(false)
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
+    const [contentDetailPreview , setContentDetailPreview ] = useState()
     const [productList , setProductList] = useState([])
-    const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
-    const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
 
 
     const pagination = () => {
@@ -190,7 +193,7 @@ const DashboardPage = () => {
                 */}
                 <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } pt-[20px] h-[100%] flex flex-col gap-[15px]`}>
 
-                    <Box className='flex items-center justify-between'>
+                    <Box className='flex items-center justify-left gap-[10px]'>
                         <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
                                 onClick={()=>{
                                     setOpenModalAdd(true)
@@ -200,7 +203,9 @@ const DashboardPage = () => {
                                 <p className="text-TEXT-5 text-[14px]">Tambah Konten</p>
                         </AppCustomButton>
                         <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{}}
+                                onClick={()=>{
+                                    setOpenModalAI(!openModalAI)
+                                }}
                             >
                                 <img src="/images/icon/sparkling-white.svg" />
                                 <p className="text-TEXT-5 text-[14px]">Generate AI</p>
@@ -216,8 +221,8 @@ const DashboardPage = () => {
                             <AppTablePreview
                                 data = {rows}
                                 onClick = { (value) => {
-
-                                } }
+                                    setOpenModalDetailPreview(!openModalDetailPreview)
+                                }}
 
                             />
                         </Box>
@@ -348,13 +353,53 @@ const DashboardPage = () => {
                 hashtag = {contentDetail ? contentDetail.hashtag : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.productName : ""}
+                isDashboard={true}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)
                     dispatch(setGenerateAI(contentDetail)) 
 
                 }}
-                onCloseButton = {(value)=> {setOpenModalAdd(value)}}
+                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+            />
+            <AppModalDetailContent
+                open= {openModalDetailPreview}
+                image = {contentDetailPreview ? contentDetailPreview.image : ''}
+                caption = {contentDetailPreview ? contentDetailPreview.caption : ''}
+                hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
+                platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
+                productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
+                isDashboard={true}
+                onClick = {()=> {
+
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetailPreview(value)}}
+            />
+            <AppModal
+                    withClose = {false}
+                    open = {openModalLoading}
+                    width={'w-[35%]'}
+                >
+                    <Box className ='flex flex-col items-center gap-[40px]'>
+                        <CircularProgress style={{color : '#F45B69'}}  />
+                        <Box className='flex flex-col items-center '>
+                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
+                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                        </Box>
+                    </Box>
+            </AppModal>
+            {/*  */}
+            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
+                onClick = { ( value ) => {  
+                    setContentAI(value) 
+                }}
+                onLoad = {
+                    (load)=>{
+                        setOpenModalLoading(load)
+                        load == false ? push('/dashboard/generate-ai') : null
+                        setOpenModalAI(false)
+                    }
+                }
             />
             <AppModal
                     withClose = {false}

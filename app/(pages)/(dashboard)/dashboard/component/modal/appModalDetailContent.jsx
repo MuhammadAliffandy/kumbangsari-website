@@ -26,9 +26,12 @@ const AppModalDetailContent = (props) => {
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
                     <Box className='flex items-center gap-[15px]'>
-                        <AppCustomButton className=' bg-white ' onClick={props.onEditButton}>
-                            <img className='w-[18px] h-[18px] ' src={'/images/icon/edit.png'}/>
-                        </AppCustomButton>
+                    {props.isDashboard ? null : 
+                            <AppCustomButton className=' bg-white ' onClick={props.onEditButton}>
+                                <img className='w-[18px] h-[18px] ' src={'/images/icon/edit.png'}/>
+                            </AppCustomButton>
+                        
+                        }
                         <AppCloseButton
                             onClick = {()=>{
                                 props.onCloseButton(false)

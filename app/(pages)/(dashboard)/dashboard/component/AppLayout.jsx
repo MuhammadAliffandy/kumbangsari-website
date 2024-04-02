@@ -34,7 +34,9 @@ const AppLayout = (props) => {
         setDate()
     }, [] )
 
-    useEffect(()=>{getUser()},[user])
+    useEffect(()=>{
+        getUser()
+    },[])
 
     return (
             <Box className='w-[100vw] h-[100vh] flex'>

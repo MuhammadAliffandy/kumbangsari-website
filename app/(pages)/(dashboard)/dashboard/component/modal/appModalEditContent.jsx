@@ -13,6 +13,7 @@ import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelection';
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
+import AppDefaultText from '@/app/components/appText/appDefaultText';
 import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
@@ -148,6 +149,9 @@ const AppModalEditContent = (props) => {
                 setHashtag(convertHashtagStringToJson(contentAI.hashtag))
                 localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
                 convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+            }else{
+                localStorage.setItem('hashtag','')
+
             }
         }
 
@@ -370,19 +374,24 @@ const AppModalEditContent = (props) => {
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>
                         {
-                            productImage == null && caption == null && hashtagString == null ?
+                            productImage == null && caption == '' && hashtagString == [] ?
+
+                            <AppDefaultText 
+                                text = 'Masukkan data terlebih dahulu untuk menampilkan preview!'
+                            />  :
+
                             <>
-                                <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/>
+                                {productImage ? <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/> : 
+                                    <AppDefaultText 
+                                        text = 'Masukkan image terlebih dahulu untuk menampilkan preview!'
+                                    />  
+                                
+                                }
                                 <Box className = 'flex flex-col gap-[8px] p-[10px] rounded-[15px] border-[1px] border-TEXT-1 '>
                                     <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-all whitespace-normal'>{ caption }</p>
                                     <p className='text-[14px] text-PRIMARY-400'>{hashtagString}</p>
                                 </Box>
-                            </> : 
-                            <Box className='h-[100%] w-[100%] flex flex-col justify-center items-center'>
-                                <p className='text-[18px] font-bold text-TEXT-4 text-center'>
-                                    Masukkan data konten terlebih dahulu untuk memunculkan preview!
-                                </p>
-                            </Box>
+                            </> 
                         }
                     </Box>
                 </Box>
