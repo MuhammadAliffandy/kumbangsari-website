@@ -2,7 +2,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import AppCloseButton from '../appCloseButton/appCloseButton';
 
-const AppModal = (props) => {
+const AppCustomModal = (props) => {
     return (
         <Modal 
             open={props.open}
@@ -18,10 +18,15 @@ const AppModal = (props) => {
                                 />
                         </Box> : null
                 }
+                { props.modalType == 'modal-status' ? <img className='w-[50px] h-[50px]' src={`/images/icon/${props.status}.svg`} /> : null}
+                <Box className={`flex flex-col gap-[8px] w-[100%] items-${ props.alignment ? props.alignment : 'start' }`}>
+                    <p className={`${props.titleColor || 'text-TEXT-1'} text-[16px] font-bold`}>{props.title || 'title'}</p>
+                    <p className={`${props.subtitleColor || 'text-TEXT-1'} text-[14px] font-medium`} >{props.subtitle || 'subtitle'}</p>
+                </Box>
                 {props.children}
             </Box>
         </Modal>
     )
 }
 
-export default AppModal;
+export default AppCustomModal;

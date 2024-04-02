@@ -29,6 +29,7 @@ const generateAIContentHistorySlice = createSlice({
             const dataFiltered = data.filter(item => {
                 return item.contentTitle != contentHistory.contentTitle
             })
+
             setCookie('generateContentHistory',JSON.stringify(dataFiltered),365);
             state.value = dataFiltered
         },
