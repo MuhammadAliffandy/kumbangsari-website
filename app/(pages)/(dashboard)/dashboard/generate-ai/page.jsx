@@ -79,8 +79,9 @@ const GenerateAIPage = () => {
             image : data.imageUrl, 
         }
 
+        
         const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
-
+        
         const mappingArray = lengthData.map((data,index)=>{
             return { 
                 image : !generateValue.image ? null : generateValue.image[index] , 

@@ -2,8 +2,12 @@
 
 import AppLayout from "../component/appLayout";
 import AppCustomModal from "../../../../components/appModal/AppCustomModal";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import AppButton from "@/app/components/appButton/appButton";
+import Box from '@mui/material/Box'
+import AppCloseButton from "../../../../components/appCloseButton/appCloseButton";
+
+
 
 
 const CalenderPage = () => {
@@ -15,9 +19,11 @@ const CalenderPage = () => {
             <h1 className="text-black">
                 ini adalah kalender page
             </h1>
-
-
             <button  onClick={()=>{setOpen(!open)}} className="text-TEXT-1 bg-red-400" >test</button>
+        
+            
+
+
             <AppCustomModal
                 open={open}
                 withClose = {true}
@@ -40,5 +46,7 @@ const CalenderPage = () => {
         </AppLayout>
     ) 
 }
+
+
 
 export default CalenderPage;

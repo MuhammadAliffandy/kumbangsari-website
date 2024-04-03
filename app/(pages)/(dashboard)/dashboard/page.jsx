@@ -14,9 +14,10 @@ import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalAddContent from './component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
+import ReactPaginate from 'react-paginate';
 import { updateGenerateAI, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
@@ -78,19 +79,17 @@ const DashboardPage = () => {
     const [contentDetail , setContentDetail ] = useState()
     const [contentDetailPreview , setContentDetailPreview ] = useState()
     const [productList , setProductList] = useState([])
+    const [currentPage, setCurrentPage] = useState(0);
 
 
-    const pagination = () => {
-        
-        if(generateListContent){
-            const filterData = generateListContent.filter((data, index) => index + 1 < 7);
-            setContentAI(filterData);
-        }else{
-            setContentAI(generateListContent);
-            
-        }
-    }
-
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+      };
+    
+      const perPage = 4;
+      const offset = currentPage * perPage;
+      const currentPageData = contentAI.slice(offset, offset + perPage);
+    
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
@@ -167,20 +166,9 @@ const DashboardPage = () => {
         }
     }
 
-    const paginationMax  = () => {
-        setPrev(!prev)
-        refreshGenerateAI()
-        setContentAI(generateListContent)
-
-    }
-    const paginationMin  = () => {
-        setPrev(!prev)
-        pagination()
-    }
-
     useEffect(()=>{
         getUserProduct() 
-        pagination()
+        setContentAI(generateListContent);
     },[])
 
 
@@ -240,7 +228,7 @@ const DashboardPage = () => {
                         
                                     contentAI != [] ?
 
-                                    contentAI.map((data,index) => {
+                                    currentPageData.map((data,index) => {
                                         return ( 
                                             <Grid key = {index} item xs={6}>
                                                     <AppContent
@@ -263,12 +251,16 @@ const DashboardPage = () => {
                             </Grid>
                         </Box>
                         <Box className = 'w-[100%] flex items-center justify-center'>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
-                                    onClick={()=>{prev ?  paginationMax() : paginationMin()}}
-                                >
-                                    <p className="text-TEXT-1 font-bold text-[14px]">{prev ? 'Selanjutnya' : 'Sebelumnya'}</p>
-                                    <FontAwesomeIcon icon={prev ? faChevronDown : faChevronUp} color={'black'} ></FontAwesomeIcon>
-                            </AppCustomButton>
+                            <ReactPaginate
+                                pageCount={Math.ceil(contentAI.length / perPage)}
+                                pageRangeDisplayed={5}
+                                marginPagesDisplayed={2}
+                                onPageChange={handlePageChange}
+                                containerClassName={'pagination text-[12px] flex p-[10px] items-center justify-center gap-[10px] text-TEXT-1'}
+                                activeClassName={'active bg-PRIMARY-500 px-[12px] py-[6px] rounded-[50%] text-TEXT-5'}
+                                previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
+                                nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
+                            />
                         </Box>
                     </Box>
 

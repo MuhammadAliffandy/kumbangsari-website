@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box'
 
 import AppProfileButton  from './appProfileButton'
-import AppNotificationButton  from './appNotificationButton'
+import AppPopupNotification  from './popup/appPopupNotification'
 import AppSidebar from './appSideBar'
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import { useMediaQuery } from "react-responsive";
@@ -77,8 +77,32 @@ const AppLayout = (props) => {
                             </Box>
                         </Box>
                         <Box className ='flex gap-[20px] items-center' >
-                            <AppNotificationButton
+                            <AppPopupNotification
                                 available={true}
+                                listNotification = {
+                                    [
+                                        {
+                                            dateDay : 'Hari ini',
+                                            listDataNotificationChild : 
+                                                [
+                                                    {
+                                                        title: 'Pembayaran',
+                                                        subtitle : 'Pembayaran paket berlanggananmu melalui GoPay telah berhasil. Lihat riwayat pembayaran di halaman Profile!',
+                                                        time: "07.00",
+                                                        notificationType : 'pay'
+                                                    },
+                                                    {
+                                                        title: 'Produk berhasil ditambahkan!',
+                                                        subtitle : 'Skincaremoe berhasil ditambahkan ke dalam daftar produkmu! Hubungkan beberapa platform untuk memulai pengalaman manajemen yang mudah dan menyenangkan!',
+                                                        time: "07.00",
+                                                        notificationType : 'connect'
+                                                    },
+                                                ]
+                                            
+                                        },
+                                    
+                                    ]
+                                }
                             />
                             <AppProfileButton
                                 image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
