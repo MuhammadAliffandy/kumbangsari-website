@@ -5,10 +5,7 @@ import AppCustomModal from "../../../../components/appModal/AppCustomModal";
 import { useState , useEffect} from "react";
 import AppButton from "@/app/components/appButton/appButton";
 import Box from '@mui/material/Box'
-import AppCloseButton from "../../../../components/appCloseButton/appCloseButton";
-
-
-
+import AppProfileDropdown from "../component/appProfileDropdown";
 
 const CalenderPage = () => {
 
@@ -21,7 +18,9 @@ const CalenderPage = () => {
             </h1>
             <button  onClick={()=>{setOpen(!open)}} className="text-TEXT-1 bg-red-400" >test</button>
         
-            
+            <div className="w-[15%]">
+                <AppProfileDropdown/>
+            </div>
 
 
             <AppCustomModal

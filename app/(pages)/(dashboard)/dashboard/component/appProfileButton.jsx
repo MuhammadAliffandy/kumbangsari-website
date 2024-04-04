@@ -3,20 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useMediaQuery } from "react-responsive";
 
+
 const AppProfileButton = (props) => {
     
     const sm = useMediaQuery({ maxWidth: 640 });
 
     return(
-        <Box onClick = {props.onClick} className={`cursor-pointer flex items-center bg-TEXT-5 shadow-CUSTOM-2 gap-[15px] py-[5px] ${sm ? ' px-[5px]  rounded-full' : ' px-[15px]  rounded-[18px]'}`}>
+        <Box onClick = {props.onClick} className={`cursor-pointer flex items-center justify-end bg-TEXT-5 ${props.isItemDropDown ? '' : 'shadow-CUSTOM-2'} gap-[15px] py-[5px] ${sm ? ' px-[5px]  rounded-full' : ' px-[15px]  rounded-[18px]'}`}>
         {
-
-            sm ? 
-                null
-            :
-
+            sm ? null:
                 <>
-                    <FontAwesomeIcon className='text-TEXT-3' icon={faChevronDown} />
+                    {props.isItemDropDown ? null : <FontAwesomeIcon className='text-TEXT-3' icon={faChevronDown} />}
                     <Box>
                         <p className='text-TEXT-1 text-[14px] font-medium'>{props.name || 'Chaewon' }</p>
                         <p className='text-TEXT-3 text-[12px]'>{props.countProduct || '2 Produk '}</p>
@@ -31,3 +28,4 @@ const AppProfileButton = (props) => {
 }
 
 export default AppProfileButton;
+

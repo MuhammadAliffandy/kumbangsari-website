@@ -79,6 +79,7 @@ const GenerateAIPage = () => {
             image : data.imageUrl, 
         }
 
+        console.log(generateValue)
         
         const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
         
