@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown , faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useMediaQuery } from "react-responsive";
 
 
@@ -13,8 +13,8 @@ const AppProfileButton = (props) => {
         {
             sm ? null:
                 <>
-                    {props.isItemDropDown ? null : <FontAwesomeIcon className='text-TEXT-3' icon={faChevronDown} />}
-                    <Box>
+                    {props.dropDownIcon ?  <FontAwesomeIcon className='text-TEXT-3' icon={ props.dropDownType ?  faChevronDown : faChevronUp } /> : null}
+                    <Box className='text-right'>
                         <p className='text-TEXT-1 text-[14px] font-medium'>{props.name || 'Chaewon' }</p>
                         <p className='text-TEXT-3 text-[12px]'>{props.countProduct || '2 Produk '}</p>
                     </Box>

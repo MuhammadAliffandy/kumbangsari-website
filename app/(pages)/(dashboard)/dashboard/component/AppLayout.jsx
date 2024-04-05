@@ -3,6 +3,8 @@
 import Box from '@mui/material/Box'
 
 import AppProfileButton  from './appProfileButton'
+import AppExpansionList from "@/app/components/appExpansionList/appExpansionList";
+import AppButton from '@/app/components/appButton/appButton';
 import AppPopupNotification  from './popup/appPopupNotification'
 import AppSidebar from './appSideBar'
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
@@ -20,6 +22,7 @@ const AppLayout = (props) => {
 
     const [dateNow, setDateNow] = useState('');
     const [user, setUser] = useState();
+    const [expanded , setExpanded ] = useState(false)
 
     const setDate = () => {
         setDateNow(dateIndonesianNow())
@@ -104,11 +107,44 @@ const AppLayout = (props) => {
                                     ]
                                 }
                             />
-                            <AppProfileButton
-                                image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
-                                name = { user ? user.name.split(' ')[0] : 'name'}
-                                countProduct = { user ? `${user.countProduct} Produk` : '0 Produk'}
-                                
+                            <AppExpansionList
+                                style = {` ${!expanded ? 'rounded-t-[20px]' : 'rounded-[20px]' } shadow-xl p-[5px] bg-white relative w-full`}
+                                onClick={value => {
+                                    setExpanded(value)
+                                }}
+                                componentHandle = {
+                                        <AppProfileButton
+                                            isItemDropDown ={true}
+                                            dropDownIcon={true}
+                                            dropDownType={!expanded}
+                                            image = {'https://www.wowkeren.com/display/images/photo/2024/04/03/00506918.webp'}
+                                            name = {'Kazuha'}
+                                            countProduct = {`${3} Produk`}
+                                        />
+                                }
+                                componentItemStyle={'bg-white'}
+                                componentItemList = {
+                                    <div className="flex flex-col gap-[6px]">
+                                        <AppProfileButton
+                                            isItemDropDown ={true}
+                                            dropDownIcon={false}
+                                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
+                                            name = {'Chaewon'}
+                                            countProduct = {`${2} Produk`}
+                                        /> 
+                                        <AppProfileButton
+                                            isItemDropDown ={true}
+                                            dropDownIcon={false}
+                                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
+                                            name = {'Chaewon'}
+                                            countProduct = {`${2} Produk`}
+                                        /> 
+                                        <AppButton
+                                            className='w-[100%] text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
+                                            text='Buat Akun'
+                                        />
+                                    </div>
+                                } 
                             />
 
                         </Box>

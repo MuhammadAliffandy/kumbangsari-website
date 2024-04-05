@@ -26,7 +26,9 @@
   font-style: normal;
 }
 
-
+.react-dropdown-select-dropdown-handle {
+  display: none; 
+}
 
 body {
   color: rgb(var(--foreground-rgb));
