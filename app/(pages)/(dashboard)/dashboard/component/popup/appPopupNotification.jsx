@@ -53,6 +53,7 @@ const AppPopupNotification = (props) => {
                         <AppCloseButton
                             onClick = {()=>{
                                 setOpen(false)
+                                
                             }}
                         />
                     </Box>
@@ -62,6 +63,7 @@ const AppPopupNotification = (props) => {
                             className={`${selected == 0 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px]`}
                             onClick={()=>{
                                 setSelected(0)
+                                props.onSelected(0)
                             }}
                         />
                         <AppButton
@@ -69,6 +71,7 @@ const AppPopupNotification = (props) => {
                             className={`${selected == 1 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
                             onClick={()=>{
                                 setSelected(1)
+                                props.onSelected(1)
                             }}
                         />
                         <AppButton
@@ -76,6 +79,7 @@ const AppPopupNotification = (props) => {
                             className={`${selected == 2 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
                             onClick={()=>{
                                 setSelected(2)
+                                props.onSelected(2)
                             }}
                         />
                         <AppButton
@@ -83,6 +87,7 @@ const AppPopupNotification = (props) => {
                             className={`${selected == 3 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
                             onClick={()=>{
                                 setSelected(3)
+                                props.onSelected(3)
                             }}
                         />
                     </Box>
