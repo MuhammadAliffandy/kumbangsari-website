@@ -14,7 +14,7 @@ const AppExpansionList = (props) => {
     };
 
     return (
-        <div ref={handleRef} className= {props.style  || 'text-black'}>
+        <div ref={handleRef} className= {props.style  || 'text-black '}>
             <motion.div 
                 onClick={toggleExpansion} 
                 style={{ cursor: 'pointer'}}
@@ -28,12 +28,13 @@ const AppExpansionList = (props) => {
                 animate={{ height: expanded ? 'auto' : 0 }} 
                 style={{ 
                     width:'100%',
+                    backgroundColor: "transparent",
                     overflow: 'hidden',
                     position: 'absolute',
                     zIndex: 999 
                 }}
             
-                className={`${ props.componentItemStyle || 'w-[200px] h-[80px] bg-red-500' }`}>
+                className={`${ props.componentItemStyle || 'w-[200px] h-[80px] bg-transparent' }`}>
                 { props.componentItemList}
             </motion.div>
         </div>

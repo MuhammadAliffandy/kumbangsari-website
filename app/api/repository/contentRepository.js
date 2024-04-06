@@ -17,6 +17,13 @@ export const generateAI = async (data) => {
     return response
 }
 
+export const generateAIManual = async (data) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_POST(`api/v1/ai/generate-content`,data , token)
+    return response
+}
+
 export const refreshAI = async (data) => {
     await delay()
     const token = getCookie('token');

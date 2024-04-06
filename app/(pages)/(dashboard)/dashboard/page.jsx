@@ -1,5 +1,4 @@
-'use client'
-
+'use client';
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -15,47 +14,42 @@ import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalAddContent from './component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import ReactPaginate from 'react-paginate';
-import { updateGenerateAI, updateGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
-import { generateAI, refreshAI } from '../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../api/repository/productRepository';
-import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
-import AppButton from "@/app/components/appButton/appButton";
+import { recommendationContentAI } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
 
 function createData(time, contentTitle, productName, contentTypes, platform) {
     return { time, contentTitle, productName, contentTypes, platform };
-  }
-  
-  const rows = [
+}
+
+const rows = [
     createData('17.00', 'Manfaat cuci muka pagi hari', 'Skincaremoe', 'Gambar, Caption, Hashtag', 'facebook'),
     createData('17.00', 'Manfaat Bakso Aci ', 'BaksoAci', 'Caption, Hashtag', 'instagram'),
     createData('17.00', 'Skincare ini bagus bgt', 'Skinku', 'Caption', 'twitter'),
     createData('17.00', 'Burger Murah Meriah', 'Burgar', 'Gambar, Caption', 'facebook'),
     createData('17.00', 'Sate Taichan Mantap', 'Taichan','Hashtag', 'twitter'),
-  ];
-  
+];
+
 
 function createDataRecap(platform, success , failed , waiting) {
     return {platform, success , failed , waiting};
-  }
-  
-  const recap = [
+}
+
+const recap = [
     createDataRecap('facebook',7,1,5),
     createDataRecap('instagram',7,1,5),
     createDataRecap('facebook',7,1,5),
     createDataRecap('twitter',7,1,5),
     createDataRecap('facebook',7,1,5),
 
-  ];
-  
+];
+
 
 const DashboardPage = () => {
 
@@ -67,7 +61,6 @@ const DashboardPage = () => {
     const dispatch = useDispatch()
     const { push } = useRouter()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
-    const generateListContent = useSelector(state => state.generateAI.value)
 
     const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalLoading , setOpenModalLoading ] = useState(false)
@@ -84,11 +77,11 @@ const DashboardPage = () => {
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
-      };
+    };
     
-      const perPage = 4;
-      const offset = currentPage * perPage;
-      const currentPageData = contentAI.slice(offset, offset + perPage);
+    const perPage = 4;
+    const offset = currentPage * perPage;
+    const currentPageData = contentAI.slice(offset, offset + perPage);
     
     const getUserProduct = async () => {
         const res = await getProductByUser();
@@ -100,75 +93,18 @@ const DashboardPage = () => {
         }
     }
 
-    const mappingGenerateAIValue = (data) => {
-        const currentData = data;
 
-        const generateValue = { 
-            caption : data.caption ,
-            hashtag : data.hashtag,
-            image : data.imageUrl, 
-        }
-
-        const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
-
-        const mappingArray = lengthData.map((data,index)=>{
-            return { 
-                image : !generateValue.image ? null : generateValue.image[index] , 
-                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
-                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
-                productName : productList[currentData.idProduct - 1].text,
-                platform : currentData.platform,
-                idContent: currentData.idContent,
-            }
-        }) 
-        return mappingArray;
-    }
-
-    
-    const refreshGenerateAI = async () => {
-        const data = {
-            idContent : generateListContent[0].idContent,
-            nameProduct :true,
-            image: true, 
-            caption : true,
-            hashtag: true,
-        }
-        const res = await refreshAI(data)
+    const getRecommendationContentAI = async () => {
+        const res = await recommendationContentAI();
+        
         if(res.status == 'OK'){
-            const newGenerate =  mappingGenerateAIValue(res.data) 
-            dispatch(updateGenerateAIList(newGenerate))
-        }
-    }
-
-
-    const onGenerateByHistory = async (data) => {
-        
-        setOpenModalLoading(true)
-        const content = {
-            contentTitle : data.contentTitle,
-            idProduct : data.idProduct,
-            nameProduct: data.nameProduct,
-            platform: data.platform,
-            style: data.style,
-            image: data.image,
-            caption : data.caption ,
-            hashtag: data.hashtag,
-        }
-
-        const res = await generateAI(content);
-        
-        if(res.status = 'OK'){
-            const contentAIByHistory = await mappingGenerateAIValue(res.data);
-            setOpenModalLoading(false)
-            setContentAI(contentAIByHistory)
-            console.log('GENERATE BY HISTORY OK')
-
+            setContentAI(res.data)
         }
     }
 
     useEffect(()=>{
         getUserProduct() 
-        setContentAI(generateListContent);
+        getRecommendationContentAI();
     },[])
 
 
@@ -235,10 +171,10 @@ const DashboardPage = () => {
                                                         key={index}
                                                         isDashboard = {true}
                                                         platform={data.platform}
-                                                        productName = {data.productName}
-                                                        image={data.image}
-                                                        caption = {data.caption}
-                                                        hashtag = {data.hashtag}
+                                                        productName = {data.contentTitle}
+                                                        image={data.imageUrlPost}
+                                                        caption = {data.captionPost}
+                                                        hashtag = {data.hashtagPost}
                                                         onClick={()=>{
                                                             setOpenModalDetail(!openModalDetail)
                                                             setContentDetail(data)
@@ -307,7 +243,7 @@ const DashboardPage = () => {
                                         data.image ? 'Gambar' : null,  
                                     ]
 
-                                    return(
+                                    return (
                                         <AppContentFilter
                                             key={index}
                                             isDashboard={true}
@@ -316,13 +252,10 @@ const DashboardPage = () => {
                                             contentTypes = {contentTypes.join(',').split(/,,|, /)}
                                             platform = {data.platform}
                                             onClick= {()=>{
-                                                onGenerateByHistory(data)
-                                            }}
-                                            onDeleteButton={()=>{
-                                                dispatch(deleteContentHistory(data))
+                                
                                             }}
                                         />
-                                    )
+                                    );
                                 })
                         
                                 : <p>Anda belum Melakukan Generate</p>
@@ -340,11 +273,11 @@ const DashboardPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetail}
-                image = {contentDetail ? contentDetail.image : ''}
-                caption = {contentDetail ? contentDetail.caption : ''}
-                hashtag = {contentDetail ? contentDetail.hashtag : ""}
+                image = {contentDetail ? contentDetail.imageUrlPost : ''}
+                caption = {contentDetail ? contentDetail.captionPost : ''}
+                hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
-                productName = {contentDetail ? contentDetail.productName : ""}
+                productName = {contentDetail ? contentDetail.contentTitle : ""}
                 isDashboard={true}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
@@ -408,7 +341,7 @@ const DashboardPage = () => {
             </AppModal>
 
         </AppLayout>
-    ) 
+    ); 
 }
 
 export default DashboardPage;

@@ -22,7 +22,7 @@ const AppLayout = (props) => {
 
     const [dateNow, setDateNow] = useState('');
     const [user, setUser] = useState();
-    const [expanded , setExpanded ] = useState(false)
+    const [expanded , setExpanded ] = useState(true)
 
     const setDate = () => {
         setDateNow(dateIndonesianNow())
@@ -109,7 +109,7 @@ const AppLayout = (props) => {
                                 }
                             />
                             <AppExpansionList
-                                style = {` ${!expanded ? 'rounded-t-[20px]' : 'rounded-[20px]' } shadow-xl  bg-white relative w-[180px]`}
+                                style = {` ${expanded == false ? 'rounded-t-[20px]' : 'rounded-[20px]' } bg-white  shadow-xl relative w-[180px]`}
                                 onClick={value => {
                                     setExpanded(value)
                                 }}

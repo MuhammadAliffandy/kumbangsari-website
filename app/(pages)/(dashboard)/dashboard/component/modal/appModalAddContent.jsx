@@ -18,7 +18,8 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import { generateAIManual } from '@/app/api/repository/contentRepository';
+import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from 'react-redux';
 
 
@@ -37,6 +38,7 @@ const AppModalAddContent = (props) => {
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
     const [UpNow , setUpNow] = useState(false)
+    const [productList , setProductList] = useState([])
     const [ captionRecommendation , setCaptionRecommendation ] = useState([])
     const [ imageRecommendation , setImageRecommendation ] = useState([])
     const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
@@ -53,6 +55,10 @@ const AppModalAddContent = (props) => {
             };
             reader.readAsDataURL(value);
         }
+    }
+
+    const handleChangeProduct = (event) => {
+        setProduct(event.target.value)
     }
 
     const convertHashtagStringToJson = (item) => {
@@ -81,56 +87,55 @@ const AppModalAddContent = (props) => {
         }
     }
 
-    const getRecommendationAI = async () => {
-        if (props.open){
-            const dataCaption = {
-                idContent : contentAI.idContent,
-                nameProduct :true,
-                image: false, 
-                caption : true,
-                hashtag: false,
-                isOne:true,
-            }
-            const dataImage = {
-                idContent : contentAI.idContent,
-                nameProduct :true,
-                image: true, 
-                caption : false,
-                hashtag: false,
-                isOne:true,
-            }
-            const dataHashtag = {
-                idContent : contentAI.idContent,
-                nameProduct :true,
-                image: false, 
-                caption : false,
-                hashtag: true,
-                isOne:true,
-            }
-            const resCaption = await refreshAI(dataCaption)
-            const resImage = await refreshAI(dataImage)
-            const resHashtag = await refreshAI(dataHashtag)
-
-            if(resCaption.status == 'OK') setCaptionRecommendation(convertResRecommendationAI(resCaption.data.data))
-            if(resImage.status == 'OK') setImageRecommendation(resImage.data.data)
-            if(resHashtag.status == 'OK') setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data.data).join(' ')))
+    const getUserProduct = async () => {
+        const res = await getProductByUser();
+        if(res.status = 'OK'){
+            const productList = res.data.map(item => {
+                return {value: item.idProduct , text : item.nameProduct}
+            })
+            setProductList(productList)
         }
     }
 
-    const getContentUser = () => {
+
+    const getRecommendationAI = async () => {
         if (props.open){
-            setContentTitle(contentAI.contentTitle)
-            setProduct(contentAI.productName)
-            setProductImage(contentAI.image)
-            setPlatform(contentAI.platform)
-            setCaption(contentAI.caption)
-            if(contentAI.hashtag != null){
-                setHashtag(convertHashtagStringToJson(contentAI.hashtag))
-                localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
-                convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+
+
+            const dataHashtag = {
+                idContent : product,
+                option : 'hashtag',
+                style :'santai'
             }
+
+            const resHashtag = await generateAIManual(dataHashtag)
+
+            if(resHashtag.status == 'OK') setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
+        }
+    }
+
+    const generateRecommendationCaption = async () => {
+
+        const dataCaption = {
+            idContent : product,
+            option : 'caption',
+            style :'santai'
+        }
+        const resCaption = await generateAIManual(dataCaption)
+
+        if(resCaption.status == 'OK') setCaptionRecommendation(convertResRecommendationAI(resCaption.data))
+    }
+
+    const generateRecommendationImage = async () => {
+        const dataImage = {
+            idContent : product,
+            option : 'image',
+            style :'santai'
         }
 
+        const resImage = await generateAIManual(dataImage)
+
+        if(resImage.status == 'OK') setImageRecommendation(resImage.data)
     }
 
     const handleAddContent = () => {
@@ -146,16 +151,11 @@ const AppModalAddContent = (props) => {
             productName: product,   
         }
 
-        const dataUpdated = {
-            prevData : contentAI,
-            newData : data ,
-        }
-
-        dispatch(updateGenerateAI(dataUpdated))
-
+        console.log(data)
     }
 
     useEffect(()=>{
+        getUserProduct()
         getRecommendationAI()
     },[props.open])
 
@@ -200,16 +200,12 @@ const AppModalAddContent = (props) => {
                             {/* product */}
                                 <Box className='w-[100%] flex flex-col gap-[10px]'>
                                     <label className='text-black font-semibold'>Produk</label>
-                                    <AppTextField
-                                        id="product"
-                                        value = {product}
-                                        type='text'
-                                        placeholder='Masukkkan nama Product konten di sini'
-                                        onChange={(event)=>{
-                                            const value = event.target.value
-                                            setProduct(value)
-                                        }}
-                                    />
+                                    <AppDropDown
+                                            value={product}
+                                            placeholder={'Pilih Nama Produk'}
+                                            listItem = {productList}
+                                            onChange={handleChangeProduct}
+                                        />
                                 </Box>
                                 <Box className='w-[100%] flex flex-col gap-[10px]'>
                                     {/* platform */}
@@ -231,11 +227,15 @@ const AppModalAddContent = (props) => {
                                 onClick={handleChangeImage}
                             />
                             <AppPopupImage
+                                isDashboard={true}
                                 images={imageRecommendation}
                                 onClick ={(value)=>{
                                     setProductImage(value)
                                 }}
-                            />
+                                onGenerate={()=>{
+                                    generateRecommendationImage()
+                                }}
+                                />
                         </Box>
 
                         {/*  */}
@@ -253,9 +253,13 @@ const AppModalAddContent = (props) => {
                             />
 
                             <AppPopupCaption
+                                isDashboard={true}
                                 captions={captionRecommendation}
                                 onClick ={(value)=>{
                                     setCaption(value)
+                                }}
+                                onGenerate={()=>{
+                                    generateRecommendationCaption()
                                 }}
                             />
                         </Box>
