@@ -258,7 +258,7 @@ const AppModalEditContent = (props) => {
                             <AppPopupImage
                                 images={imageRecommendation}
                                 onClick ={(value)=>{
-                                    setImage(value)
+                                    setProductImage(value)
                                 }}
                             />
                         </Box>

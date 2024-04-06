@@ -82,6 +82,7 @@ const AppLayout = (props) => {
                         <Box className ='flex gap-[20px] items-center' >
                             <AppPopupNotification
                                 available={true}
+                                onSelected={(value)=>{}}
                                 listNotification = {
                                     [
                                         {
@@ -108,7 +109,7 @@ const AppLayout = (props) => {
                                 }
                             />
                             <AppExpansionList
-                                style = {` ${!expanded ? 'rounded-t-[20px]' : 'rounded-[20px]' } shadow-xl p-[5px] bg-white relative w-full`}
+                                style = {` ${!expanded ? 'rounded-t-[20px]' : 'rounded-[20px]' } shadow-xl  bg-white relative w-[180px]`}
                                 onClick={value => {
                                     setExpanded(value)
                                 }}
@@ -116,7 +117,7 @@ const AppLayout = (props) => {
                                         <AppProfileButton
                                             isItemDropDown ={true}
                                             dropDownIcon={true}
-                                            dropDownType={!expanded}
+                                            dropDownType={expanded}
                                             image = {'https://www.wowkeren.com/display/images/photo/2024/04/03/00506918.webp'}
                                             name = {'Kazuha'}
                                             countProduct = {`${3} Produk`}
@@ -124,7 +125,7 @@ const AppLayout = (props) => {
                                 }
                                 componentItemStyle={'bg-white'}
                                 componentItemList = {
-                                    <div className="flex flex-col gap-[6px]">
+                                    <div className="flex flex-col gap-[6px] bg-white rounded-b-[20px]">
                                         <AppProfileButton
                                             isItemDropDown ={true}
                                             dropDownIcon={false}
