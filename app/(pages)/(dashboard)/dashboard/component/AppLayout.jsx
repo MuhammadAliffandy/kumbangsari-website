@@ -42,7 +42,7 @@ const AppLayout = (props) => {
     },[])
 
     return (
-            <Box className='w-[100vw] h-[100vh] flex'>
+            <Box className=  'w-[100%] h-[100vh] flex'>
                 {
                     sm  || md || lg? 
                         null

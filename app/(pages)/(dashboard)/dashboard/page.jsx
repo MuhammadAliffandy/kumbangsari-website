@@ -13,6 +13,7 @@ import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalAddContent from './component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
+import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupDashboardFilter'
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -73,6 +74,7 @@ const DashboardPage = () => {
     const [contentDetailPreview , setContentDetailPreview ] = useState()
     const [productList , setProductList] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
+    const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
 
 
     const handlePageChange = ({ selected }) => {
@@ -117,24 +119,37 @@ const DashboardPage = () => {
                 */}
                 <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } pt-[20px] h-[100%] flex flex-col gap-[15px]`}>
 
-                    <Box className='flex items-center justify-left gap-[10px]'>
-                        <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{
-                                    setOpenModalAdd(true)
+                    <Box className={`${ sm || lg ? 'w-[100%] flex justify-between' : 'w-[100%]'}`}>
+                        <Box className='flex items-center justify-left gap-[10px]'>
+                            <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                    onClick={()=>{
+                                        setOpenModalAdd(true)
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                                    {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Tambah Konten</p> }
+                            </AppCustomButton>
+                            <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                    onClick={()=>{
+                                        setOpenModalAI(!openModalAI)
+                                    }}
+                                >
+                                    <img src="/images/icon/sparkling-white.svg" />
+                                    {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Generate AI</p> }
+                            </AppCustomButton>
+                        </Box>
+                        {
+                            sm || lg ?  
+                            <AppPopupDashboardFilter
+                                isResponsive = { xl ? true : false  }
+                                product = { productList}
+                                listProductCheckbox={productCheckBoxFilter}
+                                onClick={(value)=>{
+                                    setProductCheckboxFilter(value.product)
+                                    console.log(value.product)
                                 }}
-                            >
-                                <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
-                                <p className="text-TEXT-5 text-[14px]">Tambah Konten</p>
-                        </AppCustomButton>
-                        <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{
-                                    setOpenModalAI(!openModalAI)
-                                }}
-                            >
-                                <img src="/images/icon/sparkling-white.svg" />
-                                <p className="text-TEXT-5 text-[14px]">Generate AI</p>
-                        </AppCustomButton>
-                        
+                            /> : null 
+                        }
                     </Box>
 
                     {/*  */}
@@ -166,7 +181,7 @@ const DashboardPage = () => {
 
                                     currentPageData.map((data,index) => {
                                         return ( 
-                                            <Grid key = {index} item xs={6}>
+                                            <Grid className="w-[100%]" key = {index} item xs={ 6}>
                                                     <AppContent
                                                         key={index}
                                                         isDashboard = {true}
@@ -208,13 +223,18 @@ const DashboardPage = () => {
                 <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } h-[100%] p-[20px] flex flex-col gap-[15px]`}>
 
                     <Box className='flex items-center justify-end w-[100%]'>
-                        <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[10px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
-                                onClick={()=>{}}
-                            >
-                                <img src="/images/icon/sparkling-black.svg" />
-                                <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>
-                        </AppCustomButton>
-                        
+                        {
+                            sm || lg ?  null : 
+                            <AppPopupDashboardFilter
+                                isResponsive = { xl ? true : false  }
+                                product = { productList}
+                                listProductCheckbox={productCheckBoxFilter}
+                                onClick={(value)=>{
+                                    setProductCheckboxFilter(value.product)
+                                    console.log(value.product)
+                                }}
+                            />
+                        }
                     </Box>
 
 

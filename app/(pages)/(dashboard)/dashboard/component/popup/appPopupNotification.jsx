@@ -93,9 +93,10 @@ const AppPopupNotification = (props) => {
                     </Box>
                     <Box className='flex flex-col'>
                         {
-                            props.listNotification.map(data => {
+                            props.listNotification.map((data,index)=> {
                                 return(
                                     <NotificationChildComponent
+                                        key={index}
                                         date = {data.dateDay}
                                         listDataNotification = {
                                             data.listDataNotificationChild

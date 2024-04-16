@@ -22,7 +22,7 @@ const AppTableRecap = (props) =>  {
             <TableBody>
                 {props.data.map((data , index) => (
                 <TableRow
-                    key={data.index}
+                    key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     <TableCell align="center">
