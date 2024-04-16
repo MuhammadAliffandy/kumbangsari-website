@@ -2,6 +2,7 @@
 
 import Box from '@mui/material/Box';
 import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
+import CircularProgress from '@mui/material/CircularProgress'
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,7 @@ import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import AppAnimationLayout from '@/app/components/appAnimation/appAnimationLayout'
 import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton'
+import AppModal  from '@/app/components/appModal/appModal'
 import 'react-toastify/dist/ReactToastify.css';
 import "../../../../globals.css";
 import { useState } from 'react';
@@ -25,18 +27,21 @@ const SignInPage = () => {
     const dispatch = useDispatch();
     const { push } = useRouter()
     const [loadingProgress,setLoadingProgress] = useState(0);
+    const [openModalLoading,setOpenModalLoading] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     const onSubmit  = async (data ) => {
 
         try {
             setLoadingProgress(50)
+            setOpenModalLoading(true)
             const res = await loginAuth(data)
             
             dispatch(setToken(res.data.token))
 
             const currentUser = await getCurrentUser(); 
             if(currentUser.status == 'OK'){
+                setOpenModalLoading(false)
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
                 }else{
@@ -46,6 +51,7 @@ const SignInPage = () => {
 
             setLoadingProgress(100)
         } catch (error) {
+            setOpenModalLoading(false)
             setLoadingProgress(100)
             toast.error('Email atau Kata Sandi Salah')
         }
@@ -117,6 +123,19 @@ const SignInPage = () => {
                     </Box>
                 </AppAnimationLayout>
                 <ToastContainer/>
+                <AppModal
+                        withClose = {false}
+                        open = {openModalLoading}
+                        width={'w-[35%]'}
+                    >
+                        <Box className ='flex flex-col items-center gap-[40px]'>
+                            <CircularProgress style={{color : '#F45B69'}}  />
+                            <Box className='flex flex-col items-center '>
+                                <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Sign In...</p>
+                                <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                            </Box>
+                        </Box>
+                </AppModal>
         </Box>
         
     )

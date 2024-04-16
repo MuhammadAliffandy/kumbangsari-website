@@ -24,16 +24,6 @@ const AppPopupImage = (props) => {
                     {/* content  */}
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
                     {
-                        props.isDashboard ? 
-
-                        <AppButton
-                            className='w-[30vw] py-[15px] bg-CUSTOM-RED shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
-                            text = 'Generate'
-                            onClick={()=>{
-                                props.onGenerate()
-                            }}
-                        /> :
-
                         <Grid container spacing={2}>
                             {
                                 props.images != null ?
@@ -49,6 +39,17 @@ const AppPopupImage = (props) => {
                                 : null
                             }
                         </Grid>
+                    }
+                    {
+                        props.isDashboard ? 
+
+                        <AppButton
+                            className='w-[30vw] py-[15px] bg-CUSTOM-RED shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
+                            text = 'Generate'
+                            onClick={()=>{
+                                props.onGenerate()
+                            }}
+                        /> : null
                     }
                     </Box>
                 </Box>

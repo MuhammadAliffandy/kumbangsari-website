@@ -22,7 +22,7 @@ import { getProductByUser } from '../../../api/repository/productRepository';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
-import { recommendationContentAI , contentPreview , contentRecap } from '@/app/api/repository/dashboardRepository'
+import { recommendationContentAI , contentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
 
 const createDataPreview = (time, contentTitle, productName, contentTypes, platform) => {
@@ -68,6 +68,7 @@ const DashboardPage = () => {
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalDetailPreview , setOpenModalDetailPreview ] = useState(false)
     const [openModalAdd , setOpenModalAdd ] = useState(false)
+    const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
     const [contentDataPreview , setContentDataPreview ] = useState([])
     const [contentDataRecap , setContentDataRecap ] = useState([])
@@ -149,9 +150,22 @@ const DashboardPage = () => {
         }
     }
 
+    const getTrendingHashtag = async () => {
+        try {
+            const res = await trendingHashtag();
+        
+            if(res.status == 'OK'){
+                setTrendingDataHashtag(res.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(()=>{
         getUserProduct() 
         getRecommendationContentAI();
+        getTrendingHashtag();
         getContentPreview();
         getContentRecap();
     },[])
@@ -205,7 +219,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Preview Konten</p> 
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
-                                data = {rows} //contentDataPreview
+                                data = {contentDataPreview} //contentDataPreview
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
                                 }}
@@ -289,7 +303,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
                         <Box className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
-                                data ={recap} // contentDataRecap
+                                data ={contentDataRecap} // contentDataRecap
                             />
                         </Box>
                     </Box>
@@ -300,23 +314,18 @@ const DashboardPage = () => {
                         </Box>
                         <Box className='h-[31vh] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
-                                generateAIContentHistory != [] ? 
+                                
+                                trendingDataHashtag.map((data,index) => {
 
-                                generateAIContentHistory.map((data,index) => {
-                                    
-                                    const contentTypes = [  
-                                        data.caption ? 'Caption' : null,  
-                                        data.hashtag ? 'Hashtag' : null,  
-                                        data.image ? 'Gambar' : null,  
-                                    ]
-
+                                    const productName = productList.filter(data => {return data.value == data.idProduct})
+                
                                     return (
                                         <AppContentFilter
                                             key={index}
                                             isDashboard={true}
-                                            title = {data.contentTitle}
-                                            subtitle = {data.productName}
-                                            contentTypes = {contentTypes.join(',').split(/,,|, /)}
+                                            title = {data.hashtag}
+                                            subtitle = {productName.text}
+                                            contentTypes = {`${data.count} unggahan`}
                                             platform = {data.platform}
                                             onClick= {()=>{
                                 
@@ -324,8 +333,7 @@ const DashboardPage = () => {
                                         />
                                     );
                                 })
-                        
-                                : <p>Anda belum Melakukan Generate</p>
+                    
                             }
                         </Box>
                     </Box>

@@ -13,7 +13,7 @@ export const recommendationContentAI = async () => {
 export const contentPreview = async () => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_GET(`api/v1/content/content-preview`, token)
+    const response = await PROVIDER_GET(`api/v1/content/preview-content`, token)
     return response
 }
 

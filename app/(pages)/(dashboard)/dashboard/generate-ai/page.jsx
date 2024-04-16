@@ -25,6 +25,7 @@ import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/g
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
+import { ToastContainer, toast } from "react-toastify";
 
 const GenerateAIPage = () => {
 
@@ -47,7 +48,6 @@ const GenerateAIPage = () => {
     const [productList , setProductList] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
-
 
     const pagination = () => {
         
@@ -95,23 +95,25 @@ const GenerateAIPage = () => {
         }) 
         return mappingArray;
     }
-
     
     const refreshGenerateAI = async () => {
-        const data = {
-            idContent : generateListContent[0].idContent,
-            nameProduct :true,
-            image: true, 
-            caption : true,
-            hashtag: true,
-        }
-        const res = await refreshAI(data)
-        if(res.status == 'OK'){
-            const newGenerate =  mappingGenerateAIValue(res.data) 
-            dispatch(updateGenerateAIList(newGenerate))
+        try {
+            const data = {
+                idContent : generateListContent[0].idContent,
+                nameProduct :true,
+                image: true, 
+                caption : true,
+                hashtag: true,
+            }
+            const res = await refreshAI(data)
+            if(res.status == 'OK'){
+                const newGenerate =  mappingGenerateAIValue(res.data) 
+                dispatch(updateGenerateAIList(newGenerate))
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
         }
     }
-
 
     const onGenerateByHistory = async (data) => {
         
@@ -127,14 +129,17 @@ const GenerateAIPage = () => {
             hashtag: data.hashtag,
         }
 
-        const res = await generateAI(content);
+        try {
+            const res = await generateAI(content);
         
-        if(res.status = 'OK'){
-            const contentAIByHistory = await mappingGenerateAIValue(res.data);
-            setOpenModalLoading(false)
-            setContentAI(contentAIByHistory)
-            console.log('GENERATE BY HISTORY OK')
-
+            if(res.status = 'OK'){
+                const contentAIByHistory = await mappingGenerateAIValue(res.data);
+                setOpenModalLoading(false)
+                setContentAI(contentAIByHistory)
+                console.log('GENERATE BY HISTORY OK')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500) ')
         }
     }
 
@@ -153,7 +158,6 @@ const GenerateAIPage = () => {
         getUserProduct() 
         pagination()
     },[])
-
 
     return (
         <AppLayout title='Generate AI'>
@@ -316,7 +320,7 @@ const GenerateAIPage = () => {
                         </Box>
                     </Box>
             </AppModal>
-
+            <ToastContainer/>
         </AppLayout>
     ) 
 }

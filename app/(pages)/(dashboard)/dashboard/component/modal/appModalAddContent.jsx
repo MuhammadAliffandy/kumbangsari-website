@@ -94,6 +94,7 @@ const AppModalAddContent = (props) => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)
+            setProduct(productList[0].value)
         }
     }
 
@@ -103,7 +104,7 @@ const AppModalAddContent = (props) => {
 
 
             const dataHashtag = {
-                idContent : product,
+                idProduct : product,
                 option : 'hashtag',
                 style :'santai'
             }
@@ -117,7 +118,7 @@ const AppModalAddContent = (props) => {
     const generateRecommendationCaption = async () => {
 
         const dataCaption = {
-            idContent : product,
+            idProduct : product,
             option : 'caption',
             style :'santai'
         }
@@ -128,7 +129,7 @@ const AppModalAddContent = (props) => {
 
     const generateRecommendationImage = async () => {
         const dataImage = {
-            idContent : product,
+            idProduct : product,
             option : 'image',
             style :'santai'
         }
@@ -167,7 +168,7 @@ const AppModalAddContent = (props) => {
             <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]'>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
-                    <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>
+                    <p className = 'text-[18px] font-bold text-black' >Tambah Konten</p>
                     <Box className='flex items-center gap-[15px]'>
                         <AppCloseButton
                             onClick = {()=>{
@@ -245,7 +246,7 @@ const AppModalAddContent = (props) => {
                                 id="caption"
                                 value = {caption}
                                 type='text'
-                                placeholder='Masukkkan nama Caption di sini'
+                                placeholder='Masukkkan caption di sini'
                                 onChange={(event)=>{
                                     const value = event.target.value
                                     setCaption(value)
@@ -260,6 +261,7 @@ const AppModalAddContent = (props) => {
                                 }}
                                 onGenerate={()=>{
                                     generateRecommendationCaption()
+                                    console.log(captionRecommendation)
                                 }}
                             />
                         </Box>

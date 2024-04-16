@@ -26,6 +26,17 @@ const AppPopupCaption = (props) => {
 
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
                         {
+                            props.captions != [] ?
+
+                            props.captions.map((data,index)=>{
+                                return(
+                                    <Box key = { index } onClick={()=>{props.onClick(data)}} className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
+                                        <p>{data}</p>
+                                    </Box>
+                                ) 
+                            }) : null
+                        }
+                        {
                             props.isDashboard ? 
 
                             <AppButton
@@ -34,19 +45,7 @@ const AppPopupCaption = (props) => {
                                 onClick={()=>{
                                     props.onGenerate()
                                 }}
-                            /> :
-                            
-                            props.captions != null ?
-
-                            props.captions.map((data,index)=>{
-                                return(
-                                    <Box key = { index } onClick={()=>{props.onClick(data)}} className='bg-NEUTRAL-100 text-[14px]  border-[1px] border-TEXT-1 rounded-[20px] px-[15px] py-[10px] text-TEXT-1'>
-                                        <p>{data}</p>
-                                    </Box>
-                                ) 
-                            }) : <div className='w-[40vw] flex flex-col'>
-                                        <Skeleton style={{ width: '40%' }} height={10} count={3} />
-                                </div>
+                            /> : null
                         } 
                     </Box>
                 </Box>
@@ -55,7 +54,9 @@ const AppPopupCaption = (props) => {
             <div className='relative'>
                 <AppCustomButton
                     className='flex items-center gap-[5px]'s
-                    onMouseEnter={() => setOpen(true)}
+                    onMouseEnter={() => {
+                        setOpen(true)
+                    }}
                 >
                         <img className='w-[14px] h-[14px]' src='/images/icon/sparkling.png' alt="Sparkling icon" />
                         <p className='text-[12px] text-PRIMARY-500 font-poppins font-semibold'>Tampilkan Rekomendasi AI</p>
