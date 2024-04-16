@@ -1,92 +1,75 @@
 'use client'
+import AppLayout from '../component/appLayout'
+import React, { useState } from "react";
 
-import AppLayout from "../component/appLayout";
-import AppCustomModal from "../../../../components/appModal/AppCustomModal";
-import { useState , useEffect} from "react";
-import AppButton from "@/app/components/appButton/appButton";
-import Box from '@mui/material/Box'
-import AppProfileButton from "../component/appProfileButton";
-import AppExpansionList from "@/app/components/appExpansionList/appExpansionList";
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+
+const renderEventContent = (eventInfo) => {
+  return (
+    <>
+      <div onClick={()=>{alert('TESTED EVENT CLICKED')}}>
+        <b style={{ color: 'black' }}>{eventInfo.timeText}</b>
+        <i >{eventInfo.event.title}</i>
+      </div>
+    </>
+  );
+};
+
+const renderDayContent = (arg) => {
+  return (
+    <>
+      <div style={{ fontSize: '14px' , color: 'black' }}>{arg.dayNumberText}</div>
+    </>
+  );
+};
 
 const CalenderPage = () => {
-
-    const [open , setOpen ] = useState(false)
-    const [expanded , setExpanded ] = useState(false)
 
 
     return (
         <AppLayout title='Kalender'>
-            <h1 className="text-black">
-                ini adalah kalender page
-            </h1>
-            <button  onClick={()=>{setOpen(!open)}} className="text-TEXT-1 bg-red-400" >test</button>
-        
-            <AppExpansionList
-                style = {'w-[14%] rounded-[20px] shadow-xl p-[10px]'}
-                onClick={value => {
-                    setExpanded(value)
+            <div className='w-[100%] h-[90vh] overflow-x-hidden overflow-y-scroll'>
+              <FullCalendar
+                height={'85vh'}
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
+                buttonText={{
+                  today: 'Hari ini',
+                  month: 'Bulan',
+                  week: 'Minggu',
+                  day: 'Hari',
+                  list: 'Daftar'
                 }}
-                componentHandle = {
-                    <div>
-                        <AppProfileButton
-                            isItemDropDown ={true}
-                            dropDownIcon={true}
-                            dropDownType={!expanded}
-                            image = {'https://www.wowkeren.com/display/images/photo/2024/04/03/00506918.webp'}
-                            name = {'Kazuha'}
-                            countProduct = {`${3} Produk`}
-                        />
-                    </div>
-                }
-                componentItemStyle={'bg-white'}
-                componentItemList = {
-                    <div className="flex flex-col gap-[6px]">
-                        <AppProfileButton
-                            isItemDropDown ={true}
-                            dropDownIcon={true}
-                            dropDownType={true}
-                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
-                            name = {'Chaewon'}
-                            countProduct = {`${2} Produk`}
-                        /> 
-                        <AppProfileButton
-                            isItemDropDown ={true}
-                            dropDownIcon={false}
-                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
-                            name = {'Chaewon'}
-                            countProduct = {`${2} Produk`}
-                        /> 
-                        <AppButton
-                            className='w-[100%] text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
-                            text='Buat Akun'
-                        />
-                    </div>
-                } 
-            />
-
-            <AppCustomModal
-                open={open}
-                withClose = {true}
-                modalType = {'modal-status'}
-                status = 'success'
-                alignment={'center'}
-                titleColor = {'text-STATE-GREEN-BASE'}
-                title = {'Ini Adalah title'}
-                subtitle = {'Anda dapat tahu tentang subtitle'}
-                onCloseButton= {(value)=>{
-                    setOpen(value)
+                headerToolbar={{
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,dayGridWeek,dayGridDay'
                 }}
-            >
-                <div className="w-[30vw]">
-                    <AppButton
-                        text='Unggah Sekarang'
-                    />
-                </div>
-            </AppCustomModal>
+                titleContent={(args) => {
+                  return <span style={{ color: 'red' }}>{args.title}</span>;
+                }}
+                eventContent={renderEventContent}
+                dayCellContent={renderDayContent}
+                dayHeaderContent={(args) => {
+                  return <span style={{ color: '#000' }}>{args.text}</span>;
+                }}
+                datesSet={(arg) => {
+                  const calendarTitle = document.querySelector('.fc-toolbar-title');
+                  if (calendarTitle) {
+                    calendarTitle.style.color = '#000'; // Set warna teks judul bulan
+                  }
+                }}
+                events={[
+                  { title: 'Acara asdadaskhasdaksasdaddasdsdasadask1', date: '2024-04-01', color: 'blue' },
+                  { title: 'Acara 2', date: '2024-04-02', color: 'green' },
+                  // Tambahkan acara yang ingin ditampilkan dalam kalender
+                ]}
+              />
+            </div>
         </AppLayout>
     ) 
 }
 
-
-
 export default CalenderPage;
+

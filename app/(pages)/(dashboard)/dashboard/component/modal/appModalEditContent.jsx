@@ -21,28 +21,6 @@ import { useSelector } from 'react-redux';
 import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 import { useDispatch } from 'react-redux';
 
-    // const listHashtagExample = [
-    //     { value: '#makanan', label: '#makanan' },
-    //     { value: '#music', label: '#music' },
-    //     { value: '#baksomantap', label: '#baksomantap' },
-    //     { value: '#olahraga', label: '#olahraga' },
-    //     { value: '#minuman', label: '#minuman' },
-    //     { value: '#yummy', label: '#yummy' },
-    //     { value: '#surabaya', label: '#surabaya' },
-    //     { value: '#snack', label: '#snack' },
-    // ];
-
-
-    // const hashtagOptions = [
-    //     { value: '#apple', label: '#Apple' },
-    //     { value: '#banana', label: '#Banana' },
-    //     { value: '#orange', label: '#Orange' },
-    //     { value: '#grape', label: '#Grape' },
-    // ]
-
-    // const options = [ ...listHashtagExample , ...hashtagOptions ]
-
-
 const AppModalEditContent = (props) => {
 
     const dispatch = useDispatch();
@@ -151,10 +129,8 @@ const AppModalEditContent = (props) => {
                 convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
             }else{
                 localStorage.setItem('hashtag','')
-
             }
         }
-
     }
 
     const handleEditContent = () => {
