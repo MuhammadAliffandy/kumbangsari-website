@@ -9,3 +9,24 @@ export const recommendationContentAI = async () => {
     const response = await PROVIDER_GET(`api/v1/content/recomendations`, token)
     return response
 }
+
+export const contentPreview = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/content/content-preview`, token)
+    return response
+}
+
+export const trendingHashtag = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/content/trending`, token)
+    return response
+}
+
+export const contentRecap = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/content/recap`, token)
+    return response
+}

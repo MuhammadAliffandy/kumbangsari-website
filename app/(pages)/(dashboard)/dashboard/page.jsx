@@ -22,23 +22,23 @@ import { getProductByUser } from '../../../api/repository/productRepository';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
-import { recommendationContentAI } from '@/app/api/repository/dashboardRepository'
+import { recommendationContentAI , contentPreview , contentRecap } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
 
-function createData(time, contentTitle, productName, contentTypes, platform) {
+const createDataPreview = (time, contentTitle, productName, contentTypes, platform) => {
     return { time, contentTitle, productName, contentTypes, platform };
 }
 
 const rows = [
-    createData('17.00', 'Manfaat cuci muka pagi hari', 'Skincaremoe', 'Gambar, Caption, Hashtag', 'facebook'),
-    createData('17.00', 'Manfaat Bakso Aci ', 'BaksoAci', 'Caption, Hashtag', 'instagram'),
-    createData('17.00', 'Skincare ini bagus bgt', 'Skinku', 'Caption', 'twitter'),
-    createData('17.00', 'Burger Murah Meriah', 'Burgar', 'Gambar, Caption', 'facebook'),
-    createData('17.00', 'Sate Taichan Mantap', 'Taichan','Hashtag', 'twitter'),
+    createDataPreview('17.00', 'Manfaat cuci muka pagi hari', 'Skincaremoe', 'Gambar, Caption, Hashtag', 'facebook'),
+    createDataPreview('17.00', 'Manfaat Bakso Aci ', 'BaksoAci', 'Caption, Hashtag', 'instagram'),
+    createDataPreview('17.00', 'Skincare ini bagus bgt', 'Skinku', 'Caption', 'twitter'),
+    createDataPreview('17.00', 'Burger Murah Meriah', 'Burgar', 'Gambar, Caption', 'facebook'),
+    createDataPreview('17.00', 'Sate Taichan Mantap', 'Taichan','Hashtag', 'twitter'),
 ];
 
 
-function createDataRecap(platform, success , failed , waiting) {
+const createDataRecap = (platform, success , failed , waiting) => {
     return {platform, success , failed , waiting};
 }
 
@@ -68,8 +68,9 @@ const DashboardPage = () => {
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalDetailPreview , setOpenModalDetailPreview ] = useState(false)
     const [openModalAdd , setOpenModalAdd ] = useState(false)
-    const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
+    const [contentDataPreview , setContentDataPreview ] = useState([])
+    const [contentDataRecap , setContentDataRecap ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
     const [contentDetailPreview , setContentDetailPreview ] = useState()
     const [productList , setProductList] = useState([])
@@ -95,18 +96,64 @@ const DashboardPage = () => {
         }
     }
 
-
     const getRecommendationContentAI = async () => {
-        const res = await recommendationContentAI();
+        try {
+            const res = await recommendationContentAI();
         
-        if(res.status == 'OK'){
-            setContentAI(res.data)
+            if(res.status == 'OK'){
+                setContentAI(res.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getContentPreview = async () => {
+        try {
+            const res = await contentPreview();
+        
+            if(res.status == 'OK'){
+                const data = res.data.map(data => {
+                    return createDataPreview(
+                        data.time,
+                        data.captionPost,
+                        data.contentTitle,
+                        data.contentType,
+                        data.platform
+                    )
+                })
+                setContentDataPreview(data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getContentRecap = async () => {
+        try {
+            const res = await contentRecap();
+        
+            if(res.status == 'OK'){
+                const data = res.data.map(data => {
+                    return createDataRecap(
+                        data.platform,
+                        data.success,
+                        data.failed,
+                        data.queue,
+                    )
+                })
+                setContentDataRecap(data)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     useEffect(()=>{
         getUserProduct() 
         getRecommendationContentAI();
+        getContentPreview();
+        getContentRecap();
     },[])
 
 
@@ -158,7 +205,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Preview Konten</p> 
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
-                                data = {rows}
+                                data = {rows} //contentDataPreview
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
                                 }}
@@ -242,7 +289,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
                         <Box className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
-                                data ={recap}
+                                data ={recap} // contentDataRecap
                             />
                         </Box>
                     </Box>
