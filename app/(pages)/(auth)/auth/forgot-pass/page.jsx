@@ -9,8 +9,7 @@ import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppTextField from '@/app/components/appTextField/appTextField';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+
 import { resetPasswordAuth } from '@/app/api/repository/authRepository';
 
 const ForgotPasswordPage = () => {
@@ -69,7 +68,6 @@ const ForgotPasswordPage = () => {
                     onClick = {()=>{}}
                 />
             </form>
-            <ToastContainer autoClose={800} />
         </Box>
     )
 }

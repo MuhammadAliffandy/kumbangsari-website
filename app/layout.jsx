@@ -2,7 +2,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./redux/StoreProvider";
+import { ToastContainer } from "react-toastify";
 import Head from "next/head";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,7 @@ export default function RootLayout({
             <StoreProvider>
               { children }
             </StoreProvider>
+            <ToastContainer autoClose={500} />
           </body>
         </html>
 

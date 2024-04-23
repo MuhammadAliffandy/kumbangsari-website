@@ -92,7 +92,10 @@ const ForgotPasswordPage = ()  => {
             const res = await sendOTPAuth({email : email})
             
             if(res.status == 'OK'){
-                console.log(res)
+                toast.success('OTP Telah Dikirim')
+            }else{
+                toast.error('OTP Gagal Dikirim ')
+
             }
     };
 
@@ -145,7 +148,6 @@ const ForgotPasswordPage = ()  => {
                 <button type='button' onClick={handleSendOTP} disabled={isSending}  className='text-black text-opacity-[50%] bg-transparent text-[14px] '>{isSending ? 'Kirim ulang code' : 'Kirim code'}</button>
                 {isSending && <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam : {countdown} detik</p>}
             </Box>
-            <ToastContainer autoClose={800} />
         </Box>
     )
 }

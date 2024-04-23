@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { ToastContainer, toast } from "react-toastify";
 import AppCarousel from '@/app/components/appCaraousel/appCaraousel';
 
 
@@ -48,6 +49,7 @@ const Layout = (props) => {
                     </Box>
                 </Box>
             </Box>
+
         </>
 
     ) 

@@ -17,6 +17,7 @@ import { setGenerateAIList} from '@/app/redux/slices/generateAISlice';
 import { setGenerateHistory }  from '@/app/redux/slices/generateAIHistorySlice';
 import { createContentHistory, updateContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { getCookie } from '@/app/utils/helper';
+import { toast } from 'react-toastify';
 
 
 const  AppModalGenerateAI = (props ) => {
@@ -112,9 +113,13 @@ const  AppModalGenerateAI = (props ) => {
             }
 
             const mapping = await mappingGenerateAIValue(res.data);
+            toast.success('Generate Content AI Berhasil')
             console.log('GENERATE OK')
             props.onLoad(load = false)
             props.onClick(mapping)
+        }else{
+            toast.error('Generate Content AI Gagal')
+            
         }
     }
 

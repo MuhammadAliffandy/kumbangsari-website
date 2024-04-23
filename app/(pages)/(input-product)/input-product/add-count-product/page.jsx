@@ -79,7 +79,6 @@ const AddCountProductPage = () => {
                     </AppAnimationButton>
                 </form>
             </AppAnimationLayout>
-            <ToastContainer autoClose={800} />
         </Box>
     )
 }

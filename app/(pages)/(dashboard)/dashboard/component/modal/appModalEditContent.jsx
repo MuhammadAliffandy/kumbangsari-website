@@ -14,16 +14,19 @@ import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelect
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
 import AppDefaultText from '@/app/components/appText/appDefaultText';
+import { toast } from 'react-toastify'
 import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 const AppModalEditContent = (props) => {
 
     const dispatch = useDispatch();
+    const { push } = useRouter()
     const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
     const [productImage , setProductImage] = useState(null)
@@ -43,7 +46,6 @@ const AppModalEditContent = (props) => {
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
-
     const handleChangeImage = (value) => {
         if (value) {
             const reader = new FileReader();
@@ -53,15 +55,22 @@ const AppModalEditContent = (props) => {
             reader.readAsDataURL(value);
         }
     }
-
+    
     const convertHashtagStringToJson = (item) => {
         const arr = item.split(' ')
 
         const hashtagValue = arr.map(data => {
-            return  { value: data, label: data }
+            return  { label: data , value: data,  }
         })
 
-        return hashtagValue;
+        const uniqueHashtagValue = [];
+        hashtagValue.forEach(item => {
+            if (!uniqueHashtagValue.some(element => element.value === item.value)) {
+                uniqueHashtagValue.push(item);
+            }
+        });
+
+        return uniqueHashtagValue;
     }
     const convertHashtagString = (item) => {
         const arr = [];
@@ -71,10 +80,10 @@ const AppModalEditContent = (props) => {
             setHashtagString(arr.join(' ')) 
         }
     }
-
     const convertResRecommendationAI = (data) => {
         if(data != []){
-            return data.map(item => { return item.content })
+            const arr =  data.map(item => { return item.content })
+            return arr;
         }else{
             return []
         }
@@ -112,7 +121,13 @@ const AppModalEditContent = (props) => {
 
             if(resCaption.status == 'OK') setCaptionRecommendation(convertResRecommendationAI(resCaption.data.data))
             if(resImage.status == 'OK') setImageRecommendation(resImage.data.data)
-            if(resHashtag.status == 'OK') setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data.data).join(' ')))
+            if(resHashtag.status == 'OK') {
+                setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data.data).join(' ')))
+                setHashtagRecommendation(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data.data).join(' ')))
+            }
+
+        }else{
+
         }
     }
 
@@ -133,25 +148,67 @@ const AppModalEditContent = (props) => {
         }
     }
 
+    const handleChangeMultiSelection = (value) => {
+        setHashtag(value)
+        localStorage.setItem('hashtag',JSON.stringify(value))
+        convertHashtagString(value)
+
+        const generalHashtagAI = hashtagRecommendation.filter(item => {
+            if(value.indexOf(item) === -1 ){
+                return item
+            }
+        });
+        setHashtagAI(generalHashtagAI)
+    }
+
+    const handleAddMultiSelection = (data) => {
+        setHashtag(prevHashtag => [...prevHashtag , data] )
+        const popData = hashtagAI.filter(item => {
+            return item !== data;
+        })
+        setHashtagAI(popData)
+
+        // 
+
+        const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
+
+        const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
+
+        const matchHashtag = [...hashtagKeep,...filteredDataArr]
+    
+        localStorage.setItem('hashtag',JSON.stringify(matchHashtag))
+
+        // to created hashtag string at ui 
+        convertHashtagString(matchHashtag)
+    }
+
+
     const handleEditContent = () => {
-        convertHashtagString(hashtag);
+        try {
+            convertHashtagString(hashtag);
 
-        const data = {
-            caption : caption ,
-            contentTitle : contentTitle,
-            hashtag: hashtagString,
-            idContent: contentAI.idContent,
-            image: productImage,
-            platform: platform,
-            productName: product,   
+            const data = {
+                caption : caption ,
+                contentTitle : contentTitle,
+                hashtag: hashtagString,
+                idContent: contentAI.idContent,
+                image: productImage,
+                platform: platform,
+                productName: product,    
+            }
+    
+            const dataUpdated = {
+                prevData : contentAI,
+                newData : data ,
+            }
+            
+            push('/dashboard/generate-ai')
+
+            dispatch(updateGenerateAI(dataUpdated))
+            toast.success('Edit Content AI Berhasil')
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')
         }
-
-        const dataUpdated = {
-            prevData : contentAI,
-            newData : data ,
-        }
-
-        dispatch(updateGenerateAI(dataUpdated))
 
     }
 
@@ -159,6 +216,7 @@ const AppModalEditContent = (props) => {
         getContentUser()
         getRecommendationAI()
     },[props.open])
+
 
     return(
         <Modal 
@@ -266,37 +324,14 @@ const AppModalEditContent = (props) => {
                             <AppMultiSelection
                                 value = {hashtag}
                                 options = { [ ...hashtagString , ...hashtagAI ] }
-                                onChange = {(value)=>{
-                                    setHashtag(value)
-                                    localStorage.setItem('hashtag',JSON.stringify(value))
-                                    convertHashtagString(value)
-
-                                    const filteredHashtagAI = hashtagAI.filter(item => !value.includes(item));
-                                    setHashtagAI(filteredHashtagAI)
-                                }}
+                                onChange = {value => {handleChangeMultiSelection(value)}}
                             />
                             <Grid container spacing={1}>
                             {
                                 hashtagAI.map((data,index) => {
                                     return ( 
                                         <Grid key = {index} item xs={2}>
-                                            <Box  onClick={()=>{
-                                                setHashtag(prevHashtag => [...prevHashtag , data] )
-                                                const popData = hashtagAI.filter(item => {
-                                                    return item !== data;
-                                                })
-                                                setHashtagAI(popData)
-
-                                                const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
-                                
-                                                const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
-                            
-                                                const matchHashtag = [...hashtagKeep,...filteredDataArr]
-                                                localStorage.setItem('hashtag',JSON.stringify(matchHashtag))
-                                                // to created hashtag string at ui 
-                                                convertHashtagString(matchHashtag)
-                                                
-                                            }}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px] truncate'>
+                                            <Box key={index} onClick={() => {handleAddMultiSelection(data)}}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px] truncate'>
                                                 {data.value}
                                             </Box>
                                         </Grid>

@@ -396,7 +396,6 @@ const AddProductPage = () => {
                     </form>
                 </AppAnimationLayout>
             </Box>
-            <ToastContainer autoClose={800} />
         </Box>
     )
 }
