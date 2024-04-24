@@ -134,6 +134,7 @@ const GenerateAIPage = () => {
         
             if(res.status = 'OK'){
                 const contentAIByHistory = await mappingGenerateAIValue(res.data);
+                console.log(res.data)
                 setOpenModalLoading(false)
                 setContentAI(contentAIByHistory)
                 console.log('GENERATE BY HISTORY OK')
@@ -161,13 +162,13 @@ const GenerateAIPage = () => {
 
     return (
         <AppLayout title='Generate AI'>
-            <Box className={`flex flex-grow ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
+            <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[100%]`}>
                 {/* 
                 *
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } pt-[20px] h-[100%]`}>
-                    <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[88vh] `}>
+                    <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
                             <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[10px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
@@ -177,7 +178,7 @@ const GenerateAIPage = () => {
                                 <p className="text-TEXT-1 font-bold text-[14px]">Generate AI</p>
                             </AppCustomButton>
                         </Box>
-                        <Box  className='h-[64.5vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box  className='h-[100%]  overflow-x-hidden overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
@@ -220,7 +221,7 @@ const GenerateAIPage = () => {
                 <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
                     <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4  hover:shadow-xl '>
-                        <Box className='flex items-center justify-between w-[100%]'>
+                        <Box className=' flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Penelusuran</p>
                             <AppPopupFilter
                                 isResponsive = { xl ? true : false  }
@@ -238,7 +239,7 @@ const GenerateAIPage = () => {
                                 }}
                             />
                         </Box>
-                        <Box className='h-[70vh] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='h-[100%] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
                                 generateAIContentHistory != [] ? 
 

@@ -111,7 +111,10 @@ const AppModalAddContent = (props) => {
 
             const resHashtag = await generateAIManual(dataHashtag)
 
-            if(resHashtag.status == 'OK') setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
+            if(resHashtag.status == 'OK') {
+                setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
+                setHashtagRecommendation(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
+            }
         }
     }
 
@@ -275,9 +278,13 @@ const AppModalAddContent = (props) => {
                                     setHashtag(value)
                                     localStorage.setItem('hashtag',JSON.stringify(value))
                                     convertHashtagString(value)
-
-                                    const filteredHashtagAI = hashtagAI.filter(item => !value.includes(item));
-                                    setHashtagAI(filteredHashtagAI)
+                            
+                                    const generalHashtagAI = hashtagRecommendation.filter(item => {
+                                        if(value.indexOf(item) === -1 ){
+                                            return item
+                                        }
+                                    });
+                                    setHashtagAI(generalHashtagAI)
                                 }}
                             />
                             <Grid container spacing={1}>
@@ -291,13 +298,17 @@ const AppModalAddContent = (props) => {
                                                     return item !== data;
                                                 })
                                                 setHashtagAI(popData)
-
+                                        
+                                                // 
+                                        
                                                 const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
-                                
+                                        
                                                 const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
-                            
+                                        
                                                 const matchHashtag = [...hashtagKeep,...filteredDataArr]
+                                            
                                                 localStorage.setItem('hashtag',JSON.stringify(matchHashtag))
+                                        
                                                 // to created hashtag string at ui 
                                                 convertHashtagString(matchHashtag)
                                                 

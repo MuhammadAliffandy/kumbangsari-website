@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation'
 import AppNavSidebar  from './appNavSidebar'
 import Box from '@mui/material/Box'
+import { setCookie } from '@/app/utils/helper';
 
 
 const AppSidebar = (props)=> {
@@ -65,7 +66,10 @@ const AppSidebar = (props)=> {
                         text={'Keluar'}
                         icon={'logout.png'}
                         onlyButton = {true}
-                        onClick={()=>{}}
+                        onClick={()=>{
+                            push('/auth/signin')
+                            setCookie('token','')
+                        }}
                     />
                 </div>
             </Box>

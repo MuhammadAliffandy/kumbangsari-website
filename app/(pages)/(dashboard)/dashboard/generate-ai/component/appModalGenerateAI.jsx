@@ -89,37 +89,41 @@ const  AppModalGenerateAI = (props ) => {
 
     const onGenerate = async () => {
     
-        let load = true ;
-        props.onLoad(load)
-        const data = {
-            contentTitle : contentTitle,
-            idProduct : product,
-            nameProduct:isCaptionName,
-            platform: platform,
-            style: languageStyle,
-            image: image,
-            caption : caption ,
-            hashtag: hashtag,
-        }
-        const res = await generateAI(data);
-        
-        if(res.status == 'OK'){
-            dispatch( setGenerateHistory(data) )
-
-            if(getCookie('generateContentHistory') != null ){
-                dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
-            }else{
-                dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
+        try {
+            let load = true ;
+            props.onLoad(load)
+            const data = {
+                contentTitle : contentTitle,
+                idProduct : product,
+                nameProduct:isCaptionName,
+                platform: platform,
+                style: languageStyle,
+                image: image,
+                caption : caption ,
+                hashtag: hashtag,
             }
-
-            const mapping = await mappingGenerateAIValue(res.data);
-            toast.success('Generate Content AI Berhasil')
-            console.log('GENERATE OK')
-            props.onLoad(load = false)
-            props.onClick(mapping)
-        }else{
-            toast.error('Generate Content AI Gagal')
+            const res = await generateAI(data);
             
+            if(res.status == 'OK'){
+                dispatch( setGenerateHistory(data) )
+
+                if(getCookie('generateContentHistory') != null ){
+                    dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
+                }else{
+                    dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
+                }
+
+                const mapping = await mappingGenerateAIValue(res.data);
+                toast.success('Generate Content AI Berhasil')
+                console.log('GENERATE OK')
+                props.onLoad(load = false)
+                props.onClick(mapping)
+            }else{
+                toast.error('Generate Content AI Gagal')
+                
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')
         }
     }
 
