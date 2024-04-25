@@ -9,6 +9,12 @@ export const getContentById = async (contentId) => {
     const response = await PROVIDER_GET(`api/v1/ai/${contentId}`, token)
     return response
 }
+export const getContentByHistory = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/ai/`, token)
+    return response
+}
 
 export const generateAI = async (data) => {
     await delay()

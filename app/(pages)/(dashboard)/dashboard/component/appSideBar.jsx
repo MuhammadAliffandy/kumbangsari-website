@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation'
 import AppNavSidebar  from './appNavSidebar'
+import AppExpansionList from "@/app/components/appExpansionList/appExpansionList";
 import Box from '@mui/material/Box'
 import { setCookie } from '@/app/utils/helper';
 
@@ -51,13 +52,58 @@ const AppSidebar = (props)=> {
                         iconWhite={'chart-white.png'}
                         onClick={()=>{push('/dashboard/analyst')}}
                     />
-                    <AppNavSidebar
-                        isDrawer={props.isDrawer }
-                        text={'Profil'}
-                        active={props.title == 'Profil' ? true : false}
-                        icon={'profile.png'}
-                        iconWhite={'profile-white.png'}
-                        onClick={()=>{push('/dashboard/profile')}}
+                    <AppExpansionList
+                        style = {`grow relative `}
+                        onClick={value => {
+                            console.log(value)
+                        }}
+                        componentHandle = {
+                            <AppNavSidebar
+                            isDrawer={props.isDrawer }
+                            text={'Profil'}
+                            active={props.title.split(' > ')[0] == 'Profil' ? true : false}
+                            icon={'profile.png'}
+                            iconWhite={'profile-white.png'}
+                            onClick={()=>{}}
+                        />
+                        }
+                        componentItemStyle={'bg-white'}
+                        componentItemList = {
+                            <div className="flex flex-col bg-transparent">
+                                <AppNavSidebar
+                                    isDrawer={props.isDrawer }
+                                    text={'Akun'}
+                                    active={props.title.split(' > ')[1] == 'Akun' ? true : false}
+                                    child = {true}
+                                    onClick={()=>{
+                                        push('/dashboard/profile/account')
+                                    }}
+                                />
+                                <AppNavSidebar
+                                    isDrawer={props.isDrawer }
+                                    text={'Daftar Produk'}
+                                    active={props.title == 'Akun' ? true : false}
+                                    child = {true}
+                                    onClick={()=>{}}
+                                />
+                                <AppNavSidebar
+                                    isDrawer={props.isDrawer }
+                                    text={'Berlangganan'}
+                                    active={props.title.split(' > ')[1] == 'Berlangganan' ? true : false}
+                                    child = {true}
+                                    onClick={()=>{
+                                        push('/dashboard/profile/subscription')
+                                    }}
+                                />
+                                <AppNavSidebar
+                                    isDrawer={props.isDrawer }
+                                    text={'Keamanan'}
+                                    active={props.title == 'Akun' ? true : false}
+                                    child = {true}
+                                    onClick={()=>{}}
+                                />
+                            </div>
+                        } 
                     />
                 </Box>
                 <div className='mb-[20px]'>

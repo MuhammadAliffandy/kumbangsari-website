@@ -52,3 +52,7 @@ export const dateIndonesianNow = () => {
     const formattedDate = format(now, "EEEE, dd MMMM yyyy", { locale: idLocale });
     return formattedDate;
 }
+
+export const formatRupiahNumber = (amount) => {
+    return amount.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}

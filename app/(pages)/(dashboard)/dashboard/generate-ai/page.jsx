@@ -19,13 +19,16 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
-import { generateAI, getContentById, refreshAI } from '../../../../api/repository/contentRepository';
+import { deleteContent, generateAI, getContentByHistory, getContentById, refreshAI } from '@/app/api/repository/contentRepository';
 import { getProductByUser } from '../../../../api/repository/productRepository';
 import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/navigation";
+
 
 const GenerateAIPage = () => {
 
@@ -34,6 +37,7 @@ const GenerateAIPage = () => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
 
+    const { push } = useRouter()
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
@@ -44,6 +48,7 @@ const GenerateAIPage = () => {
     const [openModalEdit , setOpenModalEdit ] = useState(false)
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
+    const [contentAIHistory , setContentAIHistory ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
     const [productList , setProductList] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
@@ -110,11 +115,12 @@ const GenerateAIPage = () => {
                 image : !generateValue.image ? null : generateValue.image[index] , 
                 caption :!generateValue.caption ? null : generateValue.caption[index].content ,
                 hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
-                productName : productList[currentData.idProduct - 1].text,
+                productName : productList[currentData.idProduct - 1]?.text,
                 platform : currentData.platform,
                 idContent: currentData.idContent,
             }
         }) 
+
         return mappingArray;
     }
     
@@ -137,50 +143,46 @@ const GenerateAIPage = () => {
         }
     }
 
-    const onGenerateByHistory = async (data) => {
-        
-        setOpenModalLoading(true)
-        const content = {
-            contentTitle : data.contentTitle,
-            idProduct : data.idProduct,
-            nameProduct: data.nameProduct,
-            platform: data.platform,
-            style: data.style,
-            image: data.image,
-            caption : data.caption ,
-            hashtag: data.hashtag,
-        }
+    const fetchCurrentContentAI = async () => {
 
-        try {
-            const res = await generateAI(content);
-        
-            if(res.status == 'OK'){
-                const contentAIByHistory = await mappingGenerateAIValue(res.data);
-                console.log(res.data)
-                setOpenModalLoading(false)
-                setContentAI(contentAIByHistory)
-                console.log('GENERATE BY HISTORY OK')
-            }
-        } catch (error) {
-            toast.error('Ada Kesalahan Server (500) ')
-        }
-    }
-
-    const fetchCurrenContentAI = async () => {
-   
         const res = await getContentById(generateAIContentHistory[0].idContent);
     
         if(res.status == 'OK'){
-            console.log(res.data)
-
             const contentAIConvert = await mappingGenerateCurrentAIValue(res.data);
             setOpenModalLoading(false)
             setContentAI(contentAIConvert)
         }else{
             toast.error('Content Gagal Generate')
         }
+    }
 
-     
+    const fetchContentHistory = async () => {
+        const res = await getContentByHistory();
+        if(res.status == 'OK'){
+            setContentAIHistory(res.data)
+
+        }else{
+            toast.error('Content History Gagal Generate')
+        }
+    }
+
+    const handleDeleteContentHistory = async (contentId) => {
+        try {
+            const res = await deleteContent(contentId);
+            if(res.status == 'OK'){
+                toast.success('Content History Berhasil Dihapus',
+                {
+                    onClose: () => {
+                        push('/dashboard/generate-ai');
+                    }
+                }
+            )
+            }else{
+                toast.error('Content History Gagal Dihapus')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
     }
 
     const paginationMax  = () => {
@@ -191,26 +193,28 @@ const GenerateAIPage = () => {
     }
     const paginationMin  = () => {
         setPrev(!prev)
-        pagination()
     }
 
     useEffect(()=>{
         getUserProduct() 
-        pagination()
     },[])
 
     useEffect(()=>{
-        fetchCurrenContentAI()
-    },[generateAIContentHistory[0].idContent])
+        fetchCurrentContentAI()
+        fetchContentHistory()
+    },[
+        productList,
+        generateAIContentHistory[0].idContent,
+    ])
 
     return (
         <AppLayout title='Generate AI'>
-            <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[100%]`}>
+            <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[86%]`}>
                 {/* 
                 *
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[88vh] `}>
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[100%] `}>
                     <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
@@ -242,7 +246,12 @@ const GenerateAIPage = () => {
                                                     />
                                             </Grid>
                                         )
-                                    }) : null
+                                    }) : 
+                                    <>
+                                        <div className="w-[100%] h-[100px]">
+                                            <Skeleton count={5} className="w-[100%]"/>
+                                        </div>
+                                    </>
                                 }
                             </Grid>
                         </Box>
@@ -284,14 +293,14 @@ const GenerateAIPage = () => {
                         </Box>
                         <Box className='h-[100%] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
-                                generateAIContentHistory != [] ? 
+                                contentAIHistory != [] ? 
 
-                                generateAIContentHistory.map((data,index) => {
+                                contentAIHistory.map((data,index) => {
                                     
                                     const contentTypes = [  
-                                        data.caption ? 'Caption' : null,  
-                                        data.hashtag ? 'Hashtag' : null,  
-                                        data.image ? 'Gambar' : null,  
+                                        data.archives.caption ? 'Caption' : null,  
+                                        data.archives.hashtag ? 'Hashtag' : null,  
+                                        data.archives.imageUrl ? 'Gambar' : null,  
                                     ]
 
                                     return(
@@ -302,10 +311,12 @@ const GenerateAIPage = () => {
                                             contentTypes = {contentTypes.join(',').split(/,,|, /)}
                                             platform = {data.platform}
                                             onClick= {()=>{
-                                                onGenerateByHistory(data)
+                                                const contentAIConvert = mappingGenerateCurrentAIValue(data);
+                                                setContentAI(contentAIConvert)
+                                                console.log(data)
                                             }}
                                             onDeleteButton={()=>{
-                                                dispatch(deleteContentHistory(data))
+                                                handleDeleteContentHistory(data.idContent)
                                             }}
                                         />
                                     )

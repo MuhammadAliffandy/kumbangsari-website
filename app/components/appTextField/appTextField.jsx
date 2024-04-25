@@ -30,6 +30,7 @@ const AppTextField = (props) => {
             helperText={props.helperText}
             onChange={props.onChange}
             onClick={props.onClick}
+            disabled={props.disabled}
 
         />
 }

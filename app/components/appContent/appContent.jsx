@@ -9,7 +9,12 @@ const AppContent = (props) => {
     return(
         <AppAnimationContent>
             <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2`} >
-                { props.image != null && props.caption == null && props.hashtag == null ? <img src={props.image} className='rounded-[15px] w-[180px] h-[180px] ' />  : props.image ? <img src={props.image} className='rounded-[15px] w-[120px] h-[120px]' /> : null }
+                {
+                    props.image != null && props.caption == null && props.hashtag == null ?   
+                    
+                    <Box className='w-[100%]'> <img src={props.image} className='rounded-[15px] w-[200px] h-[140px] object-cover' />  </Box>
+                    : props.image != null ? <Box className='w-[100%]'> <img src={props.image} className='rounded-[15px] w-[180px] h-[120px]' /> </Box> : null
+                }
                 <Box className = 'flex flex-col gap-[8px] '> 
                     {
                         props.caption ? <Box className = 'h-[34px] overflow-hidden text-ellipsis'>

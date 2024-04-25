@@ -60,25 +60,18 @@ export const PROVIDER_POST = async (pathUrl, data , token) => {
     }
 }
 
-export const PROVIDER_DELETE = async (pathUrl , data , token ) => {
+export const PROVIDER_DELETE = async (pathUrl , token ) => {
     const headers = {
         'Content-Type': 'application/json' ,
         "Authorization": `Bearer ${token || ''}`,
     }
 
     try {
-        
-        let response;
-        
-        if(data){
-            response = await axios.delete(`${BASE_URL}/${pathUrl}`, data, { headers });
-        }else{
-            response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
-        }
-
+        const response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
 
         switch (response.status) {
             case 200:
+                return response.data;
             case 201:
                 return response.data;
             default:
