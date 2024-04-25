@@ -19,7 +19,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
-import { generateAI, refreshAI } from '../../../../api/repository/contentRepository';
+import { generateAI, getContentById, refreshAI } from '../../../../api/repository/contentRepository';
 import { getProductByUser } from '../../../../api/repository/productRepository';
 import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
@@ -78,8 +78,30 @@ const GenerateAIPage = () => {
             hashtag : data.hashtag,
             image : data.imageUrl, 
         }
+        
+        const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
+        
+        const mappingArray = lengthData.map((data,index)=>{
+            return { 
+                image : !generateValue.image ? null : generateValue.image[index] , 
+                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
+                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
+                productName : productList[currentData.idProduct - 1].text,
+                platform : currentData.platform,
+                idContent: currentData.idContent,
+            }
+        }) 
+        return mappingArray;
+    }
 
-        console.log(generateValue)
+    const mappingGenerateCurrentAIValue = (data) => {
+        const currentData = data;
+
+        const generateValue = { 
+            caption : data.archives.caption ,
+            hashtag : data.archives.hashtag,
+            image : data.archives.imageUrl, 
+        }
         
         const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
         
@@ -132,7 +154,7 @@ const GenerateAIPage = () => {
         try {
             const res = await generateAI(content);
         
-            if(res.status = 'OK'){
+            if(res.status == 'OK'){
                 const contentAIByHistory = await mappingGenerateAIValue(res.data);
                 console.log(res.data)
                 setOpenModalLoading(false)
@@ -142,6 +164,23 @@ const GenerateAIPage = () => {
         } catch (error) {
             toast.error('Ada Kesalahan Server (500) ')
         }
+    }
+
+    const fetchCurrenContentAI = async () => {
+   
+        const res = await getContentById(generateAIContentHistory[0].idContent);
+    
+        if(res.status == 'OK'){
+            console.log(res.data)
+
+            const contentAIConvert = await mappingGenerateCurrentAIValue(res.data);
+            setOpenModalLoading(false)
+            setContentAI(contentAIConvert)
+        }else{
+            toast.error('Content Gagal Generate')
+        }
+
+     
     }
 
     const paginationMax  = () => {
@@ -159,6 +198,10 @@ const GenerateAIPage = () => {
         getUserProduct() 
         pagination()
     },[])
+
+    useEffect(()=>{
+        fetchCurrenContentAI()
+    },[generateAIContentHistory[0].idContent])
 
     return (
         <AppLayout title='Generate AI'>
