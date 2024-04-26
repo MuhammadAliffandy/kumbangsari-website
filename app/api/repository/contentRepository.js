@@ -19,7 +19,7 @@ export const getContentByHistory = async () => {
 export const generateAI = async (data) => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_POST(`api/v1/ai/generate-ai`,data , token)
+    const response = await PROVIDER_POST(`api/v1/ai/generate-ai`,data , token )
     return response
 }
 
@@ -28,6 +28,14 @@ export const generateAIManual = async (data) => {
     const token = getCookie('token');
     const response = await PROVIDER_POST(`api/v1/ai/generate-content`,data , token)
     return response
+}
+
+export const createContentAIManual = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_POST(`api/v1/content/manual-content`, data , token , 'form')
+    return response
+
 }
 
 export const refreshAI = async (data) => {

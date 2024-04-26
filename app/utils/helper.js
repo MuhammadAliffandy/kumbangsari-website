@@ -34,6 +34,28 @@ export const convertValueCheckbox = (text) => {
     }
 }
 
+export const formatDateTime = (inputDate, inputTime) => {
+
+
+    const dateComponents = inputDate.split("-");
+    const timeComponents = inputTime.split(":");
+
+    const hours = parseInt(timeComponents[0]);
+    const minutes = parseInt(timeComponents[1]);
+    const seconds = timeComponents[2] ? parseInt(timeComponents[2]) : 0;
+
+    const postedAt = new Date(
+        parseInt(dateComponents[0]),
+        parseInt(dateComponents[1]) - 1, 
+        parseInt(dateComponents[2]),
+        hours,
+        minutes,
+        seconds
+    );
+
+    const formattedDateTime = postedAt.toISOString();
+    return formattedDateTime;
+}
 
 export const formattedDateNumber = () => {
     const now = new Date();
@@ -55,4 +77,9 @@ export const dateIndonesianNow = () => {
 
 export const formatRupiahNumber = (amount) => {
     return amount.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+export const isImageFile = (file) => {
+    var mimeType = file.type;
+    return mimeType.startsWith('image/');
 }

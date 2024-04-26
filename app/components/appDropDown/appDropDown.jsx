@@ -6,6 +6,11 @@ const AppDropDown = (props) => {
         <>
             <Select
                     sx= {
+
+                        props.sx ?
+
+                        props.sx :
+
                         {
                             borderRadius: "15px",
                             backgroundColor: '#F7F9F9',

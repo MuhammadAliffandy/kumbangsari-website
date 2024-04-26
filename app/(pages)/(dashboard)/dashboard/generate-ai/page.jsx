@@ -32,20 +32,25 @@ import { useRouter } from "next/navigation";
 
 const GenerateAIPage = () => {
 
+    // state responsive
     const sm = useMediaQuery({ maxWidth: 640 });
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
-
+    // external state 
     const { push } = useRouter()
     const dispatch = useDispatch()
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
-
-    const [openModalAI , setOpenModalAI ] = useState(false)
+    // state loading
+    const [contentAILoading  , setContentAILoading ] = useState(false)
+    const [contentAIHistoryLoading  , setContentAIHistoryLoading ] = useState(false)
     const [openModalLoading , setOpenModalLoading ] = useState(false)
+    // state modal
+    const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalEdit , setOpenModalEdit ] = useState(false)
+    // state data
     const [prev , setPrev ] = useState(true)
     const [contentAI , setContentAI ] = useState([])
     const [contentAIHistory , setContentAIHistory ] = useState([])
@@ -143,26 +148,40 @@ const GenerateAIPage = () => {
         }
     }
 
-    const fetchCurrentContentAI = async () => {
+    const fetchContentHistory = async () => {
 
-        const res = await getContentById(generateAIContentHistory[0].idContent);
-    
+        setContentAIHistoryLoading(true)
+        
+        const res = await getContentByHistory();
         if(res.status == 'OK'){
-            const contentAIConvert = await mappingGenerateCurrentAIValue(res.data);
-            setOpenModalLoading(false)
-            setContentAI(contentAIConvert)
+            if(res.data.length !== 0){
+                setContentAIHistory(res.data)
+                setContentAIHistoryLoading(false)
+            }else{
+                setContentAIHistoryLoading(true)
+            }
         }else{
-            toast.error('Content Gagal Generate')
+            toast.error('Content History Gagal Generate')
+            setContentAIHistoryLoading(false)
         }
     }
 
-    const fetchContentHistory = async () => {
-        const res = await getContentByHistory();
-        if(res.status == 'OK'){
-            setContentAIHistory(res.data)
+    const fetchCurrentContentAI = async () => {
 
+        setContentAILoading(true)
+        if(contentAIHistory[0]?.idContent != null){
+            const res = await getContentById(contentAIHistory[0].idContent);
+    
+            if(res.status == 'OK'){
+                const contentAIConvert = await mappingGenerateCurrentAIValue(res.data);
+                setOpenModalLoading(false)
+                setContentAI(contentAIConvert)
+            }else{
+                toast.error('Content Gagal Generate')
+            }
+            setContentAILoading(false)
         }else{
-            toast.error('Content History Gagal Generate')
+            setContentAILoading(true)
         }
     }
 
@@ -200,12 +219,12 @@ const GenerateAIPage = () => {
     },[])
 
     useEffect(()=>{
+        fetchContentHistory(),
         fetchCurrentContentAI()
-        fetchContentHistory()
     },[
         productList,
-        generateAIContentHistory[0].idContent,
     ])
+
 
     return (
         <AppLayout title='Generate AI'>
@@ -229,7 +248,13 @@ const GenerateAIPage = () => {
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
-                                    contentAI != [] ?
+                                    contentAILoading ?
+
+                                    <>
+                                        <div className="w-[100%] h-[100px]">
+                                            <Skeleton count={5} className="w-[100%]"/>
+                                        </div>
+                                    </> :
 
                                     contentAI.map((data,index) => {
                                         return ( 
@@ -246,12 +271,8 @@ const GenerateAIPage = () => {
                                                     />
                                             </Grid>
                                         )
-                                    }) : 
-                                    <>
-                                        <div className="w-[100%] h-[100px]">
-                                            <Skeleton count={5} className="w-[100%]"/>
-                                        </div>
-                                    </>
+                                    }) 
+
                                 }
                             </Grid>
                         </Box>
@@ -293,7 +314,13 @@ const GenerateAIPage = () => {
                         </Box>
                         <Box className='h-[100%] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
-                                contentAIHistory != [] ? 
+                                contentAIHistoryLoading ? 
+
+                                <>
+                                    <div className="w-[100%] h-[100px]">
+                                        <Skeleton count={5} className="w-[100%]"/>
+                                    </div>
+                                </> :
 
                                 contentAIHistory.map((data,index) => {
                                     
@@ -321,8 +348,6 @@ const GenerateAIPage = () => {
                                         />
                                     )
                                 })
-                        
-                                : <p>Anda belum Melakukan Generate</p>
                             }
                         </Box>
                     </Box>

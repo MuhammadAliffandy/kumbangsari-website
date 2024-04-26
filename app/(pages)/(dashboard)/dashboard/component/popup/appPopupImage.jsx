@@ -16,7 +16,7 @@ const AppPopupImage = (props) => {
             onClickOutside={()=> setOpen(false)}
             align="center"
             content={
-                <Box  onMouseLeave={() => setOpen(false)} className = {`${props.isDashboard ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
+                <Box  className = {`${props.isDashboard ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
                     {/* headline */}
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[18px] font-bold text-black' >Rekomendasi Gambar</p>

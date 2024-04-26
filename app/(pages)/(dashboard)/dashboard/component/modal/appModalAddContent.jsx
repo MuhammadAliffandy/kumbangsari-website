@@ -14,6 +14,7 @@ import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelect
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
 import AppDefaultText from '@/app/components/appText/appDefaultText';
+import { isImageFile , formatDateTime } from '@/app/utils/helper'
 import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
@@ -28,10 +29,12 @@ const AppModalAddContent = (props) => {
     const dispatch = useDispatch();
     const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
+    const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [caption , setCaption] = useState('')
+    const [style , setStyle ] = useState('')
     const [hashtagString , setHashtagString] = useState('')
     const [hashtag , setHashtag] = useState([])
     const [hashtagAI , setHashtagAI] = useState([])
@@ -48,6 +51,7 @@ const AppModalAddContent = (props) => {
     }
 
     const handleChangeImage = (value) => {
+        setImage(value)
         if (value) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -98,10 +102,8 @@ const AppModalAddContent = (props) => {
         }
     }
 
-
     const getRecommendationAI = async () => {
         if (props.open){
-
 
             const dataHashtag = {
                 idProduct : product,
@@ -145,17 +147,30 @@ const AppModalAddContent = (props) => {
     const handleAddContent = () => {
         convertHashtagString(hashtag);
 
-        const data = {
-            caption : caption ,
-            contentTitle : contentTitle,
-            hashtag: hashtagString,
-            idContent: contentAI.idContent,
-            image: productImage,
-            platform: platform,
-            productName: product,   
+        const formData = new FormData();
+        formData.append('contentTitle', contentTitle);
+        formData.append('idProduct', product);
+        formData.append('platform', platform);
+        formData.append('style', style);
+        formData.append('hashtag', hashtagString);
+        formData.append('postedAt', formatDateTime(dateUp,timeUp));
+        formData.append('historyHashtag', hashtagRecommendation);
+        formData.append('historyImage', imageRecommendation);
+        formData.append('historyCaption', captionRecommendation);
+
+
+        if(image?.type){
+            formData.append('image', '');
+            formData.set('files',image , image.name );
+        }else{
+            formData.append('image', image);
+            formData.set('files', '');
         }
 
-        console.log(data)
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
     }
 
     useEffect(()=>{
@@ -235,9 +250,11 @@ const AppModalAddContent = (props) => {
                                 images={imageRecommendation}
                                 onClick ={(value)=>{
                                     setProductImage(value)
+                                    setImage(value)
                                 }}
                                 onGenerate={()=>{
                                     generateRecommendationImage()
+                                    console.log(imageRecommendation)
                                 }}
                                 />
                         </Box>
@@ -266,7 +283,8 @@ const AppModalAddContent = (props) => {
                                     generateRecommendationCaption()
                                     console.log(captionRecommendation)
                                 }}
-                            />
+                                onDropdown={(value)=>{setStyle(value)} }
+                                />
                         </Box>
                         {/*  */}
                         <Box className='w-[100%] flex flex-col gap-[10px]'>

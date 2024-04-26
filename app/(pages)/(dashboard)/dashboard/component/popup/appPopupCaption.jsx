@@ -1,26 +1,50 @@
 import { Popover } from 'react-tiny-popover';
 import Box from '@mui/material/Box';
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
+import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppButton from '@/app/components/appButton/appButton';
 import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { listDropLanguageStyle } from '@/app/utils/model';
 
 const AppPopupCaption = (props) => {
     const [open, setOpen] = useState(false);
+    const [style , setStyle ] = useState('formal')
+
+    const handleDropDown = (event)=>{
+        setStyle(event.target.value)
+        props.onDropdown(event.target.value)
+    }
 
     return (
         <Popover
             isOpen={open}
             positions={[ 'left', 'bottom']}
             containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '0%' : '6%' , paddingRight : props.isDashboard ? '15%' : '0%'}}
-            onClickOutside={()=> setOpen(false)}
+            onClickOutside={  ()=> setOpen(false)}
             align="center"
             content={
                 <Box onMouseLeave={() => setOpen(false)} className={`${props.isDashboard ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
                     {/* headline */}
-                    <Box className='flex justify-between'>
-                        <p className='text-[18px] font-bold text-black'>Rekomendasi Caption</p>
+                    <Box className='flex items-center justify-between'>
+                        <p className='w-[70%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>
+                        {
+                            <AppDropDown
+                                sx={{
+                                    borderRadius: "15px",
+                                    height:'30px',
+                                    backgroundColor: '#F7F9F9',
+                                    width:"30%",
+                                    fontSize:'12px'
+                                }}
+                                value={style}
+                                placeholder={'Gaya Bahasa'}
+                                listItem = {listDropLanguageStyle}
+                                onChange={handleDropDown}
+                            />
+                        }
+
                     </Box>
                     {/* content  */}
 
