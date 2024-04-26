@@ -30,7 +30,7 @@ export const generateAIManual = async (data) => {
     return response
 }
 
-export const createContentAIManual = async () => {
+export const createContentAIManual = async (data) => {
     await delay()
     const token = getCookie('token');
     const response = await PROVIDER_POST(`api/v1/content/manual-content`, data , token , 'form')

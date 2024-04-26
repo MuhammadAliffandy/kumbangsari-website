@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { listPlatform } from '@/app/utils/model';
 
-const Calendar = () => {
+const Calendar = (props) => {
 
     const renderEventContent = (eventInfo) => {
 
@@ -26,15 +26,16 @@ const Calendar = () => {
         };
         
 
-        const renderDayHeaderContent = (arg) => {
-            return (
-                    <>
-                        <p className='text-[14px] text-TEXT-05'>{arg.text}</p>
-                    </>
-                );
-        };
+    const renderDayHeaderContent = (arg) => {
+        return (
+                <>
+                    <p className='text-[14px] text-TEXT-05'>{arg.text}</p>
+                </>
+            );
+    };
 
 
+    
 
     return (
         <FullCalendar
@@ -77,7 +78,9 @@ const Calendar = () => {
                 }
             }}
             eventContent={renderEventContent}
-            events={[
+            events={
+            props.events ||    
+            [
                 { title: 'Acara 1', date: '2024-04-01', platform : 'instagram' , borderColor:'transparent' , status : 'success' },
                 { title: 'Acara 1', date: '2024-04-01', platform : 'instagram' , borderColor:'transparent' , status : 'success' },
                 { title: 'Acara 1', date: '2024-04-01', platform : 'instagram' , borderColor:'transparent' , status : 'success' },

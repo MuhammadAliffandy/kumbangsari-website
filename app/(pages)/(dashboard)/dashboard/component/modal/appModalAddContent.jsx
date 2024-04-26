@@ -19,9 +19,10 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { generateAIManual } from '@/app/api/repository/contentRepository';
+import { createContentAIManual, generateAIManual } from '@/app/api/repository/contentRepository';
 import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 const AppModalAddContent = (props) => {
@@ -34,7 +35,7 @@ const AppModalAddContent = (props) => {
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [caption , setCaption] = useState('')
-    const [style , setStyle ] = useState('')
+    const [style , setStyle ] = useState('formal')
     const [hashtagString , setHashtagString] = useState('')
     const [hashtag , setHashtag] = useState([])
     const [hashtagAI , setHashtagAI] = useState([])
@@ -120,7 +121,9 @@ const AppModalAddContent = (props) => {
             if(resHashtag.status == 'OK') {
                 setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
                 setHashtagRecommendation(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
-                setHashtagAIHistory(resHashtag.data.content)
+                setHashtagAIHistory(resHashtag.data)
+            }else{
+            toast.error('Generate AI Hashtag gagal')
             }
         }
     }
@@ -136,7 +139,9 @@ const AppModalAddContent = (props) => {
 
         if(resCaption.status == 'OK') {
             setCaptionRecommendation(convertResRecommendationAI(resCaption.data))
-            setCaptionAIHistory(resCaption.data.content)
+            setCaptionAIHistory(resCaption.data)
+        }else{
+            toast.error('Generate AI Caption gagal')
         }
     }
 
@@ -151,36 +156,46 @@ const AppModalAddContent = (props) => {
 
         if(resImage.status == 'OK') {
             setImageRecommendation(resImage.data)
-            setImageAIHistory(resImage.data.content)
+            setImageAIHistory(resImage.data)
+        }else{
+            toast.error('Generate AI Image gagal')
         }
     }
 
-    const handleAddContent = () => {
-        convertHashtagString(hashtag);
+    const handleAddContent = async () => {
+        try {
+            convertHashtagString(hashtag);
 
-        const formData = new FormData();
-        formData.append('contentTitle', contentTitle);
-        formData.append('idProduct', product);
-        formData.append('platform', platform);
-        formData.append('style', style);
-        formData.append('hashtag', hashtagString);
-        formData.append('postedAt', formatDateTime(dateUp,timeUp));
-        formData.append('historyHashtag', hashtagAIHistory);
-        formData.append('historyImage', imageAIHistory);
-        formData.append('historyCaption', captionAIHistory);
+            const formData = new FormData();
+            formData.append('contentTitle', contentTitle);
+            formData.append('idProduct', product);
+            formData.append('platform', platform);
+            formData.append('style', style);
+            formData.append('hashtag', hashtagString);
+            formData.append('postedAt', formatDateTime(dateUp,timeUp));
+            formData.append('historyHashtag', JSON.stringify(hashtagAIHistory));
+            formData.append('historyImage', JSON.stringify(imageAIHistory));
+            formData.append('historyCaption', JSON.stringify(captionAIHistory));
 
+            if(image?.type){
+                formData.append('image', '');
+                formData.set('files',image , image.name );
+            }else{
+                formData.append('image', image);
+                formData.set('files', '');
+            }
+            
+            const res = await createContentAIManual(formData)
 
-        if(image?.type){
-            formData.append('image', '');
-            formData.set('files',image , image.name );
-        }else{
-            formData.append('image', image);
-            formData.set('files', '');
+            if(res.status === 'OK'){
+                toast.success('Tambah Content Berhasil')
+            }else{
+                toast.error('Tambah Content Gagal')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Sever (500)')
         }
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
-        }
 
     }
 

@@ -83,3 +83,9 @@ export const isImageFile = (file) => {
     var mimeType = file.type;
     return mimeType.startsWith('image/');
 }
+
+export const convertEventDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = date.toISOString().split('T')[0];
+    return formattedDate
+}
