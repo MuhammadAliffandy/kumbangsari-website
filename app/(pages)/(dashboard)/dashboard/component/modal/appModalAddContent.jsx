@@ -165,9 +165,9 @@ const AppModalAddContent = (props) => {
         formData.append('style', style);
         formData.append('hashtag', hashtagString);
         formData.append('postedAt', formatDateTime(dateUp,timeUp));
-        formData.append('historyHashtag', hashtagRecommendation);
-        formData.append('historyImage', imageRecommendation);
-        formData.append('historyCaption', captionRecommendation);
+        formData.append('historyHashtag', hashtagAIHistory);
+        formData.append('historyImage', imageAIHistory);
+        formData.append('historyCaption', captionAIHistory);
 
 
         if(image?.type){
