@@ -6,19 +6,52 @@ import Box from '@mui/material/Box'
 import AppTextField from '@/app/components/appTextField/appTextField'
 import Stack from '@mui/material/Stack'
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '@/app/(pages)/(auth)/auth/component/validation';
+import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { useForm , } from 'react-hook-form';
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { data } from "autoprefixer";
 
 
 const ProfilePage = () => {
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
+    const [userLoading , setUserLoading ] = useState(false)
+    const [ user , setUser ] = useState('')
+    const inputFileImageRef = useRef(null)
+    const [fileImage, setFileImage] = useState(null);
+
+    const handleFileChange = (event) => {
+        setFileImage(event.target.files[0]);
+    };
+
+    const handleButtonFileClick = () => {
+        inputFileImageRef.current.click();
+    };
     
     const fetchUserProfile = async () => {
-
+        setUserLoading(true)
+        try {
+            const res = await getCurrentUser()
+            
+            if(res.status === 'OK'){
+                console.log(res.data)
+                setUser(res.data)
+            }
+            setUserLoading(false)
+        } catch (error) {
+            toast.error('Authentication Failed')
+            setUserLoading(false)
+        }
     }
     
     const onSubmit= async (data ) => {
 
     };
+
+
+    useEffect(()=>{
+        fetchUserProfile()
+    },[])
 
 
     return (
@@ -30,18 +63,22 @@ const ProfilePage = () => {
                     <Box className='w-[100%] h-[88%] flex gap-[20px] p-[20px] absolute z-[100] bottom-0'>
                         <Box className='flex-none flex flex-col items-center justify-between bg-white w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4'>
                             <Box className='flex flex-col gap-[20px] items-center'>
-                                <img className="rounded-[100%] w-[160px] h-[160px]" 
-                                    src="https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90" alt="image-profile" 
-                                />
+                                <Box className='w-[160px] h-[160px] relative'>
+                                    <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
+                                    <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
+                                    <img className="rounded-[100%] w-[100%] h-[100%] relative" 
+                                        src="https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90" alt="image-profile" 
+                                    />
+                                </Box>
                                 <Box className='flex flex-col items-center'>
-                                    <p className="text-TEXT-1 text-[16px] font-bold">Taylor Swift</p>
+                                    <p className="text-TEXT-1 text-[16px] font-bold">{user.name || 'Your Name'}</p>
                                     <span className="flex items-center gap-[3px]">
                                         <p className="text-TEXT-1 text-[12px]">Paket 1</p>
                                         <img src="/images/icon/success-check.svg" />
                                     </span>
-                                    <p className="text-TEXT-1 text-[12px]">0831212332</p>
-                                    <p className="text-TEXT-1 text-[12px]">taylorsiwft@gmail.com</p>
-                                    <p className="text-TEXT-4 text-[10px]">3 Produk</p>
+                                    <p className="text-TEXT-1 text-[12px]">{user.phoneNumber || '081xxxxxx'}</p>
+                                    <p className="text-TEXT-1 text-[12px]">{user.email || 'taylorsiwft@gmail.com' }</p>
+                                    <p className="text-TEXT-4 text-[10px]">{user.countProduct || '0'} Produk</p>
                                 </Box>
                             </Box>
                             <AppButton
