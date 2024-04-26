@@ -46,6 +46,10 @@ const AppModalAddContent = (props) => {
     const [ imageRecommendation , setImageRecommendation ] = useState([])
     const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
     
+    const [ captionAIHistory , setCaptionAIHistory ] = useState([])
+    const [ imageAIHistory , setImageAIHistory ] = useState([])
+    const [ hashtagAIHistory , setHashtagAIHistory ] = useState([])
+    
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
@@ -116,6 +120,7 @@ const AppModalAddContent = (props) => {
             if(resHashtag.status == 'OK') {
                 setHashtagAI(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
                 setHashtagRecommendation(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
+                setHashtagAIHistory(resHashtag.data.content)
             }
         }
     }
@@ -129,7 +134,10 @@ const AppModalAddContent = (props) => {
         }
         const resCaption = await generateAIManual(dataCaption)
 
-        if(resCaption.status == 'OK') setCaptionRecommendation(convertResRecommendationAI(resCaption.data))
+        if(resCaption.status == 'OK') {
+            setCaptionRecommendation(convertResRecommendationAI(resCaption.data))
+            setCaptionAIHistory(resCaption.data.content)
+        }
     }
 
     const generateRecommendationImage = async () => {
@@ -141,7 +149,10 @@ const AppModalAddContent = (props) => {
 
         const resImage = await generateAIManual(dataImage)
 
-        if(resImage.status == 'OK') setImageRecommendation(resImage.data)
+        if(resImage.status == 'OK') {
+            setImageRecommendation(resImage.data)
+            setImageAIHistory(resImage.data.content)
+        }
     }
 
     const handleAddContent = () => {
