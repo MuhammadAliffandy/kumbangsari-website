@@ -55,7 +55,7 @@ const SubscriptionPage = () => {
     return(
         <AppLayout title={'Profil > Berlangganan'} >
             <Box className='grow h-[86%] bg-NEUTRAL-100 p-[20px]'>
-                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px]'>
+                {/* <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="p-[20px]" >
                         {
                             subscriptionList.map((data,index)=>{
@@ -98,8 +98,12 @@ const SubscriptionPage = () => {
                             })
                         }
                     </Grid> 
+                </Box> */}
+                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    
                 </Box>
             </Box>
+            
         </AppLayout>
     )
 }

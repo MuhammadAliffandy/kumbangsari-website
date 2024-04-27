@@ -3,19 +3,18 @@
 import AppButton from "@/app/components/appButton/appButton";
 import AppLayout from "../../component/appLayout";
 import Box from '@mui/material/Box'
+import AppModalChangePass from '@/app/(pages)/(dashboard)/dashboard/profile/component/appModalChangePass'
 import AppTextField from '@/app/components/appTextField/appTextField'
-import Stack from '@mui/material/Stack'
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '@/app/(pages)/(auth)/auth/component/validation';
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { useForm , } from 'react-hook-form';
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { data } from "autoprefixer";
-
 
 const ProfilePage = () => {
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
     const [userLoading , setUserLoading ] = useState(false)
+    const [ openModalChangePass , setOpenModalChangePass  ] = useState(false)
     const [ user , setUser ] = useState('')
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
@@ -56,6 +55,12 @@ const ProfilePage = () => {
 
     return (
         <AppLayout title='Profil > Akun'>
+            <AppModalChangePass 
+                open={openModalChangePass}
+                onCloseButton = {(value)=> {
+                    setOpenModalChangePass(value)
+                }}
+            />
             <Box className = "grow h-[86%] p-[20px] bg-NEUTRAL-100">
                 <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] relative'>
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
@@ -139,7 +144,7 @@ const ProfilePage = () => {
                                         helperText={errors.password && errors.password.message}
                                         disabled={true}
                                     />
-                                    <p className="text-TEXT-1 underline font-bold text-[14px] ">Ubah Kata Sandi</p>
+                                    <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
                                     <Box className='w-[100%] flex justify-end '>
                                         <AppButton
                                                 className={' flex gap-[10px] w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
