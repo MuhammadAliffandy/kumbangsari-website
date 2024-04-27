@@ -1,9 +1,12 @@
 'use client'
+import AppTablePayment from "@/app/components/appTable/appTablePayment";
 import AppLayout from "../../component/appLayout";
 import AppButton from "@/app/components/appButton/appButton";
 import { formatRupiahNumber } from "@/app/utils/helper";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const subscriptionList = [
     {
@@ -50,11 +53,20 @@ const subscriptionList = [
     },
 ]
 
+const createDataPayment = (date, packet, price, status, ) => {
+    return { date, packet, price, status,  };
+}
+
+const dataPaymentTable = [
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
+];
 
 const SubscriptionPage = () => {
     return(
         <AppLayout title={'Profil > Berlangganan'} >
-            <Box className='grow h-[86%] bg-NEUTRAL-100 p-[20px]'>
+            <Box className='grow h-[86%] bg-NEUTRAL-100 p-[20px] flex flex-col gap-[20px]'>
                 {/* <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="p-[20px]" >
                         {
@@ -99,8 +111,69 @@ const SubscriptionPage = () => {
                         }
                     </Grid> 
                 </Box> */}
-                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                    
+                <Box className='h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                    <Box className='p-[20px] flex flex-col gap-[15px] '>
+                        <Box className='flex gap-[5px]'>
+                            <p className="text-PRIMARY-500 font-bold text-[18px]">Paket Dasar</p>
+                            <img className="w-[28px] h-[28px]" src="/images/icon/info-packet.svg" />
+                        </Box>
+                        {/*  */}
+                        <Box className='flex gap-[10px] w-[100%] text-[14px]'>
+                            <Box className='w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
+                                <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: 1</p></span>
+                                <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: 1 Desemeber 2023</p></span>
+                                <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: 1</p></span>
+                            </Box>
+                            <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
+                                <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: 1</p></span>
+                                <LinearProgress
+                                    sx={{
+                                        height: 6,
+                                        borderRadius: 5,
+                                    }}
+                                    variant="determinate"
+                                    value={50} 
+                                />
+                                <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: 1 Desemeber 2023</p></span>
+                                <LinearProgress
+                                    sx={{
+                                        height: 6,
+                                        borderRadius: 5,
+                                    }}
+                                    variant="determinate"
+                                    value={50} 
+                                />
+                            </Box>
+                        </Box>
+                        {/*  */}
+                        <Box className='flex gap-[10px] justify-end'> 
+                                <AppButton
+                                    className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                    text={'Berhenti Langganan'} 
+                                    type = {'Submit'}
+                                    onClick = {()=>{
+
+                                    }}
+                                />
+                                <AppButton
+                                    className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                    text={'Ubah Paket'} 
+                                    type = {'Submit'}
+                                    onClick = {()=>{
+
+                                    }}
+                                />
+                        </Box>
+                    </Box>
+                </Box>
+                <Box className='grow w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                    <Box className='p-[20px] flex flex-col gap-[15px]'>
+                        <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
+                        <AppTablePayment
+                            data={dataPaymentTable}
+                            onClick={()=>{}}
+                        />
+                    </Box>
                 </Box>
             </Box>
             
