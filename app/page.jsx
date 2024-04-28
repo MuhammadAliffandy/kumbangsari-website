@@ -1,6 +1,37 @@
 import Image from "next/image";
+import { getCurrentUser } from '@/app/api/repository/authRepository'
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const { push  } = useRouter()
+
+  const checkedUser = async () => {
+    try {
+        const res = await getCurrentUser()
+        
+        if(res.status !== 'OK'){
+          const confirmValue = confirm('Token anda telah expired silahkan Login Ulang')
+
+          if(confirmValue){
+            push('/auth/signin')
+          }else{
+            push('/')
+
+          }
+        }
+
+    } catch (error) {
+      toast.error('Ada Kesalahan Server (500)')
+    }
+  }
+
+  useEffect(()=>{
+    checkedUser()
+  },[])
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">

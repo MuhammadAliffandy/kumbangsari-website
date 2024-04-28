@@ -58,6 +58,9 @@ const createDataPayment = (date, packet, price, status, ) => {
 }
 
 const dataPaymentTable = [
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'success'),
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
+    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
     createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
     createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
     createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
@@ -111,7 +114,7 @@ const SubscriptionPage = () => {
                         }
                     </Grid> 
                 </Box> */}
-                <Box className='h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                     <Box className='p-[20px] flex flex-col gap-[15px] '>
                         <Box className='flex gap-[5px]'>
                             <p className="text-PRIMARY-500 font-bold text-[18px]">Paket Dasar</p>

@@ -10,8 +10,18 @@ import TableRow from '@mui/material/TableRow';
 const AppTablePreview = (props) =>  {
     return (
         <TableContainer >
-            <Table sx={{ minWidth: '100%' }} aria-label="simple table">
-            <TableHead className='rounded-[20px]'>
+            <Table sx={{ minWidth: '100%', }} aria-label="simple table">
+            <TableHead sx={ 
+                {
+                    '& th:last-child': {
+                        borderTopRightRadius: '15px',
+                        borderBottomRightRadius: '15px'
+                    },
+                    '& th:first-child': {
+                        borderTopLeftRadius: '15px',
+                        borderBottomLeftRadius: '15px'
+                    },
+                }}>
                 <TableRow className='bg-PRIMARY-400' >
                     <TableCell align="center"><p className='text-white'>Tanggal</p></TableCell>
                     <TableCell align="center"><p className='text-white'>Paket</p></TableCell>

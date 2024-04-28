@@ -22,34 +22,16 @@ import { getProductByUser } from '../../../api/repository/productRepository';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
-import { recommendationContentAI , contentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
+import { recommendationContentAI , getContentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
 
 const createDataPreview = (time, contentTitle, productName, contentTypes, platform) => {
     return { time, contentTitle, productName, contentTypes, platform };
 }
 
-const rows = [
-    createDataPreview('17.00', 'Manfaat cuci muka pagi hari', 'Skincaremoe', 'Gambar, Caption, Hashtag', 'facebook'),
-    createDataPreview('17.00', 'Manfaat Bakso Aci ', 'BaksoAci', 'Caption, Hashtag', 'instagram'),
-    createDataPreview('17.00', 'Skincare ini bagus bgt', 'Skinku', 'Caption', 'twitter'),
-    createDataPreview('17.00', 'Burger Murah Meriah', 'Burgar', 'Gambar, Caption', 'facebook'),
-    createDataPreview('17.00', 'Sate Taichan Mantap', 'Taichan','Hashtag', 'twitter'),
-];
-
-
 const createDataRecap = (platform, success , failed , waiting) => {
     return {platform, success , failed , waiting};
 }
-
-const recap = [
-    createDataRecap('facebook',7,1,5),
-    createDataRecap('instagram',7,1,5),
-    createDataRecap('facebook',7,1,5),
-    createDataRecap('twitter',7,1,5),
-    createDataRecap('facebook',7,1,5),
-
-];
 
 
 const DashboardPage = () => {
@@ -61,12 +43,13 @@ const DashboardPage = () => {
 
     const dispatch = useDispatch()
     const { push } = useRouter()
-
+    // state modal
     const [openModalAI , setOpenModalAI ] = useState(false)
     const [openModalLoading , setOpenModalLoading ] = useState(false)
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalDetailPreview , setOpenModalDetailPreview ] = useState(false)
     const [openModalAdd , setOpenModalAdd ] = useState(false)
+    // state data
     const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
     const [contentDataPreview , setContentDataPreview ] = useState([])
@@ -86,7 +69,7 @@ const DashboardPage = () => {
     const offset = currentPage * perPage;
     const currentPageData = contentAI.slice(offset, offset + perPage);
     
-    const getUserProduct = async () => {
+    const fetchUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
             const productList = res.data.map(item => {
@@ -96,7 +79,7 @@ const DashboardPage = () => {
         }
     }
 
-    const getRecommendationContentAI = async () => {
+    const fetchRecommendationContentAI = async () => {
         try {
             const res = await recommendationContentAI();
         
@@ -108,10 +91,9 @@ const DashboardPage = () => {
         }
     }
 
-    const getContentPreview = async () => {
+    const fetchContentPreview = async () => {
         try {
-            const res = await contentPreview();
-        
+            const res = await getContentPreview();        
             if(res.status == 'OK'){
                 const data = res.data.map(data => {
                     return createDataPreview(
@@ -129,7 +111,7 @@ const DashboardPage = () => {
         }
     }
 
-    const getContentRecap = async () => {
+    const fetchContentRecap = async () => {
         try {
             const res = await contentRecap();
         
@@ -149,7 +131,7 @@ const DashboardPage = () => {
         }
     }
 
-    const getTrendingHashtag = async () => {
+    const fetchTrendingHashtag = async () => {
         try {
             const res = await trendingHashtag();
         
@@ -162,11 +144,11 @@ const DashboardPage = () => {
     }
 
     useEffect(()=>{
-        getUserProduct() 
-        getRecommendationContentAI();
-        getTrendingHashtag();
-        getContentPreview();
-        getContentRecap();
+        fetchUserProduct() 
+        fetchRecommendationContentAI();
+        fetchTrendingHashtag();
+        fetchContentPreview();
+        fetchContentRecap();
     },[])
 
 
@@ -220,6 +202,8 @@ const DashboardPage = () => {
                                 data = {contentDataPreview} //contentDataPreview
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
+                                    setContentDetailPreview(value)
+                                    console.log(value)
                                 }}
 
                             />

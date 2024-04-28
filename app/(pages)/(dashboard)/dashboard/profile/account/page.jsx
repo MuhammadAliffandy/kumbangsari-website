@@ -6,8 +6,8 @@ import Box from '@mui/material/Box'
 import AppModalChangePass from '@/app/(pages)/(dashboard)/dashboard/profile/component/appModalChangePass'
 import AppTextField from '@/app/components/appTextField/appTextField'
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '@/app/(pages)/(auth)/auth/component/validation';
-import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { useForm , } from 'react-hook-form';
+import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
