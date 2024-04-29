@@ -25,8 +25,8 @@ import { useMediaQuery } from "react-responsive";
 import { recommendationContentAI , getContentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
 
-const createDataPreview = (time, contentTitle, productName, contentTypes, platform) => {
-    return { time, contentTitle, productName, contentTypes, platform };
+const createDataPreview = (time, contentTitle, productName, contentTypes, platform, caption , hashtag , image) => {
+    return { time, contentTitle, productName, contentTypes, platform  , caption , hashtag , image};
 }
 
 const createDataRecap = (platform, success , failed , waiting) => {
@@ -96,16 +96,21 @@ const DashboardPage = () => {
             const res = await getContentPreview();        
             if(res.status == 'OK'){
                 const data = res.data.map(data => {
+
                     return createDataPreview(
                         data.time,
                         data.captionPost,
-                        data.contentTitle,
+                        productList.filter(item => { return data.idProduct === item.value })[0].text,
                         data.contentType,
-                        data.platform
+                        data.platform,
+                        data.captionPost,
+                        data.hashtagPost,
+                        data.imageUrlPost,
                     )
                 })
                 setContentDataPreview(data)
             }
+
         } catch (error) {
             console.log(error)
         }
@@ -145,11 +150,14 @@ const DashboardPage = () => {
 
     useEffect(()=>{
         fetchUserProduct() 
+    },[])
+
+    useEffect(()=>{
         fetchRecommendationContentAI();
         fetchTrendingHashtag();
         fetchContentPreview();
         fetchContentRecap();
-    },[])
+    },[productList])
 
 
     return (
@@ -343,7 +351,7 @@ const DashboardPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetailPreview}
-                image = {contentDetailPreview ? contentDetailPreview.image : ''}
+                image = {contentDetailPreview ? contentDetailPreview.image ? contentDetailPreview.image [0] : null : null}
                 caption = {contentDetailPreview ? contentDetailPreview.caption : ''}
                 hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
                 platform = {contentDetailPreview ? contentDetailPreview.platform : ""}

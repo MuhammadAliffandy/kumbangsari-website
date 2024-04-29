@@ -22,16 +22,16 @@ const AppPopupImage = (props) => {
                         <p className = 'text-[18px] font-bold text-black' >Rekomendasi Gambar</p>
                     </Box>
                     {/* content  */}
-                    <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
+                    <Box className={`flex flex-col gap-[15px] w-[100%] h-auto`}>
                     {
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} >
                             {
                                 props.images != null ?
 
                                 props.images.map((data,index)=>{
                                     return(
                                         <Grid onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
-                                            <img className='w-[100%] h-auto rounded-[15px]' src={data} />
+                                            <img className='w-[500px] h-[200px] object-cover rounded-[15px]' src={data} />
                                         </Grid>
                                     )
                                 })   

@@ -34,6 +34,14 @@ export const convertValueCheckbox = (text) => {
     }
 }
 
+export const getCurrentDateTime = () => {
+    const now = new Date();
+    const time = format(now, 'HH:mm:ss', { timeZone: 'Asia/Jakarta' });
+    const date = format(now, 'yyyy-MM-dd', { timeZone: 'Asia/Jakarta' });
+    return { time, date };
+};
+
+
 export const formatDateTime = (inputDate, inputTime) => {
 
 

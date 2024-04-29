@@ -14,7 +14,7 @@ import AppMultiSelection from '@/app/components/appMultiSelection/appMultiSelect
 import AppPopupCaption from '../popup/appPopupCaption';
 import AppPopupImage from '../popup/appPopupImage';
 import AppDefaultText from '@/app/components/appText/appDefaultText';
-import { isImageFile , formatDateTime } from '@/app/utils/helper'
+import { isImageFile , formatDateTime , getCurrentDateTime} from '@/app/utils/helper'
 import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
@@ -27,8 +27,6 @@ import { toast } from 'react-toastify';
 
 const AppModalAddContent = (props) => {
 
-    const dispatch = useDispatch();
-    const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
     const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
@@ -41,7 +39,7 @@ const AppModalAddContent = (props) => {
     const [hashtagAI , setHashtagAI] = useState([])
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
-    const [UpNow , setUpNow] = useState(false)
+    const [upNow , setUpNow] = useState(false)
     const [productList , setProductList] = useState([])
     const [ captionRecommendation , setCaptionRecommendation ] = useState([])
     const [ imageRecommendation , setImageRecommendation ] = useState([])
@@ -209,7 +207,7 @@ const AppModalAddContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]'>
+            <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Tambah Konten</p>
@@ -375,6 +373,7 @@ const AppModalAddContent = (props) => {
                                         value = { dateUp }
                                         type='date'
                                         placeholder='Pilih Tanggal Unggah'
+                                        disabled={upNow}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setDateUp(value)
@@ -384,7 +383,17 @@ const AppModalAddContent = (props) => {
                                         value= 'true'
                                         label = 'Unggah Sekarang'
                                         onChange= {(value , label)=>{
-                                            value == 'true' ? setUpNow(true) : setUpNow(false)
+                                            if(value == 'true'){
+                                                console.log('ANJAY')
+                                                setUpNow(true)
+                                                const { date , time } = getCurrentDateTime()
+                                                setTimeUp(time)
+                                                setDateUp(date)
+                                            }else{
+                                                setUpNow(false)
+                                                setTimeUp('')
+                                                setDateUp('')
+                                            }
                                         }}
                                     />
                                 </Box>
@@ -394,6 +403,7 @@ const AppModalAddContent = (props) => {
                                         value = { timeUp }
                                         type='time'
                                         placeholder='Pilih Jam Unggah'
+                                        disabled={upNow}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setTimeUp(value)

@@ -20,6 +20,7 @@ import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import {getCurrentDateTime} from '@/app/utils/helper'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
@@ -38,7 +39,7 @@ const AppModalEditContent = (props) => {
     const [hashtagAI , setHashtagAI] = useState([])
     const [dateUp , setDateUp] = useState('')
     const [timeUp , setTimeUp] = useState('')
-    const [UpNow , setUpNow] = useState(false)
+    const [upNow , setUpNow] = useState(false)
     const [ captionRecommendation , setCaptionRecommendation ] = useState([])
     const [ imageRecommendation , setImageRecommendation ] = useState([])
     const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
@@ -223,7 +224,7 @@ const AppModalEditContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]'>
+            <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>
@@ -350,6 +351,7 @@ const AppModalEditContent = (props) => {
                                         value = { dateUp }
                                         type='date'
                                         placeholder='Pilih Tanggal Unggah'
+                                        disabled={upNow}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setDateUp(value)
@@ -359,7 +361,17 @@ const AppModalEditContent = (props) => {
                                         value= 'true'
                                         label = 'Unggah Sekarang'
                                         onChange= {(value , label)=>{
-                                            value == 'true' ? setUpNow(true) : setUpNow(false)
+                                            if(value == 'true'){
+                                                console.log('ANJAY')
+                                                setUpNow(true)
+                                                const { date , time } = getCurrentDateTime()
+                                                setTimeUp(time)
+                                                setDateUp(date)
+                                            }else{
+                                                setUpNow(false)
+                                                setTimeUp('')
+                                                setDateUp('')
+                                            }
                                         }}
                                     />
                                 </Box>
@@ -369,6 +381,7 @@ const AppModalEditContent = (props) => {
                                         value = { timeUp }
                                         type='time'
                                         placeholder='Pilih Jam Unggah'
+                                        disabled={upNow}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setTimeUp(value)

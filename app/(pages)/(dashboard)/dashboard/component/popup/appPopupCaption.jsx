@@ -29,7 +29,8 @@ const AppPopupCaption = (props) => {
                     {/* headline */}
                     <Box className='flex items-center justify-between'>
                         <p className='w-[70%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>
-                        {
+                         {
+                            !props.isDashboard ? null :
                             <AppDropDown
                                 sx={{
                                     borderRadius: "15px",

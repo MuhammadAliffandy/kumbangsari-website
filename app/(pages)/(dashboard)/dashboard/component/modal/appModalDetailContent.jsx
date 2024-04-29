@@ -21,7 +21,7 @@ const AppModalDetailContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
+            <Box className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
@@ -44,7 +44,7 @@ const AppModalDetailContent = (props) => {
                     <Box className={`${props.caption == null && props.hashtag == null ? 'flex flex-col gap-[8px] ' : 'flex gap-[20px] ' }`}>
                         {
                             props.image != null ? 
-                            <Box className={`flex flex-col gap-[20px] justify-center ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[50%] ' }`}>
+                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[50%] ' }`}>
                                 <img className='w-[100%] h-[100%] rounded-[15px] object-cover' src={props.image}/>
                             </Box>: null
                         }
