@@ -21,11 +21,11 @@ const AppPopupCaption = (props) => {
         <Popover
             isOpen={open}
             positions={[ 'left', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '0%' : '6%' , paddingRight : props.isDashboard ? '15%' : '0%'}}
-            onClickOutside={  ()=> setOpen(false)}
+            containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '6%' : '6%' , paddingRight : props.isDashboard ? '15%' : '0%'}}
+            // onClickOutside={  ()=> setOpen(false)}
             align="center"
             content={
-                <Box onMouseLeave={() => setOpen(false)} className={`${props.isDashboard ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
+                <Box onMouseLeave = { () => { setOpen(false) }  }  className={`${props.isDashboard ? 'w-[50%]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
                     {/* headline */}
                     <Box className='flex items-center justify-between'>
                         <p className='w-[70%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>
@@ -62,6 +62,7 @@ const AppPopupCaption = (props) => {
                             }) : null
                         }
                         {
+                            props.captions != [] ? null :
                             props.isDashboard ? 
 
                             <AppButton

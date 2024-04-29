@@ -60,6 +60,12 @@ body {
   text-align: center; 
 }
 
+.fc-day-today {
+  background:#D6DFF3 !important;
+  border: none !important;
+
+} 
+
 
 @layer utilities {
   .text-balance {
