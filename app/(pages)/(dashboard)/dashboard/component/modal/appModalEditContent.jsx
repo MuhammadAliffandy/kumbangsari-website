@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
@@ -224,7 +225,11 @@ const AppModalEditContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+            <motion.div 
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+            className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>
@@ -445,7 +450,7 @@ const AppModalEditContent = (props) => {
                         </Box>
                     </Box>
                 </Box>
-            </Box>
+            </motion.div>
         </Modal>
     )
 

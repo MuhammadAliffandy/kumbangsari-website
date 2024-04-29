@@ -17,7 +17,6 @@ import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/compone
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from "react-redux";
 import { getProductByUser } from '../../../api/repository/productRepository';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";

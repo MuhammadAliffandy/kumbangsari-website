@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import AppButton from '@/app/components/appButton/appButton';
@@ -21,7 +22,11 @@ const AppModalDetailContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
+            <motion.div 
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+            className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
@@ -65,7 +70,7 @@ const AppModalDetailContent = (props) => {
                             />
                     </Box>
                 </Box>
-            </Box>
+            </motion.div>
         </Modal>
     )
 }

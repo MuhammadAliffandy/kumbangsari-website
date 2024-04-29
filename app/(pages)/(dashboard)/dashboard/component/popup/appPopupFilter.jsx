@@ -37,9 +37,9 @@ const AppPopupFilter = (props) => {
             product.push(value);
         }
         allCheckbox.product = product
-        props.onCheckProduct(allCheckbox)
-        
+        props.onCheckProduct(allCheckbox)   
     }
+
 
     return (
         <Popover

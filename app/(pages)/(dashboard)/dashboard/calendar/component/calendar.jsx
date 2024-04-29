@@ -1,3 +1,5 @@
+'use client'
+
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { listPlatform } from '@/app/utils/model';
@@ -35,14 +37,12 @@ const Calendar = (props) => {
     };
 
 
-    
-
     return (
         <FullCalendar
             height={'100%'}
-            className="rounded-lg"
             eventClassNames={'bg-transparent'}
             dayHeaderClassNames={'border-none bg-PRIMARY-400 rounded-[20px] p-[10px]'}
+            dayCellClassNames={'text-TEXT-1 text-center text-[12px]'}
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             views={{
@@ -66,9 +66,6 @@ const Calendar = (props) => {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'dayGridMonth,dayGridWeek,dayGridDay'
-            }}
-            titleContent={(args) => {
-                return <span style={{ color: 'blue' }}>{args.title}</span>;
             }}
             dayHeaderContent={renderDayHeaderContent}
             datesSet={(arg) => {
