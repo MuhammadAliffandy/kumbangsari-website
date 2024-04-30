@@ -21,7 +21,7 @@ const AppTextField = (props) => {
                         borderRadius: "15px",
                         backgroundColor: '#F7F9F9'
                     },
-                    endAdornment:  props.type == 'password' ? <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment> : null
+                    endAdornment: props.disabled ? null :  props.type == 'password' ? <InputAdornment className='cursor-pointer' onClick={()=>{ setVisiblePass(!visiblePass) }} position="end"><FontAwesomeIcon icon={faEye} /></InputAdornment> : null
                 }
                 
             }

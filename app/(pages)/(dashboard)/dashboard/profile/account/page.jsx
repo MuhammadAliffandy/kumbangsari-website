@@ -15,6 +15,9 @@ const ProfilePage = () => {
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
     const [userLoading , setUserLoading ] = useState(false)
     const [ openModalChangePass , setOpenModalChangePass  ] = useState(false)
+    const [ name , setName ] = useState('')
+    const [ email , setEmail ] = useState('')
+    const [ phoneNumber , setPhoneNumber ] = useState('')
     const [ user , setUser ] = useState('')
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
@@ -34,6 +37,12 @@ const ProfilePage = () => {
         inputFileImageRef.current.click();
     };
     
+    const getCurrentUserData = () => {
+        setName(user.name)
+        setEmail(user.email)
+        setPhoneNumber(user.phoneNumber)
+    }
+
     const fetchUserProfile = async () => {
         setUserLoading(true)
         try {
@@ -51,13 +60,17 @@ const ProfilePage = () => {
     }
     
     const onSubmit= async (data ) => {
-
+        console.log(data)
     };
 
 
     useEffect(()=>{
         fetchUserProfile()
     },[])
+
+    useEffect(()=>{
+        getCurrentUserData()
+    },[user])
 
 
     return (
@@ -78,7 +91,7 @@ const ProfilePage = () => {
                                 <Box className='w-[160px] h-[160px] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
-                                    <img className="rounded-[100%] w-[100%] h-[100%] relative" 
+                                    <img className="rounded-[100%] w-[100%] h-[100%] object-cover relative" 
                                         src={
                                             fileImage || "https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90"
                                         } alt="image-profile" 
@@ -107,6 +120,7 @@ const ProfilePage = () => {
                                 <label className='text-black font-semibold'>Nama</label>
                                 <AppTextField
                                         id="name"
+                                        value = {name}
                                         placeholder='Masukkan nama lengkap di sini'
                                         validationConfig = {register('name', 
                                             {
@@ -114,43 +128,43 @@ const ProfilePage = () => {
                                             })}
                                         error={Boolean(errors.name)}
                                         helperText={errors.name && errors.name.message}
+                                        onChange={(event)=>{
+                                            setName(event.target.value)
+                                        }}
                                     />
                                 <Box className='flex items-center gap-[20px] w-[100%]'>   
                                     <Box className='flex flex-col gap-[10px] w-[50%]'>
                                         <label className='text-black font-semibold'>Email</label>
                                         <AppTextField
-                                                id="email"
-                                                type='email'
-                                                placeholder='Masukkan email di sini'
-                                                validationConfig = {register('email', {
-                                                    validate : validateEmail
-                                                })}
-                                                error={Boolean(errors.email)}
-                                                helperText={errors.email && errors.email.message}
+                                            id="email"
+                                            value={email}
+                                            type='email'
+                                            placeholder='Masukkan email di sini'
+                                            disabled={true}
                                             />
                                     </Box>
                                     <Box className='grow flex flex-col gap-[10px] '>
                                         <label className='text-black font-semibold'>Nomor Telepon</label>
                                         <AppTextField            
                                                 id="phoneNumber"
+                                                value = {phoneNumber}
                                                 placeholder='Masukkan no telepon di sini'
                                                 validationConfig = {register('phoneNumber', { 
                                                     validate: validatePhoneNumber 
                                                 })}
                                                 error={Boolean(errors.phoneNumber)}
+                                                onChange={(event)=>{
+                                                    setPhoneNumber(event.target.value)
+                                                }}
                                             />
                                     </Box>
                                 </Box> 
                                 <label className='text-black font-semibold'>Kata Sandi</label>
                                 <AppTextField
                                         id="password"
+                                        value = {'000000000000'}
                                         placeholder='Masukkan kata sandi di sini'
                                         type={"password"} 
-                                        validationConfig = {register('password', {
-                                            validate : validatePassword
-                                        })}
-                                        error={Boolean(errors.password)}
-                                        helperText={errors.password && errors.password.message}
                                         disabled={true}
                                     />
                                     <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
