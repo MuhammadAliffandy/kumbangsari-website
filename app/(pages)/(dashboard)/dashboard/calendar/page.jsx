@@ -108,7 +108,14 @@ const CalenderPage = () => {
                     null : 
 
                     calendar.map( data => {
-                      return { title: data.contentTitle, date: convertEventDate(data.dates.postedAt), platform : data.platform , borderColor:'transparent' , status : 'success' }
+                      return { 
+                        allData: data,
+                        title: data.contentTitle, 
+                        date: convertEventDate(data.dates.postedAt), 
+                        platform : data.platform , 
+                        borderColor:'transparent', 
+                        status : 'success', 
+                      }
                     })
                   }
                 />

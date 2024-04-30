@@ -39,7 +39,7 @@ const AppSidebar = (props)=> {
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
                         text={'Kalender'}
-                        active={props.title == 'Kalender' ? true : false}
+                        active={props.title.search('Kalender') > -1 ? true : false}
                         icon={'calendar.png'}
                         iconWhite={'calendar-white.png'}
                         onClick={()=>{push('/dashboard/calendar')}}

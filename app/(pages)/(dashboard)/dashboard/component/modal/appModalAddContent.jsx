@@ -24,10 +24,12 @@ import { createContentAIManual, generateAIManual } from '@/app/api/repository/co
 import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 
 const AppModalAddContent = (props) => {
 
+    const { push } = useRouter()
     const [contentTitle , setContentTitle] = useState('')
     const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
@@ -169,6 +171,7 @@ const AppModalAddContent = (props) => {
             formData.append('contentTitle', contentTitle);
             formData.append('idProduct', product);
             formData.append('platform', platform);
+            formData.append('caption', caption);
             formData.append('style', style);
             formData.append('hashtag', hashtagString);
             formData.append('postedAt', formatDateTime(dateUp,timeUp));
@@ -184,10 +187,14 @@ const AppModalAddContent = (props) => {
                 formData.set('files', '');
             }
             
+            console.log('test')
+
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
                 toast.success('Tambah Content Berhasil')
+                push('/dashboard/calendar')
+
             }else{
                 toast.error('Tambah Content Gagal')
             }
@@ -432,7 +439,7 @@ const AppModalAddContent = (props) => {
                             />  :
 
                             <>
-                                {productImage ? <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/> : 
+                                {productImage ? <img className='w-[70%] h-[50%] rounded-[15px] object-cover' src={productImage}/> : 
                                     <AppDefaultText 
                                         text = 'Masukkan image terlebih dahulu untuk menampilkan preview!'
                                     />  

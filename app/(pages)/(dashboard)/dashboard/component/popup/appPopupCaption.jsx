@@ -25,11 +25,11 @@ const AppPopupCaption = (props) => {
             // onClickOutside={  ()=> setOpen(false)}
             align="center"
             content={
-                <Box onMouseLeave = { () => { setOpen(false) }  }  className={`${props.isDashboard ? 'w-[50%]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
+                <Box onMouseLeave = { () => { setOpen(false) }  }  className={`${props.isDashboard ? 'w-[100%]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
                     {/* headline */}
                     <Box className='flex items-center justify-between'>
-                        <p className='w-[70%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>
-                         {
+                        <p className='w-[100%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>
+                        {
                             !props.isDashboard ? null :
                             <AppDropDown
                                 sx={{
@@ -51,7 +51,7 @@ const AppPopupCaption = (props) => {
 
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
                         {
-                            props.captions != [] ?
+                            props.captions.length != 0 ?
 
                             props.captions.map((data,index)=>{
                                 return(
@@ -62,7 +62,7 @@ const AppPopupCaption = (props) => {
                             }) : null
                         }
                         {
-                            props.captions != [] ? null :
+                            props.captions.length != 0 ? null :
                             props.isDashboard ? 
 
                             <AppButton

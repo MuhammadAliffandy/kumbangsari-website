@@ -410,7 +410,7 @@ const AppModalEditContent = (props) => {
                             />  :
 
                             <>
-                                {productImage ? <img className='w-[70%] h-[50%] rounded-[15px]' src={productImage}/> : 
+                                {productImage ? <img className='w-[70%] h-[50%] rounded-[15px] object-cover' src={productImage}/> : 
                                     <AppDefaultText 
                                         text = 'Masukkan image terlebih dahulu untuk menampilkan preview!'
                                     />  

@@ -40,7 +40,7 @@ const AppPopupImage = (props) => {
                         </Grid>
                     }
                     {
-                        props.images != null  ? null : 
+                        props.images.length != 0  ? null : 
                         
                         props.isDashboard ? 
 
