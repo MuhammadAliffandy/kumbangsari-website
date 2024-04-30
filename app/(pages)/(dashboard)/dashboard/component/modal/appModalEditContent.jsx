@@ -300,7 +300,7 @@ const AppModalEditContent = (props) => {
                                 onClick ={(value)=>{
                                     setProductImage(value)
                                 }}
-                            />
+                            /> 
                         </Box>
 
                         {/*  */}

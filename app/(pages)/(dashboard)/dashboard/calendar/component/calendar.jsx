@@ -3,12 +3,15 @@
 import AppModalDetailContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalDetailContent';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { useDispatch } from "react-redux";
+import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { listPlatform } from '@/app/utils/model';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const Calendar = (props) => {
 
+    const dispatch =  useDispatch()
     const { push } = useRouter()
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [contentDetail , setContentDetail ] = useState([])
@@ -29,6 +32,7 @@ const Calendar = (props) => {
             }  rounded-[10px]`}   onClick={()=> {
                 setOpenModalDetail(!openModalDetail)
                 setContentDetail(allData)
+                dispatch(setGenerateAI(allData)) 
             } }>
                 <img className='w-[20px] h-[20px] rounded-[100%]' src={ platform == 'facebook'? listPlatform.facebook : platform == 'instagram'? listPlatform.instagram : platform == 'twitter'? listPlatform.twitter : null  }/>
                 <p className='text-TEXT-2 text-[12px] truncate' >{title}</p>

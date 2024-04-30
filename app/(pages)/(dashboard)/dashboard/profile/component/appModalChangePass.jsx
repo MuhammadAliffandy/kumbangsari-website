@@ -6,12 +6,25 @@ import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validation';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const AppModalChangePass = (props) => {
     
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
 
     const password = watch('password', '');
+
+
+    const fetchChangePassword = async () => {
+
+
+        const res = await changePasswordUser()
+        if(res.status == 'OK'){
+            toast.success('Ubah Password Success')
+        }else{
+            toast.error('Ubah Password Gagal')
+        }
+    }
 
     return(
         <Modal 

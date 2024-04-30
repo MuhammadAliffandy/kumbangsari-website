@@ -130,13 +130,13 @@ const CalendarEditPage = () => {
     const getContentUser = () => {
         setContentTitle(contentAI.contentTitle)
         setProduct(contentAI.productName)
-        setProductImage(contentAI.image)
+        setProductImage(contentAI.imageUrlPost)
         setPlatform(contentAI.platform)
-        setCaption(contentAI.caption)
-        if(contentAI.hashtag != null){
-            setHashtag(convertHashtagStringToJson(contentAI.hashtag))
-            localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))
-            convertHashtagString(convertHashtagStringToJson(contentAI.hashtag))
+        setCaption(contentAI.captionPost)
+        if(contentAI.hashtagPost != null){
+            setHashtag(convertHashtagStringToJson(contentAI.hashtagPost))
+            localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtagPost)))
+            convertHashtagString(convertHashtagStringToJson(contentAI.hashtagPost))
         }else{
             localStorage.setItem('hashtag','')
         }
@@ -208,11 +208,12 @@ const CalendarEditPage = () => {
     useEffect(()=>{
         getContentUser()
         getRecommendationAI()
+        console.log(contentAI)
     },[])
 
 
     return(
-        <AppLayout title = 'Kalender > Page'>
+        <AppLayout title = 'Kalender > Edit'>
             <Box className='grow h-[86%] p-[20px] '>
                 <Box className = 'w-[100%] h-[100%]  bg-white flex flex-col gap-[15px]  rounded-[20px]'>
                     <Box className='flex  gap-[20px] w-[100%] h-[100%]'>
@@ -389,7 +390,7 @@ const CalendarEditPage = () => {
                                         />  
                                     
                                     }
-                                    <Box className = 'flex flex-col gap-[8px] p-[10px] rounded-[15px] border-[1px] border-TEXT-1 '>
+                                    <Box className = 'flex flex-col gap-[8px '>
                                         <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-all whitespace-normal'>{ caption }</p>
                                         <p className='text-[14px] text-PRIMARY-400'>{hashtagString}</p>
                                     </Box>

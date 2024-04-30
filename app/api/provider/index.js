@@ -133,9 +133,9 @@ export const PROVIDER_PUT = async (pathUrl, data , token , type = 'object') => {
     }
 }
 
-export const PROVIDER_PATCH = async (pathUrl, data , token) => {
+export const PROVIDER_PATCH = async (pathUrl, data , token , type = 'object') => {
     const headers = {
-        'Content-Type': typeof data == 'object' ? 'application/json' : 'multipart/form-data',
+        'Content-Type': type == 'object' ? 'application/json' : 'multipart/form-data',
         "Authorization": `Bearer ${token || ''}`,
     }
 

@@ -10,7 +10,8 @@ const AppCustomModal = (props) => {
         >
             <Box className = {`${props.width ? props.width : 'w-auto' }  h-auto rounded-[20px] items-center bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
                 {props.withClose ? 
-                    <Box className='w-[100%] flex justify-end'>
+                    <Box className={`w-[100%] flex  ${props.modalType == 'modal-common' ? 'justify-between' : 'justify-end' } `}>
+                            {props.modalType == 'modal-common' ? <p className={`${props.titleColor || 'text-TEXT-1'} text-[16px] font-bold`}>{props.title || 'title'}</p> : null }
                             <AppCloseButton
                                     onClick = {()=>{
                                         props.onCloseButton(false)
@@ -19,10 +20,13 @@ const AppCustomModal = (props) => {
                         </Box> : null
                 }
                 { props.modalType == 'modal-status' ? <img className='w-[50px] h-[50px]' src={`/images/icon/${props.status}.svg`} /> : null}
+                {
+                props.modalType == 'modal-status' ? 
                 <Box className={`flex flex-col gap-[8px] w-[100%] items-${ props.alignment ? props.alignment : 'start' }`}>
                     <p className={`${props.titleColor || 'text-TEXT-1'} text-[16px] font-bold`}>{props.title || 'title'}</p>
                     <p className={`${props.subtitleColor || 'text-TEXT-1'} text-[14px] font-medium`} >{props.subtitle || 'subtitle'}</p>
-                </Box>
+                </Box> : null
+                }  
                 {props.children}
             </Box>
         </Modal>

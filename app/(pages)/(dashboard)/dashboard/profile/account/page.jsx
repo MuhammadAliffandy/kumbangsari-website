@@ -19,8 +19,15 @@ const ProfilePage = () => {
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
 
-    const handleFileChange = (event) => {
-        setFileImage(event.target.files[0]);
+    const handleFileChange = (value) => {
+        console.log(value)
+        if (value) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setFileImage(reader.result);
+            };
+            reader.readAsDataURL(value);
+        }
     };
 
     const handleButtonFileClick = () => {
