@@ -19,8 +19,8 @@ const ProfilePage = () => {
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
 
-    const handleFileChange = (value) => {
-        console.log(value)
+    const handleFileChange = (event) => {
+        const value = event.target.files[0]
         if (value) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -79,7 +79,9 @@ const ProfilePage = () => {
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
                                     <img className="rounded-[100%] w-[100%] h-[100%] relative" 
-                                        src="https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90" alt="image-profile" 
+                                        src={
+                                            fileImage || "https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90"
+                                        } alt="image-profile" 
                                     />
                                 </Box>
                                 <Box className='flex flex-col items-center'>
