@@ -1,4 +1,5 @@
 import { Popover } from 'react-tiny-popover';
+import { motion } from 'framer-motion';
 import AppButton from "@/app/components/appButton/appButton";
 import Box from '@mui/material/Box'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
@@ -47,7 +48,12 @@ const AppPopupNotification = (props) => {
             onClickOutside={()=> setOpen(false)}
             align="center"
             content={
-                <Box   className = {`w-[50%] h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px]  shadow-md`}>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`w-[50%] h-[55%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] overflow-y-auto shadow-xl scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full`}
+                >
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[18px] font-bold text-black' >Notifikasi</p>
                         <AppCloseButton
@@ -106,7 +112,7 @@ const AppPopupNotification = (props) => {
                             })
                         }
                     </Box>
-            </Box>
+            </motion.div>
             }>
             <div className='relative' >
                 <AppNotificationButton

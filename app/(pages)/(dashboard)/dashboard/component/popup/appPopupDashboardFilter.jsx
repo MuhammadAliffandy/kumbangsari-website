@@ -1,4 +1,5 @@
 import { Popover } from 'react-tiny-popover';
+import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
@@ -41,7 +42,11 @@ const AppPopupFilter = (props) => {
             onClickOutside={()=> setOpen(false)}
             align="center"
             content={
-                <Box  onMouseLeave={() => 
+                <motion.div  
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    onMouseLeave={() => 
                         {
                             allCheckbox = {product:[],platform:[]};
                             setOpen(false)
@@ -78,7 +83,7 @@ const AppPopupFilter = (props) => {
                     </Box>
                     
                     
-                </Box>
+                </motion.div>
             }>
             <div className='relative'>
                 <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onClick={()=>{

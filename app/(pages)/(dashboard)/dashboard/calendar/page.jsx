@@ -73,8 +73,8 @@ const CalenderPage = () => {
 
     return (
         <AppLayout title='Kalender'>
-            <Box className='p-[20px] grow w-[100%] flex flex-col gap-[15px]'>
-              <Box className='flex justify-between'>
+            <Box className='p-[20px] grow w-[100%] flex flex-col gap-[15px] '>
+              <Box className='flex justify-between '>
                 <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
                         onClick={()=>{
                           setOpenModalAdd(!openModalAdd)
@@ -99,7 +99,7 @@ const CalenderPage = () => {
                     }}
                 />
               </Box>
-              <Box className='w-[100%] h-[100%] overflow-y-scroll rounded-[20px] p-[20px] border-[1px] border-TEXT-4 overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+              <Box className='bg-NEUTRAL-100 w-[100%] h-[100%] hover:shadow-xl overflow-y-scroll rounded-[20px] p-[20px] border-[1px] border-TEXT-4 overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                 <Calendar
                   events={
 

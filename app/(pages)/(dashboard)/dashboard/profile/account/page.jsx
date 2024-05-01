@@ -86,7 +86,7 @@ const ProfilePage = () => {
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
                     </Box>
                     <Box className='w-[100%] h-[88%] flex gap-[20px] p-[20px] absolute z-[100] bottom-0'>
-                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4'>
+                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
                             <Box className='flex flex-col gap-[20px] items-center'>
                                 <Box className='w-[160px] h-[160px] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
@@ -115,8 +115,8 @@ const ProfilePage = () => {
                                     onClick = {()=>{}}
                             />
                         </Box>
-                        <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4'>
-                        <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                        <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
+                            <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
                                 <label className='text-black font-semibold'>Nama</label>
                                 <AppTextField
                                         id="name"

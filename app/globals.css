@@ -60,11 +60,61 @@ body {
   text-align: center; 
 }
 
+/* button header toolbbar calendar custom */
+
 .fc-day-today {
   background:#D6DFF3 !important;
   border: none !important;
 
 } 
+
+.fc-prev-button , .fc-next-button , .fc-today-button{
+  color: #D6DFF3;
+  background-color: #F45B69 !important;
+  border-color: white !important;
+  border-radius: 10px  !important;
+
+}
+
+.fc-button-group .fc-button-primary:not(:disabled).fc-button-active{
+  background-color: #F45B69 !important;
+  border-color: white !important;
+  color: white !important;
+  border-radius: 10px  !important;
+}
+
+.fc-button-group .fc-button-primary{
+  background-color: white !important;
+  color: black !important;
+  border-color: transparent !important;
+}
+
+.fc-toolbar-title {
+  font-size: 18px !important;
+}
+
+/* table calendar */
+.fc-theme-standard .fc-scrollgrid{
+  border: 0px !important;
+}
+.fc-theme-standard .fc-scrollgrid td{
+  /* border-left: 0px solid transparent !important; */
+  border-top: 1px solid #B9BBBB !important;
+  border-left: 1px solid #B9BBBB !important;
+  border-color: #B9BBBB !important;
+}
+
+.fc-theme-standard th{
+
+  border-left: 0px solid transparent !important;
+  border-right: 0px solid transparent !important;
+}
+
+.fc-theme-standard th {
+  gap: 12px;
+  padding: 4px 0px;
+  border: 0px;
+}
 
 
 @layer utilities {

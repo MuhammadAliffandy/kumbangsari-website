@@ -97,3 +97,19 @@ export const convertEventDate = (dateString) => {
     const formattedDate = date.toISOString().split('T')[0];
     return formattedDate
 }
+
+export const  formatNumberHashtag = (number) => {
+    if (number < 1000) {
+        return number.toString();
+    }
+
+    const transformedNumber = Math.abs(number) >= 1.0e+9
+        ? (Math.abs(number) / 1.0e+9).toFixed(1) + "B"
+        : Math.abs(number) >= 1.0e+6
+            ? (Math.abs(number) / 1.0e+6).toFixed(1) + "M"
+            : Math.abs(number) >= 1.0e+3
+                ? (Math.abs(number) / 1.0e+3).toFixed(1) + "k"
+                : Math.abs(number);
+
+    return transformedNumber;
+}

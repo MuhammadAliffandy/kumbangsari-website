@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Popover } from 'react-tiny-popover';
 import Box from '@mui/material/Box';
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
@@ -45,16 +46,25 @@ const AppPopupFilter = (props) => {
         <Popover
             isOpen={open}
             positions={ props.isResponsive ? ['bottom'] : [ 'right', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '40%': '2%', paddingTop: '1%'}}
-            onClickOutside={()=> setOpen(false)}
+            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '40%': '2%', paddingTop: '0%'}}
+            // onClickOutside={()=> setOpen(false)}
+            
             align="center"
             content={
-                <Box  onMouseLeave={() => 
+                <motion.div  
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}  
+                    onMouseEnter={()=>{
+                        setOpen(true)
+                    }}
+                    onMouseLeave={() => 
                         {
                             allCheckbox = {product:[],platform:[]};
                             setOpen(false)
                         }
-                } className = {`w-auto h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
+                    } 
+                    className = {`w-auto h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
                     <Box className = 'flex flex-col gap-[10px]'>
                         <label className='text-black font-semibold'>Produk</label>
                         <Box className ='flex gap-[40px]'>
@@ -105,9 +115,16 @@ const AppPopupFilter = (props) => {
                         </Box>
                     </Box>
                     
-                </Box>
+                </motion.div>
             }>
-            <div className='relative'>
+            <div className='relative'
+                onMouseLeave={() => 
+                {
+                    allCheckbox = {product:[],platform:[]};
+                    setOpen(false)
+                }
+            } 
+            >
                 <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onMouseEnter={()=>{
                     setOpen(true)
                 }}>

@@ -56,7 +56,7 @@ const SubscriptionList = () => {
                     subscriptionList.map((data,index)=>{
                         return(
                             <Grid item xs={4}>
-                                <Box className='text-black flex flex-col items-center gap-[10px] bg-white p-[20px] border-[1px] border-TEXT-4  rounded-[20px]' >
+                                <Box className='hover:shadow-xl text-black flex flex-col items-center gap-[10px] bg-white p-[20px] border-[1px] border-TEXT-4  rounded-[20px]' >
                                     <p className="text-TEXT-1 text-[22px] font-bold">{data.title}</p>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
                                         <p>{data.subtitle}</p>

@@ -15,6 +15,7 @@ import AppModalAddContent from './component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupDashboardFilter'
 import ReactPaginate from 'react-paginate';
+import { formatNumberHashtag } from '@/app/utils/helper'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { getProductByUser } from '../../../api/repository/productRepository';
@@ -23,6 +24,7 @@ import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
 import { recommendationContentAI , getContentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
 import { useRouter } from "next/navigation";
+import Skeleton from "react-loading-skeleton";
 
 const createDataPreview = (time, contentTitle, productName, contentTypes, platform, caption , hashtag , image) => {
     return { time, contentTitle, productName, contentTypes, platform  , caption , hashtag , image};
@@ -31,7 +33,6 @@ const createDataPreview = (time, contentTitle, productName, contentTypes, platfo
 const createDataRecap = (platform, success , failed , waiting) => {
     return {platform, success , failed , waiting};
 }
-
 
 const DashboardPage = () => {
 
@@ -227,27 +228,32 @@ const DashboardPage = () => {
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
-                                    contentAI != [] ?
+                                    contentAI.length > 0 ?
 
                                     currentPageData.map((data,index) => {
                                         return ( 
                                             <Grid className="w-[100%]" key = {index} item xs={ 6}>
-                                                    <AppContent
-                                                        key={index}
-                                                        isDashboard = {true}
-                                                        platform={data.platform}
-                                                        productName = {data.contentTitle}
-                                                        image={data.imageUrlPost}
-                                                        caption = {data.captionPost}
-                                                        hashtag = {data.hashtagPost}
-                                                        onClick={()=>{
-                                                            setOpenModalDetail(!openModalDetail)
-                                                            setContentDetail(data)
-                                                        }}
-                                                    />
+                                                <AppContent
+                                                    key={index}
+                                                    isDashboard = {true}
+                                                    platform={data.platform}
+                                                    productName = {data.contentTitle}
+                                                    image={data.imageUrlPost}
+                                                    caption = {data.captionPost}
+                                                    hashtag = {data.hashtagPost}
+                                                    onClick={()=>{
+                                                        setOpenModalDetail(!openModalDetail)
+                                                        setContentDetail(data)
+                                                    }}
+                                                />
                                             </Grid>
                                         )
-                                    }) : null
+                                    }) : 
+                                    <>
+                                        <div className="w-[100%] h-[200px]">
+                                            <Skeleton count={5} className="w-[100%] h-[50px]"/>
+                                        </div>
+                                    </> 
                                 }
                             </Grid>
                         </Box>
@@ -301,6 +307,7 @@ const DashboardPage = () => {
                         </Box>
                         <Box className=' h-[30vh] py-[10px] pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
+                                trendingDataHashtag.length > 0 ? 
                                 trendingDataHashtag.map((data,index) => {
 
                                     const productName = productList.filter(data => {return data.value == data.idProduct})
@@ -311,7 +318,7 @@ const DashboardPage = () => {
                                             isDashboard={true}
                                             title = {data.hashtag}
                                             subtitle = {productName.text}
-                                            contentTypes = {`${data.count} unggahan`}
+                                            contentTypes = {`${formatNumberHashtag(data.count)} unggahan`}
                                             platform = {data.platform}
                                             onClick= {()=>{
                                 
@@ -319,8 +326,15 @@ const DashboardPage = () => {
                                         />
                                     );
                                 })
-                    
-                            }
+                                : 
+                                <>
+                                    <div className="w-[100%] h-auto">
+                                        <Skeleton count={6} className="w-[100%] h-[50px]"/>
+                                    </div>
+                                </> 
+                            } 
+
+                            
                         </Box>
                     </Box>
                 </Box>

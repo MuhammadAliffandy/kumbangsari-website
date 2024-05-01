@@ -1,4 +1,5 @@
 import Modal from '@mui/material/Modal';
+import { motion } from 'framer-motion';
 import Box from '@mui/material/Box'
 import AppCloseButton from '../appCloseButton/appCloseButton';
 
@@ -8,7 +9,11 @@ const AppCustomModal = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-            <Box className = {`${props.width ? props.width : 'w-auto' }  h-auto rounded-[20px] items-center bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+                className = {`${props.width ? props.width : 'w-auto' }  h-auto rounded-[20px] items-center bg-white p-[20px] flex flex-col gap-[15px] border-[2px]`}>
                 {props.withClose ? 
                     <Box className={`w-[100%] flex  ${props.modalType == 'modal-common' ? 'justify-between' : 'justify-end' } `}>
                             {props.modalType == 'modal-common' ? <p className={`${props.titleColor || 'text-TEXT-1'} text-[16px] font-bold`}>{props.title || 'title'}</p> : null }
@@ -28,7 +33,7 @@ const AppCustomModal = (props) => {
                 </Box> : null
                 }  
                 {props.children}
-            </Box>
+            </motion.div>
         </Modal>
     )
 }

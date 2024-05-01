@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
@@ -33,7 +34,11 @@ const AppModalChangePass = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
-                <Box className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[25px]'>
                         <Box className = 'flex justify-between'>
                             <p className = 'text-[24px] font-bold text-black' >Ubah Kata Sandi</p>
@@ -105,7 +110,7 @@ const AppModalChangePass = (props) => {
                                 </Box>
                         </Box>
                     </form>
-                </Box>
+                </motion.div>
         </Modal>
     )
 }

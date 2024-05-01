@@ -68,8 +68,8 @@ const Calendar = (props) => {
             <FullCalendar
                 height={'100%'}
                 eventClassNames={'bg-transparent'}
-                dayHeaderClassNames={'border-none bg-PRIMARY-400 rounded-[20px] p-[10px]'}
-                dayCellClassNames={'text-TEXT-1 text-center text-[12px]'}
+                dayHeaderClassNames={'border-none bg-PRIMARY-400 rounded-[20px] p-[10px] m-[10px] '}
+                dayCellClassNames={'text-TEXT-1 text-center text-[12px] bg-white'}
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
                 views={{

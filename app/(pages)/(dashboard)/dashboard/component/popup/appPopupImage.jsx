@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Popover } from 'react-tiny-popover';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,7 +16,13 @@ const AppPopupImage = (props) => {
             containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '6%' : '6%' , paddingRight : props.isDashboard ? '15%' : '0%'}}
             align="center"
             content={
-                <Box  onMouseLeave={() => {setOpen(false)}} className = {`${props.isDashboard ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    onMouseEnter={() => {setOpen(true)}}
+                    onMouseLeave = {() => { setOpen(false)}}
+                    className = {`${props.images.length == 0  ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
                     {/* headline */}
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[18px] font-bold text-black' >Rekomendasi Gambar</p>
@@ -30,7 +37,7 @@ const AppPopupImage = (props) => {
                                 props.images.map((data,index)=>{
                                     return(
                                         <Grid onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
-                                            <img className='w-[200px] h-[200px] object-cover rounded-[15px]' src={data} />
+                                            <img className='cursor-pointer w-[400px] h-[200px] object-cover rounded-[15px]' src={data} />
                                         </Grid>
                                     )
                                 })   
@@ -53,9 +60,9 @@ const AppPopupImage = (props) => {
                         /> : null
                     }
                     </Box>
-                </Box>
+                </motion.div>
             }>
-            <div className='relative'>
+            <div className='relative' onMouseLeave={() => {setOpen(false)}}>
                 <AppCustomButton
                     className='flex items-center gap-[5px]'
                     onMouseEnter={() => setOpen(true)}
