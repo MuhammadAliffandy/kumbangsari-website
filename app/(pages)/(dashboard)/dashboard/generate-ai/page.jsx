@@ -237,11 +237,11 @@ const GenerateAIPage = () => {
                     <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[10px] px-[15px] py-[5px] border-[1px] border-TEXT-4 '
+                            <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
                                 onClick={()=>{setOpenModalAI(!openModalAI)}}
                             >
-                                <FontAwesomeIcon icon={faPlus} color={'black'} ></FontAwesomeIcon>
-                                <p className="text-TEXT-1 font-bold text-[14px]">Generate AI</p>
+                                <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                                <p className="text-TEXT-5 font-bold text-[14px] ">Generate AI</p>
                             </AppCustomButton>
                         </Box>
                         <Box  className='h-[100%]  overflow-x-hidden overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>

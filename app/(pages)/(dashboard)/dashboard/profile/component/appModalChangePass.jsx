@@ -8,6 +8,7 @@ import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { changePasswordUser } from '@/app/api/repository/userRepository';
 
 const AppModalChangePass = (props) => {
     
@@ -16,17 +17,26 @@ const AppModalChangePass = (props) => {
     const password = watch('password', '');
 
 
-    const fetchChangePassword = async () => {
-        const res = await changePasswordUser()
-        if(res.status == 'OK'){
-            toast.success('Ubah Password Success')
-        }else{
-            toast.error('Ubah Password Gagal')
-        }
-    }
-
     const onSubmit = async (data) => {
-        console.log(data)
+        
+        const dataPass = {
+            oldPassword : data.oldPassword,
+            newPassword : data.password,
+            newConfirmPassword : data.newConfirmPassword
+        }
+
+        try {
+            const res = await changePasswordUser(dataPass)
+            if(res.status == 'OK'){
+                toast.success('Ubah Password Success')
+            }else{
+                toast.error('Ubah Password Gagal')
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+
     }
 
     return(
@@ -53,14 +63,14 @@ const AppModalChangePass = (props) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Kata Sandi</label>
                             <AppTextField
-                                    id="password"
+                                    id="oldPassword"
                                     placeholder='Masukkan kata sandi di sini'
                                     type={"password"} 
-                                    validationConfig = {register('password', {
+                                    validationConfig = {register('oldPassword', {
                                         validate : validatePassword
                                     })}
-                                    error={Boolean(errors.password)}
-                                    helperText={errors.password && errors.password.message}
+                                    error={Boolean(errors.oldPassword)}
+                                    helperText={errors.oldPassword && errors.oldPassword.message}
                                 
                                 />
                         </Box>
@@ -85,15 +95,15 @@ const AppModalChangePass = (props) => {
                                     <label className='text-black font-semibold'>Konfirmasi Kata Sandi</label>
                                     <AppTextField
                             
-                                            id="confirmPassword"
+                                            id="newConfirmPassword"
                                             placeholder='Masukkan konfirmasi kata sandi di sini'
-                                            type={"password"  } 
-                                            validationConfig = {register('confirmPassword', {
+                                            type={"password"} 
+                                            validationConfig = {register('newConfirmPassword', {
                                             required: 'Password harus sama',
                                                 validate: value => value === password || 'Password tidak cocok'
                                             })}
-                                            error={Boolean(errors.confirmPassword)}
-                                            helperText={errors.confirmPassword && errors.confirmPassword.message}
+                                            error={Boolean(errors.newConfirmPassword)}
+                                            helperText={errors.newConfirmPassword && errors.newConfirmPassword.message}
                                         />
                                 </Box>
                             </Stack>
@@ -103,9 +113,8 @@ const AppModalChangePass = (props) => {
                                 <Box className='w-[30%]'>
                                     <AppButton
                                         text={'Simpan'} 
-                                        type = {'submit'}
+                                        type = {'Submit'}
                                         fontSize = {'12px'}
-                                        onClick = {()=>{}}
                                     />
                                 </Box>
                         </Box>

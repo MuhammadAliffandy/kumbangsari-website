@@ -11,11 +11,12 @@ const AppContent = (props) => {
             <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2`} >
                 {
                     props.image != null && props.caption == null && props.hashtag == null ?   
-                    
-                    <Box className='w-[100%]'> <img src={props.image} className='rounded-[15px] w-[200px] h-[140px] object-cover' />  </Box>
-                    : props.image != null ? <Box className='w-[100%]'> <img src={props.image} className='rounded-[15px] w-[180px] h-[120px]' /> </Box> : null
+                    <Box className='w-[100%] '> <img src={props.image} className='rounded-[15px] w-[380px] h-[140px] object-cover' />  </Box>
+                    : props.image != null ? 
+                    <Box className='w-[100%] '> <img src={props.image} className='rounded-[15px] w-[380px] h-[120px] object-cover' /> </Box> 
+                    : null
                 }
-                <Box className = 'flex flex-col gap-[8px] '> 
+                <Box className = 'grow flex flex-col gap-[8px] '> 
                     {
                         props.caption ? <Box className = 'h-[34px] overflow-hidden text-ellipsis'>
                             <p className='text-[12px] text-TEXT-1 font-semibold '>{props.caption}</p>

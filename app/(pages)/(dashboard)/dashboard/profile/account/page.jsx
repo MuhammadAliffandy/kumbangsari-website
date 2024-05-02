@@ -7,7 +7,7 @@ import AppModalChangePass from '@/app/(pages)/(dashboard)/dashboard/profile/comp
 import AppTextField from '@/app/components/appTextField/appTextField'
 import { validateEmail, validateName, validatePassword, validatePhoneNumber } from '@/app/(pages)/(auth)/auth/component/validation';
 import { useForm , } from 'react-hook-form';
-import { getCurrentUser } from '@/app/api/repository/authRepository'
+import { getUserProfile , editUserProfile } from '@/app/api/repository/userRepository'
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -18,12 +18,15 @@ const ProfilePage = () => {
     const [ name , setName ] = useState('')
     const [ email , setEmail ] = useState('')
     const [ phoneNumber , setPhoneNumber ] = useState('')
+    const [image, setImage] = useState('');
     const [ user , setUser ] = useState('')
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
+    const [imgPayload, setImgPayload] = useState(null);
 
     const handleFileChange = (event) => {
         const value = event.target.files[0]
+        setImgPayload(event.target.files[0])
         if (value) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -41,12 +44,13 @@ const ProfilePage = () => {
         setName(user.name)
         setEmail(user.email)
         setPhoneNumber(user.phoneNumber)
+        setImage(user.profileImage)
     }
 
     const fetchUserProfile = async () => {
         setUserLoading(true)
         try {
-            const res = await getCurrentUser()
+            const res = await getUserProfile()
             
             if(res.status === 'OK'){
                 console.log(res.data)
@@ -60,7 +64,28 @@ const ProfilePage = () => {
     }
     
     const onSubmit= async (data ) => {
-        console.log(data)
+        
+        try {
+            console.log(data)
+            console.log(fileImage)
+            const formData = new FormData();
+
+            formData.append('name',data.name)
+            formData.append('phoneNumber',data.phoneNumber)
+            formData.set('image',imgPayload , imgPayload.name)
+            
+            const res = await editUserProfile(formData)
+            
+            if(res.status === 'OK'){
+                toast.success('Edit Profile Berhasil')
+            }else{
+                toast.error('Edit Profile Gagal')
+            }
+            
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+
     };
 
 
@@ -93,7 +118,8 @@ const ProfilePage = () => {
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
                                     <img className="rounded-[100%] w-[100%] h-[100%] object-cover relative" 
                                         src={
-                                            fileImage || "https://akcdn.detik.net.id/visual/2023/10/25/suzy-ungkap-alasan-di-balik-gaya-rambut-hime-di-doona-1_43.jpeg?w=650&q=90"
+                                            fileImage ? fileImage : image ? image :  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
+                                            
                                         } alt="image-profile" 
                                     />
                                 </Box>
