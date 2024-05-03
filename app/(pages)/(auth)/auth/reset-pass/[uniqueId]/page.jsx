@@ -97,7 +97,11 @@ const  ResetPasswordPage = () => {
                                 type="password"
                                 validationConfig = {register('confirmPassword', {
                                 required: 'Please confirm your password',
-                                    validate: value => value === password || 'Password tidak cocok'
+                                    validate: value => {
+                                        if(value !== password ){
+                                            'Password tidak Cocok'
+                                        }
+                                    }
                                 })}
                                 error={Boolean(errors.confirmPassword)}
                                 helperText={errors.confirmPassword && errors.confirmPassword.message}

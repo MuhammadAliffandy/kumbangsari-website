@@ -189,13 +189,8 @@ const GenerateAIPage = () => {
         try {
             const res = await deleteContent(contentId);
             if(res.status == 'OK'){
-                toast.success('Content History Berhasil Dihapus',
-                {
-                    onClose: () => {
-                        push('/dashboard/generate-ai');
-                    }
-                }
-            )
+                toast.success('Content History Berhasil Dihapus',)
+                fetchContentHistory()
             }else{
                 toast.error('Content History Gagal Dihapus')
             }
@@ -219,7 +214,7 @@ const GenerateAIPage = () => {
     },[])
 
     useEffect(()=>{
-        fetchContentHistory(),
+        fetchContentHistory()
         fetchCurrentContentAI()
     },[
         productList,

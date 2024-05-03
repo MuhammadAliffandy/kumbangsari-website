@@ -72,6 +72,7 @@ const Calendar = (props) => {
                 dayCellClassNames={'text-TEXT-1 text-center text-[12px] bg-white'}
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
+                timeZone="UTC"
                 views={{
                     dayGridMonth: {
                         dayMaxEventRows: 3,

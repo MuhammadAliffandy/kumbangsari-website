@@ -84,7 +84,11 @@ const DashboardPage = () => {
             const res = await recommendationContentAI();
         
             if(res.status == 'OK'){
-                setContentAI(res.data)
+                const data = res.data.map(item => {
+                    return { ...item , productName :  productList.filter(product => { return item.idProduct === product.value })[0].text, }
+                }) 
+                setContentAI(data)
+
             }
         } catch (error) {
             console.log(error)
@@ -139,13 +143,33 @@ const DashboardPage = () => {
     const fetchTrendingHashtag = async () => {
         try {
             const res = await trendingHashtag();
-        
+            
             if(res.status == 'OK'){
-                setTrendingDataHashtag(res.data)
+                
+                const data = res.data.map(item => {
+                    return { ...item , productName :  productList.filter(product => { 
+
+                            if(item.idProduct !== product.value ){
+                                return product
+                            }
+
+
+                            return item.idProduct === product.value 
+                            
+                        })[0].text, 
+                    }
+                }) 
+                setTrendingDataHashtag(data)
             }
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleFilter = (value) => {
+        setContentDataPreview(contentDataPreview.filter(data => value.product.indexOf(data.productName) > -1))
+        setTrendingDataHashtag(trendingDataHashtag.filter(data => value.product.indexOf(data.productName) > -1))
+        setContentAI(contentAI.filter(data => value.product.indexOf(data.productName) > -1))
     }
 
     useEffect(()=>{
@@ -153,10 +177,12 @@ const DashboardPage = () => {
     },[])
 
     useEffect(()=>{
-        fetchRecommendationContentAI();
-        fetchTrendingHashtag();
-        fetchContentPreview();
-        fetchContentRecap();
+        if(productList.length > 0){
+            fetchRecommendationContentAI();
+            fetchTrendingHashtag();
+            fetchContentPreview();
+            fetchContentRecap();
+        }
     },[productList])
 
 
@@ -193,10 +219,7 @@ const DashboardPage = () => {
                                 isResponsive = { xl ? true : false  }
                                 product = { productList}
                                 listProductCheckbox={productCheckBoxFilter}
-                                onClick={(value)=>{
-                                    setProductCheckboxFilter(value.product)
-                                    console.log(value.product)
-                                }}
+                                onClick={handleFilter}
                             /> : null 
                         }
                     </Box>
@@ -284,10 +307,7 @@ const DashboardPage = () => {
                                 isResponsive = { xl ? true : false  }
                                 product = { productList}
                                 listProductCheckbox={productCheckBoxFilter}
-                                onClick={(value)=>{
-                                    setProductCheckboxFilter(value.product)
-                                    console.log(value.product)
-                                }}
+                                onClick={handleFilter}
                             />
                         }
                     </Box>

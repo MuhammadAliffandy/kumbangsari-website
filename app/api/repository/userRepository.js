@@ -12,7 +12,7 @@ export const getUserProfile = async () => {
 export const changePasswordUser = async (data) => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_PATCH(`api/v1/profile/change-password`,data,token ,'form')
+    const response = await PROVIDER_PATCH(`api/v1/profile/change-password`,data,token )
     return response
 }
 

@@ -66,8 +66,6 @@ const ProfilePage = () => {
     const onSubmit= async (data ) => {
         
         try {
-            console.log(data)
-            console.log(fileImage)
             const formData = new FormData();
 
             formData.append('name',data.name)
@@ -105,15 +103,18 @@ const ProfilePage = () => {
                 onCloseButton = {(value)=> {
                     setOpenModalChangePass(value)
                 }}
+                onClose = {(value)=> {
+                    setOpenModalChangePass(value)
+                }}
             />
             <Box className = "grow h-[86%] p-[20px] bg-NEUTRAL-100">
                 <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] relative'>
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
                     </Box>
-                    <Box className='w-[100%] h-[88%] flex gap-[20px] p-[20px] absolute z-[100] bottom-0'>
+                    <Box className='w-[100%] h-[88%] flex  gap-[20px] p-[20px] absolute z-[100] bottom-0'>
                         <Box className='flex-none flex flex-col items-center justify-between bg-white w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
                             <Box className='flex flex-col gap-[20px] items-center'>
-                                <Box className='w-[160px] h-[160px] relative'>
+                                <Box className='w-[100%]  h-[auto] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
                                     <img className="rounded-[100%] w-[100%] h-[100%] object-cover relative" 

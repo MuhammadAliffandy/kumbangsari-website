@@ -29,6 +29,7 @@ const AppModalChangePass = (props) => {
             const res = await changePasswordUser(dataPass)
             if(res.status == 'OK'){
                 toast.success('Ubah Password Success')
+                props.onClose(false)
             }else{
                 toast.error('Ubah Password Gagal')
             }
@@ -100,10 +101,15 @@ const AppModalChangePass = (props) => {
                                             type={"password"} 
                                             validationConfig = {register('newConfirmPassword', {
                                             required: 'Password harus sama',
-                                                validate: value => value === password || 'Password tidak cocok'
+                                                validate: value => {
+                                                    if(value !== password ){
+                                                        'Password tidak Cocok'
+                                                    }
+                                                }
                                             })}
                                             error={Boolean(errors.newConfirmPassword)}
                                             helperText={errors.newConfirmPassword && errors.newConfirmPassword.message}
+
                                         />
                                 </Box>
                             </Stack>
