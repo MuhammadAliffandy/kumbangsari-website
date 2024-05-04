@@ -3,6 +3,7 @@ import AppTablePayment from "@/app/components/appTable/appTablePayment";
 import AppLayout from "../../component/appLayout";
 import AppButton from "@/app/components/appButton/appButton";
 import AppModalSubscriptionList from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/subscriptionListModal'
+import AppModalPaymentDetail from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/appModalPaymentDetail'
 import { formatRupiahNumber } from "@/app/utils/helper";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -30,6 +31,7 @@ const SubscriptionPage = () => {
 
     const [ stopSubscription ,  setStopSubscription ] = useState(false)
     const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
+    const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
     const [infoPacket , setInfoPacket ] = useState(false)
 
     return(
@@ -39,6 +41,10 @@ const SubscriptionPage = () => {
                 onClose = { () =>  setSubscriptionListModal(false) }
                 onCloseButton = { () => setSubscriptionListModal(false)  }
 
+            />
+            <AppModalPaymentDetail
+                open={paymentDetailModal}
+                onCloseButton = { () => setPaymentDetailModal(false)  }
             />
             <AppCustomModal
                 open={stopSubscription}
@@ -165,7 +171,9 @@ const SubscriptionPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
                         <AppTablePayment
                             data={dataPaymentTable}
-                            onClick={()=>{}}
+                            onClick={()=>{
+                                setPaymentDetailModal(!paymentDetailModal)
+                            }}
                         />
                     </Box>
                 </Box>
