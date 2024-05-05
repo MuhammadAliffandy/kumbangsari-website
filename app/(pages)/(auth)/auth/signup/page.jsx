@@ -132,7 +132,11 @@ const SignUpPage  = () => {
                                         type={"password"  } 
                                         validationConfig = {register('confirmPassword', {
                                         required: 'Password harus sama',
-                                            validate: value => value === password || 'Password tidak cocok'
+                                            validate: value => {
+                                                if(value !== password ){
+                                                    'Password tidak Cocok'
+                                                }
+                                            }
                                         })}
                                         error={Boolean(errors.confirmPassword)}
                                         helperText={errors.confirmPassword && errors.confirmPassword.message}

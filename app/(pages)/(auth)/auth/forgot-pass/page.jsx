@@ -9,8 +9,8 @@ import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppTextField from '@/app/components/appTextField/appTextField';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
-
 import { resetPasswordAuth } from '@/app/api/repository/authRepository';
+import { toast } from 'react-toastify';
 
 const ForgotPasswordPage = () => {
 
@@ -18,17 +18,17 @@ const ForgotPasswordPage = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const notify = () => {
-        toast.success('Email Berhasil dikirim')
-    }
-
     
     const onSubmit = async (data ) => {
         try {
             const res = await resetPasswordAuth({email : data.email});
 
             if(res.status == 'OK'){
-                notify()
+                toast.success('Email Berhasil dikirim' , {
+                    onClose : () => {
+                        push('/auth/signin')
+                    }
+                })
             }
         } catch (error) {
             toast.error('Ada Kesalahan Server')
