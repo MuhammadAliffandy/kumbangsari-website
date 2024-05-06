@@ -41,6 +41,7 @@ const Layout = (props) => {
                 <Box className = 'h-[100%] flex flex-col justify-between bg-white'>
                     <Box className='relative'>
                         <img src='/images/shape/ShapeUp2.png' className='absolute w-[100%] h-[60px]' />
+                        <img src='/images/icon/logo/planify-white.svg' className='absolute w-auto h-[40px] z-[60px] pl-[20px] pt-[10px]' />
                         <img src='/images/shape/ShapeUp.png' className='w-[100%] h-[70px]' />
                     </Box>
                     <Box className='relative'>

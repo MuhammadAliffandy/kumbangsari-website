@@ -14,6 +14,8 @@ import AppModalDetailContent from './component/modal/appModalDetailContent';
 import AppModalAddContent from './component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupDashboardFilter'
+import AppCustomModal from "@/app/components/appModal/AppCustomModal";
+import AppButton from "@/app/components/appButton/appButton";
 import ReactPaginate from 'react-paginate';
 import { formatNumberHashtag } from '@/app/utils/helper'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -49,6 +51,9 @@ const DashboardPage = () => {
     const [openModalDetail , setOpenModalDetail ] = useState(false)
     const [openModalDetailPreview , setOpenModalDetailPreview ] = useState(false)
     const [openModalAdd , setOpenModalAdd ] = useState(false)
+    const [openModalUpload , setOpenModalUpload ] = useState(false)
+    const [openModalSuccessUpload , setOpenModalSuccessUpload ] = useState(false)
+    const [openModalFailedUpload , setOpenModalFailedUpload ] = useState(false)
     // state data
     const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
@@ -188,6 +193,163 @@ const DashboardPage = () => {
 
     return (
         <AppLayout title='Dashboard'>
+            {/*  */}
+            <AppModalAddContent
+                open={openModalAdd}
+                onCloseButton = {(value)=> {
+                    setOpenModalAdd(value)
+                }}
+            />
+            <AppModalDetailContent
+                open= {openModalDetail}
+                image = {contentDetail ? contentDetail.imageUrlPost : ''}
+                caption = {contentDetail ? contentDetail.captionPost : ''}
+                hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
+                platform = {contentDetail ? contentDetail.platform : ""}
+                productName = {contentDetail ? contentDetail.contentTitle : ""}
+                isDashboard={true}
+                onClick = {()=> {
+                    setOpenModalUpload(!openModalUpload)
+                }}
+                onEditButton = {()=> {
+                    setOpenModalDetail(false)
+                    dispatch(setGenerateAI(contentDetail)) 
+
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+            />
+            <AppModalDetailContent
+                open= {openModalDetailPreview}
+                image = {contentDetailPreview ? contentDetailPreview.image ? contentDetailPreview.image [0] : null : null}
+                caption = {contentDetailPreview ? contentDetailPreview.caption : ''}
+                hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
+                platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
+                productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
+                isDashboard={true}
+                onClick = {()=> {
+
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetailPreview(value)}}
+            />
+            <AppModal
+                withClose = {false}
+                open = {openModalLoading}
+                width={'w-[35%]'}
+            >
+                <Box className ='flex flex-col items-center gap-[40px]'>
+                    <CircularProgress style={{color : '#F45B69'}}  />
+                    <Box className='flex flex-col items-center '>
+                        <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
+                        <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                    </Box>
+                </Box>
+            </AppModal>
+            {/*  */}
+            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
+                onClick = { ( value ) => {  
+                    setContentAI(value) 
+                }}
+                onLoad = {
+                    (load)=>{
+                        setOpenModalLoading(load)
+                        load == false ? push('/dashboard/generate-ai') : null
+                        setOpenModalAI(false)
+                    }
+                }
+            />
+            <AppModal
+                    withClose = {false}
+                    open = {openModalLoading}
+                    width={'w-[35%]'}
+                >
+                    <Box className ='flex flex-col items-center gap-[40px]'>
+                        <CircularProgress style={{color : '#F45B69'}}  />
+                        <Box className='flex flex-col items-center '>
+                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
+                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                        </Box>
+                    </Box>
+            </AppModal>
+            <AppCustomModal
+                open={openModalUpload}
+                withClose={true}
+                width={'w-[30vw]'}
+                modalType='modal-common'
+                title={'Unggah Sekarang'}
+                onCloseButton={(value)=> setOpenModalUpload(value) }
+                children={
+                <>
+                    <p className="text-TEXT-1 text-[14px] font-medium">Apakah Anda yakin ingin mengunggah konten ini sekarang?</p>
+                    <Box className=' flex gap-[10px] w-[100%]'>
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
+                            text={'Kembali'} 
+                            type = {'button'}
+                            onClick={()=>{
+                            }}
+                        />
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            text={'Ya'} 
+                            type = {'button'}
+                            onClick={()=>{
+                                setOpenModalSuccessUpload(!openModalSuccessUpload)
+                            }}
+                        />
+                    </Box>
+                </>
+            }
+            />
+            <AppCustomModal
+                open={openModalSuccessUpload}
+                withClose={true}
+                width={'w-[30vw]'}
+                modalType='modal-status'
+                status={'success'}
+                alignment={'center'}
+                title={'Berhasil'}
+                titleColor={'text-STATE-GREEN-BASE'}
+                subtitle={'Konten telah berhasil diunggah!'}
+                onCloseButton={(value)=> setOpenModalSuccessUpload(value) }
+                children={
+                <>
+                    <Box className=' flex gap-[10px] w-[100%]'>
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            text={'Keluar'} 
+                            type = {'button'}
+                            onClick={()=>{
+                            }}
+                        />
+                    </Box>
+                </>
+            }
+            />
+            <AppCustomModal
+                open={openModalFailedUpload}
+                withClose={true}
+                width={'w-[30vw]'}
+                modalType='modal-status'
+                status={'failed'}
+                alignment={'center'}
+                title={'Gagal!'}
+                titleColor={'text-STATE-RED-BASE'}
+                subtitle={'Cek konektivitas akun'}
+                onCloseButton={(value)=> setOpenModalFailedUpload(value) }
+                children={
+                <>
+                    <Box className=' flex gap-[10px] w-[100%]'>
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            text={'Keluar'} 
+                            type = {'button'}
+                            onClick={()=>{
+                            }}
+                        />
+                    </Box>
+                </>
+            }
+            />
             <Box className={` grow w-[100%] flex ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
                 {/* 
                 *
@@ -359,81 +521,7 @@ const DashboardPage = () => {
                     </Box>
                 </Box>
             </Box>    
-             {/*  */}
-            <AppModalAddContent
-                open={openModalAdd}
-                onCloseButton = {(value)=> {
-                    setOpenModalAdd(value)
-                }}
-            />
-            <AppModalDetailContent
-                open= {openModalDetail}
-                image = {contentDetail ? contentDetail.imageUrlPost : ''}
-                caption = {contentDetail ? contentDetail.captionPost : ''}
-                hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
-                platform = {contentDetail ? contentDetail.platform : ""}
-                productName = {contentDetail ? contentDetail.contentTitle : ""}
-                isDashboard={true}
-                onClick = {()=> {}}
-                onEditButton = {()=> {
-                    setOpenModalDetail(false)
-                    dispatch(setGenerateAI(contentDetail)) 
-
-                }}
-                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
-            />
-            <AppModalDetailContent
-                open= {openModalDetailPreview}
-                image = {contentDetailPreview ? contentDetailPreview.image ? contentDetailPreview.image [0] : null : null}
-                caption = {contentDetailPreview ? contentDetailPreview.caption : ''}
-                hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
-                platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
-                productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
-                isDashboard={true}
-                onClick = {()=> {
-
-                }}
-                onCloseButton = {(value)=> {setOpenModalDetailPreview(value)}}
-            />
-            <AppModal
-                    withClose = {false}
-                    open = {openModalLoading}
-                    width={'w-[35%]'}
-                >
-                    <Box className ='flex flex-col items-center gap-[40px]'>
-                        <CircularProgress style={{color : '#F45B69'}}  />
-                        <Box className='flex flex-col items-center '>
-                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
-                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
-                        </Box>
-                    </Box>
-            </AppModal>
-            {/*  */}
-            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
-                onClick = { ( value ) => {  
-                    setContentAI(value) 
-                }}
-                onLoad = {
-                    (load)=>{
-                        setOpenModalLoading(load)
-                        load == false ? push('/dashboard/generate-ai') : null
-                        setOpenModalAI(false)
-                    }
-                }
-            />
-            <AppModal
-                    withClose = {false}
-                    open = {openModalLoading}
-                    width={'w-[35%]'}
-                >
-                    <Box className ='flex flex-col items-center gap-[40px]'>
-                        <CircularProgress style={{color : '#F45B69'}}  />
-                        <Box className='flex flex-col items-center '>
-                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
-                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
-                        </Box>
-                    </Box>
-            </AppModal>
+            
 
         </AppLayout>
     ); 
