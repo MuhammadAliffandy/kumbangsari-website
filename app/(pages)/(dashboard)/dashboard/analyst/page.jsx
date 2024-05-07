@@ -13,9 +13,9 @@ import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/
 
 
 const listPlatform = [
-    { color : 'red' , platform : 'Instagram'},
-    { color : 'blue' , platform : 'Facebook'},
-    { color : 'yellow' , platform : 'Twitter'},
+    { color : '#FFC300' , platform : 'Instagram'},
+    { color : '#8E8E8E' , platform : 'Facebook'},
+    { color : '#5A4999' , platform : 'Twitter'},
 ]
 
 const exampleProduct = [
@@ -28,15 +28,27 @@ const exampleData = {
         labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",'Minggu'],
         datasets: [
             {
+                label: null,
                 data: [33, 53, 85, 41, 44, 65, 45],
                 fill: false,
+                lineTension: 0.5,
                 backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "rgba(75,192,192,1)"
+                borderColor: "#8E8E8E"
             },
             {
+                label: null,
                 data: [33, 25, 35, 51, 54, 76 , 28],
+                lineTension: 0.5,
                 fill: false,
-                borderColor: "#742774"
+                borderColor: "#FFC300"
+            },
+            {
+
+                label: null,
+                data: [33, 15, 45, 21, 44, 56 , 18],
+                fill: false,
+                lineTension: 0.5,
+                borderColor: "#5A4999"
             }
         ]
     };
@@ -47,14 +59,9 @@ const exampleData = {
             label: '# of Votes',
             data: [12, 19, 3,],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
+                'rgba(45, 47, 240, 1)',
+                'rgba(181, 23, 158, 1)',
+                'rgba(255, 195, 0, 1)',
             ],
             borderWidth: 1,
             },
@@ -106,7 +113,7 @@ const AnalystPage = () => {
                             exampleProduct.map(data => {
                                 return (
                                     <Grid xs={4} item>
-                                        <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px]'>
+                                        <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                                             <p className="text-TEXT-3 text-[12px]">{data.productName}</p>
                                             <Box className='flex justify-between items-center'>
                                                 <Box className='flex flex-col'>
@@ -144,7 +151,7 @@ const AnalystPage = () => {
                     </Box>
             {/*  */}
                     <Box className='flex gap-[15px] w-[100%]'>
-                        <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 p-[20px]'>
+                        <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-xl'>
                             <Box className='flex items-center justify-between'>
                                 <p className="text-TEXT-1 font-bold text-[16px]">Grafik Kunjungan Pengguna</p>
                                 <Box className='flex items-center gap-[20px]'>
@@ -160,29 +167,40 @@ const AnalystPage = () => {
                                     }
                                 </Box>
                             </Box>
-                            <Line data={exampleData} />
-                        </Box>     
-                        <Box className='w-[30%] bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px]'>
-                            <p className="text-TEXT-1 font-bold text-[16px]">Rekap Postingan</p>
-                            <Box className='h-[60%] w-[100%] items-center justify-center flex'>
-                                <Doughnut data={exampleDoughnutData} />;
-                            </Box>
-                            <Box className='flex items-center gap-[20px] w-[100%] justify-center'>
-                                    {
-                                        productList.map(data => {
-                                            return(
-                                                <span className="flex items-center gap-[6px]">
-                                                    <Box className={`w-[10px] h-[10px] bg-[red] rounded-full`}></Box>
-                                                    <p className="text-TEXT-1 text-[12px]">{data.text}</p>
-                                                </span>
-                                            )
-                                        })
+                            <Line 
+                                data={exampleData} 
+                                options={{
+                                    plugins: {
+                                        legend: {
+                                            display: false 
+                                        }
                                     }
-                                </Box>
+                                }}
+                            />
+                        </Box>     
+                        <Box className='w-[30%] bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'>
+                            <p className="flex-none text-TEXT-1 font-bold text-[16px]">Rekap Postingan</p>
+                            <Box className='grow w-[100%] flex flex-col justify-center items-center gap-[20px]'>
+                                    <Box className='h-[60%] w-[100%] items-center justify-center flex'>
+                                        <Doughnut data={exampleDoughnutData} />;
+                                    </Box>
+                                    <Box className='flex items-center gap-[20px] w-[100%] justify-center'>
+                                            {
+                                                productList.map(data => {
+                                                    return(
+                                                        <span className="flex items-center gap-[6px]">
+                                                            <Box className={`w-[10px] h-[10px] bg-[red] rounded-full`}></Box>
+                                                            <p className="text-TEXT-1 text-[12px]">{data.text}</p>
+                                                        </span>
+                                                    )
+                                                })
+                                            }
+                                    </Box>
+                            </Box>
                         </Box>
                     </Box>
                 {/*  */}
-                    <Box className=' bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px]'> 
+                    <Box className=' bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'> 
                         <AppTablePost
                                 data = {exampleDataPost}
                                 onClick = { (value) => {

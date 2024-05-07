@@ -97,7 +97,7 @@ const AppSidebar = (props)=> {
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
-                                    text={'Keamanan'}
+                                    text={'Pengaturan'}
                                     active={props.title == 'Akun' ? true : false}
                                     child = {true}
                                     onClick={()=>{}}
