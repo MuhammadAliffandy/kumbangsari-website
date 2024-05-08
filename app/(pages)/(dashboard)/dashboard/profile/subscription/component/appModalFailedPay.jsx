@@ -9,7 +9,7 @@ import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validati
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const AppModalSuccessPay = (props) => {
+const AppModalFailedPay = (props) => {
     
 
     return(
@@ -34,13 +34,12 @@ const AppModalSuccessPay = (props) => {
                         
                         <Box className='flex flex-col gap-[10px]'>
                             {/*  */}
-                            <Box className='flex items-center gap-[10px] bg-STATE-GREEN-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
-                                <img className='w-[24px] h-[24px] ' src='/images/icon/success.svg' />
-                                <Box className='flex flex-col items-start justify-center'>
-                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
-                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px] font-bold'>17.00 15 Desember 2023</p>
-                                </Box>
+
+                            <Box className='flex items-center gap-[10px] bg-STATE-RED-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
+                                <img className='w-[24px] h-[24px] ' src='/images/icon/failed.svg' />
+                                <p className='flex text-STATE-RED-DARKEN text-[14px]'>Pembayaran gagal dilakukan</p>
                             </Box>
+
                             {/*  */}
 
                             <Box className='flex items-center justify-between rounded-[15px]'>
@@ -59,4 +58,4 @@ const AppModalSuccessPay = (props) => {
     )
 }
 
-export default AppModalSuccessPay;
+export default AppModalFailedPay;

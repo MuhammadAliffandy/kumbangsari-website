@@ -9,7 +9,7 @@ import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validati
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const AppModalSuccessPay = (props) => {
+const AppModalPendingPay = (props) => {
     
 
     return(
@@ -33,12 +33,20 @@ const AppModalSuccessPay = (props) => {
                         </Box>
                         
                         <Box className='flex flex-col gap-[10px]'>
+                            <Box className='flex items-center justify-center gap-[10px]'>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                                <p className='text-TEXT-3 text-[18px] font-bold'>:</p>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                                <p className='text-TEXT-3 text-[18px] font-bold'>:</p>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                            </Box>
+
                             {/*  */}
-                            <Box className='flex items-center gap-[10px] bg-STATE-GREEN-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
-                                <img className='w-[24px] h-[24px] ' src='/images/icon/success.svg' />
+                            <Box className='flex items-center gap-[10px] bg-STATE-YELLOW-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
+                                <img className='w-[24px] h-[24px] ' src='/images/icon/pending.svg' />
                                 <Box className='flex flex-col items-start justify-center'>
-                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
-                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px] font-bold'>17.00 15 Desember 2023</p>
+                                    <p className='flex text-STATE-YELLOW-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
+                                    <p className='flex text-STATE-YELLOW-DARKEN text-[14px] font-bold'>17.00 15 Desember 2023</p>
                                 </Box>
                             </Box>
                             {/*  */}
@@ -51,12 +59,25 @@ const AppModalSuccessPay = (props) => {
                                 </Box>
                                 <p className='flex text-TEXT-1 text-[16px] font-bold'>Rp 100.000</p>
                             </Box>
+
+                            {/*  */}
+
+                            <Box className='w-[100%] h-[1px] bg-TEXT-4'></Box>    
+                            
+                            <AppButton
+                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                text={'Lanjutkan Pembayaran'} 
+                                type = {'Submit'}
+                                onClick = {()=>{
+
+                                }}
+                            />
+
                         </Box>
-                        
                     </Box>
                 </motion.div>
         </Modal>
     )
 }
 
-export default AppModalSuccessPay;
+export default AppModalPendingPay;

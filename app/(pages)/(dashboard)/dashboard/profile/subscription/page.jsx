@@ -10,13 +10,12 @@ import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress';
 import AppCustomModal from "../../../../../components/appModal/AppCustomModal";
 import AppModalSuccessPay from './component/appModalSuccessPay'
-// import AppModalSuccessFail from './component/appModalSuccessFail'
-// import AppModalSuccessWait from './component/appModalSuccessWait'
+import AppModalFailedPay from './component/appModalFailedPay'
+import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
 import { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
-
 
 
 const createDataPayment = (date, packet, price, status, ) => {
@@ -36,6 +35,8 @@ const SubscriptionPage = () => {
 
     // state modal 
     const [modalSuccessPay , setModalSuccessPay ] = useState(false)
+    const [modalPendingPay , setModalPendingPay ] = useState(false)
+    const [modalFailedPay , setModalFailedPay ] = useState(false)
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
     // state data
@@ -52,7 +53,6 @@ const SubscriptionPage = () => {
         }else{
             toast.error('Silahkan Berlangganan dulu!!')
         }
-
     }
 
     useEffect(()=>{
@@ -65,6 +65,14 @@ const SubscriptionPage = () => {
             <AppModalSuccessPay
                 open ={modalSuccessPay}
                 onCloseButton={ value => {setModalSuccessPay(value)}}
+            />
+            <AppModalPendingPay
+                open ={modalPendingPay}
+                onCloseButton={ value => {setModalPendingPay(value)}}
+            />
+            <AppModalSuccessPay
+                open ={modalFailedPay}
+                onCloseButton={ value => {setModalFailedPay(value)}}
             />
             <AppModalSubscriptionList 
                 open = {subscriptionListModal}
@@ -209,7 +217,9 @@ const SubscriptionPage = () => {
                         <AppTablePayment
                             data={dataPaymentTable}
                             onClick={()=>{
-                               setModalSuccessPay(true)
+                                // setModalSuccessPay(true)
+                                setModalPendingPay(true)
+                                // setModalFailedPay(true)
                             }}
                         />
                     </Box>
