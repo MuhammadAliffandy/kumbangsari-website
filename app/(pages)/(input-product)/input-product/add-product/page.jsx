@@ -30,7 +30,7 @@ import { addProduct } from '@/app/api/repository/productRepository';
 const AddProductPage = () => {
 
     const { push } = useRouter()
-    const countProduct = useSelector(state => state.countInputProduct.value)
+    const countProduct = 1 //useSelector(state => state.countInputProduct.value)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [page, setPage] = useState('product1');
     const [loadingProgress,setLoadingProgress] = useState(0);

@@ -12,19 +12,19 @@ import { useMediaQuery } from "react-responsive";
 import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupFilter'
 
 
-const listPlatform = [
+    const listPlatform = [
     { color : '#FFC300' , platform : 'Instagram'},
     { color : '#8E8E8E' , platform : 'Facebook'},
     { color : '#5A4999' , platform : 'Twitter'},
-]
+    ]
 
-const exampleProduct = [
+    const exampleProduct = [
     {productName : 'Bakso kuat'},
     {productName : 'Bakso mantap'},
     {productName : 'Bakso enjoy'},
-]
+    ]
 
-const exampleData = {
+    const exampleData = {
         labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",'Minggu'],
         datasets: [
             {
@@ -83,6 +83,9 @@ const AnalystPage = () => {
 
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
+    // state hover
+    const [optimalProduct , setOptimalProduct ] = useState(false)
+    const [postRecap , setPostRecap ] = useState(false)
     // state data
     const [productList , setProductList] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
@@ -107,7 +110,29 @@ const AnalystPage = () => {
             <Box className = 'grow h-[86%] p-[20px] flex flex-col gap-[20px]'>
             {/*  */}
                 <Box className='p-[20px] flex-none h-[100%] w-[100%] flex flex-col border-[1px] gap-[15px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
-                    <p className="text-TEXT-1 font-bold text-[16px]">Kunjungan Pengguna</p>
+                    <Box className='flex gap-[5px] items-center relative'>
+                        <p className="text-TEXT-1 font-bold text-[16px]">Keoptimalan Produk</p>
+                        <Box 
+                            onMouseEnter={()=>{
+                                setOptimalProduct(true)
+                            }} 
+                            onMouseLeave={()=>{
+                                setOptimalProduct(false)
+                            }}
+                            className = 'flex flex-col relative'> 
+                                <img className="w-[24px] h-[24px] relative " src="/images/icon/info-packet.svg" />
+                                {
+                                    optimalProduct ? 
+
+                                    <Box className=' w-[35vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                                        <p className="text-TEXT-1 font-bold text-[18px]">Keoptimalan Produk</p>
+                                        <p className="text-TEXT-1 text-[12px]">Didapatkan melalui hasil pengolahan data terhadap jumlah suka, pengikut, komentar, kunjungan, dan bagikan.</p>
+                                    </Box>
+
+                                    : null
+                                }
+                        </Box>
+                    </Box>
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
                             exampleProduct.map(data => {
@@ -179,18 +204,46 @@ const AnalystPage = () => {
                             />
                         </Box>     
                         <Box className='w-[30%] bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'>
-                            <p className="flex-none text-TEXT-1 font-bold text-[16px]">Rekap Postingan</p>
+    
+                            <Box className='flex gap-[5px] items-center relative'>
+                                <p className="text-TEXT-1 font-bold text-[16px]">Rekap Postingan</p>
+                                <Box 
+                                    onMouseEnter={()=>{
+                                        setPostRecap(true)
+                                    }} 
+                                    onMouseLeave={()=>{
+                                        setPostRecap(false)
+                                    }}
+                                    className = 'flex flex-col relative'> 
+                                        <img className="w-[24px] h-[24px] relative " src="/images/icon/info-packet.svg" />
+                                        {
+                                            postRecap ? 
+
+                                            <Box className=' w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                                                <p className="text-TEXT-1 font-bold text-[18px]">Rekap Postingan</p>
+                                                <p className="text-TEXT-1 text-[12px]">Merupakan persentase seluruh postingan dari semua produk yang sudah diunggah</p>
+                                            </Box>
+
+                                            : null
+                                        }
+                                    </Box>
+                            </Box>
+
                             <Box className='grow w-[100%] flex flex-col justify-center items-center gap-[20px]'>
                                     <Box className='h-[60%] w-[100%] items-center justify-center flex'>
                                         <Doughnut data={exampleDoughnutData} />;
                                     </Box>
-                                    <Box className='flex items-center gap-[20px] w-[100%] justify-center'>
+                                    <Box className='flex flex-col items-center gap-[20px] w-[100%] justify-between'>
                                             {
                                                 productList.map(data => {
                                                     return(
-                                                        <span className="flex items-center gap-[6px]">
-                                                            <Box className={`w-[10px] h-[10px] bg-[red] rounded-full`}></Box>
-                                                            <p className="text-TEXT-1 text-[12px]">{data.text}</p>
+                                                        <span className="w-[60%] flex items-center gap-[10px] justify-between">
+                                                            <Box className='flex gap-[6px] items-center'>
+                                                                <Box className={`w-[10px] h-[10px] bg-[red] rounded-full`}></Box>
+                                                                <p className="text-TEXT-1 text-[12px]">{data.text}</p>
+                                                            </Box>
+                                                                <p className="text-TEXT-1 text-[12px]">7 Postingan</p>
+
                                                         </span>
                                                     )
                                                 })

@@ -45,7 +45,7 @@ const SignInPage = () => {
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
                 }else{
-                    push('/input-product/add-count-product')
+                    push('/input-product/add-product')
                 }
             }
 

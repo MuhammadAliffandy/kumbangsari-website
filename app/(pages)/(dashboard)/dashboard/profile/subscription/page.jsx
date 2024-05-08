@@ -4,11 +4,14 @@ import AppLayout from "../../component/appLayout";
 import AppButton from "@/app/components/appButton/appButton";
 import AppModalSubscriptionList from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/subscriptionListModal'
 import AppModalPaymentDetail from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/appModalPaymentDetail'
-import { formatRupiahNumber, formattedDate } from "@/app/utils/helper";
+import { convertToIndonesianDate, formatRupiahNumber, formattedDate } from "@/app/utils/helper";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import LinearProgress from '@mui/material/LinearProgress';
 import AppCustomModal from "../../../../../components/appModal/AppCustomModal";
+import AppModalSuccessPay from './component/appModalSuccessPay'
+// import AppModalSuccessFail from './component/appModalSuccessFail'
+// import AppModalSuccessWait from './component/appModalSuccessWait'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
 import { subscriptionList } from "./component/subscriptionList";
@@ -31,18 +34,21 @@ const dataPaymentTable = [
 
 const SubscriptionPage = () => {
 
+    // state modal 
+    const [modalSuccessPay , setModalSuccessPay ] = useState(false)
+    // state hover
+    const [infoPacket , setInfoPacket ] = useState(false)
+    // state data
     const [ userSubscription ,  setUserSubscription ] = useState([])
     const [ stopSubscription ,  setStopSubscription ] = useState(false)
     const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
     const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
-    const [infoPacket , setInfoPacket ] = useState(false)
 
     const fetchUserSubscription = async () => {
         const res = await getUserSubscription()
 
         if(res.status == 'OK'){
             setUserSubscription(res.data)
-            console.log(res.data)
         }else{
             toast.error('Silahkan Berlangganan dulu!!')
         }
@@ -56,6 +62,10 @@ const SubscriptionPage = () => {
 
     return(
         <AppLayout title={'Profil > Berlangganan'} >
+            <AppModalSuccessPay
+                open ={modalSuccessPay}
+                onCloseButton={ value => {setModalSuccessPay(value)}}
+            />
             <AppModalSubscriptionList 
                 open = {subscriptionListModal}
                 onClose = { () =>  setSubscriptionListModal(false) }
@@ -115,8 +125,7 @@ const SubscriptionPage = () => {
                                 setInfoPacket(false)
                             }}
                             className = 'flex flex-col relative'> 
-                                <img 
-                                className="w-[28px] h-[28px] relative " src="/images/icon/info-packet.svg" />
+                                <img className="w-[28px] h-[28px] relative " src="/images/icon/info-packet.svg" />
                                 {
                                     infoPacket ? 
 
@@ -145,8 +154,8 @@ const SubscriptionPage = () => {
                             <Box className='flex gap-[10px] w-[100%] text-[14px]'>
                                 <Box className='w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
                                     <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription.SubscriptionDetails.maxProductCount || 0}</p></span>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {formattedDate(userSubscription.startDate)}</p></span>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {formattedDate(userSubscription.expiresIn)}</p></span>
+                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {convertToIndonesianDate(userSubscription.startDate)}</p></span>
+                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {convertToIndonesianDate(userSubscription.expiresIn)}</p></span>
                                 </Box>
                                 <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
                                     <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: {`${userSubscription.remainingGenerate}/${userSubscription.SubscriptionDetails.maxGenerateCount}`}</p></span>
@@ -200,7 +209,7 @@ const SubscriptionPage = () => {
                         <AppTablePayment
                             data={dataPaymentTable}
                             onClick={()=>{
-                                setPaymentDetailModal(!paymentDetailModal)
+                               setModalSuccessPay(true)
                             }}
                         />
                     </Box>

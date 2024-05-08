@@ -7,6 +7,26 @@ export const formattedDate = (date)=> {
     return formattedDate;
 }
 
+export const  convertToIndonesianDate = (dateString) => {
+    function getIndonesianMonth(month) {
+        const months = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        return months[month];
+    }
+
+    const dateJS = new Date(dateString);
+
+    const day = dateJS.getDate();
+    const month = getIndonesianMonth(dateJS.getMonth());
+    const year = dateJS.getFullYear();
+
+    const formattedDate = day + " " + month + " " + year;
+
+    return formattedDate;
+}
+
 export const setCookie = (name, value, days, path = '/') => {
     const expires = new Date();
     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -43,7 +63,6 @@ export const getCurrentDateTime = () => {
 
 
 export const formatDateTime = (inputDate, inputTime) => {
-
 
     const dateComponents = inputDate.split("-");
     const timeComponents = inputTime.split(":");
