@@ -5,6 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Skeleton from "react-loading-skeleton";
 
 
 const AppTablePreview = (props) =>  {
@@ -32,7 +33,24 @@ const AppTablePreview = (props) =>  {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {props.data.map((data , index) => (
+                {
+                
+                props.data.length <= 0 ?
+                
+                <>
+                    <TableRow className="w-[100%] h-auto">
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell> 
+                        <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell> 
+                    </TableRow>
+                </> 
+
+                :
+
+                props.data.map((data , index) => (
                 <TableRow
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -43,8 +61,8 @@ const AppTablePreview = (props) =>  {
                     <TableCell align="center"><p className='text-[12px]' >Metode Pembayaran</p></TableCell>
                     <TableCell align="center">
                         <div className='flex items-center gap-[8px] justify-center'>
-                            <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/${data.status == 'waiting' ? 'clock' : 'success' }.svg`}/>
-                            <p className={`text-[12px] ${data.status == 'waiting' ? 'text-STATE-BLUE-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'waiting' ? 'Menunggu' : 'Berhasii'}</p>
+                            <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/${data.status == 'waiting' ? 'clock' : data.status  == 'failed' ? 'failed'  : 'success' }.svg`}/>
+                            <p className={`text-[12px] ${data.status == 'waiting' ? 'text-STATE-BLUE-BASE' : data.status == 'failed' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'waiting' ? 'Menunggu' : data.status == 'failed' ? 'Gagal' : 'Berhasil'}</p>
                         </div>
                     </TableCell>
                     <TableCell align="center"><button onClick={()=>{

@@ -14,6 +14,7 @@ import AppModalFailedPay from './component/appModalFailedPay'
 import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
+import { getPaymentTransaction } from "@/app/api/repository/paymentRepository";
 import { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
 
@@ -37,25 +38,51 @@ const SubscriptionPage = () => {
     const [modalSuccessPay , setModalSuccessPay ] = useState(false)
     const [modalPendingPay , setModalPendingPay ] = useState(false)
     const [modalFailedPay , setModalFailedPay ] = useState(false)
+    const [ stopSubscription ,  setStopSubscription ] = useState(false)
+    const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
+    const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
     // state data
     const [ userSubscription ,  setUserSubscription ] = useState([])
-    const [ stopSubscription ,  setStopSubscription ] = useState(false)
-    const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
-    const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
+    const [ paymentTransactions ,  setPaymentTransactions ] = useState([])
+
+
+    const fetchPaymentTransaction = async () => {
+        try {
+            const res = await getPaymentTransaction()
+            if(res.status == 'OK'){
+
+                const data = res.data.map(data => {
+                    return  createDataPayment(convertToIndonesianDate(data.updatedAt), data.items[0].name, data.items[0].price, data.status == 'PENDING' ? 'waiting' : 'gagal' )
+                })
+
+                setPaymentTransactions(data)
+            }else{
+                toast.error('List Pembayaran gagal dimuat')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
 
     const fetchUserSubscription = async () => {
-        const res = await getUserSubscription()
+        try {
+            const res = await getUserSubscription()
 
-        if(res.status == 'OK'){
-            setUserSubscription(res.data)
-        }else{
-            toast.error('Silahkan Berlangganan dulu!!')
+            if(res.status == 'OK'){
+                setUserSubscription(res.data)
+            }else{
+                toast.error('Silahkan Berlangganan dulu!!')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+            
         }
     }
 
     useEffect(()=>{
+        fetchPaymentTransaction()
         fetchUserSubscription()
     },[])
 
@@ -215,7 +242,7 @@ const SubscriptionPage = () => {
                     <Box className='p-[20px] flex flex-col gap-[15px]'>
                         <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
                         <AppTablePayment
-                            data={dataPaymentTable}
+                            data={paymentTransactions}
                             onClick={()=>{
                                 // setModalSuccessPay(true)
                                 setModalPendingPay(true)
