@@ -100,7 +100,9 @@ const AppSidebar = (props)=> {
                                     text={'Pengaturan'}
                                     active={props.title == 'Akun' ? true : false}
                                     child = {true}
-                                    onClick={()=>{}}
+                                    onClick={()=>{
+                                        push('/dashboard/profile/settings')
+                                    }}
                                 />
                             </div>
                         } 
