@@ -137,7 +137,7 @@ const AnalystPage = () => {
                         {
                             exampleProduct.map(data => {
                                 return (
-                                    <Grid xs={4} item>
+                                    <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
                                         <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                                             <p className="text-TEXT-3 text-[12px]">{data.productName}</p>
                                             <Box className='flex justify-between items-center'>
@@ -175,7 +175,7 @@ const AnalystPage = () => {
                         </Box>
                     </Box>
             {/*  */}
-                    <Box className='flex gap-[15px] w-[100%]'>
+                    <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-xl'>
                             <Box className='flex items-center justify-between'>
                                 <p className="text-TEXT-1 font-bold text-[16px]">Grafik Kunjungan Pengguna</p>
@@ -203,7 +203,7 @@ const AnalystPage = () => {
                                 }}
                             />
                         </Box>     
-                        <Box className='w-[30%] bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'>
+                        <Box className='w-[100%] xl:w-[30%] lg:w-[30%] bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'>
     
                             <Box className='flex gap-[5px] items-center relative'>
                                 <p className="text-TEXT-1 font-bold text-[16px]">Rekap Postingan</p>

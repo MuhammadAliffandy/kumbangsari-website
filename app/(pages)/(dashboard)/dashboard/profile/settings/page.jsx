@@ -56,7 +56,7 @@ const SettingsPage = () => {
                         {
                             historyActivity.map(data => {
                                 return (
-                                    <Grid xs={4} item>
+                                    <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
                                         <Box className='flex gap-[10px] items-center bg-NEUTRAL-100 p-[10px] rounded-[20px]'>
                                             <img className="w-[40px] h-[40px]" src={data.icon} alt="icon-settings" />
                                             <Box className='flex flex-col gap-[8px]'>

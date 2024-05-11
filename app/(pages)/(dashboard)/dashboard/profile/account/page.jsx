@@ -111,8 +111,8 @@ const ProfilePage = () => {
                 <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] relative'>
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
                     </Box>
-                    <Box className='w-[100%] h-[88%] flex  gap-[20px] p-[20px] absolute z-[100] bottom-0'>
-                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
+                    <Box className='w-[100%] h-[88%] flex flex-col xl:flex-row md:flex-row sm:flex-col gap-[20px] p-[20px] absolute z-[100] bottom-0 overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[100%] lg:w-[20%] xl:w-[20%] h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
                             <Box className='flex flex-col gap-[20px] items-center'>
                                 <Box className='w-[100%]  h-[auto] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>

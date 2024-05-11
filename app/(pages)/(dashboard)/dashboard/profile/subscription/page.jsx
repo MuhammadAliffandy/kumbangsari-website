@@ -186,8 +186,8 @@ const SubscriptionPage = () => {
 
                             userSubscription.length != 0 ? 
 
-                            <Box className='flex gap-[10px] w-[100%] text-[14px]'>
-                                <Box className='w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
+                            <Box className='flex gap-[10px] w-[100%] text-[14px] flex-col xl:flex-row lg:flex-row'>
+                                <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
                                     <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription.SubscriptionDetails.maxProductCount || 0}</p></span>
                                     <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {convertToIndonesianDate(userSubscription.startDate)}</p></span>
                                     <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {convertToIndonesianDate(userSubscription.expiresIn)}</p></span>
