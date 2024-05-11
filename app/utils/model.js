@@ -31,6 +31,18 @@ export const listDropLanguageStyle = [
     {value : 'persuasif' , text : 'Persuasif'},
 ];
 
+export const listDropNotifMonth = [
+    {value : '1m' , text : '1 Bulan'},
+    {value : '2m' , text : '2 Bulan'},
+    {value : '3m' , text : '3 Bulan'},
+];
+
+export const listDropNotifHour = [
+    {value : '1h' , text : '1 Jam'},
+    {value : '2h' , text : '2 Jam'},
+    {value : '3h' , text : '3 Jam'},
+];
+
 
 export const listPlatform = {
     facebook : 'https://store-images.s-microsoft.com/image/apps.37935.9007199266245907.b029bd80-381a-4869-854f-bac6f359c5c9.91f8693c-c75b-4050-a796-63e1314d18c9',

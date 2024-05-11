@@ -98,7 +98,7 @@ const AppSidebar = (props)=> {
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Pengaturan'}
-                                    active={props.title == 'Akun' ? true : false}
+                                    active={props.title.split(' > ')[1] == 'Pengaturan' ? true : false}
                                     child = {true}
                                     onClick={()=>{
                                         push('/dashboard/profile/settings')

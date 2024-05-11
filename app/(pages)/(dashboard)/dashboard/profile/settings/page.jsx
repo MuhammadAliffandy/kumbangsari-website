@@ -5,7 +5,10 @@ import AppCheckBox from "@/app/components/appCheckBox/appCheckBox"
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import AppModalThirdParty from './component/appModalThirdParty'
+import AppDropDown from "@/app/components/appDropDown/appDropDown"
 import { useState } from "react"
+import { listDropNotifHour, listDropNotifMonth } from "@/app/utils/model"
+
 
 const historyActivity = [
     {
@@ -26,12 +29,22 @@ const historyActivity = [
 ]
 
 const SettingsPage = () => {
-
+    // state modal
     const [modalThirdParty , setModalThirdParty ] = useState(false)
+    // state data
+    const [notifMonth , setNotifMonth] = useState('1m')
+    const [notifHour , setNotifHour] = useState('1h')
+    
+    const handleDropDown = (event)=>{
+        setNotifMonth(event.target.value)
+    }
 
+    const handleDropDownNotifHour = (event)=>{
+        setNotifHour(event.target.value)
+    }
 
     return(
-        <AppLayout title={'Pengaturan'} >
+        <AppLayout title={'Profil > Pengaturan'} >
             <AppModalThirdParty
                 open ={modalThirdParty}
                 onCloseButton = { value => setModalThirdParty(value)}
@@ -56,7 +69,7 @@ const SettingsPage = () => {
                             })
                         }
                     </Grid>
-                    <Box className='flex flex-col gap-[10px] items-start bg-NEUTRAL-100 p-[20px] rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='w-[100%] flex flex-col gap-[10px] items-start bg-NEUTRAL-100 p-[20px] rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {/*  */}
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Notifikasi</p> 
@@ -76,7 +89,7 @@ const SettingsPage = () => {
                             />
                         </Box>
                         {/*  */}
-                        <Box className='flex flex-col gap-[10px]'>
+                        <Box className='flex flex-col gap-[10px] w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Konektivitas</p> 
                             <Box className='flex flex-col gap-[10px] pl-[20px]'>
                                 <AppCheckBox
@@ -113,8 +126,25 @@ const SettingsPage = () => {
 
                                     }}
                                 />
-                                <Box className='flex gap-[10px]'>
-                                    <p className="text-TEXT-1 text-[14px]">Himbauan paket berlangganan berakhir dalam : </p>
+                                <Box className='flex gap-[10px] items-center  '>
+                                    <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Himbauan paket berlangganan berakhir dalam : </p>
+                                    <Box className='w-[30%]'>
+                                        <AppDropDown
+                                                sx={{
+                                                    borderRadius: "15px",
+                                                    height:'30px',
+                                                    backgroundColor: '#E9ECEF',
+                                                    width:"30%",
+                                                    fontSize:'12px',
+                                                    borderColor: 'transparent',
+                                                    width:'100%'
+                                                }}
+                                                value={notifMonth}
+                                                placeholder={'1 Bulan'}
+                                                listItem = {listDropNotifMonth}
+                                                onChange={handleDropDown}
+                                            />
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
@@ -164,10 +194,44 @@ const SettingsPage = () => {
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Keamanan</p> 
                             <Box className='flex gap-[10px] items-center'>
-                                <p className="text-TEXT-1 text-[14px]">Perbarui konektivitas dalam kurun waktu : </p>
+                                <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Perbarui konektivitas dalam kurun waktu : </p>
+                                <Box className='w-[30%]'>
+                                    <AppDropDown
+                                            sx={{
+                                                borderRadius: "15px",
+                                                height:'30px',
+                                                backgroundColor: '#E9ECEF',
+                                                width:"30%",
+                                                fontSize:'12px',
+                                                borderColor: 'transparent',
+                                                width:'60%'
+                                            }}
+                                            value={notifMonth}
+                                            placeholder={'1 Bulan'}
+                                            listItem = {listDropNotifMonth}
+                                            onChange={handleDropDown}
+                                        />
+                                </Box>
                             </Box>     
-                            <Box className='flex gap-[10px] items-center'>
-                                <p className="text-TEXT-1 text-[14px]">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu : </p>
+                            <Box className='flex gap-[10px] items-center '>
+                                <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
+                                <Box className='w-[50%]'>
+                                    <AppDropDown
+                                            sx={{
+                                                borderRadius: "15px",
+                                                height:'30px',
+                                                backgroundColor: '#E9ECEF',
+                                                width:"30%",
+                                                fontSize:'12px',
+                                                borderColor: 'transparent',
+                                                width:'100%'
+                                            }}
+                                            value={notifHour}
+                                            placeholder={'30 Menit'}
+                                            listItem = {listDropNotifHour}
+                                            onChange={handleDropDownNotifHour}
+                                        />
+                                </Box>
                             </Box>
                             <AppCheckBox
                                     value= 'true'
