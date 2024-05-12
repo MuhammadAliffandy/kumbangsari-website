@@ -59,9 +59,9 @@ import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/
             label: '# of Votes',
             data: [12, 19, 3,],
             backgroundColor: [
-                'rgba(45, 47, 240, 1)',
-                'rgba(181, 23, 158, 1)',
-                'rgba(255, 195, 0, 1)',
+                '#FFC300',
+                '#8E8E8E',
+                '#5A4999',
             ],
             borderWidth: 1,
             },
@@ -235,11 +235,11 @@ const AnalystPage = () => {
                                     </Box>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%] justify-between'>
                                             {
-                                                productList.map(data => {
+                                                productList.map((data,index) => {
                                                     return(
-                                                        <span className="w-[60%] flex items-center gap-[10px] justify-between">
+                                                        <span className="w-[60%] flex items-center gap-[10px] justify-between" >
                                                             <Box className='flex gap-[6px] items-center'>
-                                                                <Box className={`w-[10px] h-[10px] bg-[red] rounded-full`}></Box>
+                                                                <Box className={`w-[10px] h-[10px] rounded-full`} sx={{ backgroundColor: listPlatform[index].color }}></Box>
                                                                 <p className="text-TEXT-1 text-[12px]">{data.text}</p>
                                                             </Box>
                                                                 <p className="text-TEXT-1 text-[12px]">7 Postingan</p>

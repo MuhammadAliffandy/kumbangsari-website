@@ -11,15 +11,15 @@ const AppContent = (props) => {
             <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2`} >
                 {
                     props.image != null && props.caption == null && props.hashtag == null ?   
-                    <Box className='w-[100%] '> <img src={props.image} className='rounded-[15px] w-[380px] h-[140px] object-cover' />  </Box>
+                    <Box className='flex-none '> <img src={props.image} className='rounded-[15px] w-[160px] h-[140px] object-fill' />  </Box>
                     : props.image != null ? 
-                    <Box className='w-[100%] '> <img src={props.image} className='rounded-[15px] w-[380px] h-[120px] object-cover' /> </Box> 
+                    <Box className='flex-none'> <img src={props.image} className='rounded-[15px] w-[160px] h-[120px] object-fill' /> </Box> 
                     : null
                 }
                 <Box className = 'grow flex flex-col gap-[8px] '> 
                     {
-                        props.caption ? <Box className = 'h-[34px] overflow-hidden text-ellipsis'>
-                            <p className='text-[12px] text-TEXT-1 font-semibold '>{props.caption}</p>
+                        props.caption ? <Box className = 'h-[34px] overflow-hidden '>
+                            <p className='text-[12px] text-TEXT-1 font-semibold text-ellipsis '>{props.caption}</p>
                         </Box> : null
                     }
                     {
