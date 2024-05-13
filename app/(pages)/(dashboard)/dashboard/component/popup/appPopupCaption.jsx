@@ -66,7 +66,12 @@ const AppPopupCaption = (props) => {
                                         <p>{data}</p>
                                     </Box>
                                 ) 
-                            }) : null
+                            }) : 
+                            <>
+                                <Box className='w-[30vw]'>
+                                    <Skeleton count={6} className="w-[30vw] h-[100%]"/>
+                                </Box>
+                            </>
                         }
                         {
                             props.captions.length != 0 ? null :

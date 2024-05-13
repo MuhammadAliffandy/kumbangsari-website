@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import AppButton from '@/app/components/appButton/appButton';
+import Skeleton from 'react-loading-skeleton'
 import { useState } from 'react';
 
 const AppPopupImage = (props) => {
@@ -22,7 +23,7 @@ const AppPopupImage = (props) => {
                     exit={{ opacity: 0, y: -10 }}
                     onMouseEnter={() => {setOpen(true)}}
                     onMouseLeave = {() => { setOpen(false)}}
-                    className = {`${props.images.length == 0  ? 'w-[auto]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
+                    className = {`${props.images.length == 0  ? 'w-[auto]' : 'w-[100%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
                     {/* headline */}
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[18px] font-bold text-black' >Rekomendasi Gambar</p>
@@ -32,17 +33,37 @@ const AppPopupImage = (props) => {
                     {
                         <Grid container spacing={2} >
                             {
-                                props.images != null ?
+                                props.images.length != 0 ?
 
                                 props.images.map((data,index)=>{
                                     return(
                                         <Grid onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
-                                            <img className='cursor-pointer w-[400px] h-[200px] object-cover rounded-[15px]' src={data} />
+                                            <Box>
+                                                <img className='cursor-pointer w-[300px] h-[200px] object-cover rounded-[15px]' src={data} />
+                                            </Box>
                                         </Grid>
                                     )
                                 })   
 
-                                : null
+                                : 
+                                <>
+                                    <Grid  item xs={4} >
+                                        <Box className='w-[15vw]'>
+                                            <Skeleton count={1} className="w-[20vw] h-[200px] "/>
+                                        </Box>
+                                    </Grid>
+                                    <Grid  item xs={4} >
+                                        <Box className='w-[15vw]'>
+                                            <Skeleton count={1} className="w-[20vw] h-[200px] "/>
+                                        </Box>
+                                    </Grid>
+                                    <Grid  item xs={4} >
+                                        <Box className='w-[15vw]'>
+                                            <Skeleton count={1} className="w-[20vw] h-[200px] "/>
+                                        </Box>
+                                    </Grid>
+                        
+                                </>
                             }
                         </Grid>
                     }
