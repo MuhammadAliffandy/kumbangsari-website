@@ -215,10 +215,13 @@ const GenerateAIPage = () => {
 
     useEffect(()=>{
         fetchContentHistory()
-        fetchCurrentContentAI()
     },[
         productList,
     ])
+
+    useEffect(()=> {
+        fetchCurrentContentAI()
+    },[contentAIHistory])
 
 
     return (

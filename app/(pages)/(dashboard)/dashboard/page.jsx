@@ -487,7 +487,7 @@ const DashboardPage = () => {
                         <Box className='flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Trending Hashtag</p>
                         </Box>
-                        <Box className=' h-[30vh] py-[10px] pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className=' h-[80%] py-[10px] pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
                                 trendingDataHashtag.length > 0 ? 
                                 trendingDataHashtag.map((data,index) => {

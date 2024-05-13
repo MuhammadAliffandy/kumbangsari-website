@@ -156,7 +156,7 @@ const  AppModalGenerateAI = (props ) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
-            className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[25px]'>
+            className = 'w-[90%] xl:w-[60%] h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[25px]'>
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[24px] font-bold text-black' >Generate Ai</p>
                     <AppCloseButton
@@ -214,7 +214,7 @@ const  AppModalGenerateAI = (props ) => {
                 {/*  */}
                 <Box className='flex flex-col gap-[10px]'>
                         <label className='text-black font-semibold'>Jenis Konten</label>
-                        <Box className ='flex gap-[100px]'>
+                        <Box className ='flex flex-col xl:flex-row gap-[10px] xl:gap-[100px]'>
                             <AppCheckBox
                                 value= 'caption'
                                 label = 'Caption'

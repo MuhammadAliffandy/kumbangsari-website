@@ -229,7 +229,7 @@ const AppModalEditContent = (props) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
-            className = 'w-[90%] h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+            className = 'w-[90%] h-[90vh] xl:h-[80vh]  rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>
@@ -242,9 +242,9 @@ const AppModalEditContent = (props) => {
                     </Box>
                 </Box>
                 {/* content  */}
-                <Box className='flex  gap-[20px] w-[100%] h-[80%]'>
+                <Box className='flex flex-col xl:flex-row gap-[20px] w-[100%] h-[80%]'>
                     {/* form */}
-                    <Box className='w-[60%] h-[100%] pr-[10px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='w-[100%] xl:w-[60%] h-[100%] pr-[10px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {/* content title */}
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Judul  Konten</label>
@@ -396,9 +396,9 @@ const AppModalEditContent = (props) => {
                             </Stack>
                         </Box>
                     </Box >
-                    <Box style={{ width : '2px' , height:'90%' }} className='bg-black bg-opacity-[10%]'></Box>
+                    <Box className='w-[100%] xl:w-[2px] h-[2px] xl:[100%] bg-black bg-opacity-[10%]'></Box>
                     {/* preview */}
-                    <Box className = 'w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className = 'w-[100%] xl:w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>

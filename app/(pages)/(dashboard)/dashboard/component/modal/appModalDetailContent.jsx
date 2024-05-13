@@ -26,7 +26,7 @@ const AppModalDetailContent = (props) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
-            className = {`${ xl ? 'w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
+            className = {`${ xl ? 'w-[80%] xl:w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
@@ -46,14 +46,14 @@ const AppModalDetailContent = (props) => {
                 </Box>
                 {/* content  */}
                 <Box className={`flex flex-col gap-[20px] w-[100%] h-[100%]`}>
-                    <Box className={`${props.caption == null && props.hashtag == null ? 'flex flex-col gap-[8px] ' : 'flex gap-[20px] ' }`}>
+                    <Box className={`${props.caption == null && props.hashtag == null ? 'flex flex-col gap-[8px] ' : 'flex flex-col xl:flex-row lg:flex-row  gap-[20px]  ' }`}>
                         {
                             props.image != null ? 
-                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[50%] ' }`}>
-                                <img className='w-[100%] h-[100%] rounded-[15px] object-cover' src={props.image}/>
+                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>
+                                <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
                             </Box>: null
                         }
-                        <Box className ={`flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[50%]' : 'w-[100%]'}`}> 
+                        <Box className ={`flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}> 
                             { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold'>{props.caption}</p> : null}
                             {  props.hashtag ? <p className='text-[14px] text-PRIMARY-400'>{props.hashtag}</p> : null }
                             <Box className = 'flex gap-[10px] items-center'>
@@ -62,7 +62,7 @@ const AppModalDetailContent = (props) => {
                             </Box>
                         </Box>
                     </Box>
-                    <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[50%]' : 'w-[100%]'}`}>
+                    <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
                         <AppButton 
                                 text ={'Unggah Sekarang'}
                                 type={'submit'}
