@@ -82,9 +82,11 @@ const AppSidebar = (props)=> {
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Daftar Produk'}
-                                    active={props.title == 'Akun' ? true : false}
+                                    active={props.title.split(' > ')[1] == 'Daftar Produk' ? true : false}
                                     child = {true}
-                                    onClick={()=>{}}
+                                    onClick={()=>{
+                                        push('/dashboard/profile/product-list')
+                                    }}
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
