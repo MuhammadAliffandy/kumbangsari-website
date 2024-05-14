@@ -1,14 +1,14 @@
 'use client'
 import { useMediaQuery } from "react-responsive";
 import { useState } from 'react'
-
+import Link from "next/link";
 
 const AppNavSidebar = (props) => {
     const xl = useMediaQuery({ maxWidth: 1280 });
     const [isHover , setIsHover ] = useState(false)
 
     return (
-        <button onClick={props.onClick} onMouseEnter={()=>{setIsHover(true)}} onMouseLeave={()=>{setIsHover(false)}} className={`  w-[100%] flex items-center gap-[20px] 
+        <Link href={`${props.urlNavigation ? props.urlNavigation : "#"}`} onClick={props.onClick} onMouseEnter={()=>{setIsHover(true)}} onMouseLeave={()=>{setIsHover(false)}} className={`  w-[100%] flex items-center gap-[20px] 
             ${props.isDrawer ? 'justify-left pl-[12%]' : xl ? 'justify-center' : 'justify-left pl-[12%]'} 
             ${ props.onlyButton ? 'text-TEXT-1 ' : 
             props.active == true & props.child == true ? 
@@ -31,7 +31,7 @@ const AppNavSidebar = (props) => {
                     {props.text}
                 </p> 
             }
-        </button> 
+        </Link> 
     )
 }
 

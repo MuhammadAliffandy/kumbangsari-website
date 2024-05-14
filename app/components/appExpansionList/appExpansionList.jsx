@@ -25,7 +25,7 @@ const AppExpansionList = (props) => {
             </motion.div>
             <motion.div
                 initial={false}
-                animate={{ height: expanded ? 'auto' : 0 }} 
+                animate={{ height: props.active  ? props.active : expanded ? 'auto' : 0 }} 
                 style={{ 
                     width:'100%',
                     backgroundColor: "transparent",

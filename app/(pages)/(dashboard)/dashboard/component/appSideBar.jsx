@@ -26,7 +26,7 @@ const AppSidebar = (props)=> {
                         active={props.title == 'Dashboard' ? true : false}
                         icon={'dashboard.png'}
                         iconWhite={'dashboard-white.png'}
-                        onClick={()=>{push('/dashboard')}}
+                        urlNavigation = '/dashboard'
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
@@ -34,7 +34,7 @@ const AppSidebar = (props)=> {
                         active={ props.title == 'Generate AI' ? true : false}
                         icon={'generate.png'}
                         iconWhite={'generate-white.png'}
-                        onClick={()=>{ push('/dashboard/generate-ai') }}
+                        urlNavigation='/dashboard/generate-ai'
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
@@ -42,7 +42,7 @@ const AppSidebar = (props)=> {
                         active={props.title.search('Kalender') > -1 ? true : false}
                         icon={'calendar.png'}
                         iconWhite={'calendar-white.png'}
-                        onClick={()=>{push('/dashboard/calendar')}}
+                        urlNavigation='/dashboard/calendar'
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
@@ -50,10 +50,11 @@ const AppSidebar = (props)=> {
                         active={props.title == 'Analisis' ? true : false}
                         icon={'chart.png'}
                         iconWhite={'chart-white.png'}
-                        onClick={()=>{push('/dashboard/analyst')}}
+                        urlNavigation='/dashboard/analyst'
                     />
                     <AppExpansionList
                         style = {`grow relative `}
+                        active={props.title.split(' > ')[0] == 'Profil' ? true : false}
                         onClick={value => {
                             console.log(value)
                         }}
@@ -64,7 +65,6 @@ const AppSidebar = (props)=> {
                             active={props.title.split(' > ')[0] == 'Profil' ? true : false}
                             icon={'profile.png'}
                             iconWhite={'profile-white.png'}
-                            onClick={()=>{}}
                         />
                         }
                         componentItemStyle={'bg-white'}
@@ -75,36 +75,28 @@ const AppSidebar = (props)=> {
                                     text={'Akun'}
                                     active={props.title.split(' > ')[1] == 'Akun' ? true : false}
                                     child = {true}
-                                    onClick={()=>{
-                                        push('/dashboard/profile/account')
-                                    }}
+                                    urlNavigation='/dashboard/profile/account'
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Daftar Produk'}
                                     active={props.title.split(' > ')[1] == 'Daftar Produk' ? true : false}
                                     child = {true}
-                                    onClick={()=>{
-                                        push('/dashboard/profile/product-list')
-                                    }}
+                                    urlNavigation='/dashboard/profile/product-list'
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Berlangganan'}
                                     active={props.title.split(' > ')[1] == 'Berlangganan' ? true : false}
                                     child = {true}
-                                    onClick={()=>{
-                                        push('/dashboard/profile/subscription')
-                                    }}
+                                    urlNavigation='/dashboard/profile/subscription'
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Pengaturan'}
                                     active={props.title.split(' > ')[1] == 'Pengaturan' ? true : false}
                                     child = {true}
-                                    onClick={()=>{
-                                        push('/dashboard/profile/settings')
-                                    }}
+                                    urlNavigation='/dashboard/profile/settings'
                                 />
                             </div>
                         } 
