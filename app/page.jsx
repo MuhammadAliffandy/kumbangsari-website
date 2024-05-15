@@ -9,6 +9,8 @@ import { motion } from 'framer-motion';
 import Link from "next/link";
 import { useState , useEffect} from "react";
 import AppCarouselTestimoni from '@/app/components/appCaraousel/appCaraouselTestimoni';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
@@ -82,7 +84,7 @@ const itemsTestimoni = [
 
 const subscriptionList = [
   {
-      title: 'BASIC PACKAGE',
+      title: 'Basic Package',
       subtitle: 'Suistable for -- ',
       image : '/images/icon/paket/basic.svg',
       price : 100000,
@@ -97,7 +99,7 @@ const subscriptionList = [
       ]
   },
   {
-      title: 'Paket Premium',
+      title: 'Premium Package',
       subtitle: 'Suistable for -- ',
       image : '/images/icon/paket/premium.svg',
       price : 200000,
@@ -112,7 +114,7 @@ const subscriptionList = [
       ]
   },
   {
-      title: 'Paket Profesional',
+      title: 'Professional Package',
       subtitle: 'Suistable for -- ',
       image : '/images/icon/paket/pro.svg',
       price : 350000,
@@ -146,20 +148,24 @@ export default function LandingPage() {
 
   return (
     <main className="flex flex-col w-full">
-      <nav className="sticky top-0 z-50 bg-white bg-opacity-[50%] backdrop-blur-xl flex items-center justify-around py-[15px] border-b-[1px] border-TEXT-4 border-opacity-25">
+      <nav className="sticky top-0 z-50 bg-white bg-opacity-[50%] backdrop-blur-xl flex items-center justify-between px-[15px] xl:px-0 sm:justify-between md:justify-between xl:justify-around py-[15px] border-b-[1px] border-TEXT-4 border-opacity-25">
 
           <Box className='flex items-center gap-[10px]'>
               <img className='w-[30px] h-[30px]' src='/images/icon/logo/planify.png' />
               <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
           </Box>
 
-          <ul className=" text-[12px] flex gap-[30px] font-bold font-poppins">
+          <button className=" xl:hidden md:block sm:block">
+            <FontAwesomeIcon icon={faBars} color="black" />
+          </button>
+
+          <ul className=" text-[12px] hidden gap-[30px] font-bold font-poppins sm:hidden md:hidden xl:flex">
             <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>Feature</a></li>
             <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>Subscribe</a></li>
             <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>FAQ</a></li>
           </ul>
 
-          <Box className='flex items-center gap-[10px]'>
+          <Box className='hidden items-center gap-[10px] sm:hidden md:hidden xl:flex '>
               <AppButton
                   className='px-[20px] py-[6px] text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]'
                   text={'Login'} 
@@ -180,6 +186,8 @@ export default function LandingPage() {
                     <img src={arrowIcon} alt="alt-icon" />
               </AppCustomButton>
           </Box>
+
+      
       </nav>
       {/*  */}
       <section className="flex flex-col items-center justify-center h-[100vh] relative">
@@ -189,12 +197,12 @@ export default function LandingPage() {
         <Box className='flex flex-col gap-[15px] items-center justify-center w-[50%] absolute'>
             <p className="text-PRIMARY-500 text-[18px]">WELCOME TO PLANIFY</p>
             <Box className='flex flex-col gap-[8px] text-[32px] items-center font-poppins font-extrabold'>
-              <p className="text-TEXT-1">One platform for all your</p>
+              <p className="text-TEXT-1 text-center">One platform for all your</p>
               <p className="text-PRIMARY-500">Social Media!</p>
             </Box>
             <p className="text-NEUTRAL-700 text-[18px] w-[85%] text-center"
             >Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
-            <Box className='flex items-center gap-[10px]'>
+            <Box className='flex flex-col xl:flex-row items-center gap-[10px] '>
               <AppCustomButton className=' flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[24px] py-[10px] '
                       onClick={()=>{
                       }}
@@ -213,19 +221,19 @@ export default function LandingPage() {
         </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-[100vh]">
+      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
                   <p className="text-[24px] font-extrabold text-TEXT-1">Optimal, Efficient and Scheduled</p>
                 </Box>
-                <Box className='flex items-center gap-[40px] justify-center '>
+                <Box className='flex flex-col xl:flex-row items-center gap-[40px] justify-center '>
                   {
                     items.map(data => {
                       return(
                         <Box className='flex flex-col gap-[10px] items-center w-[20%]'>
-                          <img className="w-[auto] h-[200px]" src={data.image} alt="picture-content" />
-                          <p className="text-[14px] text-TEXT-1 font-bold">{data.name}</p>
+                          <img className="xl:w-[auto] w-[200px]  h-auto xl:h-[200px]" src={data.image} alt="picture-content" />
+                          <p className="text-[14px] text-TEXT-1 font-bold text-center">{data.name}</p>
                           <p className="text-[12px] text-TEXT-1 text-center">{data.description}</p>
                         </Box>
                       )
@@ -235,7 +243,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-[100vh]">
+      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">How Do We Work?</p>
@@ -279,13 +287,13 @@ export default function LandingPage() {
                   </motion.div>
                   {/*  */}
                   <motion.div
-                      className='flex items-center bg-PRIMARY-100 p-[40px] w-[60%] gap-[24px] rounded-[10px]'
+                      className='flex flex-col xl:flex-row items-center bg-PRIMARY-100 p-[40px] w-[80%] xl:w-[60%] gap-[24px] rounded-[10px]'
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.5 }}
                       >
-                      <Box className='flex items-center  w-[50%] h-[50vh] flex-none  '>
+                      <Box className='flex items-center w-[100%]  xl:w-[50%] h-[50vh] flex-none  '>
                         <img className="w-[100%] h-[100%] object-cover rounded-[10px]"  src={itemsFeatures[initButton - 1].image}  alt="picture-description"/>
                       </Box>        
                         {/*  */}
@@ -312,19 +320,19 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-[100vh]">
+      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[50px] w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Subscription</p>
                   <p className="text-[24px] font-extrabold text-TEXT-1">Affordable price for your business!</p>
                 </Box>
-                <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={4} className="p-[20px] w-[100%] flex items-center" >
+                <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={4} className="p-[20px] w-[100%] flex flex-col xl:flex-row items-center" >
                     {
                         subscriptionList.map((data,index)=>{
                             return(
-                                <Grid item xs={4}>
-                                    <Box className={`hover:shadow-xl text-TEXT-5 flex flex-col items-center gap-[10px] px-[40px] py-[30px]  rounded-[10px] ${ index == 1 ? 'bg-PRIMARY-700 h-[75vh]' : 'bg-PRIMARY-900' }`} >
-                                        <p className="text-[22px] font-bold">{data.title}</p>
+                                <Grid item xs={12} xl={4}>
+                                    <Box className={`hover:shadow-xl text-TEXT-5 flex flex-col items-center gap-[10px] px-[40px] py-[30px]  rounded-[10px] ${ index == 1 ? 'bg-PRIMARY-700 h-[100%] xl:h-[75vh]' : 'bg-PRIMARY-900' }`} >
+                                        <p className="text-[22px] font-bold text-center">{data.title}</p>
                                         <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
                                             <p>{data.subtitle}</p>
                                             <span className="flex items-center gap-[8px] text-TEXT-5">
@@ -333,8 +341,8 @@ export default function LandingPage() {
                                                 <p className="">/bulan</p>
                                             </span>
                                             <AppButton
-                                                className={' flex text-PRIMARY-900 gap-[10px] w-[100%] justify-center items-center text-[14px] bg-white SECONDARY-500 rounded-[10px] px-[25px] py-[8px] shadow-xl'}
-                                                text={'Beli Paket'} 
+                                                className={`flex ${index == 1 ? 'text-PRIMARY-700' : 'text-PRIMARY-900'} gap-[10px] w-[100%] justify-center items-center text-[14px] bg-white SECONDARY-500 rounded-[10px] px-[25px] py-[8px] shadow-xl`}
+                                                text={`Upgrade to ${data.title.split('Package')[0]}`} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
 
@@ -381,10 +389,10 @@ export default function LandingPage() {
                 
           </Box>
       </section>
-      <footer className="w-[100%] h-[50%] flex items-center pb-[50px]">
-          <Box className='flex flex-col justify-center px-[200px] '>
-              <Box className='flex justify-between border-y-[1px] border-TEXT-4 border-opacity-25 py-[15px]  '>
-                  <Box className='flex flex-col items-start gap-[10px]  w-[30%]'>
+      <footer className="w-[100%] h-[100%] xl:h-[50%] flex items-center pb-[50px]">
+          <Box className='flex flex-col justify-center px-[100px] xl:px-[200px] '>
+              <Box className='flex flex-col gap-[40px] xl:gap-[0px]  xl:flex-row justify-between  xl:items-start  border-y-[1px] border-TEXT-4 border-opacity-25 py-[15px]  '>
+                  <Box className='flex flex-col items-start gap-[10px]  w-[50%] xl:w-[30%]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Who are we?</p>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px]'>Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
                   </Box>

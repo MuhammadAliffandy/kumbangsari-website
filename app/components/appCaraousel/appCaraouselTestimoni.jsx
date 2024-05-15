@@ -3,6 +3,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 
+
 function AppCarousel(props) {
 
 
@@ -23,7 +24,7 @@ function AppCarousel(props) {
         animation="slide" 
         autoPlay={true} 
         indicators={true} 
-        timeout={500} 
+        timeout={800} 
         fullHeightHover={false} 
         cycleNavigation={true} 
         swipe={true} 
