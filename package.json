@@ -24,6 +24,7 @@
     "@mui/material-nextjs": "^5.15.11",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react-redux": "^7.1.33",
+    "aos": "^2.3.4",
     "axios": "^1.6.7",
     "cookie-ts": "^1.0.1",
     "date-fns": "^3.6.0",
