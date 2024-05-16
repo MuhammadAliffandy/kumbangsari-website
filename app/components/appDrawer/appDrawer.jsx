@@ -12,7 +12,7 @@ const AppDrawer = (props) => {
         <Box>
             <FontAwesomeIcon onClick={()=>{setOpen(!open)}} icon={ props.icon || faBars} color='black' className='text-[28px] cursor-pointer' />
             <Drawer
-                anchor={'left'}
+                anchor={props.anchor ||  'left'}
                 open={open}
                 onClose={()=>{setOpen(!open)}}
             >

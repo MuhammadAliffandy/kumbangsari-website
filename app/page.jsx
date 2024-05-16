@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import Link from "next/link";
 import { useState , useEffect} from "react";
 import AppCarouselTestimoni from '@/app/components/appCaraousel/appCaraouselTestimoni';
+import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import AOS from 'aos';
@@ -135,7 +136,7 @@ export default function LandingPage() {
 
   const { push } = useRouter()
   // state animation
-  const [arrowIcon , setArrowIcon ] = useState('/images/icon/arrowUpRight.svg')
+  
   const [initButton , setInitButton] = useState(1)
 
   useEffect(() => {
@@ -146,48 +147,22 @@ export default function LandingPage() {
     });
   }, []);
 
+  
+
   return (
     <main className="flex flex-col w-full">
       <nav className="sticky top-0 z-50 bg-white bg-opacity-[50%] backdrop-blur-xl flex items-center justify-between px-[15px] xl:px-0 sm:justify-between md:justify-between xl:justify-around py-[15px] border-b-[1px] border-TEXT-4 border-opacity-25">
+          <SideBar isDrawer={false} />
 
-          <Box className='flex items-center gap-[10px]'>
-              <img className='w-[30px] h-[30px]' src='/images/icon/logo/planify.png' />
-              <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
+          <Box className=" flex flex-col xl:hidden md:block sm:block">
+              <AppDrawer anchor='right'>
+                <div className="flex flex-col w-[40vw] bg-white h-[100vh] ">
+                  <SideBar isDrawer = {true}/>
+                </div>
+              </AppDrawer>
           </Box>
 
-          <button className=" xl:hidden md:block sm:block">
-            <FontAwesomeIcon icon={faBars} color="black" />
-          </button>
 
-          <ul className=" text-[12px] hidden gap-[30px] font-bold font-poppins sm:hidden md:hidden xl:flex">
-            <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>Feature</a></li>
-            <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>Subscribe</a></li>
-            <li className="text-TEXT-1 hover:text-PRIMARY-500"><a>FAQ</a></li>
-          </ul>
-
-          <Box className='hidden items-center gap-[10px] sm:hidden md:hidden xl:flex '>
-              <AppButton
-                  className='px-[20px] py-[6px] text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]'
-                  text={'Login'} 
-                  type = {'button'}
-                  onClick={()=>{
-                    push('/auth/signin')
-                  }}
-              />
-              <AppCustomButton 
-                      onMouseEnter={()=>{setArrowIcon('/images/icon/arrowRight.svg')}} 
-                      onMouseLeave={()=>{setArrowIcon('/images/icon/arrowUpRight.svg')}} 
-                      className=' flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[20px] py-[6px] '
-                      onClick={()=>{
-                          push('/auth/signup')
-                      }}
-                  >
-                    <p className="text-TEXT-5 text-[12px]">Register</p>
-                    <img src={arrowIcon} alt="alt-icon" />
-              </AppCustomButton>
-          </Box>
-
-      
       </nav>
       {/*  */}
       <section className="flex flex-col items-center justify-center h-[100vh] relative">
@@ -243,7 +218,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section id="feature" className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">How Do We Work?</p>
@@ -320,8 +295,8 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
-          <Box className='flex flex-col items-center gap-[50px] w-[70%]' data-aos="fade-up">
+      <section id="subscription" className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+          <Box  className='flex flex-col items-center gap-[50px] w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Subscription</p>
                   <p className="text-[24px] font-extrabold text-TEXT-1">Affordable price for your business!</p>
@@ -352,10 +327,10 @@ export default function LandingPage() {
                                                 {
                                                     data.benefit.map((data,index)=>{
                                                         return(
-                                                            <span className="flex gap-[10px]">
+                                                            <Box className="flex gap-[10px] items-center justify-start">
                                                                 <img src={'/images/icon/success-white.svg'} alt="icon-check" />    
                                                                 <p className="text-[14px]">{data}</p>
-                                                            </span>
+                                                            </Box>
                                                         )
                                                     })
                                                 }
@@ -371,7 +346,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-[100vh]">
+      <section id="faq" className="flex flex-col items-center justify-center h-[100vh]">
           <Box className='flex flex-col items-center gap-[50px] w-[100%] h-[70%]' data-aos="fade-up">
               <Box className='flex flex-col gap-[5px] items-center'>
                 <p className="text-[18px] text-PRIMARY-500">Testimonials</p>
@@ -435,3 +410,47 @@ export default function LandingPage() {
     </main>
   );
 }
+
+
+const SideBar = (props) => {
+  const [arrowIcon , setArrowIcon ] = useState('/images/icon/arrowUpRight.svg')
+  return(
+    <>
+
+    
+        <Box className={`${props.isDrawer ? 'p-[10px]' : ''} flex items-center gap-[10px]`}>
+            <img className='w-[30px] h-[30px]' src='/images/icon/logo/planify.png' />
+            <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
+        </Box>
+
+        <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px]'}  font-bold font-poppins sm:hidden md:hidden xl:flex`}>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#feature">Feature</a></li>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#subscription">Subscribe</a></li>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#faq">FAQ</a></li>
+        </ul>
+
+        <Box className={`${props.isDrawer ? 'flex flex-col gap-[10px] items-start p-[10px]' : 'hidden items-center'}  gap-[10px] sm:hidden md:hidden xl:flex `}>
+            <AppButton
+                className={`${props.isDrawer ? 'w-[100%]' : ''} px-[20px] py-[6px]  text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]`}
+                text={'Login'} 
+                type = {'button'}
+                onClick={()=>{
+                  push('/auth/signin')
+                }}
+            />
+            <AppCustomButton 
+                    onMouseEnter={()=>{setArrowIcon('/images/icon/arrowRight.svg')}} 
+                    onMouseLeave={()=>{setArrowIcon('/images/icon/arrowUpRight.svg')}} 
+                    className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[20px] py-[6px] `}
+                    onClick={()=>{
+                        push('/auth/signup')
+                    }}
+                >
+                  <p className="text-TEXT-5 text-[12px]">Register</p>
+                  <img src={arrowIcon} alt="alt-icon" />
+            </AppCustomButton>
+        </Box>
+      </>
+  ) 
+}
+
