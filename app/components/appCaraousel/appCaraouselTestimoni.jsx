@@ -20,7 +20,7 @@ function AppCarousel(props) {
 
     return (
     <Carousel
-        className='w-[70%] h-[50%]'
+        className='w-[70%] h-[70%] xl:h-[50%] '
         animation="slide" 
         autoPlay={true} 
         indicators={true} 

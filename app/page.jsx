@@ -134,7 +134,7 @@ const subscriptionList = [
 
 export default function LandingPage() {
 
-  const { push } = useRouter()
+  
   // state animation
   
   const [initButton , setInitButton] = useState(1)
@@ -165,7 +165,7 @@ export default function LandingPage() {
 
       </nav>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-[100vh] relative">
+      <section className=" flex flex-col items-center justify-center h-[100vh] relative">
         <Box className='w-[100%] h-[100%] relative' data-aos="fade-up">
             <img className="w-[100%] h-[100%]" src="/images/icon/landing-page/background/bg-intro.svg"/>
         </Box>
@@ -196,7 +196,7 @@ export default function LandingPage() {
         </Box>
       </section>
       {/*  */}
-      <section className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
@@ -218,7 +218,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section id="feature" className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section id="feature" className="pt-[80px] xl:pt-[0px]flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">How Do We Work?</p>
@@ -295,7 +295,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section id="subscription" className="flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section id="subscription" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box  className='flex flex-col items-center gap-[50px] w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Subscription</p>
@@ -346,7 +346,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section id="faq" className="flex flex-col items-center justify-center h-[100vh]">
+      <section id="faq" className="py-[80px] xl:py-[0px] flex flex-col items-center justify-center h-[100vh]">
           <Box className='flex flex-col items-center gap-[50px] w-[100%] h-[70%]' data-aos="fade-up">
               <Box className='flex flex-col gap-[5px] items-center'>
                 <p className="text-[18px] text-PRIMARY-500">Testimonials</p>
@@ -413,6 +413,7 @@ export default function LandingPage() {
 
 
 const SideBar = (props) => {
+  const { push } = useRouter()
   const [arrowIcon , setArrowIcon ] = useState('/images/icon/arrowUpRight.svg')
   return(
     <>
