@@ -8,8 +8,11 @@ import { Line , Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import AppTablePost from "@/app/components/appTable/appTablePost";
 import { getProductByUser } from '@/app/api/repository/productRepository';
+import { getAnalysisBestPerformance, getAnalysisRecapPost } from '@/app/api/repository/analysisRepository';
 import { useMediaQuery } from "react-responsive";
 import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupFilter'
+import { toast } from "react-toastify";
+import { convertToIndonesianDate } from "@/app/utils/helper";
 
 
     const listPlatform = [
@@ -54,30 +57,21 @@ import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/
     };
 
     const exampleDoughnutData = {
-        datasets: [
-            {
-            label: '# of Votes',
-            data: [12, 19, 3,],
-            backgroundColor: [
-                '#FFC300',
-                '#8E8E8E',
-                '#5A4999',
+            datasets: [
+                {
+                label: '# of Votes',
+                data: [12, 19, 3,],
+                backgroundColor: [
+                    '#FFC300',
+                    '#8E8E8E',
+                    '#5A4999',
+                ],
+                borderWidth: 1,
+                },
             ],
-            borderWidth: 1,
-            },
-        ],
         };
 
-    const createDataPost = (date, contentTitle, productName, platform, like , comment , share , follower) => {
-        return { date, contentTitle, productName, platform, like , comment , share , follower};
-    }
 
-    const exampleDataPost = [
-        createDataPost('14 Januari 2024' , 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , 12 , 21 ,3 , 3),
-        createDataPost('14 Januari 2024' , 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , 12 , 21 ,3 , 3),
-        createDataPost('14 Januari 2024' , 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , 12 , 21 ,3 , 3),
-        createDataPost('14 Januari 2024' , 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , 12 , 21 ,3 , 3),
-    ]
 
 const AnalystPage = () => {
 
@@ -88,8 +82,28 @@ const AnalystPage = () => {
     const [postRecap , setPostRecap ] = useState(false)
     // state data
     const [productList , setProductList] = useState([])
+    const [bestPerformance , setBestPerformance ] = useState([])
+    const [recapPost , setRecapPost ] = useState({
+        datasets: [
+            {
+            label: '# of Votes',
+            data: [12,7,3],
+            backgroundColor: [
+                '#FFC300',
+                '#8E8E8E',
+                '#5A4999',
+            ],
+            borderWidth: 1,
+            },
+        ],
+    })
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
+
+    const createDataPost = (date, contentTitle, productName, platform, like , comment , share , follower) => {
+        return { date, contentTitle, productName, platform, like , comment , share , follower};
+    }
+
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
@@ -101,9 +115,71 @@ const AnalystPage = () => {
         }
     }
 
+    const fetchAnalysisBestPerformance = async () => {
+        try {
+            const res = await getAnalysisBestPerformance();
+
+            if(res.status == 'OK'){
+                const data = res.data.map(data => {
+                    return createDataPost(
+                        convertToIndonesianDate(data.date.createAt),
+                        data.contentTitle,
+                        productList[data.idProduct - 1 ].text,
+                        data.platform,
+                        data.detailPost.likes_count,
+                        data.detailPost.comments_count,
+                        data.detailPost.likes_count,
+                        0,
+                    )
+                })
+
+                setBestPerformance(data)
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
+    const fetchAnalysisRecapPost = async () => {
+        try {
+            const res = await getAnalysisRecapPost();
+
+            if(res.status == 'OK'){
+                const data  = res.data.map(item => {
+                    return item.total_count
+                })
+
+            const doughnutData = {
+                    datasets: [
+                        {
+                        label: '# of Votes',
+                        data: data,
+                        backgroundColor: [
+                            '#FFC300',
+                            '#8E8E8E',
+                            '#5A4999',
+                        ],
+                        borderWidth: 1,
+                        },
+                    ],
+                };
+
+                setRecapPost(doughnutData)
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     useEffect(()=>{
         getUserProduct() 
     },[])
+
+    useEffect(()=>{
+        fetchAnalysisBestPerformance()
+        fetchAnalysisRecapPost()
+    },[productList])
 
     return (
         <AppLayout title='Analisis'>
@@ -231,7 +307,7 @@ const AnalystPage = () => {
 
                             <Box className='grow w-[100%] flex flex-col justify-center items-center gap-[20px]'>
                                     <Box className='h-[60%] w-[100%] items-center justify-center flex'>
-                                        <Doughnut data={exampleDoughnutData} />;
+                                        <Doughnut data={recapPost} />;
                                     </Box>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%] justify-between'>
                                             {
@@ -255,7 +331,7 @@ const AnalystPage = () => {
                 {/*  */}
                     <Box className=' bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'> 
                         <AppTablePost
-                                data = {exampleDataPost}
+                                data = {bestPerformance}
                                 onClick = { (value) => {
                                     console.log(value)
                                 }}
