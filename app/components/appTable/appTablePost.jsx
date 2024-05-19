@@ -20,16 +20,18 @@ const AppTablePost = (props) =>  {
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Suka</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Komentar</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Berbagi</p></TableCell>
-                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Pengikut Baru</p></TableCell>
+                    {/* <TableCell align="center"><p className='font-bold text-TEXT-3'>Pengikut Baru</p></TableCell> */}
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Lihat Detail</p></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {
-                    props.data.length <= 0 ?
+                    props.data.length == 0 ?
                 
                     <>
                         <TableRow className="w-[100%] h-auto">
+                            <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
+                            <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
@@ -56,9 +58,9 @@ const AppTablePost = (props) =>  {
                         <TableCell align="center"><p className='text-[12px]' >{data.like}</p></TableCell>
                         <TableCell align="center"><p className='text-[12px]' >{data.comment}</p></TableCell>
                         <TableCell align="center"><p className='text-[12px]' >{data.share}</p></TableCell>
-                        <TableCell align="center"><p className='text-[12px]' >{data.follower}</p></TableCell>
+                        {/* <TableCell align="center"><p className='text-[12px]' >{data.follower}</p></TableCell> */}
                         <TableCell align="center"><button onClick={()=>{
-                            props.onClick(data)}} className='underline text-PRIMARY-500'>Detail Konten</button>
+                            props.onClick(data.data)}} className='underline text-PRIMARY-500'>Detail Konten</button>
                         </TableCell>
                     </TableRow>
                 ))}

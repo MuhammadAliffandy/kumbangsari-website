@@ -62,13 +62,16 @@ const AppModalDetailContent = (props) => {
                             </Box>
                         </Box>
                     </Box>
-                    <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
-                        <AppButton 
-                                text ={'Unggah Sekarang'}
-                                type={'submit'}
-                                onClick={props.onClick}
-                            />
-                    </Box>
+                    {
+                        props.withButton != null  ? null :
+                        <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
+                            <AppButton 
+                                    text ={'Unggah Sekarang'}
+                                    type={'submit'}
+                                    onClick={props.onClick}
+                                />
+                        </Box>
+                    }
                 </Box>
             </motion.div>
         </Modal>

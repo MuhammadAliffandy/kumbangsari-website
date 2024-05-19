@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import { Line , Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import AppTablePost from "@/app/components/appTable/appTablePost";
+import AppModalDetailContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalDetailContent';
 import { getProductByUser } from '@/app/api/repository/productRepository';
 import { getAnalysisBestPerformance, getAnalysisRecapPost } from '@/app/api/repository/analysisRepository';
 import { useMediaQuery } from "react-responsive";
@@ -77,10 +78,13 @@ const AnalystPage = () => {
 
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
+    // state modal
+    const [openModalDetail , setOpenModalDetail] = useState(false)
     // state hover
     const [optimalProduct , setOptimalProduct ] = useState(false)
     const [postRecap , setPostRecap ] = useState(false)
     // state data
+    const [contentDetail , setContentDetail] = useState([])
     const [productList , setProductList] = useState([])
     const [bestPerformance , setBestPerformance ] = useState([])
     const [recapPost , setRecapPost ] = useState({
@@ -100,8 +104,8 @@ const AnalystPage = () => {
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
 
-    const createDataPost = (date, contentTitle, productName, platform, like , comment , share , follower) => {
-        return { date, contentTitle, productName, platform, like , comment , share , follower};
+    const createDataPost = (date, contentTitle, productName, platform, like , comment , share , follower, content) => {
+        return { date, contentTitle, productName, platform, like , comment , share , follower , content};
     }
 
 
@@ -130,6 +134,7 @@ const AnalystPage = () => {
                         data.detailPost.comments_count,
                         data.detailPost.likes_count,
                         0,
+                        data,
                     )
                 })
 
@@ -183,6 +188,25 @@ const AnalystPage = () => {
 
     return (
         <AppLayout title='Analisis'>
+            <AppModalDetailContent
+                open= {openModalDetail}
+                image = {contentDetail ? contentDetail.imageUrlPost : ''}
+                caption = {contentDetail ? contentDetail.captionPost : ''}
+                hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
+                platform = {contentDetail ? contentDetail.platform : ""}
+                productName = {contentDetail ? contentDetail.contentTitle : ""}
+                withButton={false}
+                isDashboard={true}
+                onClick = {()=> {
+                    setOpenModalUpload(!openModalUpload)
+                }}
+                onEditButton = {()=> {
+                    setOpenModalDetail(false)
+                    dispatch(setGenerateAI(contentDetail)) 
+
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+            />
             <Box className = 'grow h-[86%] p-[20px] flex flex-col gap-[20px]'>
             {/*  */}
                 <Box className='p-[20px] flex-none h-[100%] w-[100%] flex flex-col border-[1px] gap-[15px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
@@ -318,7 +342,7 @@ const AnalystPage = () => {
                                                                 <Box className={`w-[10px] h-[10px] rounded-full`} sx={{ backgroundColor: listPlatform[index].color }}></Box>
                                                                 <p className="text-TEXT-1 text-[12px]">{data.text}</p>
                                                             </Box>
-                                                                <p className="text-TEXT-1 text-[12px]">7 Postingan</p>
+                                                                <p className="text-TEXT-1 text-[12px]">{recapPost.datasets[0].data[index] || 0 } Postingan</p>
 
                                                         </span>
                                                     )
@@ -333,7 +357,8 @@ const AnalystPage = () => {
                         <AppTablePost
                                 data = {bestPerformance}
                                 onClick = { (value) => {
-                                    console.log(value)
+                                    setOpenModalDetail(!openModalDetail)
+                                    setContentDetail(value)
                                 }}
 
                             />
