@@ -9,6 +9,11 @@ export const getUserProfile = async () => {
     const response = await PROVIDER_GET(`api/v1/profile`,token )
     return response
 }
+export const getUserByToken = async (token) => {
+    await delay()
+    const response = await PROVIDER_GET(`api/v1/profile`,token )
+    return response
+}
 export const changePasswordUser = async (data) => {
     await delay()
     const token = getCookie('token');

@@ -182,7 +182,7 @@ export default function LandingPage() {
                       onClick={()=>{
                       }}
                   >
-                    <p className="text-TEXT-5 text-[14px]">Get Started</p>
+                    <p onClick={()=> {push('/auth/signup')}} className="text-TEXT-5 text-[14px]">Get Started</p>
                     <img src="/images/icon/sparkling-white.svg" />
               </AppCustomButton>
               <AppButton

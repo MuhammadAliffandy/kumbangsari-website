@@ -12,8 +12,11 @@ import { useMediaQuery } from "react-responsive";
 import { useEffect , useState } from 'react'
 import { dateIndonesianNow } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
-import { getUserProfile } from '@/app/api/repository/userRepository'
+import { getUserProfile , getUserByToken } from '@/app/api/repository/userRepository'
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { setToken } from '@/app/redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 const AppLayout = (props) => {
 
@@ -23,11 +26,14 @@ const AppLayout = (props) => {
     const xl = useMediaQuery({ maxWidth: 1280 });
 
     const { push } = useRouter()
+    const dispatch = useDispatch()
 
     const [dateNow, setDateNow] = useState('');
     const [user, setUser] = useState([]);
+    const [accountSwitched, setAccountSwitched] = useState([]);
     const [userSubscription, setUserSubscription] = useState('');
     const [expanded , setExpanded ] = useState(true)
+    const accountList = JSON.parse(localStorage.getItem('accountList'))
 
     const setDate = () => {
         setDateNow(dateIndonesianNow())
@@ -48,11 +54,39 @@ const AppLayout = (props) => {
             const res = await getUserProfile()
             
             if(res.status === 'OK'){
-                console.log(res.data)
                 setUser(res.data)
             }
         } catch (error) {
             toast.error('Authentication Failed')
+        }
+    }
+
+    const fetchUserList = async () => {
+        try {
+
+            const accountSwitchList = []
+
+            for(let i = 0 ; i < 3 ; i++ ){
+                const res = await getUserByToken(accountList[i])
+            
+                if(res.status === 'OK'){
+                    accountSwitchList.push({ ...res.data , token : accountList[i] })
+                }
+            }
+
+            const uniqAccountList = Array.from(
+                new Map(accountSwitchList.map(user => [user.email, user])).values()
+            );
+
+            const accSwitched = uniqAccountList.filter(data => {
+                if(data.email !== user.email){
+                    return data
+                }
+            } )
+
+            setAccountSwitched(accSwitched)
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
         }
     }
 
@@ -66,7 +100,9 @@ const AppLayout = (props) => {
         fetchUserProfile()
     },[])
     
-
+    useEffect( ()=>{
+        fetchUserList()
+    } ,[user] )
     
 
     return (
@@ -149,7 +185,7 @@ const AppLayout = (props) => {
                                             isItemDropDown ={true}
                                             dropDownIcon={true}
                                             dropDownType={expanded}
-                                            image = {user.profileImage || ''}
+                                            image = {user.profileImage != null ? user.profileImage : 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'}
                                             name = {user.name || ''}
                                             countProduct = {`${user.productCount || 0} Produk`}
                                         />
@@ -157,23 +193,31 @@ const AppLayout = (props) => {
                                 componentItemStyle={'bg-white'}
                                 componentItemList = {
                                     <div className="flex flex-col gap-[6px] bg-white rounded-b-[20px]">
-                                        <AppProfileButton
-                                            isItemDropDown ={true}
-                                            dropDownIcon={false}
-                                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
-                                            name = {'Chaewon'}
-                                            countProduct = {`${2} Produk`}
-                                        /> 
-                                        <AppProfileButton
-                                            isItemDropDown ={true}
-                                            dropDownIcon={false}
-                                            image = {'https://awsimages.detik.net.id/community/media/visual/2022/04/07/kim-chae-won_43.png?w=600&q=90'}
-                                            name = {'Chaewon'}
-                                            countProduct = {`${2} Produk`}
-                                        /> 
+                                        {
+                                            accountSwitched.map((data , index) => {
+                                                return(
+                                                    <AppProfileButton
+                                                        key={index}
+                                                        isItemDropDown ={true}
+                                                        dropDownIcon={false}
+                                                        image = {data.profileImage != null ? data.profileImage : 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'}
+                                                        name = {data.name || ''}
+                                                        countProduct = {`${data.productCount || '0'} Produk`}
+                                                        onClick={()=>{
+                                                            dispatch(setToken(data.token) )
+                                                            window.location.reload()
+                                                        }}
+                                                    /> 
+                                                ) 
+                                            })
+                                        }
                                         <AppButton
                                             className='w-[100%] text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
-                                            text='Buat Akun'
+                                            text='Tambah Akun'
+                                            onClick={()=>{
+                                                push('/auth/signin')
+                                                localStorage.setItem('isAccountAdd' , true)
+                                            }}
                                         />
                                     </div>
                                 } 

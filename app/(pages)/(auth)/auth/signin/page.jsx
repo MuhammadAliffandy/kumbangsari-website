@@ -29,6 +29,8 @@ const SignInPage = () => {
     const [loadingProgress,setLoadingProgress] = useState(0);
     const [openModalLoading,setOpenModalLoading] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const isAccountAdd = localStorage.getItem('isAccountAdd')
+    const accountList = JSON.parse(localStorage.getItem('accountList'))
     
     const onSubmit  = async (data ) => {
 
@@ -37,6 +39,14 @@ const SignInPage = () => {
             setOpenModalLoading(true)
             const res = await loginAuth(data)
             
+            if(isAccountAdd){
+                localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
+            }
+
+            if(accountList == null ){
+                localStorage.setItem('accountList' , JSON.stringify([res.data.token]))
+            }
+
             dispatch(setToken(res.data.token))
 
             const currentUser = await getCurrentUser(); 
@@ -44,6 +54,7 @@ const SignInPage = () => {
                 setOpenModalLoading(false)
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
+                    localStorage.setItem('isAccountAdd',false)
                 }else{
                     push('/input-product/add-product')
                 }
