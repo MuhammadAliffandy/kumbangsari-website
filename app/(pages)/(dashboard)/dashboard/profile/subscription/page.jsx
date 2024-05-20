@@ -15,7 +15,7 @@ import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
 import { getPaymentTransaction } from "@/app/api/repository/paymentRepository";
-import { subscriptionList } from "./component/subscriptionList";
+import SubscriptionList, { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
 
 
@@ -71,6 +71,8 @@ const SubscriptionPage = () => {
             const res = await getUserSubscription()
 
             if(res.status == 'OK'){
+                console.log('=======================')
+                console.log(res.data)
                 setUserSubscription(res.data)
             }else{
                 toast.error('Silahkan Berlangganan dulu!!')
@@ -145,112 +147,120 @@ const SubscriptionPage = () => {
             }
             />
             <Box className='grow h-[86%] bg-NEUTRAL-100 p-[20px] flex flex-col gap-[20px]'>
-                {/* <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-    
-                </Box> */}
-                <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
-                    <Box className='p-[20px] flex flex-col gap-[15px] '>
-                        <Box className='flex gap-[5px] relative'>
-                            <p className="text-PRIMARY-500 font-bold text-[18px]">Paket Dasar</p>
-                            <Box 
-                            onMouseEnter={()=>{
-                                setInfoPacket(true)
-                            }} 
-                            onMouseLeave={()=>{
-                                setInfoPacket(false)
-                            }}
-                            className = 'flex flex-col relative'> 
-                                <img className="w-[28px] h-[28px] relative " src="/images/icon/info-packet.svg" />
-                                {
-                                    infoPacket ? 
+            
+                {
 
-                                    <Box className=' w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                userSubscription?.length == null ? 
+                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <SubscriptionList/>
+                </Box>
+                :                
+                    <>
+                        <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                            <Box className='p-[20px] flex flex-col gap-[15px] '>
+                                <Box className='flex gap-[5px] relative'>
+                                    <p className="text-PRIMARY-500 font-bold text-[18px]">Paket Dasar</p>
+                                    <Box 
+                                    onMouseEnter={()=>{
+                                        setInfoPacket(true)
+                                    }} 
+                                    onMouseLeave={()=>{
+                                        setInfoPacket(false)
+                                    }}
+                                    className = 'flex flex-col relative'> 
+                                        <img className="w-[28px] h-[28px] relative " src="/images/icon/info-packet.svg" />
                                         {
-                                            subscriptionList[0].benefit.map(data => {
-                                                return(
-                                                    <span className="flex text-TEXT-1">
-                                                        <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
-                                                        <p className="text-[14px]">{data}</p>
-                                                    </span>
-                                                )
-                                            })
+                                            infoPacket ? 
+
+                                            <Box className=' w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                                                {
+                                                    subscriptionList[0].benefit.map(data => {
+                                                        return(
+                                                            <span className="flex text-TEXT-1">
+                                                                <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
+                                                                <p className="text-[14px]">{data}</p>
+                                                            </span>
+                                                        )
+                                                    })
+                                                }
+                                            </Box>
+
+                                            : null
                                         }
                                     </Box>
+                                </Box>
+                                {/*  */}
+                                {
 
-                                    : null
+                                    userSubscription?.length != 0 ? 
+
+                                    <Box className='flex gap-[10px] w-[100%] text-[14px] flex-col xl:flex-row lg:flex-row'>
+                                        <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription?.SubscriptionDetails?.maxProductCount || 0}</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {convertToIndonesianDate(userSubscription?.startDate)}</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {convertToIndonesianDate(userSubscription?.expiresIn)}</p></span>
+                                        </Box>
+                                        <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: {`${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}`}</p></span>
+                                            <LinearProgress
+                                                sx={{
+                                                    height: 6,
+                                                    borderRadius: 5,
+                                                }}
+                                                variant="determinate"
+                                                value={ userSubscription?.remainingGenerate * 2} 
+                                            />
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: {`${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`}</p></span>
+                                            <LinearProgress
+                                                sx={{
+                                                    height: 6,
+                                                    borderRadius: 5,
+                                                }}
+                                                variant="determinate"
+                                                value={ userSubscription?.remainingPost * 6.7} 
+                                            />
+                                        </Box>
+                                    </Box> : 
+
+                                    null
+
                                 }
+                                {/*  */}
+                                <Box className='flex gap-[10px] justify-end'> 
+                                        <AppButton
+                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                            text={'Berhenti Langganan'} 
+                                            type = {'Submit'}
+                                            onClick = {()=>{
+                                                setStopSubscription(!stopSubscription)
+                                            }}
+                                        />
+                                        <AppButton
+                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                            text={'Ubah Paket'} 
+                                            type = {'Submit'}
+                                            onClick = {()=>{
+                                                setSubscriptionListModal(!subscriptionListModal)
+                                            }}
+                                        />
+                                </Box>
                             </Box>
                         </Box>
-                        {/*  */}
-                        {
-
-                            userSubscription.length != 0 ? 
-
-                            <Box className='flex gap-[10px] w-[100%] text-[14px] flex-col xl:flex-row lg:flex-row'>
-                                <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription.SubscriptionDetails.maxProductCount || 0}</p></span>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {convertToIndonesianDate(userSubscription.startDate)}</p></span>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {convertToIndonesianDate(userSubscription.expiresIn)}</p></span>
-                                </Box>
-                                <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: {`${userSubscription.remainingGenerate}/${userSubscription.SubscriptionDetails.maxGenerateCount}`}</p></span>
-                                    <LinearProgress
-                                        sx={{
-                                            height: 6,
-                                            borderRadius: 5,
-                                        }}
-                                        variant="determinate"
-                                        value={ userSubscription.remainingGenerate * 2} 
-                                    />
-                                    <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: {`${userSubscription.remainingPost}/${userSubscription.SubscriptionDetails.maxPostCount}`}</p></span>
-                                    <LinearProgress
-                                        sx={{
-                                            height: 6,
-                                            borderRadius: 5,
-                                        }}
-                                        variant="determinate"
-                                        value={ userSubscription.remainingPost * 6.7} 
-                                    />
-                                </Box>
-                            </Box> : 
-
-                            null
-
-                        }
-                        {/*  */}
-                        <Box className='flex gap-[10px] justify-end'> 
-                                <AppButton
-                                    className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
-                                    text={'Berhenti Langganan'} 
-                                    type = {'Submit'}
-                                    onClick = {()=>{
-                                        setStopSubscription(!stopSubscription)
+                        <Box className='grow w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                            <Box className='p-[20px] flex flex-col gap-[15px]'>
+                                <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
+                                <AppTablePayment
+                                    data={paymentTransactions}
+                                    onClick={()=>{
+                                        // setModalSuccessPay(true)
+                                        setModalPendingPay(true)
+                                        // setModalFailedPay(true)
                                     }}
                                 />
-                                <AppButton
-                                    className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
-                                    text={'Ubah Paket'} 
-                                    type = {'Submit'}
-                                    onClick = {()=>{
-                                        setSubscriptionListModal(!subscriptionListModal)
-                                    }}
-                                />
+                            </Box>
                         </Box>
-                    </Box>
-                </Box>
-                <Box className='grow w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
-                    <Box className='p-[20px] flex flex-col gap-[15px]'>
-                        <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
-                        <AppTablePayment
-                            data={paymentTransactions}
-                            onClick={()=>{
-                                // setModalSuccessPay(true)
-                                setModalPendingPay(true)
-                                // setModalFailedPay(true)
-                            }}
-                        />
-                    </Box>
-                </Box>
+                    </>
+                }
             </Box>
             
         </AppLayout>

@@ -18,19 +18,24 @@ const AppNavSidebar = (props) => {
             props.active == true ?
         'bg-gradient-to-br from-PRIMARY-500 to-PRIMARY-300 text-TEXT-5 ' : 
         ' text-TEXT-1 hover:bg-gradient-to-br from-PRIMARY-500 to-PRIMARY-300 hover:text-TEXT-5 '}`}>
-            { props.icon == null ? <p className="px-[10px] font-bold text-[10px]">.</p> : <img className={`w-[22px] h-[22px] ${xl ? 'my-[12px]' : ''}`} src={`/images/icon/${props.active ? props.iconWhite : props.onlyButton ? props.icon : isHover ? props.iconWhite : props.icon}`}/>}
-            {
-                props.isDrawer ? 
-                <p className='py-[12px] px-[12px] font-poppins font-[500]'>
-                    {props.text}
-                </p> 
-                : 
-                xl ? null 
-                :      
-                <p className='py-[12px] font-poppins font-[500]'>
-                    {props.text}
-                </p> 
-            }
+            { props.icon == null ? <p className="px-[10px] font-bold text-[10px]">.</p> : <img className={`w-[22px] h-[22px] ${xl ? 'my-[12px]' : ''}`} src={`/images/icon/${!props.isSubscription ? `${props.icon.split('.png')[0]}-grey.svg` :  props.active ? props.iconWhite : props.onlyButton ? props.icon : isHover ? props.iconWhite : props.icon}`}/>}
+            <div className={`flex items-center gap-[10px] ${props.isSubscription ? '': 'text-TEXT-4' }`}>
+                {
+                    props.isDrawer ? 
+                    <p className='py-[12px] px-[12px] font-poppins font-[500] xl:hidden'>
+                        {props.text}
+                    </p> 
+                    : 
+                    xl ? null 
+                    :      
+                    <p className='py-[12px] font-poppins font-[500]'>
+                        {props.text}
+                    </p> 
+                }
+                {
+                    props.isSubscription ? null : <img className="w-[12px] h-[12px]" src='/images/icon/lock.svg'/>
+                }
+            </div>
         </Link> 
     )
 }

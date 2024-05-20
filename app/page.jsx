@@ -154,7 +154,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white bg-opacity-[50%] backdrop-blur-xl flex items-center justify-between px-[15px] xl:px-0 sm:justify-between md:justify-between xl:justify-around py-[15px] border-b-[1px] border-TEXT-4 border-opacity-25">
           <SideBar isDrawer={false} />
 
-          <Box className=" flex flex-col xl:hidden md:block sm:block">
+          <Box className=" flex flex-col xl:hidden lg:hidden  md:hidden sm:block">
               <AppDrawer anchor='right'>
                 <div className="flex flex-col w-[40vw] bg-white h-[100vh] ">
                   <SideBar isDrawer = {true}/>
@@ -424,13 +424,13 @@ const SideBar = (props) => {
             <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
         </Box>
 
-        <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px]'}  font-bold font-poppins sm:hidden md:hidden xl:flex`}>
+        <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px] sm:hidden md:flex lg:flex xl:flex'}  font-bold font-poppins `}>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#feature">Feature</a></li>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#subscription">Subscribe</a></li>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#faq">FAQ</a></li>
         </ul>
 
-        <Box className={`${props.isDrawer ? 'flex flex-col gap-[10px] items-start p-[10px]' : 'hidden items-center'}  gap-[10px] sm:hidden md:hidden xl:flex `}>
+        <Box className={`${props.isDrawer ? 'flex flex-col gap-[10px] items-start p-[10px]' : 'hidden items-center sm:hidden md:flex lg:flex xl:flex '}  gap-[10px] `}>
             <AppButton
                 className={`${props.isDrawer ? 'w-[100%]' : ''} px-[20px] py-[6px]  text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]`}
                 text={'Login'} 

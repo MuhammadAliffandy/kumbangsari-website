@@ -25,16 +25,18 @@ const AppSidebar = (props)=> {
                         text={'Dashboard'}
                         active={props.title == 'Dashboard' ? true : false}
                         icon={'dashboard.png'}
-                        iconWhite={'dashboard-white.png'}
-                        urlNavigation = '/dashboard'
+                        iconWhite={ 'dashboard-white.png' }
+                        urlNavigation = { props.isSubscription ?  '/dashboard' : '#' }
+                        isSubscription={props.isSubscription }
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
                         text={'Generate AI'}
                         active={ props.title == 'Generate AI' ? true : false}
                         icon={'generate.png'}
-                        iconWhite={'generate-white.png'}
-                        urlNavigation='/dashboard/generate-ai'
+                        iconWhite={ 'generate-white.png'}
+                        urlNavigation= { props.isSubscription ?  '/dashboard/generate-ai' : '#' }
+                        isSubscription={props.isSubscription }
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
@@ -42,7 +44,8 @@ const AppSidebar = (props)=> {
                         active={props.title.search('Kalender') > -1 ? true : false}
                         icon={'calendar.png'}
                         iconWhite={'calendar-white.png'}
-                        urlNavigation='/dashboard/calendar'
+                        urlNavigation= { props.isSubscription ?  '/dashboard/calendar' : '#' }
+                        isSubscription={props.isSubscription }
                     />
                     <AppNavSidebar
                         isDrawer={props.isDrawer }
@@ -50,7 +53,8 @@ const AppSidebar = (props)=> {
                         active={props.title == 'Analisis' ? true : false}
                         icon={'chart.png'}
                         iconWhite={'chart-white.png'}
-                        urlNavigation='/dashboard/analyst'
+                        urlNavigation={ props.isSubscription ?  '/dashboard/analyst' : '#' }
+                        isSubscription={props.isSubscription }
                     />
                     <AppExpansionList
                         style = {`grow relative `}
@@ -65,6 +69,7 @@ const AppSidebar = (props)=> {
                             active={props.title.split(' > ')[0] == 'Profil' ? true : false}
                             icon={'profile.png'}
                             iconWhite={'profile-white.png'}
+                            isSubscription={true}
                         />
                         }
                         componentItemStyle={'bg-white'}
@@ -75,14 +80,16 @@ const AppSidebar = (props)=> {
                                     text={'Akun'}
                                     active={props.title.split(' > ')[1] == 'Akun' ? true : false}
                                     child = {true}
-                                    urlNavigation='/dashboard/profile/account'
+                                    urlNavigation= { props.isSubscription ?  '/dashboard/profile/account' : '#' }
+                                    isSubscription={props.isSubscription }
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Daftar Produk'}
                                     active={props.title.split(' > ')[1] == 'Daftar Produk' ? true : false}
                                     child = {true}
-                                    urlNavigation='/dashboard/profile/product-list'
+                                    urlNavigation= { props.isSubscription ?  '/dashboard/profile/product-list' : '#' }
+                                    isSubscription={props.isSubscription }
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
@@ -90,13 +97,15 @@ const AppSidebar = (props)=> {
                                     active={props.title.split(' > ')[1] == 'Berlangganan' ? true : false}
                                     child = {true}
                                     urlNavigation='/dashboard/profile/subscription'
+                                    isSubscription={true }
                                 />
                                 <AppNavSidebar
                                     isDrawer={props.isDrawer }
                                     text={'Pengaturan'}
                                     active={props.title.split(' > ')[1] == 'Pengaturan' ? true : false}
                                     child = {true}
-                                    urlNavigation='/dashboard/profile/settings'
+                                    urlNavigation= { props.isSubscription ?  '/dashboard/profile/settings' : '#' }
+                                    isSubscription={props.isSubscription }
                                 />
                             </div>
                         } 
@@ -108,10 +117,12 @@ const AppSidebar = (props)=> {
                         text={'Keluar'}
                         icon={'logout.png'}
                         onlyButton = {true}
+                        urlNavigation='/'
                         onClick={()=>{
                             push('/auth/signin')
                             setCookie('token','')
                         }}
+                        isSubscription={true}
                     />
                 </div>
             </Box>

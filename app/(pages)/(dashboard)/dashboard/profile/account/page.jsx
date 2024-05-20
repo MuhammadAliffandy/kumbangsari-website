@@ -132,7 +132,7 @@ const ProfilePage = () => {
                                     </span>
                                     <p className="text-TEXT-1 text-[12px]">{user.phoneNumber || '081xxxxxx'}</p>
                                     <p className="text-TEXT-1 text-[12px]">{user.email || 'taylorsiwft@gmail.com' }</p>
-                                    <p className="text-TEXT-4 text-[10px]">{user.countProduct || '0'} Produk</p>
+                                    <p className="text-TEXT-4 text-[10px]">{user.productCount || '0'} Produk</p>
                                 </Box>
                             </Box>
                             <AppButton

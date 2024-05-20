@@ -12,6 +12,8 @@ import { useMediaQuery } from "react-responsive";
 import { useEffect , useState } from 'react'
 import { dateIndonesianNow } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
+import { getUserProfile } from '@/app/api/repository/userRepository'
+import { useRouter } from 'next/navigation';
 
 const AppLayout = (props) => {
 
@@ -20,8 +22,11 @@ const AppLayout = (props) => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
 
+    const { push } = useRouter()
+
     const [dateNow, setDateNow] = useState('');
-    const [user, setUser] = useState();
+    const [user, setUser] = useState([]);
+    const [userSubscription, setUserSubscription] = useState('');
     const [expanded , setExpanded ] = useState(true)
 
     const setDate = () => {
@@ -30,8 +35,27 @@ const AppLayout = (props) => {
 
     const getUser = async () => {
         const res = await getCurrentUser();
-        if(res.status == 'OK') setUser(res.data)
+        if(res.status == 'OK') {
+            setUserSubscription(res.data.subscription)
+            if(res.data.subscription == null ){
+                push('/dashboard/profile/subscription')
+            }                          
+        }
     }
+
+    const fetchUserProfile = async () => {
+        try {
+            const res = await getUserProfile()
+            
+            if(res.status === 'OK'){
+                console.log(res.data)
+                setUser(res.data)
+            }
+        } catch (error) {
+            toast.error('Authentication Failed')
+        }
+    }
+
 
     useEffect(()=>{
         setDate()
@@ -39,7 +63,11 @@ const AppLayout = (props) => {
 
     useEffect(()=>{
         getUser()
+        fetchUserProfile()
     },[])
+    
+
+    
 
     return (
             <Box className=  'w-[100%] h-[100vh] flex'>
@@ -54,6 +82,7 @@ const AppLayout = (props) => {
                             { xl ? '' : <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>}
                         </Box>
                         <AppSidebar
+                            isSubscription={userSubscription != null ? true : false}
                             isDrawer = {false}
                             title = {props.title}
                         />
@@ -63,10 +92,12 @@ const AppLayout = (props) => {
                     <nav className='w-[100%] flex-none h-auto bg-NEUTRAL-100 py-[15px] px-[30px] flex items-center justify-between border-b-[1px] border-b-TEXT-4 '>
                         <Box className = 'flex items-center gap-[20px]' >
                             {
+
                                 sm || lg || md ? 
 
                                 <AppDrawer>
                                     <AppSidebar
+                                        isSubscription={userSubscription != null ? true : false}
                                         isDrawer = {true}
                                         title = {props.title}
                                     />
@@ -118,9 +149,9 @@ const AppLayout = (props) => {
                                             isItemDropDown ={true}
                                             dropDownIcon={true}
                                             dropDownType={expanded}
-                                            image = {'https://www.wowkeren.com/display/images/photo/2024/04/03/00506918.webp'}
-                                            name = {'Kazuha'}
-                                            countProduct = {`${3} Produk`}
+                                            image = {user.profileImage || ''}
+                                            name = {user.name || ''}
+                                            countProduct = {`${user.productCount || 0} Produk`}
                                         />
                                 }
                                 componentItemStyle={'bg-white'}
