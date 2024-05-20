@@ -10,11 +10,12 @@ const AppNavSidebar = (props) => {
     return (
         <Link href={`${props.urlNavigation ? props.urlNavigation : "#"}`} onClick={props.onClick} onMouseEnter={()=>{setIsHover(true)}} onMouseLeave={()=>{setIsHover(false)}} className={`  w-[100%] flex items-center gap-[20px] 
             ${props.isDrawer ? 'justify-left pl-[12%]' : xl ? 'justify-center' : 'justify-left pl-[12%]'} 
-            ${ props.onlyButton ? 'text-TEXT-1 ' : 
+            ${ 
+            props.onlyButton ? 'text-TEXT-1 ' : 
             props.active == true & props.child == true ? 
             ' text-PRIMARY-500 ' :
             props.active == false & props.child == true ? 
-            ' text-TEXT-1 ' :
+            ' text-TEXT-1 hover:text-PRIMARY-500' :
             props.active == true ?
         'bg-gradient-to-br from-PRIMARY-500 to-PRIMARY-300 text-TEXT-5 ' : 
         ' text-TEXT-1 hover:bg-gradient-to-br from-PRIMARY-500 to-PRIMARY-300 hover:text-TEXT-5 '}`}>

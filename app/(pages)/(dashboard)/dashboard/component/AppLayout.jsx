@@ -63,16 +63,30 @@ const AppLayout = (props) => {
 
     const fetchUserList = async () => {
         try {
-
+            
             const accountSwitchList = []
+            const accountListFiltered = []
 
             for(let i = 0 ; i < 3 ; i++ ){
                 const res = await getUserByToken(accountList[i])
             
                 if(res.status === 'OK'){
-                    accountSwitchList.push({ ...res.data , token : accountList[i] })
+                    accountSwitchList.push({ ...res.data , token : accountList[i]})
+                }else{
+                    accountListFiltered.push(accountList[i]);
                 }
             }
+
+            // filtered account switched on data storage 
+
+            const accountListFinishChecked = accountList.filter((data)=>{
+                if(accountListFiltered.indexOf(data) <= -1){
+                    return data
+                }
+            })
+            localStorage.setItem('accountList',JSON.stringify(accountListFinishChecked))
+
+            // filtered account switched list
 
             const uniqAccountList = Array.from(
                 new Map(accountSwitchList.map(user => [user.email, user])).values()
@@ -83,6 +97,8 @@ const AppLayout = (props) => {
                     return data
                 }
             } )
+
+            console.log(accSwitched)
 
             setAccountSwitched(accSwitched)
         } catch (error) {
@@ -185,7 +201,7 @@ const AppLayout = (props) => {
                                             isItemDropDown ={true}
                                             dropDownIcon={true}
                                             dropDownType={expanded}
-                                            image = {user.profileImage != null ? user.profileImage : 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'}
+                                            image = {user.profileImage }
                                             name = {user.name || ''}
                                             countProduct = {`${user.productCount || 0} Produk`}
                                         />
@@ -200,7 +216,7 @@ const AppLayout = (props) => {
                                                         key={index}
                                                         isItemDropDown ={true}
                                                         dropDownIcon={false}
-                                                        image = {data.profileImage != null ? data.profileImage : 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'}
+                                                        image = { data.profileImage}
                                                         name = {data.name || ''}
                                                         countProduct = {`${data.productCount || '0'} Produk`}
                                                         onClick={()=>{

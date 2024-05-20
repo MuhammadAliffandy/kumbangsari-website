@@ -15,13 +15,13 @@ const AppProfileButton = (props) => {
                 <>
                     {props.dropDownIcon ?  <FontAwesomeIcon className='text-TEXT-3' icon={ props.dropDownType ?  faChevronDown : faChevronUp } /> : null}
                     <Box className='text-right'>
-                        <p className='text-TEXT-1 text-[14px] font-medium'>{props.name || 'Chaewon' }</p>
-                        <p className='text-TEXT-3 text-[12px]'>{props.countProduct || '2 Produk '}</p>
+                        <p className='text-TEXT-1 text-[14px] font-medium'>{props.name || 'Username' }</p>
+                        <p className='text-TEXT-3 text-[12px]'>{props.countProduct || '0 Produk '}</p>
                     </Box>
                 </>
         }
             <Box>
-                <img className='w-[40px] h-[40px] rounded-[100%]' src={props.image}/>
+                <img className='w-[40px] h-[40px] rounded-[100%]' src={props.image || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" }/>
             </Box>
         </Box>
     )

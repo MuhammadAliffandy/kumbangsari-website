@@ -30,7 +30,7 @@ const SignInPage = () => {
     const [openModalLoading,setOpenModalLoading] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const isAccountAdd = localStorage.getItem('isAccountAdd')
-    const accountList = JSON.parse(localStorage.getItem('accountList'))
+    const accountList = JSON.parse(localStorage.getItem('accountList') || [])
     
     const onSubmit  = async (data ) => {
 
