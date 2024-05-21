@@ -218,7 +218,7 @@ export default function LandingPage() {
           </Box>
       </section>
       {/*  */}
-      <section id="feature" className="pt-[80px] xl:pt-[0px]flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section id="feature" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">How Do We Work?</p>
