@@ -44,11 +44,11 @@ const AppModalFailedPay = (props) => {
 
                             <Box className='flex items-center justify-between rounded-[15px]'>
                                 <Box className='flex flex-col '>
-                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>Paket Dasar</p>
-                                    <p className='flex text-TEXT-4 text-[12px]'>15 Januari 2024 - 15 Februari 2024</p>
+                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.packet}</p>
+                                    <p className='flex text-TEXT-4 text-[12px]'>{props.dateSubscription}</p>
 
                                 </Box>
-                                <p className='flex text-TEXT-1 text-[16px] font-bold'>Rp 100.000</p>
+                                <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.price}</p>
                             </Box>
                         </Box>
                         

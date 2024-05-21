@@ -14,23 +14,15 @@ import AppModalFailedPay from './component/appModalFailedPay'
 import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
-import { getPaymentTransaction } from "@/app/api/repository/paymentRepository";
+import { createPayment, getPaymentTransaction } from "@/app/api/repository/paymentRepository";
 import SubscriptionList, { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
 
 
-const createDataPayment = (date, packet, price, status, ) => {
-    return { date, packet, price, status,  };
+const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl ) => {
+    return { date, packet, price, status, expiryDate , updatedAt , callbackUrl};
 }
 
-const dataPaymentTable = [
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'success'),
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
-    createDataPayment('15 Desember 2023', 'Paket Dasar', 'Rp 100.000,00', 'waiting'),
-];
 
 const SubscriptionPage = () => {
 
@@ -44,6 +36,8 @@ const SubscriptionPage = () => {
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
     // state data
+    const [statusPayment ,setStatusPayment ] = useState('')
+    const [packetPayment , setPacketPayment] = useState([])
     const [ userSubscription ,  setUserSubscription ] = useState([])
     const [ paymentTransactions ,  setPaymentTransactions ] = useState([])
 
@@ -53,8 +47,17 @@ const SubscriptionPage = () => {
             const res = await getPaymentTransaction()
             if(res.status == 'OK'){
 
+                console.log(res.data)
                 const data = res.data.map(data => {
-                    return  createDataPayment(convertToIndonesianDate(data.updatedAt), data.items[0].name, data.items[0].price, data.status == 'PENDING' ? 'waiting' : 'gagal' )
+                    return  createDataPayment(
+                        convertToIndonesianDate(data.updatedAt), 
+                        data.items[0].name, 
+                        `Rp${formatRupiahNumber(data.items[0].price)}`, 
+                        data.status == 'PENDING' ? 'waiting' : data.status == 'PAID' || data.status == 'SETTLED' ? 'success' : 'failed' , 
+                        data.expiryDate ,
+                        data.updatedAt,
+                        data.invoiceUrl
+                    )
                 })
 
                 setPaymentTransactions(data)
@@ -71,8 +74,6 @@ const SubscriptionPage = () => {
             const res = await getUserSubscription()
 
             if(res.status == 'OK'){
-                console.log('=======================')
-                console.log(res.data)
                 setUserSubscription(res.data)
             }else{
                 toast.error('Silahkan Berlangganan dulu!!')
@@ -82,6 +83,28 @@ const SubscriptionPage = () => {
             
         }
     }
+
+    const fetchCreatePayment = async (value) => {
+        try {
+
+            const data = {
+                paket : value.codeNumber,
+                price : value.price,
+            }
+
+            const res = await createPayment(data)
+
+            if(res.status == 'OK'){
+                console.log(res.data)
+                setStatusPayment(res.data.status)
+                toast.success('Transaksi Berhasil')
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
 
     useEffect(()=>{
         fetchPaymentTransaction()
@@ -94,14 +117,29 @@ const SubscriptionPage = () => {
             <AppModalSuccessPay
                 open ={modalSuccessPay}
                 onCloseButton={ value => {setModalSuccessPay(value)}}
+                packet={packetPayment.packet || ''}
+                price={formatRupiahNumber(packetPayment.price || 0)}
+                updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
+                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
             />
             <AppModalPendingPay
                 open ={modalPendingPay}
                 onCloseButton={ value => {setModalPendingPay(value)}}
+                packet={packetPayment.packet || ''}
+                status={packetPayment.status}
+                price={formatRupiahNumber(packetPayment.price || 0)}
+                updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
+                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
+                expiryDate={packetPayment.expiryDate}
+                callbackUrl={packetPayment.callbackUrl}
             />
-            <AppModalSuccessPay
+            <AppModalFailedPay
                 open ={modalFailedPay}
                 onCloseButton={ value => {setModalFailedPay(value)}}
+                packet={packetPayment.packet || ''}
+                price={formatRupiahNumber(packetPayment.price || 0)}
+                updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
+                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
             />
             <AppModalSubscriptionList 
                 open = {subscriptionListModal}
@@ -150,11 +188,16 @@ const SubscriptionPage = () => {
             
                 {
 
-                userSubscription?.length == null ? 
-                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                    <SubscriptionList/>
-                </Box>
-                :                
+                // userSubscription?.length == null ? 
+                // <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                //     <SubscriptionList
+                //         onClick={(value)=>{
+                //             fetchCreatePayment(value)
+
+                //         }}
+                //     />
+                // </Box>
+                // :                
                     <>
                         <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
@@ -251,10 +294,21 @@ const SubscriptionPage = () => {
                                 <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
                                 <AppTablePayment
                                     data={paymentTransactions}
-                                    onClick={()=>{
-                                        // setModalSuccessPay(true)
-                                        setModalPendingPay(true)
-                                        // setModalFailedPay(true)
+                                    onClick={(data)=>{
+                        
+                                        if(data.status == 'waiting'){
+                                            setModalPendingPay(true)
+                                        }
+                                        
+                                        if(data.status == 'success'){
+                                            setModalSuccessPay(true)
+                                        }
+
+                                        if(data.status == 'failed'){
+                                            setModalFailedPay(true)
+                                        }
+
+                                        setPacketPayment(data)
                                     }}
                                 />
                             </Box>

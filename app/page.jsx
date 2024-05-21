@@ -414,7 +414,7 @@ export default function LandingPage() {
 
 const SideBar = (props) => {
   const { push } = useRouter()
-  const [arrowIcon , setArrowIcon ] = useState('/images/icon/arrowUpRight.svg')
+  const [arrowIcon , setArrowIcon ] = useState('/images/icon/ArrowUpRight.svg')
   return(
     <>
 
@@ -440,8 +440,8 @@ const SideBar = (props) => {
                 }}
             />
             <AppCustomButton 
-                    onMouseEnter={()=>{setArrowIcon('/images/icon/arrowRight.svg')}} 
-                    onMouseLeave={()=>{setArrowIcon('/images/icon/arrowUpRight.svg')}} 
+                    onMouseEnter={()=>{setArrowIcon('/images/icon/ArrowRight.svg')}} 
+                    onMouseLeave={()=>{setArrowIcon('/images/icon/ArrowUpRight.svg')}} 
                     className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[20px] py-[6px] `}
                     onClick={()=>{
                         push('/auth/signup')

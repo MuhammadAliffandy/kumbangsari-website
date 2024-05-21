@@ -38,18 +38,18 @@ const AppModalSuccessPay = (props) => {
                                 <img className='w-[24px] h-[24px] ' src='/images/icon/success.svg' />
                                 <Box className='flex flex-col items-start justify-center'>
                                     <p className='flex text-STATE-GREEN-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
-                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px] font-bold'>17.00 15 Desember 2023</p>
+                                    <p className='flex text-STATE-GREEN-DARKEN text-[14px] font-bold'>{props.updatedAt}</p>
                                 </Box>
                             </Box>
                             {/*  */}
 
                             <Box className='flex items-center justify-between rounded-[15px]'>
                                 <Box className='flex flex-col '>
-                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>Paket Dasar</p>
-                                    <p className='flex text-TEXT-4 text-[12px]'>15 Januari 2024 - 15 Februari 2024</p>
+                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.packet}</p>
+                                    <p className='flex text-TEXT-4 text-[12px]'>{props.dateSubscription}</p>
 
                                 </Box>
-                                <p className='flex text-TEXT-1 text-[16px] font-bold'>Rp 100.000</p>
+                                <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.price}</p>
                             </Box>
                         </Box>
                         

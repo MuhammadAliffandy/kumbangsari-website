@@ -98,8 +98,6 @@ const AppLayout = (props) => {
                 }
             } )
 
-            console.log(accSwitched)
-
             setAccountSwitched(accSwitched)
         } catch (error) {
             toast.error('Ada Kesalahan Server (500)')

@@ -48,7 +48,7 @@ export const subscriptionList = [
     },
 ]
 
-const SubscriptionList = () => {
+const SubscriptionList = (props) => {
     return (
         <>
             <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="p-[20px]" >
@@ -83,7 +83,7 @@ const SubscriptionList = () => {
                                             text={'Beli Paket'} 
                                             type = {'Submit'}
                                             onClick = {()=>{
-
+                                                props.onClick({...data,codeNumber : index + 1})
                                             }}
                                         />
                                     </Box>

@@ -9,3 +9,17 @@ export const getPaymentTransaction = async () => {
     const response = await PROVIDER_GET(`api/v1/payment/transaction`,token )
     return response
 }
+
+export const createPayment = async (data) => {
+    await delay() 
+    const token = getCookie('token');
+    const response = await PROVIDER_POST(`api/v1/payment/create-invoice`,data, token)
+    return response
+}
+
+export const validatePaymentStatus = async (data) => {
+    await delay() 
+    const token = getCookie('token');
+    const response = await PROVIDER_PATCH(`api/v1/payment/create-invoice`,data, token)
+    return response
+}

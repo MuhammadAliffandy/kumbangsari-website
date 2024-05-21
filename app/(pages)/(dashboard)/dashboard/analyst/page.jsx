@@ -128,7 +128,7 @@ const AnalystPage = () => {
                     return createDataPost(
                         convertToIndonesianDate(data.date.createAt),
                         data.contentTitle,
-                        productList[data.idProduct - 1 ].text,
+                        productList[data.idProduct - 1 ]?.text,
                         data.platform,
                         data.detailPost.likes_count,
                         data.detailPost.comments_count,

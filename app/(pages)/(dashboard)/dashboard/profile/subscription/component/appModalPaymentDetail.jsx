@@ -71,9 +71,9 @@ const AppModalPaymentDetail = (props) => {
                                         </Box>
                                         <Box className='bg-TEXT-4 h-[1px] w-[100%]'></Box>
                                         <span className="flex w-[100%] justify-between">
-                                                <p className="text-[14px] text-TEXT-1">{`Total Tagihan`}</p>
-                                                <p className="text-[14px] text-TEXT-1 font-bold">{`Rp 100.000`}</p>
-                                            </span>
+                                            <p className="text-[14px] text-TEXT-1">{`Total Tagihan`}</p>
+                                            <p className="text-[14px] text-TEXT-1 font-bold">{`Rp 100.000`}</p>
+                                        </span>
                                     </Box>
                                     {/*  */}
                                     <Box className='w-[100%] '>

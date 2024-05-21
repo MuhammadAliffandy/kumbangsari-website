@@ -1,16 +1,44 @@
 import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
 import AppTextField from '@/app/components/appTextField/appTextField'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
-import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validation';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+
 
 const AppModalPendingPay = (props) => {
+
+    const calculateTimeLeft = (expiryDate) => {
+        
+        const countDownDate = new Date(expiryDate).getTime();
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
     
+        let timeLeft = {};
+    
+        if (distance > 0) {
+            timeLeft = {
+                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((distance % (1000 * 60)) / 1000)
+            };
+        }
+    
+        return timeLeft;
+    };
+    
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(props.expiryDate));
+
+    useEffect(() => {
+
+        
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft(props.expiryDate));
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [props.open]);
 
     return(
         <Modal 
@@ -34,11 +62,11 @@ const AppModalPendingPay = (props) => {
                         
                         <Box className='flex flex-col gap-[10px]'>
                             <Box className='flex items-center justify-center gap-[10px]'>
-                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>{timeLeft.hours || '00'}</p>
                                 <p className='text-TEXT-3 text-[18px] font-bold'>:</p>
-                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>{timeLeft.minutes || '00'}</p>
                                 <p className='text-TEXT-3 text-[18px] font-bold'>:</p>
-                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>00</p>
+                                <p className='p-[15px] bg-PRIMARY-400 text-white text-[24px] rounded-[15px]'>{timeLeft.seconds || '00'}</p>
                             </Box>
 
                             {/*  */}
@@ -46,18 +74,18 @@ const AppModalPendingPay = (props) => {
                                 <img className='w-[24px] h-[24px] ' src='/images/icon/pending.svg' />
                                 <Box className='flex flex-col items-start justify-center'>
                                     <p className='flex text-STATE-YELLOW-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
-                                    <p className='flex text-STATE-YELLOW-DARKEN text-[14px] font-bold'>17.00 15 Desember 2023</p>
+                                    <p className='flex text-STATE-YELLOW-DARKEN text-[14px] font-bold'>{props.updatedAt}</p>
                                 </Box>
                             </Box>
                             {/*  */}
 
                             <Box className='flex items-center justify-between rounded-[15px]'>
                                 <Box className='flex flex-col '>
-                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>Paket Dasar</p>
-                                    <p className='flex text-TEXT-4 text-[12px]'>15 Januari 2024 - 15 Februari 2024</p>
+                                    <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.packet}</p>
+                                    <p className='flex text-TEXT-4 text-[12px]'>{props.dateSubscription}</p>
 
                                 </Box>
-                                <p className='flex text-TEXT-1 text-[16px] font-bold'>Rp 100.000</p>
+                                <p className='flex text-TEXT-1 text-[16px] font-bold'>{props.price}</p>
                             </Box>
 
                             {/*  */}
@@ -69,7 +97,10 @@ const AppModalPendingPay = (props) => {
                                 text={'Lanjutkan Pembayaran'} 
                                 type = {'Submit'}
                                 onClick = {()=>{
-
+                                    console.log(props.status)
+                                    if(props.status == 'waiting'){
+                                        window.location.href = props.callbackUrl
+                                    }
                                 }}
                             />
 
