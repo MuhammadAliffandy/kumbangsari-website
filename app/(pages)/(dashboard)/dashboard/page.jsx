@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import CircularProgress from '@mui/material/CircularProgress'
-import AppLayout from "./component/appLayout";
+import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout";
 import AppContent from '@/app/components/appContent/appContent'
 import AppTablePreview from '@/app/components/appTable/appTablePreview'
 import AppTableRecap from '@/app/components/appTable/appTableRecap'
 import AppModal from '@/app/components/appModal/appModal'
-import AppContentFilter from "./component/appContentFilter"
+import AppContentFilter from "@/app/(pages)/(dashboard)/dashboard/component/appContentFilter"
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
-import AppModalDetailContent from './component/modal/appModalDetailContent';
-import AppModalAddContent from './component/modal/appModalAddContent';
+import AppModalDetailContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalDetailContent';
+import AppModalAddContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupDashboardFilter'
 import AppCustomModal from "@/app/components/appModal/AppCustomModal";
@@ -20,7 +20,7 @@ import ReactPaginate from 'react-paginate';
 import { formatNumberHashtag } from '@/app/utils/helper'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { getProductByUser } from '../../../api/repository/productRepository';
+import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";

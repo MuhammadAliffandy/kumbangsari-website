@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import AppLayout from "../component/appLayout";
+import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { Line , Doughnut } from "react-chartjs-2";
