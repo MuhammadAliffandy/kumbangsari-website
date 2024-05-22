@@ -26,7 +26,9 @@ const AppModalSubscriptionList = (props) => {
                         }}
                     />
                 </Box>
-                <SubscriptionList/>
+                <SubscriptionList
+                    onClick={(value)=>{props.onClick(value)}}
+                />
             </motion.div>
         </Modal>
     )

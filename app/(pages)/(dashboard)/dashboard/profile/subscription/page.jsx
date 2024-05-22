@@ -14,7 +14,7 @@ import AppModalFailedPay from './component/appModalFailedPay'
 import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
-import { createPayment, getPaymentTransaction } from "@/app/api/repository/paymentRepository";
+import { createPayment, getPaymentTransaction, validatePaymentStatus } from "@/app/api/repository/paymentRepository";
 import SubscriptionList, { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
 
@@ -32,6 +32,7 @@ const SubscriptionPage = () => {
     const [modalFailedPay , setModalFailedPay ] = useState(false)
     const [ stopSubscription ,  setStopSubscription ] = useState(false)
     const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
+    const [ subscriptionListModalAdded ,  setSubscriptionListModalAdded ] = useState(false)
     const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
@@ -47,7 +48,15 @@ const SubscriptionPage = () => {
             const res = await getPaymentTransaction()
             if(res.status == 'OK'){
 
-                console.log(res.data)
+                const validationStatus = res.data.filter(item => {
+                    if(item.status == 'SETTLED' || item.status == 'PAID'){
+                        return item
+                    }
+                });
+            
+
+                setStatusPayment(validationStatus.length != 0 ? true : false)
+
                 const data = res.data.map(data => {
                     return  createDataPayment(
                         convertToIndonesianDate(data.updatedAt), 
@@ -75,6 +84,7 @@ const SubscriptionPage = () => {
 
             if(res.status == 'OK'){
                 setUserSubscription(res.data)
+          
             }else{
                 toast.error('Silahkan Berlangganan dulu!!')
             }
@@ -95,8 +105,6 @@ const SubscriptionPage = () => {
             const res = await createPayment(data)
 
             if(res.status == 'OK'){
-                console.log(res.data)
-                setStatusPayment(res.data.status)
                 toast.success('Transaksi Berhasil')
             }
 
@@ -145,7 +153,17 @@ const SubscriptionPage = () => {
                 open = {subscriptionListModal}
                 onClose = { () =>  setSubscriptionListModal(false) }
                 onCloseButton = { () => setSubscriptionListModal(false)  }
-
+                onClick={(value)=> {
+                    fetchCreatePayment(value)
+                }}
+                
+                />
+            <AppModalSubscriptionList 
+                open = {subscriptionListModalAdded}
+                onClose = { () =>  setSubscriptionListModalAdded(false) }
+                onCloseButton = { () => setSubscriptionListModalAdded(false)  }
+                onClick={(value)=> {}}
+                
             />
             <AppModalPaymentDetail
                 open={paymentDetailModal}
@@ -188,16 +206,17 @@ const SubscriptionPage = () => {
             
                 {
 
-                // userSubscription?.length == null ? 
-                // <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                //     <SubscriptionList
-                //         onClick={(value)=>{
-                //             fetchCreatePayment(value)
+                userSubscription?.length == 0 ? 
 
-                //         }}
-                //     />
-                // </Box>
-                // :                
+                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <SubscriptionList
+                        onClick={(value)=>{
+                            fetchCreatePayment(value)
+
+                        }}
+                    />
+                </Box>
+                :                
                     <>
                         <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
@@ -240,11 +259,21 @@ const SubscriptionPage = () => {
                                     <Box className='flex gap-[10px] w-[100%] text-[14px] flex-col xl:flex-row lg:flex-row'>
                                         <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription?.SubscriptionDetails?.maxProductCount || 0}</p></span>
-                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {convertToIndonesianDate(userSubscription?.startDate)}</p></span>
-                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {convertToIndonesianDate(userSubscription?.expiresIn)}</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {
+                                                userSubscription?.startDate ? convertToIndonesianDate(userSubscription?.startDate) : 'Belum Berlangganan'
+                                            }</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Berakhir</p><p>: {
+                                                userSubscription?.expiresIn ? convertToIndonesianDate(userSubscription?.expiresIn) : 'Belum Berlangganan'
+                                            }</p></span>
                                         </Box>
                                         <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
-                                            <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: {`${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}`}</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: 
+                                                { userSubscription?.remainingGenerate && userSubscription?.SubscriptionDetails?.maxGenerateCount ?  
+                                                `${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}` :
+                                                ' Belum Berlangganan'
+                                                
+                                                }
+                                                </p></span>
                                             <LinearProgress
                                                 sx={{
                                                     height: 6,
@@ -253,7 +282,11 @@ const SubscriptionPage = () => {
                                                 variant="determinate"
                                                 value={ userSubscription?.remainingGenerate * 2} 
                                             />
-                                            <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: {`${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`}</p></span>
+                                            <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: {
+                                                userSubscription?.remainingPost && userSubscription?.SubscriptionDetails?.maxPostCount ?
+                                            `${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`:
+                                            ' Belum Berlangganan'
+                                            }</p></span>
                                             <LinearProgress
                                                 sx={{
                                                     height: 6,
@@ -270,22 +303,40 @@ const SubscriptionPage = () => {
                                 }
                                 {/*  */}
                                 <Box className='flex gap-[10px] justify-end'> 
-                                        <AppButton
-                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
-                                            text={'Berhenti Langganan'} 
-                                            type = {'Submit'}
-                                            onClick = {()=>{
-                                                setStopSubscription(!stopSubscription)
-                                            }}
-                                        />
+                                    {
+                                        
+                                        statusPayment ?
+                                        
+                                        <>  
+                                            <AppButton
+                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                                text={'Berhenti Langganan'} 
+                                                type = {'Submit'}
+                                                onClick = {()=>{
+                                                    setStopSubscription(!stopSubscription)
+                                                }}
+                                            />
+                                            <AppButton
+                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                                text={'Ubah Paket'} 
+                                                type = {'Submit'}
+                                                onClick = {()=>{
+                                                    setSubscriptionListModal(!subscriptionListModal)
+                                                }}
+                                            />
+                                        </>
+
+                                            :
+                                        
                                         <AppButton
                                             className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
-                                            text={'Ubah Paket'} 
+                                            text={'Beli Paket'} 
                                             type = {'Submit'}
                                             onClick = {()=>{
                                                 setSubscriptionListModal(!subscriptionListModal)
                                             }}
                                         />
+                                    }
                                 </Box>
                             </Box>
                         </Box>

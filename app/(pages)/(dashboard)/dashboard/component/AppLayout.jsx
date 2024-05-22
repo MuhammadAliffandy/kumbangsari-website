@@ -42,6 +42,7 @@ const AppLayout = (props) => {
     const getUser = async () => {
         const res = await getCurrentUser();
         if(res.status == 'OK') {
+            console.log(res.data)
             setUserSubscription(res.data.subscription)
             if(res.data.subscription == null ){
                 push('/dashboard/profile/subscription')
@@ -100,7 +101,10 @@ const AppLayout = (props) => {
 
             setAccountSwitched(accSwitched)
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.response.status === 400){
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
 

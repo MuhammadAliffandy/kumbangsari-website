@@ -20,6 +20,6 @@ export const createPayment = async (data) => {
 export const validatePaymentStatus = async (data) => {
     await delay() 
     const token = getCookie('token');
-    const response = await PROVIDER_PATCH(`api/v1/payment/create-invoice`,data, token)
+    const response = await PROVIDER_PATCH(`api/v1/payment/validate-payment-status`,data, token)
     return response
 }

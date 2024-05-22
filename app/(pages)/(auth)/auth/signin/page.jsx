@@ -65,6 +65,7 @@ const SignInPage = () => {
             setOpenModalLoading(false)
             setLoadingProgress(100)
             toast.error('Email atau Kata Sandi Salah')
+            console.log(error)
         }
     };
 
