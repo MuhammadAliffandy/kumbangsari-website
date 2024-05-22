@@ -435,25 +435,29 @@ const DashboardPage = () => {
                                         )
                                     }) : 
                                     <>
-                                        <div className="w-[100%] h-[200px]">
+                                      <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
+                                        {/* <div className="w-[100%] h-[200px]">
                                             <Skeleton count={5} className="w-[100%] h-[50px]"/>
-                                        </div>
+                                        </div> */}
                                     </> 
                                 }
                             </Grid>
                         </Box>
                         <Box className = 'w-[100%] flex items-center justify-center'>
-                            <ReactPaginate
-                                pageCount={Math.ceil(contentAI.length / perPage)}
-                                pageRangeDisplayed={5}
-                                marginPagesDisplayed={2}
-                                onPageChange={handlePageChange}
-                                containerClassName={'pagination text-[12px] flex p-[10px] items-center justify-center gap-[10px] text-TEXT-1'}
-                                activeClassName={'active bg-PRIMARY-500 px-[12px] py-[6px] rounded-[50%] text-TEXT-5'}
-                                previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
-                                nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
-                            />
-                        </Box>
+                            {
+                                contentAI.length > 0 ? 
+                                <ReactPaginate
+                                    pageCount={Math.ceil(contentAI.length / perPage)}
+                                    pageRangeDisplayed={5}
+                                    marginPagesDisplayed={2}
+                                    onPageChange={handlePageChange}
+                                    containerClassName={'pagination text-[12px] flex p-[10px] items-center justify-center gap-[10px] text-TEXT-1'}
+                                    activeClassName={'active bg-PRIMARY-500 px-[12px] py-[6px] rounded-[50%] text-TEXT-5'}
+                                    previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
+                                    nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
+                                /> : null 
+                            }
+                        </Box> 
                     </Box>
 
                 </Box>

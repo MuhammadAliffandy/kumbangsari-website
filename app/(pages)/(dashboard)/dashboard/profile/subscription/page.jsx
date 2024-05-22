@@ -13,10 +13,11 @@ import AppModalSuccessPay from './component/appModalSuccessPay'
 import AppModalFailedPay from './component/appModalFailedPay'
 import AppModalPendingPay from './component/appModalPendingPay'
 import { useEffect, useState } from "react";
-import { getUserSubscription } from "@/app/api/repository/subscriptionRepository";
+import { getUserSubscription , stopUserSubscription} from "@/app/api/repository/subscriptionRepository";
 import { createPayment, getPaymentTransaction, validatePaymentStatus } from "@/app/api/repository/paymentRepository";
 import SubscriptionList, { subscriptionList } from "./component/subscriptionList";
 import { toast } from "react-toastify";
+import { getCurrentUser } from "@/app/api/repository/authRepository";
 
 
 const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl ) => {
@@ -37,10 +38,27 @@ const SubscriptionPage = () => {
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
     // state data
+    const [user , setUser] = useState([])
     const [statusPayment ,setStatusPayment ] = useState('')
     const [packetPayment , setPacketPayment] = useState([])
     const [ userSubscription ,  setUserSubscription ] = useState([])
     const [ paymentTransactions ,  setPaymentTransactions ] = useState([])
+
+
+    const fetchCurrentUser = async () => {
+        try {
+            const res = await getCurrentUser()
+
+            if(res.status == 'OK'){
+                setUser(res.data)
+            }else{
+                toast.error('Authentication Gagal')
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }        
+    }
 
 
     const fetchPaymentTransaction = async () => {
@@ -48,14 +66,6 @@ const SubscriptionPage = () => {
             const res = await getPaymentTransaction()
             if(res.status == 'OK'){
 
-                const validationStatus = res.data.filter(item => {
-                    if(item.status == 'SETTLED' || item.status == 'PAID'){
-                        return item
-                    }
-                });
-            
-
-                setStatusPayment(validationStatus.length != 0 ? true : false)
 
                 const data = res.data.map(data => {
                     return  createDataPayment(
@@ -94,6 +104,23 @@ const SubscriptionPage = () => {
         }
     }
 
+    const fetchStopSubscription = async () => {
+        try {
+            const res = await stopUserSubscription();
+
+            if(res.status == 'OK'){
+                fetchUserSubscription()
+                fetchPaymentTransaction()
+                toast.success('Berhenti Berlangganan Berhasil')
+            }else{
+                toast.error('Berhenti Berlangganan Gagal')
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }        
+    }
+
     const fetchCreatePayment = async (value) => {
         try {
 
@@ -115,6 +142,7 @@ const SubscriptionPage = () => {
 
 
     useEffect(()=>{
+        fetchCurrentUser()
         fetchPaymentTransaction()
         fetchUserSubscription()
     },[])
@@ -175,12 +203,11 @@ const SubscriptionPage = () => {
                 width={'w-[30vw]'}
                 modalType='modal-common'
                 title={'Berhenti Berlangganan'}
-                subtitle={`Paket berlangganan akan berakhir pada: 14 Januari 2023\nApakah Anda yakin ingin berhenti berlangganan sekarang?`}
                 onCloseButton={(value)=> setStopSubscription(value) }
                 children={
                 <>
                     <Box className='flex flex-col justify-start w-[100%]'>
-                        <p className="text-TEXT-1 text-[14px] font-medium">Paket berlangganan akan berakhir pada: <b>14 Januari 2023</b></p>
+                        <p className="text-TEXT-1 text-[14px] font-medium">Paket berlangganan akan berakhir pada: <b>{convertToIndonesianDate(userSubscription?.expiresIn)}</b></p>
                         <p className="text-TEXT-1 text-[14px] font-medium">Apakah Anda yakin ingin berhenti berlangganan sekarang?</p>
                     </Box>
                     <Box className=' flex gap-[10px] w-[100%]'>
@@ -189,6 +216,7 @@ const SubscriptionPage = () => {
                             text={'Tidak'} 
                             type = {'button'}
                             onClick={()=>{
+                                setStopSubscription(false)
                             }}
                         />
                         <AppButton
@@ -196,6 +224,8 @@ const SubscriptionPage = () => {
                             text={'Ya'} 
                             type = {'button'}
                             onClick={()=>{
+                                fetchStopSubscription()
+
                             }}
                         />
                     </Box>
@@ -206,17 +236,7 @@ const SubscriptionPage = () => {
             
                 {
 
-                userSubscription?.length == 0 ? 
-
-                <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                    <SubscriptionList
-                        onClick={(value)=>{
-                            fetchCreatePayment(value)
-
-                        }}
-                    />
-                </Box>
-                :                
+                // userSubscription  ?               
                     <>
                         <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
@@ -305,7 +325,7 @@ const SubscriptionPage = () => {
                                 <Box className='flex gap-[10px] justify-end'> 
                                     {
                                         
-                                        statusPayment ?
+                                        user.subscription != null ?
                                         
                                         <>  
                                             <AppButton
@@ -365,6 +385,18 @@ const SubscriptionPage = () => {
                             </Box>
                         </Box>
                     </>
+                    
+                    // :
+                    
+                    // <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    //     <SubscriptionList
+                    //         onClick={(value)=>{
+                    //             fetchCreatePayment(value)
+                    //             fetchUserSubscription()
+                    //         }}
+                    //     />
+                    // </Box>
+
                 }
             </Box>
             

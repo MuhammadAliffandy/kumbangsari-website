@@ -9,3 +9,10 @@ export const getUserSubscription = async () => {
     const response = await PROVIDER_GET(`api/v1/subscription/user-subscription`,token )
     return response
 }
+
+export const stopUserSubscription = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_DELETE(`api/v1/subscription/stop-subscription`,token)
+    return response;
+}

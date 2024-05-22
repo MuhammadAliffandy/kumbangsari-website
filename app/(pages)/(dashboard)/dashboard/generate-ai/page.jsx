@@ -245,6 +245,8 @@ const GenerateAIPage = () => {
                         <Box  className='h-[100%]  overflow-x-hidden overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
+                                    contentAI.length <= 0 ? 
+                                    <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
                         
                                     contentAILoading ?
 
@@ -312,6 +314,10 @@ const GenerateAIPage = () => {
                         </Box>
                         <Box className='h-[100%] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
+
+                                contentAIHistory.length <= 0 ? 
+                                <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
+
                                 contentAIHistoryLoading ? 
 
                                 <>
