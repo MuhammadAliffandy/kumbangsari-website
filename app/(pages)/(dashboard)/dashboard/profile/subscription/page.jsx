@@ -133,6 +133,7 @@ const SubscriptionPage = () => {
 
             if(res.status == 'OK'){
                 toast.success('Transaksi Berhasil')
+                fetchPaymentTransaction()
             }
 
         } catch (error) {
@@ -236,7 +237,7 @@ const SubscriptionPage = () => {
             
                 {
 
-                // userSubscription  ?               
+                paymentTransactions.length != null  ?               
                     <>
                         <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
@@ -386,16 +387,16 @@ const SubscriptionPage = () => {
                         </Box>
                     </>
                     
-                    // :
+                    :
                     
-                    // <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                    //     <SubscriptionList
-                    //         onClick={(value)=>{
-                    //             fetchCreatePayment(value)
-                    //             fetchUserSubscription()
-                    //         }}
-                    //     />
-                    // </Box>
+                    <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <SubscriptionList
+                            onClick={(value)=>{
+                                fetchCreatePayment(value)
+                                fetchUserSubscription()
+                            }}
+                        />
+                    </Box>
 
                 }
             </Box>

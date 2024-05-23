@@ -127,7 +127,7 @@ const ProfilePage = () => {
                                 <Box className='flex flex-col items-center'>
                                     <p className="text-TEXT-1 text-[16px] font-bold">{user.name || 'Your Name'}</p>
                                     <span className="flex items-center gap-[3px]">
-                                        <p className="text-TEXT-1 text-[12px]">Paket 1</p>
+                                        <p className="text-TEXT-1 text-[12px]">Paket {user.subscription || 0}</p>
                                         <img src="/images/icon/success-check.svg" />
                                     </span>
                                     <p className="text-TEXT-1 text-[12px]">{user.phoneNumber || '081xxxxxx'}</p>
