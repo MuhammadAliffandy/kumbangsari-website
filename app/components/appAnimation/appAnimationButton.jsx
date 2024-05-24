@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const AppAnimationButton = (props) => {
     return (
         <motion.div
-            className='w-[100%]'
+            className={props.className || 'w-[100%]'}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.9 }}  
         >

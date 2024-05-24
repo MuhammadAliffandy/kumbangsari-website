@@ -14,6 +14,7 @@ import AppModalDetailContent from '@/app/(pages)/(dashboard)/dashboard/component
 import AppModalAddContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalAddContent';
 import AppModalGenerateAI from "./generate-ai/component/appModalGenerateAI";
 import AppPopupDashboardFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupDashboardFilter'
+import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton'
 import AppCustomModal from "@/app/components/appModal/AppCustomModal";
 import AppButton from "@/app/components/appButton/appButton";
 import ReactPaginate from 'react-paginate';
@@ -54,6 +55,7 @@ const DashboardPage = () => {
     const [openModalUpload , setOpenModalUpload ] = useState(false)
     const [openModalSuccessUpload , setOpenModalSuccessUpload ] = useState(false)
     const [openModalFailedUpload , setOpenModalFailedUpload ] = useState(false)
+    const [contentAILoading , setContentAILoading] = useState(false)
     // state data
     const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
@@ -87,15 +89,18 @@ const DashboardPage = () => {
     const fetchRecommendationContentAI = async () => {
         try {
             const res = await recommendationContentAI();
-        
+            
+            setContentAILoading(true)
             if(res.status == 'OK'){
                 const data = res.data.map(item => {
                     return { ...item , productName :  productList.filter(product => { return item.idProduct === product.value })[0].text, }
                 }) 
                 setContentAI(data)
-
+                setContentAILoading(false)
+                
             }
         } catch (error) {
+            setContentAILoading(false)
             console.log(error)
         }
     }
@@ -358,22 +363,26 @@ const DashboardPage = () => {
 
                     <Box className={`${ sm || lg ? 'w-[100%] flex justify-between' : 'w-[100%]'}`}>
                         <Box className='flex items-center justify-left gap-[10px]'>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                                    onClick={()=>{
-                                        setOpenModalAdd(true)
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
-                                    {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Tambah Konten</p> }
-                            </AppCustomButton>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                                    onClick={()=>{
-                                        setOpenModalAI(!openModalAI)
-                                    }}
-                                >
-                                    <img src="/images/icon/sparkling-white.svg" />
-                                    {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Generate AI</p> }
-                            </AppCustomButton>
+                            <AppAnimationButton className='w-auto'>
+                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                        onClick={()=>{
+                                            setOpenModalAdd(true)
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                                        {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Tambah Konten</p> }
+                                </AppCustomButton>
+                            </AppAnimationButton>
+                            <AppAnimationButton className='w-auto'>
+                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                        onClick={()=>{
+                                            setOpenModalAI(!openModalAI)
+                                        }}
+                                    >
+                                        <img src="/images/icon/sparkling-white.svg" />
+                                        {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Generate AI</p> }
+                                </AppCustomButton>
+                            </AppAnimationButton>
                         </Box>
                         {
                             sm || lg ?  
@@ -396,7 +405,6 @@ const DashboardPage = () => {
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
                                     setContentDetailPreview(value)
-                                    console.log(value)
                                 }}
 
                             />
@@ -433,12 +441,16 @@ const DashboardPage = () => {
                                                 />
                                             </Grid>
                                         )
-                                    }) : 
+                                    }) :
+                                    
+                                    contentAILoading ? 
+
+                                    <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
+
                                     <>
-                                      <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
-                                        {/* <div className="w-[100%] h-[200px]">
+                                        <div className="w-[100%] h-[200px]">
                                             <Skeleton count={5} className="w-[100%] h-[50px]"/>
-                                        </div> */}
+                                        </div>
                                     </> 
                                 }
                             </Grid>

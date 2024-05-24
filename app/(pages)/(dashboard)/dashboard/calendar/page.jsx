@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify';
 import { convertEventDate } from '@/app/utils/helper';
+import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton';
 
 const CalenderPage = () => {
     // state responsive
@@ -75,14 +76,16 @@ const CalenderPage = () => {
         <AppLayout title='Kalender'>
             <Box className='p-[20px] grow w-[100%] flex flex-col gap-[15px] '>
               <Box className='flex justify-between '>
-                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
-                        onClick={()=>{
-                          setOpenModalAdd(!openModalAdd)
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
-                        {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Tambah Konten</p> }
-                </AppCustomButton>
+                <AppAnimationButton className='w-auto'>
+                  <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                          onClick={()=>{
+                            setOpenModalAdd(!openModalAdd)
+                          }}
+                      >
+                          <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                          {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Tambah Konten</p> }
+                  </AppCustomButton>
+                </AppAnimationButton>
                 <AppPopupFilter
                     isResponsive = { xl ? true : false  }
                     product = { productList}

@@ -28,6 +28,7 @@ import { useMediaQuery } from "react-responsive";
 import { ToastContainer, toast } from "react-toastify";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 
 
 const GenerateAIPage = () => {
@@ -235,12 +236,14 @@ const GenerateAIPage = () => {
                     <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
-                            <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{setOpenModalAI(!openModalAI)}}
-                            >
-                                <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
-                                <p className="text-TEXT-5 font-bold text-[14px] ">Generate AI</p>
-                            </AppCustomButton>
+                            <AppAnimationButton className='w-auto'>
+                                <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
+                                    onClick={()=>{setOpenModalAI(!openModalAI)}}
+                                >
+                                    <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                                    <p className="text-TEXT-5 font-bold text-[14px] ">Generate AI</p>
+                                </AppCustomButton>
+                            </AppAnimationButton>
                         </Box>
                         <Box  className='h-[100%]  overflow-x-hidden overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
