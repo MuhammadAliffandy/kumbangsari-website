@@ -10,8 +10,11 @@ import { useForm , } from 'react-hook-form';
 import { getUserProfile , editUserProfile } from '@/app/api/repository/userRepository'
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
+    const { push } = useRouter() 
     const { register, watch ,handleSubmit, formState: { errors } } = useForm();
     const [userLoading , setUserLoading ] = useState(false)
     const [ openModalChangePass , setOpenModalChangePass  ] = useState(false)
@@ -135,12 +138,16 @@ const ProfilePage = () => {
                                     <p className="text-TEXT-4 text-[10px]">{user.productCount || '0'} Produk</p>
                                 </Box>
                             </Box>
-                            <AppButton
-                                    className={' flex gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
-                                    text={'Keluar'} 
-                                    type = {'Submit'}
-                                    onClick = {()=>{}}
-                            />
+                            <AppAnimationButton>
+                                <AppButton
+                                        className={' flex gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
+                                        text={'Keluar'} 
+                                        type = {'Submit'}
+                                        onClick = {()=>{
+                                            push('/')
+                                        }}
+                                />
+                            </AppAnimationButton>
                         </Box>
                         <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
                             <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
@@ -196,13 +203,13 @@ const ProfilePage = () => {
                                     />
                                     <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
                                     <Box className='w-[100%] flex justify-end '>
-                                        <AppButton
+                                            <AppButton
                                                 className={' flex gap-[10px] w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
                                                 text={'Simpan'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{}}
                                             />
-                        
+                                        
                                     </Box>
                             </form>
                         </Box>
