@@ -275,7 +275,7 @@ const AnalystPage = () => {
                             />
                         </Box>
                     </Box>
-            {/*  */}
+                    {/*  */}
                     <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-xl'>
                             <Box className='flex items-center justify-between'>
