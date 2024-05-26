@@ -353,6 +353,7 @@ const AnalystPage = () => {
                             </Box>
                         </Box>
                     </Box>
+                    {/*  */}
                     <Box className=' bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-xl'> 
                         <AppTablePost
                                 data = {bestPerformance}
