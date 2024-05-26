@@ -360,7 +360,6 @@ const AnalystPage = () => {
                                     setOpenModalDetail(!openModalDetail)
                                     setContentDetail(value)
                                 }}
-
                             />
                     </Box>
                 </Box>
