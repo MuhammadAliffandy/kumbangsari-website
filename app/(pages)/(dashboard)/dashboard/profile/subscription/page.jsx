@@ -128,11 +128,11 @@ const SubscriptionPage = () => {
                 paket : value.codeNumber,
                 price : value.price,
             }
-
             const res = await createPayment(data)
-
+            
             if(res.status == 'OK'){
                 toast.success('Transaksi Berhasil')
+                setSubscriptionListModal(false)
                 fetchPaymentTransaction()
             }
 
@@ -255,9 +255,9 @@ const SubscriptionPage = () => {
                                         {
                                             infoPacket ? 
 
-                                            <Box className=' w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                                            <Box className=' w-[50vw] xl:w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
                                                 {
-                                                    subscriptionList[0].benefit.map(data => {
+                                                    subscriptionList[user.subscription - 1 ||  0].benefit.map(data => {
                                                         return(
                                                             <span className="flex text-TEXT-1">
                                                                 <img src={'/images/icon/success-check.svg'} alt="icon-check" />    

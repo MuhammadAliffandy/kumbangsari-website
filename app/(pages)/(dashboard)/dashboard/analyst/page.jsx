@@ -260,6 +260,7 @@ const AnalystPage = () => {
                     <Box className='w-[100%]'>
                         <Box className='flex w-[100%] justify-end items-center'>
                             <AppPopupFilter
+                                paddingRight={'8%'}
                                 isResponsive = { xl ? true : false  }
                                 product = { productList}
                                 listProductCheckbox={productCheckBoxFilter}
@@ -319,7 +320,7 @@ const AnalystPage = () => {
                                         {
                                             postRecap ? 
 
-                                            <Box className=' w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
+                                            <Box className=' w-[25vw] xl:w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
                                                 <p className="text-TEXT-1 font-bold text-[18px]">Rekap Postingan</p>
                                                 <p className="text-TEXT-1 text-[12px]">Merupakan persentase seluruh postingan dari semua produk yang sudah diunggah</p>
                                             </Box>
@@ -330,7 +331,7 @@ const AnalystPage = () => {
                             </Box>
 
                             <Box className='grow w-[100%] flex flex-col justify-center items-center gap-[20px]'>
-                                    <Box className='h-[60%] w-[100%] items-center justify-center flex'>
+                                    <Box className='h-[200px] xl:h-[60%] w-[100%] items-center justify-center flex'>
                                         <Doughnut data={recapPost} />;
                                     </Box>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%] justify-between'>

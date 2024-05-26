@@ -194,7 +194,7 @@ const AppLayout = (props) => {
                                 }
                             />
                             <AppExpansionList
-                                style = {` ${expanded == false ? 'rounded-t-[20px]' : 'rounded-[20px]' } bg-white  shadow-xl relative w-[180px]`}
+                                style = {` ${expanded == false ? 'rounded-t-[20px]' : 'rounded-[20px]' } bg-white  shadow-xl relative w-auto xl:w-[180px]`}
                                 onClick={value => {
                                     setExpanded(value)
                                 }}
@@ -230,8 +230,8 @@ const AppLayout = (props) => {
                                             })
                                         }
                                         <AppButton
-                                            className='w-[100%] text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
-                                            text='Tambah Akun'
+                                            className='w-[100%] text-[18px] xl:text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
+                                            text={sm ? '+' : 'Tambah Akun' }
                                             onClick={()=>{
                                                 push('/auth/signin')
                                                 localStorage.setItem('isAccountAdd' , true)

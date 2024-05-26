@@ -56,6 +56,8 @@ const DashboardPage = () => {
     const [openModalSuccessUpload , setOpenModalSuccessUpload ] = useState(false)
     const [openModalFailedUpload , setOpenModalFailedUpload ] = useState(false)
     const [contentAILoading , setContentAILoading] = useState(false)
+    const [contentPreviewLoading , setContentPreviewLoading ]= useState(false)
+    const [contentRecapLoading , setContentRecapLoading ]= useState(false)
     // state data
     const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
@@ -107,10 +109,11 @@ const DashboardPage = () => {
 
     const fetchContentPreview = async () => {
         try {
+            setContentPreviewLoading(true)
             const res = await getContentPreview();        
             if(res.status == 'OK'){
                 const data = res.data.map(data => {
-
+                    
                     return createDataPreview(
                         data.time,
                         data.captionPost,
@@ -123,17 +126,22 @@ const DashboardPage = () => {
                     )
                 })
                 setContentDataPreview(data)
+                setContentPreviewLoading(false)
+            }else{
+                setContentPreviewLoading(false)
             }
-
+            
         } catch (error) {
             console.log(error)
+            setContentPreviewLoading(false)
         }
     }
 
     const fetchContentRecap = async () => {
         try {
+            setContentRecapLoading(true)
             const res = await contentRecap();
-        
+            
             if(res.status == 'OK'){
                 const data = res.data.map(data => {
                     return createDataRecap(
@@ -143,10 +151,13 @@ const DashboardPage = () => {
                         data.queue,
                     )
                 })
+                setContentRecapLoading(false)
                 setContentDataRecap(data)
+            }else{
+                setContentRecapLoading(false)
             }
         } catch (error) {
-            console.log(error)
+            setContentRecapLoading(false)
         }
     }
 
@@ -401,6 +412,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Preview Konten</p> 
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
+                                loading ={contentPreviewLoading}
                                 data = {contentDataPreview} //contentDataPreview
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
@@ -444,14 +456,16 @@ const DashboardPage = () => {
                                     }) :
                                     
                                     contentAILoading ? 
-
-                                    <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
-
                                     <>
                                         <div className="w-[100%] h-[200px]">
                                             <Skeleton count={5} className="w-[100%] h-[50px]"/>
                                         </div>
                                     </> 
+                                    :
+                                    <Box className = 'w-[100%]'>
+                                        <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> 
+                                    </Box>
+
                                 }
                             </Grid>
                         </Box>
@@ -494,6 +508,7 @@ const DashboardPage = () => {
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
                         <Box className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
+                                loading={contentRecapLoading}
                                 data ={contentDataRecap} // contentDataRecap
                             />
                         </Box>

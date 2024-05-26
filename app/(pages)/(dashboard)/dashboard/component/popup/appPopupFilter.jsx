@@ -46,7 +46,7 @@ const AppPopupFilter = (props) => {
         <Popover
             isOpen={open}
             positions={ props.isResponsive ? ['bottom'] : [ 'right', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '40%': '2%', paddingTop: '0%'}}
+            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? props.paddingRight || '10%': '2%', paddingTop: '0%'}}
             // onClickOutside={()=> setOpen(false)}
             
             align="center"
@@ -67,7 +67,7 @@ const AppPopupFilter = (props) => {
                     className = {`w-auto h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl`}>
                     <Box className = 'flex flex-col gap-[10px]'>
                         <label className='text-black font-semibold'>Produk</label>
-                        <Box className ='flex gap-[40px]'>
+                        <Box className ='flex flex-col xl:flex-row gap-[10px] xl:gap-[40px]'>
                             {
                                 props.product.map((data,index)=> {
                                     return(
@@ -87,7 +87,7 @@ const AppPopupFilter = (props) => {
                     </Box>
                     <Box  className = 'flex flex-col gap-[10px]'>
                         <label className='text-black font-semibold'>Platform</label>
-                        <Box className ='flex gap-[80px]'>
+                        <Box className ='flex flex-col xl:flex-row gap-[10px] xl:gap-[80px]'>
                             <AppCheckBox
                                 value= 'instagram'
                                 label = 'Instagram'

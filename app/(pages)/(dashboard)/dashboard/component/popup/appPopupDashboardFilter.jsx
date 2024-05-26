@@ -38,7 +38,7 @@ const AppPopupFilter = (props) => {
         <Popover
             isOpen={open}
             positions={ props.isResponsive ? ['bottom'] : [ 'right', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '40%': '2%', paddingTop: '1%'}}
+            containerStyle={{ zIndex: 1300 , paddingRight: props.isResponsive ? '2%': '2%', paddingTop: '1%'}}
             onClickOutside={()=> setOpen(false)}
             align="center"
             content={

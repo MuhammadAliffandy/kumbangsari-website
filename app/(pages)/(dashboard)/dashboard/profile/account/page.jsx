@@ -120,7 +120,7 @@ const ProfilePage = () => {
                                 <Box className='w-[100%]  h-[auto] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
-                                    <img className="rounded-[100%] w-[100%] h-[100%] object-cover relative" 
+                                    <img className="rounded-[100%] w-[100%] h-[200px] xl:h-[100%] object-cover relative" 
                                         src={
                                             fileImage ? fileImage : image ? image :  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
                                             

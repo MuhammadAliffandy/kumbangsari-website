@@ -87,6 +87,7 @@ const CalenderPage = () => {
                   </AppCustomButton>
                 </AppAnimationButton>
                 <AppPopupFilter
+                    paddingRight={'4%'}
                     isResponsive = { xl ? true : false  }
                     product = { productList}
                     listProductCheckbox={productCheckBoxFilter}

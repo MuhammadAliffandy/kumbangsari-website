@@ -134,7 +134,7 @@ const subscriptionList = [
 
 export default function LandingPage() {
 
-  
+  const { push } = useRouter()
   // state animation
   
   const [initButton , setInitButton] = useState(1)
@@ -185,13 +185,13 @@ export default function LandingPage() {
                     <p onClick={()=> {push('/auth/signup')}} className="text-TEXT-5 text-[14px]">Get Started</p>
                     <img src="/images/icon/sparkling-white.svg" />
               </AppCustomButton>
-              <AppButton
-                  className='px-[24px] py-[10px] text-[14px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]'
-                  text={'Our Feature'} 
-                  type = {'button'}
-                  onClick={()=>{
-                  }}
-              />
+              <Link href={'#feature'}>
+                <AppButton
+                    className='px-[24px] py-[10px] text-[14px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]'
+                    text={'Our Feature'} 
+                    type = {'button'}
+                />
+              </Link>
           </Box>
         </Box>
       </section>
@@ -284,7 +284,7 @@ export default function LandingPage() {
                                   onClick={()=>{
                                   }}
                               >
-                                <p className="text-TEXT-5 text-[14px]">Get Started</p>
+                                <p onClick={()=>{push('/auth/signup')}} className="text-TEXT-5 text-[14px]">Get Started</p>
                                 <img src="/images/icon/sparkling-white.svg" />
                           </AppCustomButton>
                         </Box>           
@@ -320,7 +320,7 @@ export default function LandingPage() {
                                                 text={`Upgrade to ${data.title.split('Package')[0]}`} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
-
+                                                  push('/auth/signin')
                                                 }}
                                             />
                                             <Box className='flex flex-col gap-[10px]'>

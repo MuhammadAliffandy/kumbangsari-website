@@ -9,7 +9,7 @@ const AppProfileButton = (props) => {
     const sm = useMediaQuery({ maxWidth: 640 });
 
     return(
-        <Box key={props.key} onClick = {props.onClick} className={`cursor-pointer flex items-center justify-end bg-TEXT-5 ${props.isItemDropDown ? '' : 'shadow-CUSTOM-2'} gap-[15px] py-[5px] ${sm ? ' px-[5px]  rounded-full' : ' px-[15px]  rounded-[18px]'}`}>
+        <Box key={props.key} onClick = {props.onClick} className={`cursor-pointer flex items-center justify-end  bg-TEXT-5 ${props.isItemDropDown ? '' : 'shadow-CUSTOM-2'} gap-[15px] py-[5px] ${sm ? ' px-[5px]  rounded-full w-auto' : ' px-[15px]  rounded-[18px] '}`}>
         {
             sm ? null:
                 <>

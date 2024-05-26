@@ -12,7 +12,7 @@ import Skeleton from "react-loading-skeleton";
 
 const AppTableProduct = (props) =>  {
     return (
-        <TableContainer >
+        <TableContainer className='scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full' >
             <Table sx={{ minWidth: '100%' }} aria-label="simple table">
             <TableHead>
                 <TableRow>

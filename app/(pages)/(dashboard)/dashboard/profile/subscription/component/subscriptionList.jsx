@@ -51,11 +51,11 @@ export const subscriptionList = [
 const SubscriptionList = (props) => {
     return (
         <>
-            <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="p-[20px]" >
+            <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="p-[20px] h-[80vh] md:h-[100%] lg:h-[100%] xl:h-[100%] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full " >
                 {
                     subscriptionList.map((data,index)=>{
                         return(
-                            <Grid item xs={4}>
+                            <Grid item  xs={12} xl={4} lg={4} md={4} >
                                 <Box className='hover:shadow-xl text-black flex flex-col items-center gap-[10px] bg-white p-[20px] border-[1px] border-TEXT-4  rounded-[20px]' >
                                     <p className="text-TEXT-1 text-[22px] font-bold">{data.title}</p>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
