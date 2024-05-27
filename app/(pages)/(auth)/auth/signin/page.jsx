@@ -43,7 +43,7 @@ const SignInPage = () => {
                 localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
             }
 
-            if(accountList == null ){
+            if(accountList.length == 0 ){
                 localStorage.setItem('accountList' , JSON.stringify([res.data.token]))
             }
 

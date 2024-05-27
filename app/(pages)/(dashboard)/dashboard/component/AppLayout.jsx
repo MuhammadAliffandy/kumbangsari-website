@@ -98,7 +98,6 @@ const AppLayout = (props) => {
                     return data
                 }
             } )
-
             setAccountSwitched(accSwitched)
         } catch (error) {
             if(error.response.status === 400){
