@@ -33,7 +33,7 @@ const AppJobCheckbox = (props) => {
 
     return (
         <>
-            <Stack direction={'row'} spacing={1}>
+            <Stack direction={props.direction || 'row'} spacing={1} className={props.className || ''} sx={props.sx}>
                 <Stack direction='column' spacing={1}>
                     <AppCheckBox
                         label = 'Tdk Bekerja'

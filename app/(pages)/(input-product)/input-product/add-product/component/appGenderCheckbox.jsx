@@ -37,7 +37,7 @@ const AppGenderCheckbox = (props) => {
 
     return (
         <>
-            <Stack direction='column' spacing={1}>
+            <Stack direction={props.direction || 'column'} spacing={1} className={props.className || ''} sx={props.sx}>
                     <AppCheckBox
                         value= 'pria'
                         label = 'Pria'

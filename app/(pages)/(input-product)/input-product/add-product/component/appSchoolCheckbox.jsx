@@ -33,8 +33,8 @@ const AppSchoolCheckbox = (props) => {
 
     return (
         <>
-            <Stack direction={'row'} spacing={1}>
-                <Stack direction='column' spacing={1}>
+            <Stack direction={props.direction || 'row'} spacing={1} className={props.className || ''} sx={props.sx}>
+                <Stack direction={props.directionChild || 'column'} spacing={1} sx={props.sxChild}>
                     <AppCheckBox
                         label = 'SD'
                         value= 'SD'
@@ -52,7 +52,7 @@ const AppSchoolCheckbox = (props) => {
                         }}
                     />
                 </Stack>
-                <Stack direction='column' spacing={1}>
+                <Stack direction={props.directionChild || 'column'} spacing={1} sx={props.sxChild}>
                     <AppCheckBox
                         value= 'SMP'
                         label = 'SMP'

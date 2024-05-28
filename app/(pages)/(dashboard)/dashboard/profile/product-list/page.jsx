@@ -246,12 +246,6 @@ const ProductListPage = () => {
                 <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                     <AppTableProduct
                         data={exampleDataProduct}
-                        onEdited={(value)=>{
-                            setModalEdited(!modalEdited)
-                        }}
-                        onDeleted={(value)=>{
-                            setModalDeleted(!modalDeleted)
-                        }}
                     />
                 </Box>
             </Box>
