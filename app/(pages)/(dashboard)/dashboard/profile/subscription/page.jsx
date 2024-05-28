@@ -109,10 +109,13 @@ const SubscriptionPage = () => {
             const res = await stopUserSubscription();
 
             if(res.status == 'OK'){
+                setStopSubscription(false)
                 fetchUserSubscription()
                 fetchPaymentTransaction()
                 toast.success('Berhenti Berlangganan Berhasil')
+                window.location.reload()
             }else{
+                setStopSubscription(false)
                 toast.error('Berhenti Berlangganan Gagal')
             }
 

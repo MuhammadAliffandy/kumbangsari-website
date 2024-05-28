@@ -17,12 +17,11 @@ const AppTableProduct = (props) =>  {
             <TableHead>
                 <TableRow>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>No.</p></TableCell>
+                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Jam</p></TableCell>
+                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Tanggal</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Nama Akun</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Produk</p></TableCell>
-                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Tanggal Ditambahkan</p></TableCell>
-                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Tanggal Diperbarui</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Status Konektivitas</p></TableCell>
-                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Aksi</p></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -31,7 +30,6 @@ const AppTableProduct = (props) =>  {
                 
                     <>
                         <TableRow className="w-[100%] h-auto">
-                            <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
@@ -47,6 +45,8 @@ const AppTableProduct = (props) =>  {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell align="center"><p className='text-[12px]' >{index + 1}.</p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'>{data.time}</p></TableCell>
+                        <TableCell align="center"><p className='text-[12px]'>{data.date}</p></TableCell>
                         <TableCell align="center"><p className='text-[12px]' >{data.accountName}</p></TableCell>
                         <TableCell align="center">
                             <div className='flex items-center gap-[10px] justify-center'>
@@ -54,15 +54,14 @@ const AppTableProduct = (props) =>  {
                                 <p className='text-[12px]' >{data.productName}</p>
                             </div>
                         </TableCell>
-                        <TableCell align="center"><p className='text-[12px]'>{data.createdAt}</p></TableCell>
-                        <TableCell align="center"><p className='text-[12px]'>{data.updatedAt}</p></TableCell>
+
                         <TableCell align="center">
                             <div className='flex items-center gap-[8px] justify-center'>
-                                <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/${data.status == 'waiting' ? 'clock' : data.status  == 'failed' ? 'failed'  : 'success' }.svg`}/>
-                                <p className={`text-[12px] ${data.status == 'waiting' ? 'text-STATE-BLUE-BASE' : data.status == 'failed' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'waiting' ? 'Menunggu' : data.status == 'failed' ? 'Gagal' : 'Berhasil'}</p>
+                                <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/connect-status/${data.status == 'waiting' ? 'info-circle' : data.status  == 'failed' ? 'minus-cirlce'  : 'add-circle' }.svg`}/>
+                                <p className={`text-[12px] ${data.status == 'waiting' ? 'text-STATE-BLUE-BASE' : data.status == 'failed' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'waiting' ? 'Konektivitas Terputus' : data.status == 'failed' ? 'Akun dihapus' : 'Akun ditambahkan'}</p>
                             </div>
                         </TableCell>
-                        <TableCell align="center">
+                        {/* <TableCell align="center">
                         <Box className='flex items-center gap-[10px]'>
                             <AppCustomButton className=' bg-white ' onClick={()=>{
                                 props.onEdited(data)
@@ -75,7 +74,7 @@ const AppTableProduct = (props) =>  {
                                 <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
                             </AppCustomButton>
                         </Box>
-                        </TableCell>
+                        </TableCell> */}
                     </TableRow>
                 ))}
             </TableBody>

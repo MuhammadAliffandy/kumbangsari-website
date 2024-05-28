@@ -15,6 +15,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useMediaQuery } from "react-responsive";
 import { listDropPlatform } from '@/app/utils/model';
+import { listPlatform } from '@/app/utils/model';
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import AppModalAddProduct from "./component/appModalAddProduct"
+import { useRouter } from "next/navigation";
 
 const exampleProduct = [
     {productName : 'Bakso kuat'},
@@ -22,21 +26,23 @@ const exampleProduct = [
     {productName : 'Bakso enjoy'},
 ]
 
-const createDataProduct = (accountName, productName, platform, createdAt, updatedAt , status) => {
-    return { accountName, productName, platform, createdAt, updatedAt , status};
+const createDataProduct = (accountName, productName, platform, time, date , status) => {
+    return { accountName, productName, platform, time, date , status};
 }
 
 const exampleDataProduct = [
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '14 Januari 2024' , '14 Januari 2024' , 'success'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '14 Januari 2024' , '14 Januari 2024' , 'success'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '14 Januari 2024' , '14 Januari 2024' , 'success'),
+    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'success'),
+    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'waiting'),
+    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'failed'),
 ]
 
 const ProductListPage = () => {
 
+    const { push } = useRouter()
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
     // state modal
+    const [modalAddProduct , setModalAddProduct ] = useState(false)
     const [modalAddPlatform , setModalAddPlatform] = useState(false)
     const [modalDeleted , setModalDeleted] = useState(false)
     const [modalEdited , setModalEdited] = useState(false)
@@ -71,6 +77,10 @@ const ProductListPage = () => {
 
     return(
         <AppLayout title={'Profil > Daftar Produk'} >
+            <AppModalAddProduct
+                open={modalAddProduct}
+                onCloseButton={(value)=> setModalAddProduct(value) }
+            />
             <AppCustomModal
                 open={modalDeleted}
                 withClose={true}
@@ -179,7 +189,7 @@ const ProductListPage = () => {
                 <Box className='flex items-center justify-between'>
                     <p className="text-TEXT-1 font-bold text-[16px]">Daftar Produk</p> 
                     <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{}}
+                                onClick={()=>{setModalAddProduct(true)}}
                     >
                         <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
                         <p className="text-TEXT-5 font-bold text-[14px] ">Tambah Produk</p>
@@ -192,44 +202,33 @@ const ProductListPage = () => {
                             exampleProduct.map(data => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
-                                        <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
-                                            <Box className='flex justify-between items-start'>
-                                                <Box className='flex flex-col'>
-                                                    <p className="text-TEXT-1 text-[18px] font-bold">{data.productName}</p>
-                                                    <p className="text-TEXT-1 text-[12px]">Makanan dan Minuman</p>
+                                            <AppAnimationButton className='w-auto'>
+                                                <Box onClick={()=>{
+                                                    push('/dashboard/profile/product-list/product')
+                                                    }} className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
+                                                    <Box className='flex flex-col gap-[10px] items-start'>
+                                                        <Box className='flex flex-col'>
+                                                            <p className="text-TEXT-1 text-[18px] font-bold">{data.productName}</p>
+                                                            <p className="text-TEXT-1 text-[12px]">Makanan dan Minuman</p>
+                                                        </Box>
+                                                        <Box className='flex gap-[10px]'>
+
+                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.instagram}/>
+                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.facebook}/>
+                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.twitter}/>
+                                                        </Box>
+                                                    </Box>
                                                 </Box>
-                                                <Box className='flex items-center gap-[10px]'>
-                                                    <AppCustomButton className=' bg-white ' onClick={()=>{}}>
-                                                        <img className='w-[18px] h-[18px] ' src={'/images/icon/edit.png'}/>
-                                                    </AppCustomButton>
-                                                    <AppCustomButton className=' bg-white ' onClick={()=>{}}>
-                                                        <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
-                                                    </AppCustomButton>
-                                                </Box>
-                                            </Box>
-                                        </Box>
-                                    </Grid>
+                                            </AppAnimationButton>
+                                        </Grid>
                                 )
                             })
                         }
                 </Grid>
                 {/*  */}
                 <Box className='flex items-center justify-between'>
-                    <p className="text-TEXT-1 font-bold text-[16px]">Daftar Platform</p> 
-                    <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
-                                onClick={()=>{
-                                    setModalAddPlatform(true)
-                                }}
-                    >
-                        <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
-                        <p className="text-TEXT-5 font-bold text-[14px] ">Tambah Platform</p>
-                    </AppCustomButton>
-                </Box>
-                {/*  */}
-                <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
-                    <Box className='flex items-center justify-between'>
-                        <p className="text-TEXT-1 font-bold text-[12px]">Semua Akun</p> 
-                        <AppPopupFilter
+                    <p className="text-TEXT-1 font-bold text-[16px]">Daftar Riwayat</p> 
+                    <AppPopupFilter
                                 isResponsive = { xl ? true : false  }
                                 product = { productList}
                                 listProductCheckbox={productCheckBoxFilter}
@@ -242,8 +241,9 @@ const ProductListPage = () => {
 
                                 }}
                             />
-                    </Box>
-                    {/*  */}
+                </Box>
+                {/*  */}
+                <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                     <AppTableProduct
                         data={exampleDataProduct}
                         onEdited={(value)=>{
