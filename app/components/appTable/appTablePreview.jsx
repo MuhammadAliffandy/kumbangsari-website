@@ -32,7 +32,7 @@ const AppTablePreview = (props) =>  {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center"><p className='text-[12px]'>{data.time}</p></TableCell>
-                            <TableCell align="center"><p className='text-[12px]' >{data.contentTitle}</p></TableCell>
+                            <TableCell align="center"><p className='text-[12px]' >{data.contentTitle || '( Caption Kosong )'}</p></TableCell>
                             <TableCell align="center">
                                 <div className='flex items-center gap-[10px] justify-center'>
                                     <img className='w-[20px] h-[20px] rounded-[100%]' src={ data.platform == 'facebook'? listPlatform.facebook : data.platform == 'instagram'? listPlatform.instagram : data.platform == 'twitter'? listPlatform.twitter : null  }/>
@@ -61,7 +61,7 @@ const AppTablePreview = (props) =>  {
                     <Box className = 'w-[100%]'>
                         <p className="text-TEXT-1 p-[10px] text-center">Belum Ada Konten</p> 
                     </Box> 
-                  }
+                }
             </TableBody>
             </Table>
         </TableContainer>

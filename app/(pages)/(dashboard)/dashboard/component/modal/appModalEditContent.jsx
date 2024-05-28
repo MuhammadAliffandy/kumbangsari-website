@@ -269,6 +269,7 @@ const AppModalEditContent = (props) => {
                                         id="product"
                                         value = {product}
                                         type='text'
+                                        disabled={true}
                                         placeholder='Masukkkan nama Product konten di sini'
                                         onChange={(event)=>{
                                             const value = event.target.value

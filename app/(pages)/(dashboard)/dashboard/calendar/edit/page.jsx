@@ -128,6 +128,7 @@ const CalendarEditPage = () => {
     }
 
     const getContentUser = () => {
+        console.log(contentAI)
         setContentTitle(contentAI.contentTitle)
         setProduct(contentAI.productName)
         setProductImage(contentAI.imageUrlPost)
@@ -208,7 +209,6 @@ const CalendarEditPage = () => {
     useEffect(()=>{
         getContentUser()
         getRecommendationAI()
-        console.log(contentAI)
     },[])
 
 
@@ -244,6 +244,7 @@ const CalendarEditPage = () => {
                                             id="product"
                                             value = {product}
                                             type='text'
+                                            disabled={true}
                                             placeholder='Masukkkan nama Product konten di sini'
                                             onChange={(event)=>{
                                                 const value = event.target.value

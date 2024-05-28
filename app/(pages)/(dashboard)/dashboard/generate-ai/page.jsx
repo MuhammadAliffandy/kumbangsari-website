@@ -258,29 +258,28 @@ const GenerateAIPage = () => {
                                         </div>
                                     </> :
 
-                                    contentAI.length <= 0 ? 
+                                    contentAI.length > 0 ? 
+                                        contentAI.map((data,index) => {
+                                            return ( 
+                                                <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
+                                                        <AppContent
+                                                            key={index}
+                                                            image={data.image}
+                                                            caption = {data.caption}
+                                                            hashtag = {data.hashtag}
+                                                            onClick={()=>{
+                                                                setOpenModalDetail(!openModalDetail)
+                                                                setContentDetail(data)
+                                                            }}
+                                                        />
+                                                </Grid>
+                                            )
+                                        }) 
+                                    :
+
                                     <Box className="w-[100%]">
                                         <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> 
                                     </Box>
-                                    
-                                    :
-
-                                    contentAI.map((data,index) => {
-                                        return ( 
-                                            <Grid key = {index} item xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6}>
-                                                    <AppContent
-                                                        key={index}
-                                                        image={data.image}
-                                                        caption = {data.caption}
-                                                        hashtag = {data.hashtag}
-                                                        onClick={()=>{
-                                                            setOpenModalDetail(!openModalDetail)
-                                                            setContentDetail(data)
-                                                        }}
-                                                    />
-                                            </Grid>
-                                        )
-                                    }) 
 
                                 }
                             </Grid>
@@ -333,9 +332,7 @@ const GenerateAIPage = () => {
                                     </div>
                                 </> :
 
-                                contentAIHistory.length <= 0 ? 
-                                <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> :
-
+                                contentAIHistory.length > 0 ? 
                                 contentAIHistory.map((data,index) => {
                                     
                                     const contentTypes = [  
@@ -362,6 +359,9 @@ const GenerateAIPage = () => {
                                         />
                                     )
                                 })
+                                :
+                                <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> 
+
                             }
                         </Box>
                     </Box>

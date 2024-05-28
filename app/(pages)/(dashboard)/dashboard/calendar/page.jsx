@@ -45,7 +45,9 @@ const CalenderPage = () => {
 
         if(res.status === 'OK'){
           setCurrentCalendar(res.data)
-          setCalendar(res.data)
+          setCalendar(res.data.map(data => {
+            return {...data , productName : productList[data.idProduct - 1]?.text}
+          }))
         }else{
           toast.error('Calendar Content Error')
         }
@@ -69,8 +71,13 @@ const CalenderPage = () => {
     
     useEffect(()=>{
       fetchUserProduct()
-      fetchCalendarContent()
     },[])
+
+    useEffect(() => {
+      if(productList.length > 0){
+        fetchCalendarContent()
+      }
+    },[productList])
 
     return (
         <AppLayout title='Kalender'>
