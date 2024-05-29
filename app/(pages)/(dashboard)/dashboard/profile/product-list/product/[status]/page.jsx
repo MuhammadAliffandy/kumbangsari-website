@@ -12,7 +12,7 @@ import AppSchoolCheckbox from '@/app/(pages)/(input-product)/input-product/add-p
 import AppJobCheckbox from '@/app/(pages)/(input-product)/input-product/add-product/component/appJobCheckbox';
 import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider'; 
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
-import AppModalConnection from './component/appModalConnection'
+import AppModalConnection from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalConnection'
 import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
 import { getProductByUser } from "@/app/api/repository/productRepository";
@@ -35,6 +35,7 @@ const ProductDetailPage = () => {
 
 
     // state modal
+    const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
     const [modalDeleteAccount , setModalDeleteAccount ] = useState(false)
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
@@ -101,7 +102,6 @@ const ProductDetailPage = () => {
                     // if(platformConnection == 'facebook'){}
                     // if(platformConnection == 'instagram'){}
                     if(platformConnection == 'twitter'){
-                        
                         fetchTwitterConnection()
                     }
                 }}
@@ -220,6 +220,32 @@ const ProductDetailPage = () => {
                     </Box>
                 }
             />
+            <AppCustomModal
+                open={modalSuccessConnection}
+                withClose={true}
+                width={'w-[30vw]'}
+                modalType='modal-status'
+                title={'Berhasil'}
+                titleColor={'text-STATE-GREEN-BASE'}
+                alignment ={'center text-center'} 
+                status={'success'}
+
+                subtitle={'Akun telah berhasil ditambahkan. Mulai pengalaman autopost yang menyenangkan!'}
+                onClose={()=>{}}
+                onCloseButton={(value)=> setModalSuccessConnection(value) }
+                children={
+                    <Box className=' flex  gap-[10px] w-[100%]'>
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            text={ 'Keluar'} 
+                            type = {'button'}
+                            onClick={()=>{
+                                setModalSuccessConnection(false)
+                            }}
+                        />
+                    </Box>
+                }
+            />
             {/*  */}
             <Box className='grow h-[86%] p-[20px] flex flex-col gap-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
@@ -231,7 +257,7 @@ const ProductDetailPage = () => {
 
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                             setPlatformConnection('instagram')
-                            setModalConnection(!modalConnection)
+                            setPlatformStatusConnection(isInstagram)
                             isInstagram ?
                             setModalCheckConnection(!modalCheckConnection) 
                             :
@@ -248,7 +274,7 @@ const ProductDetailPage = () => {
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('facebook')
-                                setPlatformStatusConnection(true)
+                                setPlatformStatusConnection(isFacebook)
                                 isFacebook ?
                                 setModalCheckConnection(!modalCheckConnection) 
                                 :
@@ -265,11 +291,12 @@ const ProductDetailPage = () => {
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('twitter')
-                                setModalConnection(!modalConnection)
-                                isTwitter ?
-                                setModalCheckConnection(!modalCheckConnection) 
-                                :
-                                setModalConnection(!modalConnection)
+                                if(isTwitter){
+                                    setPlatformStatusConnection(isTwitter)
+                                    setModalCheckConnection(!modalCheckConnection) 
+                                }else{
+                                    setModalConnection(!modalConnection)
+                                }
                             }} >
                             {
                                 isTwitter ?
@@ -296,7 +323,7 @@ const ProductDetailPage = () => {
                                 }}
                             />
                             {/* checkbox */}
-                            <Box className='w-full flex gap-[20px]'>
+                            <Box className='w-full flex gap-[100px]'>
                                 <Box className='w-[50%]'>
                                     <label className='text-black font-semibold'>Gender</label>
                                     <CustomSpacing height={10} />

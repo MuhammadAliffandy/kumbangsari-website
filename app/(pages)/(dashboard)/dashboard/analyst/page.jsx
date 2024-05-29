@@ -279,7 +279,7 @@ const AnalystPage = () => {
                     <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-xl'>
                             <Box className='flex items-center justify-between'>
-                                <p className="text-TEXT-1 font-bold text-[16px]">Grafik Kunjungan Pengguna</p>
+                                <p className="text-TEXT-1 font-bold text-[16px]">Performa Konten</p>
                                 <Box className='flex items-center gap-[20px]'>
                                     {
                                         listPlatform.map(data => {

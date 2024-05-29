@@ -8,6 +8,8 @@ import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
 import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupFilter'
+import Skeleton from "react-loading-skeleton";
+
 import Grid from '@mui/material/Grid'
 import AppCustomModal from "../../../../../components/appModal/AppCustomModal";
 import { getProductByUser } from '@/app/api/repository/productRepository';
@@ -198,13 +200,14 @@ const ProductListPage = () => {
                 {/*  */}
                 <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
+                            productData.length > 0 ? 
                             productData.map(data => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
-                                            <AppAnimationButton className='w-auto'>
+                                            <AppAnimationButton className='w-auto cursor-pointer'>
                                                 <Box onClick={()=>{
                                                     dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
-                                                    push('/dashboard/profile/product-list/product')
+                                                    push(`/dashboard/profile/product-list/product/${data.nameProduct.split(' ').join('-').toLowerCase()}`)
                                                     }} className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                                                     <Box className='flex flex-col gap-[10px] items-start h-full'>
                                                         <Box className='flex flex-col'>
@@ -221,7 +224,13 @@ const ProductListPage = () => {
                                             </AppAnimationButton>
                                         </Grid>
                                 )
-                            })
+                            }) 
+                            :
+                            
+                            <div className="w-[100%] h-[100px] px-[20px] ">
+                                <Skeleton count={5} className="w-[200px] h-auto"/>
+                            </div>
+
                         }
                 </Grid>
                 {/*  */}

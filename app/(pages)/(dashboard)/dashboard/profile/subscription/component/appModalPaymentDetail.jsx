@@ -4,18 +4,12 @@ import Box from '@mui/material/Box'
 import { subscriptionList } from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/subscriptionList'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
+import { formatRupiahNumber } from '@/app/utils/helper';
 import { toast } from 'react-toastify';
 
 
 const AppModalPaymentDetail = (props) => {
     
-
-
-    const onSubmit = async (data) => {
-        
-
-    }
-
     return(
         <Modal 
             open={props.open}
@@ -43,14 +37,15 @@ const AppModalPaymentDetail = (props) => {
                                         <p className = 'text-[18px] font-bold text-PRIMARY-500' >{`Paket Dasar`}</p>
                                         <Box className={'flex flex-col gap-[5px]'}>
                                             {
-                                                subscriptionList[0].benefit.map((data,index)=>{
+                                                props.data.length != 0 ? 
+                                                props.data.benefit.map((data,index)=>{
                                                     return(
                                                         <span className="flex">
                                                             <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
                                                             <p className="text-[14px] text-TEXT-1">{data}</p>
                                                         </span>
                                                     )
-                                                })
+                                                }) : null
                                             }
                                         </Box>
                                     </Box>
@@ -62,7 +57,7 @@ const AppModalPaymentDetail = (props) => {
                                         <Box className='flex flex-col gap-[10px]'>
                                             <span className="flex w-[100%] justify-between">
                                                 <p className="text-[12px] text-TEXT-1">{`Harga Awal`}</p>
-                                                <p className="text-[12px] text-TEXT-1 font-bold">{`Rp 100.000`}</p>
+                                                <p className="text-[12px] text-TEXT-1 font-bold">Rp {formatRupiahNumber(props.data.price || 0)}</p>
                                             </span>
                                             <span className="flex w-[100%] justify-between">
                                                 <p className="text-[12px] text-TEXT-1">{`Diskon`}</p>
@@ -72,7 +67,7 @@ const AppModalPaymentDetail = (props) => {
                                         <Box className='bg-TEXT-4 h-[1px] w-[100%]'></Box>
                                         <span className="flex w-[100%] justify-between">
                                             <p className="text-[14px] text-TEXT-1">{`Total Tagihan`}</p>
-                                            <p className="text-[14px] text-TEXT-1 font-bold">{`Rp 100.000`}</p>
+                                            <p className="text-[14px] text-TEXT-1 font-bold">Rp {formatRupiahNumber(props.data.price || 0)}</p>
                                         </span>
                                     </Box>
                                     {/*  */}
@@ -82,6 +77,7 @@ const AppModalPaymentDetail = (props) => {
                                             text={'Bayar'} 
                                             type = {'Submit'}
                                             fontSize = {'12px'}
+                                            onClick={props.onClick}
                                         />
                                     </Box>
                                 </Box>

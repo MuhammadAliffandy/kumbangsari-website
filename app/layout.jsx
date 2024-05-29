@@ -5,6 +5,7 @@ import StoreProvider from "./redux/StoreProvider";
 import { ToastContainer } from "react-toastify";
 import Head from "next/head";
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -41,6 +41,7 @@ const SubscriptionPage = () => {
     const [user , setUser] = useState([])
     const [statusPayment ,setStatusPayment ] = useState('')
     const [packetPayment , setPacketPayment] = useState([])
+    const [ subscriptionDetail ,  setSubscriptionDetail ] = useState([])
     const [ userSubscription ,  setUserSubscription ] = useState([])
     const [ paymentTransactions ,  setPaymentTransactions ] = useState([])
 
@@ -65,7 +66,6 @@ const SubscriptionPage = () => {
         try {
             const res = await getPaymentTransaction()
             if(res.status == 'OK'){
-
 
                 const data = res.data.map(data => {
                     return  createDataPayment(
@@ -136,6 +136,7 @@ const SubscriptionPage = () => {
             if(res.status == 'OK'){
                 toast.success('Transaksi Berhasil')
                 setSubscriptionListModal(false)
+                setPaymentDetailModal(false)
                 fetchPaymentTransaction()
             }
 
@@ -186,7 +187,10 @@ const SubscriptionPage = () => {
                 onClose = { () =>  setSubscriptionListModal(false) }
                 onCloseButton = { () => setSubscriptionListModal(false)  }
                 onClick={(value)=> {
-                    fetchCreatePayment(value)
+                    
+                    setPaymentDetailModal(true)
+                    setSubscriptionListModal(false)
+                    setSubscriptionDetail(value)
                 }}
                 
                 />
@@ -198,8 +202,12 @@ const SubscriptionPage = () => {
                 
             />
             <AppModalPaymentDetail
+                data={subscriptionDetail}
                 open={paymentDetailModal}
                 onCloseButton = { () => setPaymentDetailModal(false)  }
+                onClick={()=>{
+                    fetchCreatePayment(subscriptionDetail)
+                }}
             />
             <AppCustomModal
                 open={stopSubscription}
@@ -245,7 +253,7 @@ const SubscriptionPage = () => {
                         <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
                                 <Box className='flex gap-[5px] relative'>
-                                    <p className="text-PRIMARY-500 font-bold text-[18px]">Paket Dasar</p>
+                                    <p className="text-PRIMARY-500 font-bold text-[18px]">{user.subscription  ? subscriptionList[user.subscription - 1].title : 'Paket'}</p>
                                     <Box 
                                     onMouseEnter={()=>{
                                         setInfoPacket(true)
@@ -260,6 +268,7 @@ const SubscriptionPage = () => {
 
                                             <Box className=' w-[50vw] xl:w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
                                                 {
+                                                    user.subscription ? 
                                                     subscriptionList[user.subscription - 1 ||  0].benefit.map(data => {
                                                         return(
                                                             <span className="flex text-TEXT-1">
@@ -267,7 +276,7 @@ const SubscriptionPage = () => {
                                                                 <p className="text-[14px]">{data}</p>
                                                             </span>
                                                         )
-                                                    })
+                                                    }) : null
                                                 }
                                             </Box>
 
@@ -292,7 +301,11 @@ const SubscriptionPage = () => {
                                         </Box>
                                         <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: 
-                                                { userSubscription?.remainingGenerate && userSubscription?.SubscriptionDetails?.maxGenerateCount ?  
+                                                { 
+                                                user?.subscription > 1 ?
+                                                ' Unlimited'
+                                                :
+                                                userSubscription?.remainingGenerate && userSubscription?.SubscriptionDetails?.maxGenerateCount ?  
                                                 `${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}` :
                                                 ' Belum Berlangganan'
                                                 
@@ -304,12 +317,19 @@ const SubscriptionPage = () => {
                                                     borderRadius: 5,
                                                 }}
                                                 variant="determinate"
-                                                value={ userSubscription?.remainingGenerate * 2} 
+                                                value={
+                                                    user?.subscription > 1 ?
+                                                    100
+                                                    :userSubscription?.remainingGenerate * 2
+                                                } 
                                             />
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Auto Post</p><p>: {
+                                                user?.subscription > 1 ?
+                                                ' Unlimited'
+                                                :
                                                 userSubscription?.remainingPost && userSubscription?.SubscriptionDetails?.maxPostCount ?
-                                            `${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`:
-                                            ' Belum Berlangganan'
+                                                `${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`:
+                                                ' Belum Berlangganan'
                                             }</p></span>
                                             <LinearProgress
                                                 sx={{
@@ -317,7 +337,9 @@ const SubscriptionPage = () => {
                                                     borderRadius: 5,
                                                 }}
                                                 variant="determinate"
-                                                value={ userSubscription?.remainingPost * 6.7} 
+                                                value={user?.subscription > 1 ?
+                                                    100
+                                                    :userSubscription?.remainingGenerate * 2} 
                                             />
                                         </Box>
                                     </Box> : 
@@ -395,8 +417,8 @@ const SubscriptionPage = () => {
                     <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <SubscriptionList
                             onClick={(value)=>{
-                                fetchCreatePayment(value)
-                                fetchUserSubscription()
+                                setPaymentDetailModal(true)
+                                setSubscriptionDetail(value)
                             }}
                         />
                     </Box>
