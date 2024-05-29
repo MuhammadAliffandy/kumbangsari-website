@@ -46,7 +46,7 @@ const AppModalConnection = (props) => {
                                     type = {'button'}
                                     fontSize = {'12px'}
                                     onClick = {()=>{
-                                        props.onClick
+                                        props.onClick()
                                     }}
                                 />
                             </Box>

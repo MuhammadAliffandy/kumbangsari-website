@@ -18,6 +18,10 @@ import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import { useState } from 'react'; 
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { validateText } from '@/app/(pages)/(auth)/auth/component/validation';
+import { addProduct } from '@/app/api/repository/productRepository';
+import { convertValueCheckbox } from '@/app/utils/helper';
+import { getCurrentUser } from '@/app/api/repository/authRepository';
+import { toast } from 'react-toastify';
 
 const AppModalAddProduct = (props) => {
 
@@ -34,6 +38,37 @@ const AppModalAddProduct = (props) => {
     const handleChangeCategory = (event) => {
         setCategoryProduct(event.target.value);
     };
+
+    const handleAddProduct = async () => {
+        try {
+
+            const currentUser = await getCurrentUser(); 
+
+            if(currentUser.data.countProduct < 3){
+                const genderValue = localStorage.getItem('gender') ;
+                const schoolValue = localStorage.getItem('school');
+                const jobValue = localStorage.getItem('job');
+                
+                const jsonData = {
+                    nameProduct :nameProduct,
+                    age : ageRange,
+                    work: convertValueCheckbox(jobValue),
+                    education: convertValueCheckbox(schoolValue) ,
+                    category : categoryProduct,
+                    gender : convertValueCheckbox(genderValue),
+                };
+                const res = await addProduct(jsonData);
+                if(res.status == 'OK'){
+                    toast.success('Produk berhasil ditambahkan ')
+                } 
+            }else{
+                toast.error('Jumlah Produk sudah Maksimal')
+            }
+        } catch (error) {
+                toast.error('Produk gagal Ditambahkan')
+        }
+    }
+
     return(
         <Modal
             open={props.open}
@@ -43,7 +78,7 @@ const AppModalAddProduct = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = 'w-[35%] h-auto rounded-[20px] bg-white p-[20px] '>
+                className = 'w-[35%] h-[90vh] rounded-[20px] bg-white p-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
 
                 <form  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
                     <Box className = 'flex items-center justify-between'>
@@ -60,7 +95,7 @@ const AppModalAddProduct = (props) => {
                     <label className='text-black font-semibold'>Nama Produk</label>
                     <AppTextField
                         id="productName"
-                        // value = {nameProduct}
+                        value = {nameProduct}
                         type='text'
                         placeholder='Masukkkan nama produk di sini'
                         validationConfig = {register('productName', { 
@@ -69,7 +104,7 @@ const AppModalAddProduct = (props) => {
                         error={Boolean(errors.productName)}
                         helperText={errors.productName && errors.productName.message}
                         onChange={(event)=>{
-                
+                            setNameProduct(event.target.value)
                         }}
                         />
                     <label className='text-black font-semibold'>Kategori Produk</label>
@@ -121,12 +156,12 @@ const AppModalAddProduct = (props) => {
                     {/* handle button validation  */}
                 
                     <Box className='w-[100%] flex justify-end'>
-                            <Box className='w-[30%]'>
+                            <Box className='w-[30%] py-[0px] px-[0px] text-[14px]'>
                                 <AppButton
                                     text={'Simpan'} 
                                     type = {'button'}
                                     fontSize = {'12px'}
-                                    onClick = {()=>{}}
+                                    onClick = {handleAddProduct}
                                 />
                             </Box>
                     </Box>

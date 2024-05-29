@@ -14,8 +14,11 @@ import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider';
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
 import AppModalConnection from './component/appModalConnection'
 import { listPlatform } from '@/app/utils/model';
+import { useSelector } from "react-redux";
+import { getProductByUser } from "@/app/api/repository/productRepository";
+import { twitterConnect } from "@/app/api/repository/twitterRepository";
+import { toast } from "react-toastify";
 
-import Grid from '@mui/material/Grid'
 
 const createDataProduct = (accountName, productName, platform, time, date , status) => {
     return { accountName, productName, platform, time, date , status};
@@ -28,13 +31,21 @@ const exampleDataProduct = [
 ]
 
 const ProductDetailPage = () => {
-    const isFacebook = true
+    const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
+
+
     // state modal
     const [modalDeleteAccount , setModalDeleteAccount ] = useState(false)
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
     const [modalCheckConnection , setModalCheckConnection ] = useState(false)
     // state data  
+    const [isFacebook , setIsFacebook ] = useState(false)
+    const [isInstagram , setIsInstagram ] = useState(false)
+    const [isTwitter , setIsTwitter ] = useState(false)
+    const [accountTwitter , setAccountTwitter ] = useState([])
+    const [accountInstagram , setAccountInstagram ] = useState([])
+    const [accountFacebook , setAccountFacebook ] = useState([])
     const [ platformStatusConnection, setPlatformStatusConnection ] = useState(false);
     const [ platformConnection, setPlatformConnection ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
@@ -44,14 +55,56 @@ const ProductDetailPage = () => {
     const [ job , setJob ] = useState([]);
 
 
+    const fetchTwitterConnection = async () => {
+        try {
+            const res = await twitterConnect({ idProduct : productInit.id })
+            if(res.status == 'OK'){
+                window.location.href = res.data.redirect_url
+            }else{
+                toast.error('Koneksi Twitter Gagal')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
+    const getUserProduct = async () => {
+        const res = await getProductByUser();
+        if(res.status = 'OK'){
+            const data = res.data.filter(data => {
+                return data.idProduct === productInit.id
+            })[0]
+
+            setIsFacebook(data.platform.facebook)
+            setIsInstagram(data.platform.instagram)
+            setIsTwitter(data.platform.twitter)
+            setAccountTwitter(data.platformInfo.twitter)
+            setAgeRange(data.ageRange)
+            setGender(JSON.stringify(data.gender))
+            setSchool(data.education)
+            setJob(data.work) 
+        }
+    }
+
+    useEffect(() => {
+        getUserProduct()
+    }, []);
+
     return(
-        <AppLayout title={`Profil > Daftar Produk > ${'name_product'}`}>
+        <AppLayout title={`Profil > Daftar Produk > ${productInit.name}`}>
             <AppModalConnection
                 open={modalConnection}
                 onCloseButton={value => { setModalConnection(value) }}
                 platform = {platformConnection == 'facebook' ? 'Facebook' : platformConnection == 'instagram' ? 'Instagram' : 'Twitter'}
                 imagePlatform = {platformConnection == 'facebook' ? listPlatform.facebook : platformConnection == 'instagram' ? listPlatform.instagram : listPlatform.twitter}
-                onClick={()=>{}}
+                onClick={()=>{
+                    // if(platformConnection == 'facebook'){}
+                    // if(platformConnection == 'instagram'){}
+                    if(platformConnection == 'twitter'){
+                        
+                        fetchTwitterConnection()
+                    }
+                }}
             />
             {/*  */}
             <AppCustomModal
@@ -67,7 +120,7 @@ const ProductDetailPage = () => {
                     <Box className='flex flex-col justify-start w-[100%] gap-[15px]'>
                         <Box className='flex items-center gap-[10px]'>
                             <img alt="icon-check" src={`/images/icon/${platformStatusConnection ? 'success': 'failed'}.svg`} className="w-[12px] h-[12px]"/>
-                            <p className="text-TEXT-1 text-[14px] font-medium" >@baksoacimantap</p>
+                            <p className="text-TEXT-1 text-[14px] font-medium" >{accountTwitter.username || '@username'}</p>
                         </Box>
                         <Box className='h-[1px] w-[100%] bg-TEXT-4'></Box>
                         <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: 17 Agustus 2023</p>
@@ -171,25 +224,29 @@ const ProductDetailPage = () => {
             <Box className='grow h-[86%] p-[20px] flex flex-col gap-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
                     <Box className='flex flex-col'>
-                        <p className="text-TEXT-1 text-[18px] font-bold">adasd</p>
-                        <p className="text-TEXT-1 text-[12px]">Makanan dan Minuman</p>
+                        <p className="text-TEXT-1 text-[18px] font-bold">{productInit.name}</p>
+                        <p className="text-TEXT-1 text-[12px]">{productInit.category}</p>
                     </Box>
                     <Box className='flex gap-[15px]' >
 
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                             setPlatformConnection('instagram')
                             setModalConnection(!modalConnection)
+                            isInstagram ?
+                            setModalCheckConnection(!modalCheckConnection) 
+                            :
+                            setModalConnection(!modalConnection)
                     }}>
                             {
-                                !isFacebook ?
+                                isInstagram ?
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={listPlatform.instagram}/>
                                 :
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ !isFacebook ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.instagram}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.instagram}/>
                         </Box>
-                            <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
+                        <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('facebook')
                                 setPlatformStatusConnection(true)
                                 isFacebook ?
@@ -207,17 +264,21 @@ const ProductDetailPage = () => {
                             <img className='w-full h-full rounded-[100%] relative object-cover' src={ isFacebook ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.facebook}/>
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
-                            setPlatformConnection('twitter')
-                            setModalConnection(!modalConnection)
-                        }} >
+                                setPlatformConnection('twitter')
+                                setModalConnection(!modalConnection)
+                                isTwitter ?
+                                setModalCheckConnection(!modalCheckConnection) 
+                                :
+                                setModalConnection(!modalConnection)
+                            }} >
                             {
-                                !isFacebook ?
+                                isTwitter ?
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={listPlatform.twitter}/>
                                 :
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ !isFacebook ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.twitter}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isTwitter ? accountTwitter.profileImageUrl :  listPlatform.twitter}/>
                         </Box>
                     
                     
@@ -259,18 +320,38 @@ const ProductDetailPage = () => {
                                 </Box>
                             </Box>
                             <Box>
-                                    <label className='text-black font-semibold'>Ranah Pekerjaan</label>
-                                    <CustomSpacing height={10} />
-                                    <AppJobCheckbox
-                                        status = {checkboxStatus}
-                                        listValue = {job}
-                                        sx={{justifyContent : 'space-between'}}
+                                <label className='text-black font-semibold'>Ranah Pekerjaan</label>
+                                <CustomSpacing height={10} />
+                                <AppJobCheckbox
+                                    status = {checkboxStatus}
+                                    listValue = {job}
+                                    sx={{justifyContent : 'space-between'}}
+                                />
+                            </Box>
+                            <Box className='flex justify-end w-[100%] gap-[15px]'>
+                                <>  
+                                    <AppButton
+                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                        text={'Hapus Produk'} 
+                                        type = {'Submit'}
+                                        onClick = {()=>{
+                                            
+                                        }}
                                     />
-                                </Box>
+                                    <AppButton
+                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                        text={'Ubah Detail'} 
+                                        type = {'Submit'}
+                                        onClick = {()=>{
+                                    
+                                        }}
+                                    />
+                                </>
+                            </Box>
                         </Box>
                 </Box>
                 {/*  */}
-                <p className="text-TEXT-1 font-bold text-[16px]">Target Pasar</p> 
+                <p className="text-TEXT-1 font-bold text-[16px]">Daftar Riwayat</p> 
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
                     <AppTableProduct
                         data={exampleDataProduct}

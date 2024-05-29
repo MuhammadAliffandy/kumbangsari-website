@@ -6,6 +6,7 @@ import generateAIReducer from './slices/generateAISlice'
 import generateAIHistoryReducer from './slices/generateAIHistorySlice'
 import generateAIContentHistoryReducer from './slices/generateAIContentHistorySlice'
 import countInputProductReducer from './slices/countInputProductSlice';
+import nameProductReducer from './slices/nameProductSlice'
 import { combineReducers } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     generateAI : generateAIReducer, 
     generateAIHistory : generateAIHistoryReducer,
     generateAIContentHistory : generateAIContentHistoryReducer,
+    nameProduct : nameProductReducer,
 })
 
 const persistConfig = {

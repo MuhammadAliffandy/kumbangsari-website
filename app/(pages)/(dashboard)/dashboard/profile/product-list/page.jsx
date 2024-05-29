@@ -19,12 +19,8 @@ import { listPlatform } from '@/app/utils/model';
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import AppModalAddProduct from "./component/appModalAddProduct"
 import { useRouter } from "next/navigation";
-
-const exampleProduct = [
-    {productName : 'Bakso kuat'},
-    {productName : 'Bakso mantap'},
-    {productName : 'Bakso enjoy'},
-]
+import { useDispatch } from "react-redux";
+import { setNameProduct } from '@/app/redux/slices/nameProductSlice'
 
 const createDataProduct = (accountName, productName, platform, time, date , status) => {
     return { accountName, productName, platform, time, date , status};
@@ -39,6 +35,7 @@ const exampleDataProduct = [
 const ProductListPage = () => {
 
     const { push } = useRouter()
+    const dispatch = useDispatch() 
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
     // state modal
@@ -47,6 +44,7 @@ const ProductListPage = () => {
     const [modalDeleted , setModalDeleted] = useState(false)
     const [modalEdited , setModalEdited] = useState(false)
     // state data
+    const [productData , setProductData] = useState([])
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [productList , setProductList] = useState([])
@@ -68,6 +66,7 @@ const ProductListPage = () => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)
+            setProductData(res.data)
         }
     }
 
@@ -199,23 +198,23 @@ const ProductListPage = () => {
                 {/*  */}
                 <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
-                            exampleProduct.map(data => {
+                            productData.map(data => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
                                             <AppAnimationButton className='w-auto'>
                                                 <Box onClick={()=>{
+                                                    dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
                                                     push('/dashboard/profile/product-list/product')
                                                     }} className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
-                                                    <Box className='flex flex-col gap-[10px] items-start'>
+                                                    <Box className='flex flex-col gap-[10px] items-start h-full'>
                                                         <Box className='flex flex-col'>
-                                                            <p className="text-TEXT-1 text-[18px] font-bold">{data.productName}</p>
-                                                            <p className="text-TEXT-1 text-[12px]">Makanan dan Minuman</p>
+                                                            <p className="text-TEXT-1 text-[18px] font-bold">{data.nameProduct}</p>
+                                                            <p className="text-TEXT-1 text-[12px]">{data.category}</p>
                                                         </Box>
-                                                        <Box className='flex gap-[10px]'>
-
-                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.instagram}/>
-                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.facebook}/>
-                                                            <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.twitter}/>
+                                                        <Box className='flex gap-[10px] h-[25px]'>
+                                                            { data.platform.instagram ? <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.instagram}/> : null}
+                                                            { data.platform.facebook ? <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.facebook}/> : null }
+                                                            { data.platform.twitter ? <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.twitter}/> : null}
                                                         </Box>
                                                     </Box>
                                                 </Box>
