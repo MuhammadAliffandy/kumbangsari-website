@@ -211,7 +211,7 @@ const AnalystPage = () => {
             {/*  */}
                 <Box className='p-[20px] flex-none h-[100%] w-[100%] flex flex-col border-[1px] gap-[15px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                     <Box className='flex gap-[5px] items-center relative'>
-                        <p className="text-TEXT-1 font-bold text-[16px]">Keoptimalan Produk</p>
+                        <p className="text-TEXT-1 font-bold text-[16px]">Performa Konten</p>
                         <Box 
                             onMouseEnter={()=>{
                                 setOptimalProduct(true)
@@ -225,7 +225,7 @@ const AnalystPage = () => {
                                     optimalProduct ? 
 
                                     <Box className=' w-[35vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
-                                        <p className="text-TEXT-1 font-bold text-[18px]">Keoptimalan Produk</p>
+                                        <p className="text-TEXT-1 font-bold text-[18px]">Performa Konten</p>
                                         <p className="text-TEXT-1 text-[12px]">Didapatkan melalui hasil pengolahan data terhadap jumlah suka, pengikut, komentar, kunjungan, dan bagikan.</p>
                                     </Box>
 
@@ -279,13 +279,13 @@ const AnalystPage = () => {
                     <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-xl'>
                             <Box className='flex items-center justify-between'>
-                                <p className="text-TEXT-1 font-bold text-[16px]">Performa Konten</p>
+                                <p className="text-TEXT-1 font-bold text-[16px]">Grafik Performa Konten</p>
                                 <Box className='flex items-center gap-[20px]'>
                                     {
                                         listPlatform.map(data => {
                                             return(
                                                 <span className="flex items-center gap-[6px]">
-                                                    <Box className={`w-[10px] h-[10px] bg-[${data.color}] rounded-full`}></Box>
+                                                    <Box sx={{backgroundColor : data.color}} className={`w-[10px] h-[10px] rounded-full`}></Box>
                                                     <p className="text-TEXT-1 text-[12px]">{data.platform}</p>
                                                 </span>
                                             )

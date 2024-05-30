@@ -8,6 +8,8 @@ import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
 import { useMediaQuery } from "react-responsive";
+import { twitterPost , twitterFindId} from '@/app/api/repository/twitterRepository';
+import { toast } from 'react-toastify';
 
 const AppModalDetailContent = (props) => {
 
@@ -15,7 +17,43 @@ const AppModalDetailContent = (props) => {
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
+    
 
+    const fetchPostContent = async () => {
+        try {
+
+            if(props.platform == 'twitter'){
+                const resTwitterId = await twitterFindId({idProduct:props.idProduct})
+
+                if(resTwitterId.status == 'OK'){
+                    const data = {
+                        twitterIds:[
+                            resTwitterId.data.twitterId
+                                ],
+                        tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                        imageUrls:[
+                            props.image,
+                        ]
+                    }
+
+                    const res = await twitterPost(data)
+            
+                    if(res.status == 'OK'){
+                        toast.success('Posting Konten Berhasil')
+                    }else{
+                        toast.error('Posting Konten Gagal')
+            
+                    }
+                }else{
+                    toast.error('Gagal Menemukan Id Twitter')
+                }
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+    
 
     return (
         <Modal 
@@ -68,7 +106,11 @@ const AppModalDetailContent = (props) => {
                             <AppButton 
                                     text ={'Unggah Sekarang'}
                                     type={'submit'}
-                                    onClick={props.onClick}
+                                    onClick={()=>{
+                                        fetchPostContent()
+                                        props.onClick()
+                                        console.log('update status')
+                                    }}
                                 />
                         </Box>
                     }

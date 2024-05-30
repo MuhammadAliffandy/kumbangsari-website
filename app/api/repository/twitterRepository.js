@@ -3,6 +3,12 @@ import { getCookie} from '@/app/utils/helper';
 
 const delay = () => new Promise(res => setTimeout(() => res(), 800))
 
+export const twitterFindId = async ( data) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_POST(`api/v1/twitter/twitterId`,data , token)
+    return response
+}
 export const twitterConnect = async ( data) => {
     await delay()
     const token = getCookie('token');
@@ -10,8 +16,7 @@ export const twitterConnect = async ( data) => {
     return response
 }
 
-
-export const twitterPost = async () => {
+export const twitterPost = async (data) => {
     await delay()
     const token = getCookie('token')
     const response = await PROVIDER_POST(`api/v1/post/tweet`,data , token)

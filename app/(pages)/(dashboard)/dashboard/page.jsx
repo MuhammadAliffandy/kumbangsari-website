@@ -429,7 +429,7 @@ const DashboardPage = () => {
                         <Box className='flex items-center justify-start '>
                             <p className="text-TEXT-1 font-bold text-[16px]">Rekomendasi Konten</p>
                         </Box>
-                        <Box  className=' overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box  className=' h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         

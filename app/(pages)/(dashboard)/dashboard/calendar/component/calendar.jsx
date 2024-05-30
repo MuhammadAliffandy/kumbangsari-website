@@ -59,6 +59,7 @@ const Calendar = (props) => {
                 hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.productName : ""}
+                idProduct={contentDetail ? contentDetail.idProduct : ""}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     push('/dashboard/calendar/edit')
