@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { getProductByUser } from "@/app/api/repository/productRepository";
 import { twitterConnect } from "@/app/api/repository/twitterRepository";
 import { toast } from "react-toastify";
+import { useRouter , useParams } from 'next/navigation';
 
 
 const createDataProduct = (accountName, productName, platform, time, date , status) => {
@@ -32,10 +33,9 @@ const exampleDataProduct = [
 
 const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
-
-
     // state modal
     const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
+    const [modalFailedConnection , setModalFailedConnection ] = useState(false)
     const [modalDeleteAccount , setModalDeleteAccount ] = useState(false)
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
@@ -55,6 +55,8 @@ const ProductDetailPage = () => {
     const [ school , setSchool ] = useState([]);
     const [ job , setJob ] = useState([]);
 
+    const params = useParams()
+    const statusConnection = params.status 
 
     const fetchTwitterConnection = async () => {
         try {
@@ -90,6 +92,15 @@ const ProductDetailPage = () => {
     useEffect(() => {
         getUserProduct()
     }, []);
+
+    useEffect(()=>{
+        if(statusConnection == 'success'){
+            setModalSuccessConnection(true)
+        }
+        if(statusConnection == 'failed'){
+            setModalFailedConnection(true)
+        }
+    },[])
 
     return(
         <AppLayout title={`Profil > Daftar Produk > ${productInit.name}`}>
@@ -241,6 +252,32 @@ const ProductDetailPage = () => {
                             type = {'button'}
                             onClick={()=>{
                                 setModalSuccessConnection(false)
+                            }}
+                        />
+                    </Box>
+                }
+            />
+            <AppCustomModal
+                open={modalFailedConnection}
+                withClose={true}
+                width={'w-[30vw]'}
+                modalType='modal-status'
+                title={'Gagal'}
+                titleColor={'text-STATE-GREEN-BASE'}
+                alignment ={'center text-center'} 
+                status={'failed'}
+
+                subtitle={'Gagal menghubungkan akun. Hubungkan ulang untuk pengalaman autopost yang menyenangkan!'}
+                onClose={()=>{}}
+                onCloseButton={(value)=> setModalFailedConnection(value) }
+                children={
+                    <Box className=' flex  gap-[10px] w-[100%]'>
+                        <AppButton
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            text={ 'Keluar'} 
+                            type = {'button'}
+                            onClick={()=>{
+                                setModalFailedConnection(false)
                             }}
                         />
                     </Box>

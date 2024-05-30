@@ -9,3 +9,11 @@ export const twitterConnect = async ( data) => {
     const response = await PROVIDER_POST(`api/v1/auth/twitter`,data , token)
     return response
 }
+
+
+export const twitterPost = async () => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_POST(`api/v1/post/tweet`,data , token)
+    return response
+}
