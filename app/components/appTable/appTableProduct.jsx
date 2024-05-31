@@ -19,7 +19,6 @@ const AppTableProduct = (props) =>  {
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>No.</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Jam</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Tanggal</p></TableCell>
-                    <TableCell align="center"><p className='font-bold text-TEXT-3'>Nama Akun</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Produk</p></TableCell>
                     <TableCell align="center"><p className='font-bold text-TEXT-3'>Status Konektivitas</p></TableCell>
                 </TableRow>
@@ -30,6 +29,7 @@ const AppTableProduct = (props) =>  {
                 
                     <>
                         <TableRow className="w-[100%] h-auto">
+                            <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
                             <TableCell align="center"><p className='text-[12px]'><Skeleton count={6} className="w-[100%] h-[20px]"/></p></TableCell>
@@ -47,7 +47,6 @@ const AppTableProduct = (props) =>  {
                         <TableCell align="center"><p className='text-[12px]' >{index + 1}.</p></TableCell>
                         <TableCell align="center"><p className='text-[12px]'>{data.time}</p></TableCell>
                         <TableCell align="center"><p className='text-[12px]'>{data.date}</p></TableCell>
-                        <TableCell align="center"><p className='text-[12px]' >{data.accountName}</p></TableCell>
                         <TableCell align="center">
                             <div className='flex items-center gap-[10px] justify-center'>
                                 <img className='w-[20px] h-[20px] rounded-[100%]' src={ data.platform == 'facebook'? listPlatform.facebook : data.platform == 'instagram'? listPlatform.instagram : data.platform == 'twitter'? listPlatform.twitter : null  }/>
@@ -57,8 +56,8 @@ const AppTableProduct = (props) =>  {
 
                         <TableCell align="center">
                             <div className='flex items-center gap-[8px] justify-center'>
-                                <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/connect-status/${data.status == 'waiting' ? 'info-circle' : data.status  == 'failed' ? 'minus-cirlce'  : 'add-circle' }.svg`}/>
-                                <p className={`text-[12px] ${data.status == 'waiting' ? 'text-STATE-BLUE-BASE' : data.status == 'failed' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'waiting' ? 'Konektivitas Terputus' : data.status == 'failed' ? 'Akun dihapus' : 'Akun ditambahkan'}</p>
+                                <img className='w-[20px] h-[20px] rounded-[100%]' src={`/images/icon/connect-status/${data.status == 'disconnected' ? 'info-circle' : data.status  == 'deleted' ? 'minus-cirlce'  : 'add-circle' }.svg`}/>
+                                <p className={`text-[12px] ${data.status == 'disconnected' ? 'text-STATE-BLUE-BASE' : data.status == 'deleted' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'}`} >{data.status == 'disconnected' ? 'Konektivitas Terputus' : data.status == 'deleted' ? 'Akun dihapus' : 'Akun ditambahkan'}</p>
                             </div>
                         </TableCell>
                         {/* <TableCell align="center">

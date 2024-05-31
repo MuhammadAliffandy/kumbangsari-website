@@ -38,6 +38,16 @@ export const createContentAIManual = async (data) => {
 
 }
 
+export const editContentAIManual = async (idContent, data) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_PUT(`api/v1/ai/${idContent}`, data , token , 'form')
+    return response
+
+}
+
+
+
 export const refreshAI = async (data) => {
     await delay()
     const token = getCookie('token');

@@ -23,17 +23,12 @@ import AppModalAddProduct from "./component/appModalAddProduct"
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setNameProduct } from '@/app/redux/slices/nameProductSlice'
+import { getUserConnectHistory } from "@/app/api/repository/userRepository";
+import { convertToIndonesianDate , convertToTimeWIB } from "@/app/utils/helper";
 
-const createDataProduct = (accountName, productName, platform, time, date , status) => {
-    return { accountName, productName, platform, time, date , status};
+const userDataHistory = ( productName, platform, time, date , status) => {
+    return {  productName, platform, time, date , status};
 }
-
-const exampleDataProduct = [
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'success'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'waiting'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'failed'),
-]
-
 const ProductListPage = () => {
 
     const { push } = useRouter()
@@ -46,12 +41,14 @@ const ProductListPage = () => {
     const [modalDeleted , setModalDeleted] = useState(false)
     const [modalEdited , setModalEdited] = useState(false)
     // state data
+    const [userTableHistory , setUserTableHistory] = useState([])
     const [productData , setProductData] = useState([])
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [productList , setProductList] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
+
 
     const handleChangeProduct = (event) => {
         setProduct(event.target.value)
@@ -72,8 +69,27 @@ const ProductListPage = () => {
         }
     }
 
+    const fetchUserConnectHistory = async () => {
+        const res = await getUserConnectHistory()
+        if(res.status == 'OK'){
+            const dataHistory = res.data.map(data => {
+                return userDataHistory(
+                    data.product,
+                    data.platform,
+                    convertToTimeWIB(data.createdAt),
+                    convertToIndonesianDate(data.createdAt),
+                    data.status,
+                )
+            })
+            setUserTableHistory(dataHistory)
+        }else{
+            toast.error('Data User History Gagal')
+        }
+    }
+
     useEffect(()=>{
         getUserProduct() 
+        fetchUserConnectHistory()
     },[])
 
     return(
@@ -253,7 +269,7 @@ const ProductListPage = () => {
                 {/*  */}
                 <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
                     <AppTableProduct
-                        data={exampleDataProduct}
+                        data={userTableHistory}
                     />
                 </Box>
             </Box>

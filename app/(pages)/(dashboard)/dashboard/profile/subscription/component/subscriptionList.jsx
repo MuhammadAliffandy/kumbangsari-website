@@ -6,7 +6,7 @@ import AppButton from "@/app/components/appButton/appButton";
 export const subscriptionList = [
     {
         title: 'Paket Dasar',
-        subtitle: 'Cocok Untuk Bla',
+        subtitle: 'Cocok Untuk Pemula',
         image : '/images/icon/paket/basic.svg',
         price : 100000,
         benefit : [
@@ -14,13 +14,13 @@ export const subscriptionList = [
             'Jadwal dan Kalender',
             '1 Produk',
             'Semua Platform',
-            '5x Generate AI / Hari',
-            'xx Autopost'
+            '50 Generate AI / Hari',
+            '15 Autopost'
         ]
     },
     {
         title: 'Paket Premium',
-        subtitle: 'Cocok Untuk Bla',
+        subtitle: 'Cocok Untuk Menengah',
         image : '/images/icon/paket/premium.svg',
         price : 200000,
         benefit : [
@@ -34,7 +34,7 @@ export const subscriptionList = [
     },
     {
         title: 'Paket Profesional',
-        subtitle: 'Cocok Untuk Bla',
+        subtitle: 'Cocok Untuk Profesional',
         image : '/images/icon/paket/pro.svg',
         price : 350000,
         benefit : [

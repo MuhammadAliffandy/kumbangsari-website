@@ -187,7 +187,6 @@ const AppModalAddContent = (props) => {
                 formData.set('files', '');
             }
             
-            console.log('test')
 
             const res = await createContentAIManual(formData)
 

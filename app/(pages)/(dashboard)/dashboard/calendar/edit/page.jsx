@@ -19,10 +19,11 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import { editContentAIManual, generateAI, refreshAI } from '@/app/api/repository/contentRepository';
 import {getCurrentDateTime} from '@/app/utils/helper'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { formatDateTime } from '@/app/utils/helper'
 
 const CalendarEditPage = () => {
 
@@ -177,30 +178,35 @@ const CalendarEditPage = () => {
         convertHashtagString(matchHashtag)
     }
 
-    const handleEditContent = () => {
+    const handleEditContent = async () => {
         try {
             convertHashtagString(hashtag);
-
-            const data = {
-                caption : caption ,
-                contentTitle : contentTitle,
-                hashtag: hashtagString,
-                idContent: contentAI.idContent,
-                image: productImage,
-                platform: platform,
-                productName: product,    
-            }
     
-            const dataUpdated = {
-                prevData : contentAI,
-                newData : data ,
-            }
-            
-            push('/dashboard/generate-ai')
+            const formData = new FormData();
+            formData.append('contentTitle', contentTitle);
+            formData.append('platform', platform);
+            formData.append('caption', caption);
+            formData.append('hashtag', hashtagString);
+            formData.append('postedAt', formatDateTime(dateUp,timeUp));
 
-            dispatch(updateGenerateAI(dataUpdated))
-            toast.success('Edit Content AI Berhasil')
+            if(productImage.type){
+                formData.append('image', '');
+                formData.set('files',productImage, productImage.name );
+            }else{
+                formData.append('image', productImage);
+                formData.set('files', '');
+            }
+
+            const res = await editContentAIManual(contentAI.idContent ,formData)
+
+            if(res.status == 'OK'){
+                toast.success('Edit Content AI Berhasil')
+            }else{
+                toast.error('Edit Content Gagal')
+            }
+
         } catch (error) {
+            console.log(error)
             toast.error('Ada Kesalahan Server')
         }
 

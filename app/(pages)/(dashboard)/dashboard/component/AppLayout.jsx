@@ -102,7 +102,7 @@ const AppLayout = (props) => {
         } catch (error) {
             if(error.response.status === 400){
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                console.log(error)
             }
         }
     }

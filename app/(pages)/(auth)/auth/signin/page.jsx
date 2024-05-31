@@ -72,6 +72,19 @@ const SignInPage = () => {
     return(
     
         <Box className = ' h-[100vh] flex flex-col items-center justify-center px-[70px] relative'>
+            <AppModal
+                withClose = {false}
+                open = {openModalLoading}
+                width={'w-[35%]'}
+            >
+                <Box className ='flex flex-col items-center gap-[40px]'>
+                    <CircularProgress style={{color : '#F45B69'}}  />
+                    <Box className='flex flex-col items-center text-center '>
+                        <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Sign In...</p>
+                        <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                    </Box>
+                </Box>
+            </AppModal>
             <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
                 <AppCloseButton
                     onClick = {()=>{
@@ -135,19 +148,7 @@ const SignInPage = () => {
                     </Box>
                 </AppAnimationLayout>
                 <ToastContainer/>
-                <AppModal
-                        withClose = {false}
-                        open = {openModalLoading}
-                        width={'w-[35%]'}
-                    >
-                        <Box className ='flex flex-col items-center gap-[40px]'>
-                            <CircularProgress style={{color : '#F45B69'}}  />
-                            <Box className='flex flex-col items-center '>
-                                <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Sign In...</p>
-                                <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
-                            </Box>
-                        </Box>
-                </AppModal>
+
         </Box>
         
     )

@@ -19,6 +19,6 @@ export const twitterConnect = async ( data) => {
 export const twitterPost = async (data) => {
     await delay()
     const token = getCookie('token')
-    const response = await PROVIDER_POST(`api/v1/post/tweet`,data , token)
+    const response = await PROVIDER_POST(`api/v1/twitter/tweet`,data , token)
     return response
 }

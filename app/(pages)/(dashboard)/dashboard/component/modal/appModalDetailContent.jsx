@@ -27,9 +27,8 @@ const AppModalDetailContent = (props) => {
 
                 if(resTwitterId.status == 'OK'){
                     const data = {
-                        twitterIds:[
-                            resTwitterId.data.twitterId
-                                ],
+                        twitterIds:[resTwitterId.data.twitterId],
+                        idContent: props.idContent,
                         tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
                         imageUrls:[
                             props.image,
@@ -101,6 +100,7 @@ const AppModalDetailContent = (props) => {
                         </Box>
                     </Box>
                     {
+                        props.postedId != null ? null :
                         props.withButton != null  ? null :
                         <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
                             <AppButton 

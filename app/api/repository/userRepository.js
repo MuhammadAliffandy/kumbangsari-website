@@ -14,6 +14,12 @@ export const getUserByToken = async (token) => {
     const response = await PROVIDER_GET(`api/v1/profile`,token )
     return response
 }
+export const getUserConnectHistory = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/profile/connect-history`,token )
+    return response
+}
 export const changePasswordUser = async (data) => {
     await delay()
     const token = getCookie('token');
@@ -27,3 +33,5 @@ export const editUserProfile  = async (data) => {
     const response = await PROVIDER_PUT(`api/v1/profile`, data, token  ,'form')
     return response
 }
+
+

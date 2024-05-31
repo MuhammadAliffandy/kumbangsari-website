@@ -19,17 +19,13 @@ import { getProductByUser } from "@/app/api/repository/productRepository";
 import { twitterConnect } from "@/app/api/repository/twitterRepository";
 import { toast } from "react-toastify";
 import { useRouter , useParams } from 'next/navigation';
+import { getUserConnectHistory } from "@/app/api/repository/userRepository";
+import { convertToTimeWIB , convertToIndonesianDate } from "@/app/utils/helper";
 
 
-const createDataProduct = (accountName, productName, platform, time, date , status) => {
-    return { accountName, productName, platform, time, date , status};
+const userDataHistory = ( productName, platform, time, date , status) => {
+    return { productName, platform, time, date , status};
 }
-
-const exampleDataProduct = [
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'success'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'waiting'),
-    createDataProduct( 'Bakso Mantap' , 'Bakso Cihuy' , 'instagram' , '15 : 00' , '14 Januari 2024' , 'failed'),
-]
 
 const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
@@ -47,6 +43,7 @@ const ProductDetailPage = () => {
     const [accountTwitter , setAccountTwitter ] = useState([])
     const [accountInstagram , setAccountInstagram ] = useState([])
     const [accountFacebook , setAccountFacebook ] = useState([])
+    const [userTableHistory , setUserTableHistory] = useState([])
     const [ platformStatusConnection, setPlatformStatusConnection ] = useState(false);
     const [ platformConnection, setPlatformConnection ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
@@ -89,8 +86,27 @@ const ProductDetailPage = () => {
         }
     }
 
+    const fetchUserConnectHistory = async () => {
+        const res = await getUserConnectHistory()
+        if(res.status == 'OK'){
+            const dataHistory = res.data.map(data => {
+                return userDataHistory(
+                    data.product,
+                    data.platform,
+                    convertToTimeWIB(data.createdAt),
+                    convertToIndonesianDate(data.createdAt),
+                    data.status,
+                )
+            })
+            setUserTableHistory(dataHistory)
+        }else{
+            toast.error('Data User History Gagal')
+        }
+    }
+
     useEffect(() => {
         getUserProduct()
+        fetchUserConnectHistory()
     }, []);
 
     useEffect(()=>{
@@ -134,7 +150,7 @@ const ProductDetailPage = () => {
                             <p className="text-TEXT-1 text-[14px] font-medium" >{accountTwitter.username || '@username'}</p>
                         </Box>
                         <Box className='h-[1px] w-[100%] bg-TEXT-4'></Box>
-                        <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: 17 Agustus 2023</p>
+                        <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: {convertToIndonesianDate(accountTwitter.date)}</p>
                     </Box>
                     <Box className=' flex flex-col gap-[10px] w-[100%]'>
                         <AppButton
@@ -418,7 +434,7 @@ const ProductDetailPage = () => {
                 <p className="text-TEXT-1 font-bold text-[16px]">Daftar Riwayat</p> 
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
                     <AppTableProduct
-                        data={exampleDataProduct}
+                        data={userTableHistory}
                     />
                 </Box>
             </Box>
