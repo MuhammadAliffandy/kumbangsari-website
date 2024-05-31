@@ -26,6 +26,7 @@ import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { getUserSubscription } from "@/app/redux/slices/userSubscriptionSlice";
 import { convertToIndonesianDate , convertToTimeWIB } from "@/app/utils/helper";
+import { toast } from "react-toastify";
 
 const userDataHistory = ( productName, platform, time, date , status) => {
     return {  productName, platform, time, date , status};
@@ -240,6 +241,8 @@ const ProductListPage = () => {
                                                     if(index < idSelection){
                                                         dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
                                                         push(`/dashboard/profile/product-list/product/${data.nameProduct.split(' ').join('-').toLowerCase()}`)
+                                                    }else{
+                                                        toast.warn('Upgrade ke Premium untuk Mengakses')
                                                     }
 
                                                     }} className={`${index < idSelection ? 'opacity-[100%]' : 'opacity-[20%]'} p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl`}>
