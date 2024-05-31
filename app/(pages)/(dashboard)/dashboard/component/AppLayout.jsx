@@ -193,7 +193,7 @@ const AppLayout = (props) => {
                                 }
                             />
                             <AppExpansionList
-                                style = {` ${expanded == false ? 'rounded-t-[20px]' : 'rounded-[20px]' } bg-white  shadow-xl relative w-auto xl:w-[180px]`}
+                                style = {` ${expanded == false ? 'rounded-t-[20px]' : 'rounded-[20px]' } bg-white  shadow-xl relative w-auto xl:w-[auto]`}
                                 onClick={value => {
                                     setExpanded(value)
                                 }}
