@@ -22,7 +22,7 @@ import { formatNumberHashtag } from '@/app/utils/helper'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { getProductByUser } from '@/app/api/repository/productRepository';
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
 import { recommendationContentAI , getContentPreview , contentRecap , trendingHashtag } from '@/app/api/repository/dashboardRepository'
@@ -44,6 +44,7 @@ const DashboardPage = () => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
 
+    const userSubscription = useSelector(state => state.userSubscription.value)
     const dispatch = useDispatch()
     const { push } = useRouter()
     // state modal
@@ -81,7 +82,15 @@ const DashboardPage = () => {
     const fetchUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-            const productList = res.data.map(item => {
+            const currentData = res.data.filter(data => {
+            if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+    
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)

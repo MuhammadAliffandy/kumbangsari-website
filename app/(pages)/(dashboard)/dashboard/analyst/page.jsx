@@ -12,6 +12,7 @@ import { getProductByUser } from '@/app/api/repository/productRepository';
 import { getAnalysisBestPerformance, getAnalysisRecapPost } from '@/app/api/repository/analysisRepository';
 import { useMediaQuery } from "react-responsive";
 import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupFilter'
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { convertToIndonesianDate } from "@/app/utils/helper";
 
@@ -78,6 +79,8 @@ const AnalystPage = () => {
 
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
+    // 
+    const userSubscription = useSelector(state => state.userSubscription.value)
     // state modal
     const [openModalDetail , setOpenModalDetail] = useState(false)
     // state hover
@@ -112,7 +115,15 @@ const AnalystPage = () => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-            const productList = res.data.map(item => {
+            const currentData = res.data.filter(data => {
+                if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+    
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)
@@ -141,7 +152,7 @@ const AnalystPage = () => {
                 setBestPerformance(data)
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            console.log(error)
         }
     }
 
@@ -150,8 +161,16 @@ const AnalystPage = () => {
             const res = await getAnalysisRecapPost();
 
             if(res.status == 'OK'){
-                const data  = res.data.map(item => {
-                    return item.total_count
+                const currentData = res.data.filter(data => {
+                    if(userSubscription <= 2){
+                        return data.idProduct == 1
+                    }else{
+                        return data
+                    }
+                })
+        
+                const data  = currentData.map(item => {
+                    return item.total_count || 1
                 })
 
             const doughnutData = {
@@ -173,7 +192,7 @@ const AnalystPage = () => {
             }
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            console.log(error)
         }
     }
 

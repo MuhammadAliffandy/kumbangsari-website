@@ -25,6 +25,7 @@ const  AppModalGenerateAI = (props ) => {
 
     const dispatch = useDispatch()
     const generateFieldHistory = useSelector(state =>  state.generateAIHistory.value )
+    const userSubscription  = useSelector(state =>  state.userSubscription.value )
     const [contentTitle , setContentTitle] = useState('')
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
@@ -51,8 +52,15 @@ const  AppModalGenerateAI = (props ) => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-        
-            const productList = res.data.map(item => {
+            const currentData = res.data.filter(data => {
+                if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+    
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
 

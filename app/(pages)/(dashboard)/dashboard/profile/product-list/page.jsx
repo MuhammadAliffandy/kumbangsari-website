@@ -21,9 +21,10 @@ import { listPlatform } from '@/app/utils/model';
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import AppModalAddProduct from "./component/appModalAddProduct"
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { setNameProduct } from '@/app/redux/slices/nameProductSlice'
+import { useDispatch ,useSelector } from "react-redux";
+import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
+import { getUserSubscription } from "@/app/redux/slices/userSubscriptionSlice";
 import { convertToIndonesianDate , convertToTimeWIB } from "@/app/utils/helper";
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -33,6 +34,8 @@ const ProductListPage = () => {
 
     const { push } = useRouter()
     const dispatch = useDispatch() 
+    const userSubscription = useSelector(state => state.userSubscription.value)
+    const idSelection = userSubscription <= 2 ? 1 : 3
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
     // state modal
@@ -61,7 +64,16 @@ const ProductListPage = () => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-            const productList = res.data.map(item => {
+
+            const currentData = res.data.filter(data => {
+                if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)
@@ -97,6 +109,9 @@ const ProductListPage = () => {
             <AppModalAddProduct
                 open={modalAddProduct}
                 onCloseButton={(value)=> setModalAddProduct(value) }
+                onDone={()=>{
+                    getUserProduct()
+                }}
             />
             <AppCustomModal
                 open={modalDeleted}
@@ -217,14 +232,17 @@ const ProductListPage = () => {
                 <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
                             productData.length > 0 ? 
-                            productData.map(data => {
+                            productData.map((data,index) => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
                                             <AppAnimationButton className='w-auto cursor-pointer'>
                                                 <Box onClick={()=>{
-                                                    dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
-                                                    push(`/dashboard/profile/product-list/product/${data.nameProduct.split(' ').join('-').toLowerCase()}`)
-                                                    }} className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl'>
+                                                    if(index < idSelection){
+                                                        dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
+                                                        push(`/dashboard/profile/product-list/product/${data.nameProduct.split(' ').join('-').toLowerCase()}`)
+                                                    }
+
+                                                    }} className={`${index < idSelection ? 'opacity-[100%]' : 'opacity-[20%]'} p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl`}>
                                                     <Box className='flex flex-col gap-[10px] items-start h-full'>
                                                         <Box className='flex flex-col'>
                                                             <p className="text-TEXT-1 text-[18px] font-bold">{data.nameProduct}</p>

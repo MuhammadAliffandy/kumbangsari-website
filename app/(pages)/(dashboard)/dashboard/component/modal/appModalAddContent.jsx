@@ -29,6 +29,7 @@ import { useRouter } from 'next/navigation';
 
 const AppModalAddContent = (props) => {
 
+    const userSubscription = useSelector(state =>  state.userSubscription.value)
     const { push } = useRouter()
     const [contentTitle , setContentTitle] = useState('')
     const [image , setImage] = useState(null)
@@ -100,7 +101,16 @@ const AppModalAddContent = (props) => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-            const productList = res.data.map(item => {
+
+            const currentData = res.data.filter(data => {
+                if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+    
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)

@@ -55,7 +55,7 @@ const SubscriptionList = (props) => {
                 {
                     subscriptionList.map((data,index)=>{
                         return(
-                            <Grid item  xs={12} xl={4} lg={4} md={4} >
+                            <Grid key={index} item  xs={12} xl={4} lg={4} md={4} >
                                 <Box className='hover:shadow-xl text-black flex flex-col items-center gap-[10px] bg-white p-[20px] border-[1px] border-TEXT-4  rounded-[20px]' >
                                     <p className="text-TEXT-1 text-[22px] font-bold">{data.title}</p>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%]'>

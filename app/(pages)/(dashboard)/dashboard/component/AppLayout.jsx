@@ -16,6 +16,7 @@ import { getUserProfile , getUserByToken } from '@/app/api/repository/userReposi
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
+import { setUserSubscriptionData } from '@/app/redux/slices/userSubscriptionSlice';
 import { useDispatch } from 'react-redux';
 
 const AppLayout = (props) => {
@@ -55,6 +56,7 @@ const AppLayout = (props) => {
             
             if(res.status === 'OK'){
                 setUser(res.data)
+                dispatch(setUserSubscriptionData(res.data.subscription))
             }
         } catch (error) {
             toast.error('Authentication Failed')

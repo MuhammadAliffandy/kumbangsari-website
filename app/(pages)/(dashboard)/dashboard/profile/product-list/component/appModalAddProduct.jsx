@@ -60,10 +60,12 @@ const AppModalAddProduct = (props) => {
                 const res = await addProduct(jsonData);
                 if(res.status == 'OK'){
                     toast.success('Produk berhasil ditambahkan ')
+                    props.onCloseButton(false)
                 } 
             }else{
-                toast.error('Jumlah Produk sudah Maksimal')
+                toast.warn('Jumlah Produk sudah Maksimal')
             }
+            props.onDone()
         } catch (error) {
                 toast.error('Produk gagal Ditambahkan')
         }

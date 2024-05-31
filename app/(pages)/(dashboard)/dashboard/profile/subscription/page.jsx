@@ -94,7 +94,6 @@ const SubscriptionPage = () => {
 
             if(res.status == 'OK'){
                 setUserSubscription(res.data)
-          
             }else{
                 toast.error('Silahkan Berlangganan dulu!!')
             }
@@ -130,6 +129,29 @@ const SubscriptionPage = () => {
             const data = {
                 paket : value.codeNumber,
                 price : value.price,
+                type: 'NEW'
+            }
+            const res = await createPayment(data)
+            
+            if(res.status == 'OK'){
+                toast.success('Transaksi Berhasil')
+                setSubscriptionListModal(false)
+                setPaymentDetailModal(false)
+                fetchPaymentTransaction()
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
+    const fetchUpdatePayment = async (value) => {
+        try {
+
+            const data = {
+                paket : value.codeNumber,
+                price : value.price,
+                type: 'RENEW'
             }
             const res = await createPayment(data)
             
@@ -206,7 +228,12 @@ const SubscriptionPage = () => {
                 open={paymentDetailModal}
                 onCloseButton = { () => setPaymentDetailModal(false)  }
                 onClick={()=>{
-                    fetchCreatePayment(subscriptionDetail)
+                    if(user.subscription != null){
+                        console.log('update')
+                        fetchUpdatePayment(subscriptionDetail)
+                    }else{
+                        fetchCreatePayment(subscriptionDetail)
+                    }
                 }}
             />
             <AppCustomModal

@@ -7,6 +7,7 @@ import generateAIHistoryReducer from './slices/generateAIHistorySlice'
 import generateAIContentHistoryReducer from './slices/generateAIContentHistorySlice'
 import countInputProductReducer from './slices/countInputProductSlice';
 import nameProductReducer from './slices/nameProductSlice'
+import userSubscriptionReducer from './slices/userSubscriptionSlice'
 import { combineReducers } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     generateAIHistory : generateAIHistoryReducer,
     generateAIContentHistory : generateAIContentHistoryReducer,
     nameProduct : nameProductReducer,
+    userSubscription : userSubscriptionReducer
 })
 
 const persistConfig = {

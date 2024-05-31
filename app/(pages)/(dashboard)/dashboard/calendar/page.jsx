@@ -13,9 +13,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify';
 import { convertEventDate } from '@/app/utils/helper';
+import { useSelector } from 'react-redux';
 import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton';
 
 const CalenderPage = () => {
+    const userSubscription = useSelector(state => state.userSubscription.value) 
     // state responsive
     const sm = useMediaQuery({ maxWidth: 640 });
     const lg = useMediaQuery({ maxWidth: 1024 });
@@ -32,7 +34,16 @@ const CalenderPage = () => {
     const fetchUserProduct = async () => {
       const res = await getProductByUser();
       if(res.status = 'OK'){
-          const productList = res.data.map(item => {
+
+          const currentData = res.data.filter(data => {
+                  if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+          })
+
+          const productList = currentData.map(item => {
               return {value: item.idProduct , text : item.nameProduct}
           })
           setProductList(productList)
@@ -44,8 +55,15 @@ const CalenderPage = () => {
         const res = await getContentCalendar()
 
         if(res.status === 'OK'){
-          setCurrentCalendar(res.data)
-          setCalendar(res.data.map(data => {
+          const currentData = res.data.filter(data => {
+                  if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+          })
+          setCurrentCalendar(currentData)
+          setCalendar(currentData.map(data => {
             return {...data , productName : productList[data.idProduct - 1]?.text}
           }))
         }else{

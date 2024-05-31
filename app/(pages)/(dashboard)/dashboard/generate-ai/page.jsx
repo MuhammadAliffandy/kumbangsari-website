@@ -41,6 +41,7 @@ const GenerateAIPage = () => {
     // external state 
     const { push } = useRouter()
     const dispatch = useDispatch()
+    const userSubscription = useSelector( state => state.userSubscription.value )
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
     // state loading
@@ -74,7 +75,15 @@ const GenerateAIPage = () => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
-            const productList = res.data.map(item => {
+            const currentData = res.data.filter(data => {
+                if(userSubscription <= 2){
+                    return data.idProduct == 1
+                }else{
+                    return data
+                }
+            })
+    
+            const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
             setProductList(productList)
@@ -156,7 +165,15 @@ const GenerateAIPage = () => {
         const res = await getContentByHistory();
         if(res.status == 'OK'){
             if(res.data.length !== 0){
-                setContentAIHistory(res.data)
+                const currentData = res.data.filter(data => {
+                    if(userSubscription <= 2){
+                        return data.idProduct == 1
+                    }else{
+                        return data
+                    }
+                })
+        
+                setContentAIHistory(currentData)
                 setContentAIHistoryLoading(false)
             }else{
                 setContentAIHistoryLoading(false)
