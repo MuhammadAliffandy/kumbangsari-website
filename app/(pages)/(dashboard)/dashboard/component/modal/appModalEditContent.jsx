@@ -189,6 +189,11 @@ const AppModalEditContent = (props) => {
         try {
             convertHashtagString(hashtag);
 
+            if(dateUp == ''  && timeUp == ''){
+                toast.warning('Mohon isi Tanggal dan Waktunya')
+                return false
+            }
+
             const data = {
                 caption : caption ,
                 contentTitle : contentTitle,
@@ -208,6 +213,7 @@ const AppModalEditContent = (props) => {
 
             dispatch(updateGenerateAI(dataUpdated))
             toast.success('Edit Content AI Berhasil')
+            props.onCloseButton(false)
         } catch (error) {
             toast.error('Ada Kesalahan Server')
         }

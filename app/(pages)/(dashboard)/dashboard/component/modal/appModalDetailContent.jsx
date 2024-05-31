@@ -39,10 +39,13 @@ const AppModalDetailContent = (props) => {
             
                     if(res.status == 'OK'){
                         toast.success('Posting Konten Berhasil')
+                        props.onCloseButton(false)
+                        
                     }else{
                         toast.error('Posting Konten Gagal')
             
                     }
+                    
                 }else{
                     toast.error('Gagal Menemukan Id Twitter')
                 }
@@ -92,8 +95,8 @@ const AppModalDetailContent = (props) => {
                                 <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
                             </Box>: null
                         }
-                        <Box className ={`flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}> 
-                            { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold'>{props.caption}</p> : null}
+                        <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
+                            { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold break-words'>{props.caption}</p> : null}
                             {  props.hashtag ? <p className='text-[14px] text-PRIMARY-400'>{props.hashtag}</p> : null }
                             <Box className = 'flex gap-[10px] items-center'>
                                 <img className='w-[20px] h-[20px] rounded-[100%]' src={ props.platform == 'facebook'? listPlatform.facebook : props.platform == 'instagram'? listPlatform.instagram : props.platform == 'twitter'? listPlatform.twitter : null  }/>
@@ -111,7 +114,7 @@ const AppModalDetailContent = (props) => {
                                     onClick={()=>{
                                         fetchPostContent()
                                         props.onClick()
-                                        console.log('update status')
+                                
                                     }}
                                 />
                         </Box>

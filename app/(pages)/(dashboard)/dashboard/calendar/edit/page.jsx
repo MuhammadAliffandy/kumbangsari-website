@@ -181,7 +181,11 @@ const CalendarEditPage = () => {
     const handleEditContent = async () => {
         try {
             convertHashtagString(hashtag);
-    
+            if(dateUp == '' && timeUp == ''){
+                toast.warn('Mohon isi Tanggal dan Waktunya')
+                return false
+            }
+
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
             formData.append('platform', platform);
@@ -201,6 +205,7 @@ const CalendarEditPage = () => {
 
             if(res.status == 'OK'){
                 toast.success('Edit Content AI Berhasil')
+                push('/dashboard/calendar')
             }else{
                 toast.error('Edit Content Gagal')
             }

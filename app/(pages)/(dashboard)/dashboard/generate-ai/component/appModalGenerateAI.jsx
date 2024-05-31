@@ -187,7 +187,7 @@ const  AppModalGenerateAI = (props ) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Produk</label>
                             <AppDropDown
-                                    value={product}
+                                    value={product ? product : ''}
                                     placeholder={'Pilih Nama Produk'}
                                     listItem = {productList}
                                     onChange={handleChangeProduct}
@@ -203,7 +203,7 @@ const  AppModalGenerateAI = (props ) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Platform</label>
                             <AppDropDown
-                                    value={platform}
+                                    value={platform ? platform : ''}
                                     placeholder={'Pilih Nama Platform'}
                                     listItem = {listDropPlatform}
                                     onChange={handleChangePlatform}
@@ -242,7 +242,7 @@ const  AppModalGenerateAI = (props ) => {
                 <Box className='flex flex-col gap-[10px]'>
                     <label className='text-black font-semibold'>Gaya Bahasa</label>
                     <AppDropDown
-                            value={languageStyle}
+                            value={languageStyle ? languageStyle : ''}
                             placeholder={'Pilih Gaya Bahasa'}
                             listItem = {listDropLanguageStyle}
                             onChange={handleLanguageStyle}

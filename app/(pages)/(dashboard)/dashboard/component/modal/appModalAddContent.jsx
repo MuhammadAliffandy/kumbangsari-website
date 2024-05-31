@@ -167,6 +167,13 @@ const AppModalAddContent = (props) => {
         try {
             convertHashtagString(hashtag);
 
+            if(platform == 'twitter'){
+                if(caption.length >= 280){
+                    toast.warn('Caption Lebih dari 280 Karakter')
+                    return false;
+                }
+            }
+
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
             formData.append('idProduct', product);
