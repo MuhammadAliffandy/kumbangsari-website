@@ -24,7 +24,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch ,useSelector } from "react-redux";
 import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
-import { getUserSubscription } from "@/app/redux/slices/userSubscriptionSlice";
 import { convertToIndonesianDate , convertToTimeWIB } from "@/app/utils/helper";
 import { toast } from "react-toastify";
 
@@ -46,10 +45,10 @@ const ProductListPage = () => {
     const [modalEdited , setModalEdited] = useState(false)
     // state data
     const [userTableHistory , setUserTableHistory] = useState([])
-    const [productData , setProductData] = useState([])
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
     const [productList , setProductList] = useState([])
+    const [productData , setProductData] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
 

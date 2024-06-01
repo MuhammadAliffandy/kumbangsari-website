@@ -4,26 +4,25 @@ import Box from '@mui/material/Box'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import { listPlatform } from '@/app/utils/model';
-import { useForm } from 'react-hook-form';
+import { twitterRevoke } from '@/app/api/repository/twitterRepository';
 import { toast } from 'react-toastify';
 
-const thirdPartyAccess = [
-    {
-        platform : 'instagram',
-        accessDate : '14 September 2024' 
-    },
-    {
-        platform : 'facebook',
-        accessDate : '14 September 2024' 
-    },
-    {
-        platform : 'twitter',
-        accessDate : '14 September 2024' 
-    },
-]
 
 const AppModalThirdParty = (props) => {
 
+    const fetchTwitterRevoke = async (idProduct) => {
+        try {
+            const res = await twitterRevoke({idProduct : idProduct})
+            if(res.status == 'OK'){
+                toast.success('Hapus Akses Berhasil')
+                props.onCloseButton(false)
+            }else{
+                toast.error('Hapus Akses Gagal')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
 
     return(
         <Modal 
@@ -48,9 +47,10 @@ const AppModalThirdParty = (props) => {
                         <Box className='flex flex-col gap-[10px]'>
                             {/*  */}
                             {
-                                thirdPartyAccess.map(data => {
+                                props.data.length == 0 ? <p className='text-black text-center text-[14px] ]'>Tidak ada satupun akun platform yang tersambung</p> :
+                                props.data.map((data , index) => {
                                     return(
-                                        <Box className='flex items-center p-[10px] gap-[10px] bg-NEUTRAL-100 rounded-[20px] justify-between'>
+                                        <Box key={index} className='flex items-center p-[10px] gap-[10px] bg-NEUTRAL-100 rounded-[20px] justify-between'>
                                             <Box className='flex gap-[10px] '>
                                                 <img className='w-[40px] h-[40px] rounded-[100%]' src={ data.platform == 'facebook'? listPlatform.facebook : data.platform == 'instagram'? listPlatform.instagram : data.platform == 'twitter'? listPlatform.twitter : null  }/>
                                                 <Box className='flex flex-col items-start'>
@@ -63,7 +63,11 @@ const AppModalThirdParty = (props) => {
                                                 text={'Hapus Akses'} 
                                                 type = {'Submit'}
                                                 fontSize = {'12px'}
-                                                onClick={()=>{}}
+                                                onClick={()=>{
+                                                    if(data.platform == 'twitter'){
+                                                        fetchTwitterRevoke(data.idProduct)
+                                                    }
+                                                }}
                                             />
                                         </Box>
                                     )

@@ -5,9 +5,11 @@ import AppCheckBox from "@/app/components/appCheckBox/appCheckBox"
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import AppModalThirdParty from './component/appModalThirdParty'
+import AppModalProductList from './component/appModalProductList'
 import AppDropDown from "@/app/components/appDropDown/appDropDown"
 import { useState } from "react"
 import { listDropNotifHour, listDropNotifMonth } from "@/app/utils/model"
+import { convertToIndonesianDate } from "@/app/utils/helper"
 
 
 const historyActivity = [
@@ -31,7 +33,9 @@ const historyActivity = [
 const SettingsPage = () => {
     // state modal
     const [modalThirdParty , setModalThirdParty ] = useState(false)
+    const [modalProductList , setModalProductList ] = useState(false)
     // state data
+    const [productSelect , setProductSelect ] = useState([])
     const [notifMonth , setNotifMonth] = useState('1m')
     const [notifHour , setNotifHour] = useState('1h')
     
@@ -45,18 +49,44 @@ const SettingsPage = () => {
 
     return(
         <AppLayout title={'Profil > Pengaturan'} >
+            <AppModalProductList
+                open ={modalProductList}
+                onCloseButton = { value => setModalProductList(value)}
+                onClick = {(value) => {
+                    const thirdParty = []
+                    const currentData = value.platform
+                    const keys = Object.keys(currentData);
+
+                    for(let i = 0; i < 3 ; i++){
+                        if(currentData[keys[i]]){
+                            thirdParty.push({
+                                platform : keys[i],
+                                accessDate: convertToIndonesianDate(value.platformInfo[keys[i]].date),
+                                idProduct : value.idProduct
+                            })
+
+                        }
+                    }
+
+                    setProductSelect(thirdParty)
+                    setModalThirdParty(true)
+                    setModalProductList(false)
+                }}
+            />
             <AppModalThirdParty
+                data={productSelect}
                 open ={modalThirdParty}
                 onCloseButton = { value => setModalThirdParty(value)}
             />
+
             <Box className = 'grow h-[86%]  p-[20px] flex flex-col gap-[20px]'>
                 <Box className='w-[100%] h-[100%] rounded-[20px] flex flex-col gap-[20px]'>
                     <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Aktivitas</p> 
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
-                            historyActivity.map(data => {
+                            historyActivity.map((data , index) => {
                                 return (
-                                    <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
+                                    <Grid key={index} xs={12} xl={4} lg={4} md={12} sm={12} item>
                                         <Box className='flex gap-[10px] items-center bg-NEUTRAL-100 p-[10px] rounded-[20px]'>
                                             <img className="w-[40px] h-[40px]" src={data.icon} alt="icon-settings" />
                                             <Box className='flex flex-col gap-[8px]'>
@@ -240,7 +270,7 @@ const SettingsPage = () => {
 
                                     }}
                                 />
-                            <p onClick={()=> {setModalThirdParty(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
+                            <p onClick={()=> {setModalProductList(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
                         </Box>
                     </Box>
                 </Box>

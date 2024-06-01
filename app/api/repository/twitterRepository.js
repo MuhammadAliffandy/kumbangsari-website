@@ -1,4 +1,4 @@
-import { PROVIDER_DELETE, PROVIDER_GET, PROVIDER_POST, PROVIDER_PUT } from "../provider"
+import { PROVIDER_DELETE, PROVIDER_GET, PROVIDER_PATCH, PROVIDER_POST, PROVIDER_PUT } from "../provider"
 import { getCookie} from '@/app/utils/helper';
 
 const delay = () => new Promise(res => setTimeout(() => res(), 800))
@@ -22,3 +22,12 @@ export const twitterPost = async (data) => {
     const response = await PROVIDER_POST(`api/v1/twitter/tweet`,data , token)
     return response
 }
+
+export const twitterRevoke = async (data) => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_PATCH(`api/v1/revoke/twitter`,data , token)
+    return response
+}
+
+
