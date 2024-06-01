@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import { useRouter , useParams } from 'next/navigation';
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
+import { listDropCategory } from "@/app/utils/model";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -52,6 +53,7 @@ const ProductDetailPage = () => {
     const [ gender , setGender ] = useState([]);
     const [ school , setSchool ] = useState([]);
     const [ job , setJob ] = useState([]);
+    
 
     const params = useParams()
     const statusConnection = params.status 
@@ -354,7 +356,7 @@ const ProductDetailPage = () => {
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
                     <Box className='flex flex-col'>
                         <p className="text-TEXT-1 text-[18px] font-bold">{productInit.name}</p>
-                        <p className="text-TEXT-1 text-[12px]">{productInit.category}</p>
+                        <p className="text-TEXT-1 text-[12px]">{listDropCategory.filter(item => {return item.value == productInit.category})[0].text}</p>
                     </Box>
                     <Box className='flex gap-[15px]' >
 

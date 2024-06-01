@@ -25,6 +25,7 @@ import { useDispatch ,useSelector } from "react-redux";
 import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToIndonesianDate , convertToTimeWIB } from "@/app/utils/helper";
+import { listDropCategory } from "@/app/utils/model";
 import { toast } from "react-toastify";
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -248,7 +249,7 @@ const ProductListPage = () => {
                                                     <Box className='flex flex-col gap-[10px] items-start h-full'>
                                                         <Box className='flex flex-col'>
                                                             <p className="text-TEXT-1 text-[18px] font-bold">{data.nameProduct}</p>
-                                                            <p className="text-TEXT-1 text-[12px]">{data.category}</p>
+                                                            <p className="text-TEXT-1 text-[12px]">{listDropCategory.filter(item => {return item.value == data.category})[0].text}</p>
                                                         </Box>
                                                         <Box className='flex gap-[10px] h-[25px]'>
                                                             { data.platform.instagram ? <img className='w-[25px] h-[25px] rounded-[100%]' src={listPlatform.instagram}/> : null}
