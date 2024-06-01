@@ -26,6 +26,12 @@ const AppModalDetailContent = (props) => {
                 const resTwitterId = await twitterFindId({idProduct:props.idProduct})
 
                 if(resTwitterId.status == 'OK'){
+
+                    if(resTwitterId.data.twitterId == null){
+                        toast.warn('Cek Konektivitas Akun Twitter Anda !!')
+                        return false
+                    }
+
                     const data = {
                         twitterIds:[resTwitterId.data.twitterId],
                         idContent: props.idContent,

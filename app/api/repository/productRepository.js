@@ -16,3 +16,16 @@ export const addProduct = async ( data ) => {
     return response
 }
 
+export const editProduct = async ( data , idProduct ) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_PUT(`api/v1/product/${idProduct}`, data , token)
+    return response
+}
+export const deleteProduct = async ( idProduct) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_DELETE(`api/v1/product/${idProduct}`, token)
+    return response
+}
+

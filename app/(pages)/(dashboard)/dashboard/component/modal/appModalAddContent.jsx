@@ -209,6 +209,8 @@ const AppModalAddContent = (props) => {
 
             if(res.status === 'OK'){
                 toast.success('Tambah Content Berhasil')
+                props.onCloseButton(false)
+                props.onDone()
                 push('/dashboard/calendar')
 
             }else{

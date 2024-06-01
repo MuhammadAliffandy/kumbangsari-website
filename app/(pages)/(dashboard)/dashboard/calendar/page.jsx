@@ -155,6 +155,9 @@ const CalenderPage = () => {
                 onCloseButton = {(value)=> {
                     setOpenModalAdd(value)
                 }}
+                onDone={()=>{
+                  fetchCalendarContent()
+                }}
             />
         </AppLayout>
     ) 

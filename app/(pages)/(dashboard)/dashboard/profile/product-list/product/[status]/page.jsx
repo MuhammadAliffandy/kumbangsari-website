@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout";
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
-import AppDropDown from '@/app/components/appDropDown/appDropDown'
 import AppCustomModal from "@/app/components/appModal/AppCustomModal";
 import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import AppGenderCheckbox from '@/app/(pages)/(input-product)/input-product/add-product/component/appGenderCheckbox';
@@ -15,12 +14,12 @@ import AppTableProduct from "@/app/components/appTable/appTableProduct";
 import AppModalConnection from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalConnection'
 import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
-import { getProductByUser } from "@/app/api/repository/productRepository";
+import { deleteProduct, editProduct, getProductByUser } from "@/app/api/repository/productRepository";
 import { twitterConnect } from "@/app/api/repository/twitterRepository";
 import { toast } from "react-toastify";
 import { useRouter , useParams } from 'next/navigation';
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
-import { convertToTimeWIB , convertToIndonesianDate } from "@/app/utils/helper";
+import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -29,6 +28,7 @@ const userDataHistory = ( productName, platform, time, date , status) => {
 
 const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
+    const { push } = useRouter()
     // state modal
     const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
     const [modalFailedConnection , setModalFailedConnection ] = useState(false)
@@ -43,6 +43,7 @@ const ProductDetailPage = () => {
     const [accountTwitter , setAccountTwitter ] = useState([])
     const [accountInstagram , setAccountInstagram ] = useState([])
     const [accountFacebook , setAccountFacebook ] = useState([])
+    const [userProduct , setUserProduct] = useState([])
     const [userTableHistory , setUserTableHistory] = useState([])
     const [ platformStatusConnection, setPlatformStatusConnection ] = useState(false);
     const [ platformConnection, setPlatformConnection ] = useState('');
@@ -75,6 +76,7 @@ const ProductDetailPage = () => {
                 return data.idProduct === productInit.id
             })[0]
 
+            setUserProduct(data)
             setIsFacebook(data.platform.facebook)
             setIsInstagram(data.platform.instagram)
             setIsTwitter(data.platform.twitter)
@@ -101,6 +103,54 @@ const ProductDetailPage = () => {
             setUserTableHistory(dataHistory)
         }else{
             toast.error('Data User History Gagal')
+        }
+    }
+
+    const fetchEditProduct = async () => {
+        try {
+
+            const genderValue = localStorage.getItem('gender') ;
+            const schoolValue = localStorage.getItem('school');
+            const jobValue = localStorage.getItem('job');
+
+            const data = {
+                nameProduct: userProduct.nameProduct,
+                age: ageRange,
+                work:convertValueCheckbox(jobValue),
+                education:convertValueCheckbox(schoolValue),
+                category: userProduct.category,
+                gender:convertValueCheckbox(genderValue)
+            }
+
+            const res = await editProduct(data, productInit.id)
+
+            if(res.status == 'OK'){
+                toast.success('Berhasil Edit Product')
+                getUserProduct()
+            }else{
+                toast.error('Gagal Edit Product')
+            }
+
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
+    const fetchDeleteProduct = async () => {
+        try {
+
+            const res = await deleteProduct(productInit.id)
+
+            if(res.status == 'OK'){
+                toast.success('Berhasil Delete Product')
+                push('/dashboard/profile/product-list')
+                setModalDeleteProduct(false)
+            }else{
+                toast.error('Gagal Delete Product')
+                setModalDeleteProduct(false)
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
         }
     }
 
@@ -234,14 +284,14 @@ const ProductDetailPage = () => {
                             text={'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
-
+                                setModalDeleteProduct(false)
                         }}/>
                         <AppButton
                             className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
                             text={ 'Hapus'} 
                             type = {'button'}
                             onClick={()=>{
-
+                                fetchDeleteProduct()
                             }}
                         />
                     </Box>
@@ -415,15 +465,15 @@ const ProductDetailPage = () => {
                                         text={'Hapus Produk'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                            
+                                            setModalDeleteProduct(!modalDeleteProduct)
                                         }}
                                     />
                                     <AppButton
                                         className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
-                                        text={'Ubah Detail'} 
+                                        text={'Ubah Produk'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                    
+                                            fetchEditProduct()
                                         }}
                                     />
                                 </>
