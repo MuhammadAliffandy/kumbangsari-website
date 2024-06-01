@@ -7,9 +7,11 @@ import Grid from '@mui/material/Grid'
 import AppModalThirdParty from './component/appModalThirdParty'
 import AppModalProductList from './component/appModalProductList'
 import AppDropDown from "@/app/components/appDropDown/appDropDown"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { listDropNotifHour, listDropNotifMonth } from "@/app/utils/model"
 import { convertToIndonesianDate } from "@/app/utils/helper"
+import { toast } from "react-toastify"
+import { getUserActivityHistory } from "@/app/api/repository/userRepository"
 
 
 const historyActivity = [
@@ -38,6 +40,23 @@ const SettingsPage = () => {
     const [productSelect , setProductSelect ] = useState([])
     const [notifMonth , setNotifMonth] = useState('1m')
     const [notifHour , setNotifHour] = useState('1h')
+    const [lastLogin , setLastLogin] = useState('')
+    const [lastChange , setLastChange] = useState('')
+    const [lastUpload , setLastUpload] = useState('')
+
+    const fetchUserActivityHistory = async () => {
+        try {
+            const res = await getUserActivityHistory()
+
+            if(res.status == 'OK'){
+                setLastLogin(convertToIndonesianDate(res.data.lastLogin))
+                setLastChange(res.data.lastChangePermission ? convertToIndonesianDate(res.data.lastChangePermission) : 'Data Kosong')
+                setLastUpload(res.data.lastUploadContent ? convertToIndonesianDate(res.data.lastUploadContent) : 'Data Kosong')
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')
+        }
+    }
     
     const handleDropDown = (event)=>{
         setNotifMonth(event.target.value)
@@ -46,6 +65,10 @@ const SettingsPage = () => {
     const handleDropDownNotifHour = (event)=>{
         setNotifHour(event.target.value)
     }
+
+    useEffect(()=>{
+        fetchUserActivityHistory()
+    },[])
 
     return(
         <AppLayout title={'Profil > Pengaturan'} >
@@ -88,10 +111,12 @@ const SettingsPage = () => {
                                 return (
                                     <Grid key={index} xs={12} xl={4} lg={4} md={12} sm={12} item>
                                         <Box className='flex gap-[10px] items-center bg-NEUTRAL-100 p-[10px] rounded-[20px]'>
-                                            <img className="w-[40px] h-[40px]" src={data.icon} alt="icon-settings" />
+                                            <img className="w-[60px] h-[60px]" src={data.icon} alt="icon-settings" />
                                             <Box className='flex flex-col gap-[8px]'>
                                                 <p className="text-TEXT-1 text-[16px] font-bold">{data.title}</p>
-                                                <p className="text-TEXT-1 text-[12px] ">{data.logData}</p>
+                                                <p className="text-TEXT-1 text-[12px] ">{
+                                                    index == 0 ? lastLogin : index == 1 ? lastChange : index == 2 ? lastUpload : ''
+                                                }</p>
                                             </Box>
                                         </Box>
                                     </Grid>

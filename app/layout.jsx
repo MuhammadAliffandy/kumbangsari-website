@@ -30,7 +30,6 @@ export default function RootLayout({
               { children }
             </StoreProvider>
             <ToastContainer 
-              theme="colored"
               autoClose={900}
             />
           </body>

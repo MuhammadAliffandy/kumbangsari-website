@@ -34,4 +34,9 @@ export const editUserProfile  = async (data) => {
     return response
 }
 
-
+export const getUserActivityHistory = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/profile/activity-history`,token )
+    return response
+}
