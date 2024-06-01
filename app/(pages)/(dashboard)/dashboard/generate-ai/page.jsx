@@ -20,12 +20,12 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from "react-redux";
 import { deleteContent, generateAI, getContentByHistory, getContentById, refreshAI } from '@/app/api/repository/contentRepository';
-import { getProductByUser } from '../../../../api/repository/productRepository';
-import { deleteContentHistory, filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
+import { getProductByUser } from '@/app/api/repository/productRepository';
+import { filterContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { useDispatch } from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
 import { useMediaQuery } from "react-responsive";
-import { ToastContainer, toast } from "react-toastify";
+import {  ToastContainer,toast } from "react-toastify";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
@@ -83,10 +83,10 @@ const GenerateAIPage = () => {
                 }
             })
     
-            const productList = currentData.map(item => {
+            const data = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
-            setProductList(productList)
+            setProductList(data)
         }
     }
 
@@ -109,6 +109,7 @@ const GenerateAIPage = () => {
                 productName : productList[currentData.idProduct - 1].text,
                 platform : currentData.platform,
                 idContent: currentData.idContent,
+                idProduct: currentData.idProduct,
             }
         }) 
         return mappingArray;
@@ -133,6 +134,7 @@ const GenerateAIPage = () => {
                 productName : productList[currentData.idProduct - 1]?.text,
                 platform : currentData.platform,
                 idContent: currentData.idContent,
+                idProduct: currentData.idProduct,
             }
         }) 
 
@@ -234,18 +236,72 @@ const GenerateAIPage = () => {
     },[])
 
     useEffect(()=>{
-        fetchContentHistory()
+        if(productList.length > 0){
+            fetchContentHistory()
+        }
     },[
         productList,
     ])
 
     useEffect(()=> {
-        fetchCurrentContentAI()
+        if(contentAIHistory.length > 0){
+            fetchCurrentContentAI()
+        }
     },[contentAIHistory])
 
 
     return (
         <AppLayout title='Generate AI'>
+            {/*  */}
+            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
+                onClick = { ( value ) => {  
+                    setContentAI(value) 
+                }}
+                onLoad = {
+                    (load)=>{
+                        setOpenModalLoading(load)
+                        setOpenModalAI(false)
+                        fetchContentHistory()
+                    }
+                }
+            />
+            <AppModalEditContent
+                open={openModalEdit}
+                onCloseButton = {(value)=> {
+                    setOpenModalEdit(value)
+                }}
+            />
+            <AppModalDetailContent
+                open= {openModalDetail}
+                image = {contentDetail ? contentDetail.image : ''}
+                caption = {contentDetail ? contentDetail.caption : ''}
+                hashtag = {contentDetail ? contentDetail.hashtag : ""}
+                platform = {contentDetail ? contentDetail.platform : ""}
+                productName = {contentDetail ? contentDetail.productName : ""}
+                idProduct={contentDetail ? contentDetail.idProduct : ""}
+                idContent={contentDetail ? contentDetail.idContent : ""}
+                onClick = {()=> {}}
+                onEditButton = {()=> {
+                    setOpenModalDetail(false)
+                    setOpenModalEdit(true)
+                    dispatch(setGenerateAI(contentDetail)) 
+
+                }}
+                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+            />
+            <AppModal
+                    withClose = {false}
+                    open = {openModalLoading}
+                    width={'w-[35%]'}
+                >
+                    <Box className ='flex flex-col items-center gap-[40px]'>
+                        <CircularProgress style={{color : '#F45B69'}}  />
+                        <Box className='flex flex-col items-center '>
+                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
+                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
+                        </Box>
+                    </Box>
+            </AppModal>
             <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[86%]`}>
                 {/* 
                 *
@@ -339,8 +395,6 @@ const GenerateAIPage = () => {
                         </Box>
                         <Box className='h-[100%] py-[10px]  pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
-
-
                                 contentAIHistoryLoading ? 
 
                                 <>
@@ -362,8 +416,8 @@ const GenerateAIPage = () => {
                                         <AppContentFilter
                                             key={index}
                                             title = {data.contentTitle}
-                                            subtitle = {data.productName}
-                                            contentTypes = {contentTypes.join(',').split(/,,|, /)}
+                                            subtitle = {productList[data.idProduct - 1 ].text}
+                                            contentTypes = {contentTypes.join(' ')}
                                             platform = {data.platform}
                                             onClick= {()=>{
                                                 const contentAIConvert = mappingGenerateCurrentAIValue(data);
@@ -384,54 +438,6 @@ const GenerateAIPage = () => {
                     </Box>
                 </Box>
             </Box>    
-             {/*  */}
-            <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
-                onClick = { ( value ) => {  
-                    setContentAI(value) 
-                }}
-                onLoad = {
-                    (load)=>{
-                        setOpenModalLoading(load)
-                        setOpenModalAI(false)
-                    }
-                }
-            />
-            <AppModalEditContent
-                open={openModalEdit}
-                onCloseButton = {(value)=> {
-                    setOpenModalEdit(value)
-                }}
-            />
-            <AppModalDetailContent
-                open= {openModalDetail}
-                image = {contentDetail ? contentDetail.image : ''}
-                caption = {contentDetail ? contentDetail.caption : ''}
-                hashtag = {contentDetail ? contentDetail.hashtag : ""}
-                platform = {contentDetail ? contentDetail.platform : ""}
-                productName = {contentDetail ? contentDetail.productName : ""}
-                onClick = {()=> {}}
-                onEditButton = {()=> {
-                    setOpenModalDetail(false)
-                    setOpenModalEdit(true)
-                    dispatch(setGenerateAI(contentDetail)) 
-
-                }}
-                onCloseButton = {(value)=> {setOpenModalDetail(value)}}
-            />
-            <AppModal
-                    withClose = {false}
-                    open = {openModalLoading}
-                    width={'w-[35%]'}
-                >
-                    <Box className ='flex flex-col items-center gap-[40px]'>
-                        <CircularProgress style={{color : '#F45B69'}}  />
-                        <Box className='flex flex-col items-center '>
-                            <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
-                            <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
-                        </Box>
-                    </Box>
-            </AppModal>
-            <ToastContainer/>
         </AppLayout>
     ) 
 }

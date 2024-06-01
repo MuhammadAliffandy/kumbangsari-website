@@ -53,7 +53,7 @@ export const validateEmail = (value ) => {
     return isValid || errorMessage;
 }
 
-export const validatePhoneNumber = (value  ) => {
+export const validatePhoneNumber = (value) => {
     let isValid  = true;
     let errorMessage = '';
 

@@ -18,14 +18,14 @@ const AppContent = (props) => {
                 }
                 <Box className = 'grow flex flex-col gap-[8px]'> 
                     {
-                        props.caption ? <Box className = 'h-[34px] overflow-hidden w-[80%] '>
-                        <p className='text-[12px] text-TEXT-1 font-semibold '>{props.caption}</p>
+                        props.caption ? <Box className = 'h-[34px] overflow-hidden w-[100%] '>
+                        <p className='text-[12px] text-TEXT-1 font-semibold break-words'>{props.caption}</p>
                         </Box> : null
                     }
                     {
                         props.hashtag ? 
-                        <Box className = 'h-[18px] overflow-hidden w-[75%]'>
-                                <p className='text-[10px] text-PRIMARY-400'>{props.hashtag}</p>
+                        <Box className = 'h-[18px] overflow-hidden w-[100%]'>
+                                <p className='text-[10px] text-PRIMARY-400 break-words'>{props.hashtag}</p>
                         </Box> : null
                     }
                     {

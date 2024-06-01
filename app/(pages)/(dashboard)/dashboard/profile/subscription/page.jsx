@@ -296,9 +296,9 @@ const SubscriptionPage = () => {
                                             <Box className=' w-[50vw] xl:w-[15vw] flex flex-col gap-[6px] bg-white rounded-[15px] p-[15px] shadow-xl absolute'>
                                                 {
                                                     user.subscription ? 
-                                                    subscriptionList[user.subscription - 1 ||  0].benefit.map(data => {
+                                                    subscriptionList[user.subscription - 1 ||  0].benefit.map((data , index) => {
                                                         return(
-                                                            <span className="flex text-TEXT-1">
+                                                            <span key={index} className="flex text-TEXT-1">
                                                                 <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
                                                                 <p className="text-[14px]">{data}</p>
                                                             </span>

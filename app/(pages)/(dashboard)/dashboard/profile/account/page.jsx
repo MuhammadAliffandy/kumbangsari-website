@@ -55,8 +55,7 @@ const ProfilePage = () => {
         try {
             const res = await getUserProfile()
             
-            if(res.status === 'OK'){
-                console.log(res.data)
+            if(res.status === 'OK'){ 
                 setUser(res.data)
             }
             setUserLoading(false)
@@ -66,14 +65,17 @@ const ProfilePage = () => {
         }
     }
     
-    const onSubmit= async (data ) => {
+    const onSubmit= async () => {
         
         try {
             const formData = new FormData();
 
-            formData.append('name',data.name)
-            formData.append('phoneNumber',data.phoneNumber)
-            formData.set('image',imgPayload , imgPayload.name)
+            formData.append('name',name)
+            formData.append('phoneNumber',phoneNumber)
+            
+            if(imgPayload){
+                formData.set('image',imgPayload , imgPayload.name)
+            }
             
             const res = await editUserProfile(formData)
             
@@ -150,7 +152,7 @@ const ProfilePage = () => {
                             </AppAnimationButton>
                         </Box>
                         <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] border-[1px] border-TEXT-4 hover:shadow-xl'>
-                            <form onSubmit={handleSubmit(onSubmit)}  className='flex flex-col gap-[20px] w-[100%]'>
+                            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[20px] w-[100%]'>
                                 <label className='text-black font-semibold'>Nama</label>
                                 <AppTextField
                                         id="name"

@@ -70,7 +70,7 @@ const SubscriptionList = (props) => {
                                             {
                                                 data.benefit.map((data,index)=>{
                                                     return(
-                                                        <span className="flex">
+                                                        <span key={index} className="flex">
                                                             <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
                                                             <p className="text-[14px]">{data}</p>
                                                         </span>
