@@ -33,6 +33,7 @@ const AppPopupImage = (props) => {
                     {
                         <Grid container spacing={2} >
                             {
+                                props.images.length == 0 && props.isDashboard ? null :
                                 props.images.length != 0 ?
 
                                 props.images.map((data,index)=>{

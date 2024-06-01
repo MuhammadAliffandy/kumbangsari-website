@@ -58,6 +58,7 @@ const AppPopupCaption = (props) => {
 
                     <Box className={`flex flex-col gap-[15px] w-[100%] h-[100%]`}>
                         {
+                            props.captions.length == 0 && props.isDashboard ?  null :
                             props.captions.length != 0 ?
 
                             props.captions.map((data,index)=>{
