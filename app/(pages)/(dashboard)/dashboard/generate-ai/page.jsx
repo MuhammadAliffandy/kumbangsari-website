@@ -45,8 +45,8 @@ const GenerateAIPage = () => {
     const generateAIContentHistory = useSelector( state => state.generateAIContentHistory.value )
     const generateListContent = useSelector(state => state.generateAI.value)
     // state loading
-    const [contentAILoading  , setContentAILoading ] = useState(false)
-    const [contentAIHistoryLoading  , setContentAIHistoryLoading ] = useState(false)
+    const [contentAILoading  , setContentAILoading ] = useState(true)
+    const [contentAIHistoryLoading  , setContentAIHistoryLoading ] = useState(true)
     const [openModalLoading , setOpenModalLoading ] = useState(false)
     // state modal
     const [openModalAI , setOpenModalAI ] = useState(false)
@@ -54,8 +54,10 @@ const GenerateAIPage = () => {
     const [openModalEdit , setOpenModalEdit ] = useState(false)
     // state data
     const [prev , setPrev ] = useState(true)
+    const [currentContentAI , setCurrentContentAI ] = useState([])
     const [contentAI , setContentAI ] = useState([])
     const [contentAIHistory , setContentAIHistory ] = useState([])
+    const [currentContentAIHistory , setCurrentContentAIHistory ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
     const [productList , setProductList] = useState([])
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
@@ -74,6 +76,7 @@ const GenerateAIPage = () => {
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
+        
         if(res.status = 'OK'){
             const currentData = res.data.filter(data => {
                 if(userSubscription <= 2){
@@ -175,6 +178,7 @@ const GenerateAIPage = () => {
                     }
                 })
         
+                setCurrentContentAIHistory(currentData)
                 setContentAIHistory(currentData)
                 setContentAIHistoryLoading(false)
             }else{
@@ -195,6 +199,7 @@ const GenerateAIPage = () => {
             if(res.status == 'OK'){
                 const contentAIConvert = await mappingGenerateCurrentAIValue(res.data);
                 setOpenModalLoading(false)
+                setCurrentContentAI(contentAIConvert)
                 setContentAI(contentAIConvert)
                 setContentAILoading(false)
             }else{
@@ -218,6 +223,24 @@ const GenerateAIPage = () => {
             }
         } catch (error) {
             toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
+    const handleFilterContentHistory = (target) => {
+
+        
+        if(contentAIHistory.length > 0 ){
+            const filteredData = currentContentAIHistory.filter(data => {
+                if(target.product.indexOf(productList[data.idProduct - 1].text) > -1 || target.platform.indexOf(data.platform) > -1 ){
+                    return data
+                }
+            })
+            console.log(filteredData)
+            setContentAIHistory(filteredData)
+        }
+        
+        if(target.product.length == 0 || target.platform.length == 0 ){
+            setContentAIHistory(currentContentAIHistory)
         }
     }
 
@@ -303,10 +326,7 @@ const GenerateAIPage = () => {
                     </Box>
             </AppModal>
             <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[86%]`}>
-                {/* 
-                *
-                *
-                */}
+                {/* */}
                 <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[100%] `}>
                     <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
@@ -368,10 +388,7 @@ const GenerateAIPage = () => {
                     </Box>
 
                 </Box>
-                {/* 
-                *
-                *
-                */}
+                {/* */}
                 <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
                     <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4  hover:shadow-xl '>
@@ -384,11 +401,11 @@ const GenerateAIPage = () => {
                                 listPlatformCheckbox={platformCheckBoxFilter}
                                 onCheckProduct = {(value)=>{ 
                                     setProductCheckboxFilter(value.product)
-                                    dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
+                                    handleFilterContentHistory(value)
                                 }}
                                 onCheckPlatform = {(value)=>{ 
                                     setPlatformCheckboxFilter(value.platform)
-                                    dispatch(filterContentHistory({ product : value.product , platform : value.platform }))
+                                    handleFilterContentHistory(value)
 
                                 }}
                             />
@@ -422,7 +439,6 @@ const GenerateAIPage = () => {
                                             onClick= {()=>{
                                                 const contentAIConvert = mappingGenerateCurrentAIValue(data);
                                                 setContentAI(contentAIConvert)
-                                                console.log(data)
                                             }}
                                             onDeleteButton={()=>{
                                                 handleDeleteContentHistory(data.idContent)

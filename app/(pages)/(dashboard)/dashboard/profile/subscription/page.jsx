@@ -7,6 +7,8 @@ import AppModalPaymentDetail from '@/app/(pages)/(dashboard)/dashboard/profile/s
 import { convertToIndonesianDate, formatRupiahNumber, formattedDate } from "@/app/utils/helper";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
+import AppModal  from '@/app/components/appModal/appModal'
 import LinearProgress from '@mui/material/LinearProgress';
 import AppCustomModal from "../../../../../components/appModal/AppCustomModal";
 import AppModalSuccessPay from './component/appModalSuccessPay'
@@ -35,6 +37,8 @@ const SubscriptionPage = () => {
     const [ paymentDetailModal ,  setPaymentDetailModal ] = useState(false)
     const [ subscriptionListModalAdded ,  setSubscriptionListModalAdded ] = useState(false)
     const [ subscriptionListModal ,  setSubscriptionListModal ] = useState(false)
+    // state load
+    const [ payTransactionLoading , setPayTransactionLoading  ] = useState(false)
     // state hover
     const [infoPacket , setInfoPacket ] = useState(false)
     // state data
@@ -64,6 +68,9 @@ const SubscriptionPage = () => {
 
     const fetchPaymentTransaction = async () => {
         try {
+
+            setPayTransactionLoading(true)
+
             const res = await getPaymentTransaction()
             if(res.status == 'OK'){
 
@@ -78,13 +85,15 @@ const SubscriptionPage = () => {
                         data.invoiceUrl
                     )
                 })
-
                 setPaymentTransactions(data)
+                setPayTransactionLoading(false)
             }else{
                 toast.error('List Pembayaran gagal dimuat')
+                setPayTransactionLoading(false)
             }
         } catch (error) {
             toast.error('Ada Kesalahan Server (500)')
+            setPayTransactionLoading(false)
         }
     }
 
@@ -177,6 +186,19 @@ const SubscriptionPage = () => {
 
     return(
         <AppLayout title={'Profil > Berlangganan'} >
+            <AppModal
+                withClose = {false}
+                open = {payTransactionLoading}
+                width={'w-[35%]'}
+            >
+                <Box className ='flex flex-col items-center gap-[40px]'>
+                    <CircularProgress style={{color : '#F45B69'}}  />
+                    <Box className='flex flex-col items-center text-center '>
+                        <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Memuat...</p>
+                        <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar yaa !!</p>
+                    </Box>
+                </Box>
+            </AppModal>
             <AppModalSuccessPay
                 open ={modalSuccessPay}
                 onCloseButton={ value => {setModalSuccessPay(value)}}

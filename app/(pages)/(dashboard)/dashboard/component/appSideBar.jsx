@@ -60,7 +60,7 @@ const AppSidebar = (props)=> {
                         style = {`grow relative `}
                         active={props.title.split(' > ')[0] == 'Profil' ? true : false}
                         onClick={value => {
-                            console.log(value)
+                    
                         }}
                         componentHandle = {
                             <AppNavSidebar

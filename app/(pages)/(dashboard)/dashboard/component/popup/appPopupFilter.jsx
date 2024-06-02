@@ -90,7 +90,7 @@ const AppPopupFilter = (props) => {
                         <Box className ='flex flex-col xl:flex-row gap-[10px] xl:gap-[80px]'>
                             <AppCheckBox
                                 value= 'instagram'
-                                label = 'Instagram'
+                                label = 'instagram'
                                 status = {props.listPlatformCheckbox.indexOf('instagram') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)
@@ -98,7 +98,7 @@ const AppPopupFilter = (props) => {
                             />
                             <AppCheckBox
                                 value= 'facebook'
-                                label = 'Facebook'
+                                label = 'facebook'
                                 status = {props.listPlatformCheckbox.indexOf('facebook') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)
@@ -106,7 +106,7 @@ const AppPopupFilter = (props) => {
                             />
                             <AppCheckBox
                                 value= 'twitter'
-                                label = 'Twitter'
+                                label = 'twitter'
                                 status = {props.listPlatformCheckbox.indexOf('twitter') > -1 ? 'added' : 'reset'}
                                 onChange= {(value , label)=>{
                                     handleCheckPlatform(value,label)

@@ -34,7 +34,7 @@ const  AppCheckBox = (props) => {
                     handleChange(event)
                 }}
             />
-            <label className="ml-2 text-sm text-gray-700 font-poppins text-[10px] font-medium">{props.label}</label>
+            <label className="ml-2 text-sm text-gray-700 font-poppins text-[10px] font-medium">{props.label.charAt(0).toUpperCase() + props.label.slice(1)}</label>
         </div>
     );
 }

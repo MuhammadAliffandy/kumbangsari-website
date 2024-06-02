@@ -45,6 +45,7 @@ const ProductListPage = () => {
     const [modalDeleted , setModalDeleted] = useState(false)
     const [modalEdited , setModalEdited] = useState(false)
     // state data
+    const [currentUserTableHistory , setCurrentUserTableHistory] = useState([])
     const [userTableHistory , setUserTableHistory] = useState([])
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
@@ -94,9 +95,26 @@ const ProductListPage = () => {
                     data.status,
                 )
             })
+            setCurrentUserTableHistory(dataHistory)
             setUserTableHistory(dataHistory)
         }else{
             toast.error('Data User History Gagal')
+        }
+    }
+
+    const handleFilterConnectHistory = (target) => {
+
+        if(currentUserTableHistory.length > 0 ){
+            const filteredData = currentUserTableHistory.filter(data => {
+                if(target.product.indexOf(data.productName) > -1 || target.platform.indexOf(data.platform) > -1 ){
+                    return data
+                }
+            })
+            setUserTableHistory(filteredData)
+        }
+
+        if(target.product.length == 0 || target.platform.length == 0 ){
+            setUserTableHistory(currentUserTableHistory)
         }
     }
 
@@ -217,7 +235,7 @@ const ProductListPage = () => {
                     </>
                 }
             />
-            <Box className='grow h-[86%] p-[20px] flex flex-col gap-[20px]'>
+            <Box className='grow h-[86%] p-[20px] flex flex-col gap-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                 {/*  */}
                 <Box className='flex items-center justify-between'>
                     <p className="text-TEXT-1 font-bold text-[16px]">Daftar Produk</p> 
@@ -280,9 +298,11 @@ const ProductListPage = () => {
                                 listPlatformCheckbox={platformCheckBoxFilter}
                                 onCheckProduct = {(value)=>{ 
                                     setProductCheckboxFilter(value.product)
+                                    handleFilterConnectHistory(value)
                                 }}
                                 onCheckPlatform = {(value)=>{ 
                                     setPlatformCheckboxFilter(value.platform)
+                                    handleFilterConnectHistory(value)
 
                                 }}
                             />

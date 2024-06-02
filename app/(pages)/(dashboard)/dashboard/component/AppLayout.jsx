@@ -126,7 +126,7 @@ const AppLayout = (props) => {
     return (
             <Box className=  'w-[100%] h-[100vh] flex'>
                 {
-                    sm  || md || lg? 
+                    sm  || md || lg || xl? 
                         null
                     :
 
@@ -142,12 +142,12 @@ const AppLayout = (props) => {
                         />
                     </Box>
                 }
-                <Box className={` ${ sm || md || lg ? 'w-[100%]' : 'w-[86%]' } h-[100vh] flex-none flex  flex-col`}>
+                <Box className={` ${ sm || md || lg || xl ? 'w-[100%]' : 'w-[86%]' } h-[100vh] flex-none flex  flex-col`}>
                     <nav className='w-[100%] flex-none h-auto bg-NEUTRAL-100 py-[15px] px-[30px] flex items-center justify-between border-b-[1px] border-b-TEXT-4 '>
                         <Box className = 'flex items-center gap-[20px]' >
                             {
 
-                                sm || lg || md ? 
+                                sm || lg || md || xl? 
 
                                 <AppDrawer>
                                     <AppSidebar

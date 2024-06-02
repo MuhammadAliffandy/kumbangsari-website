@@ -76,14 +76,16 @@ const CalenderPage = () => {
     } 
 
     const handleChangeCheckbox = (listCheckbox) => {
-      console.log(listCheckbox)
-      if(listCheckbox.product.length == 0 && listCheckbox.platform.length == 0){
-        setCalendar( currentCalendar)
-      }else{
+    
+      if(currentCalendar.length > 0){
         const calenderChange = calendar.filter(data => { 
-          return listCheckbox.product.indexOf(data.idProduct) > -1 || listCheckbox.platform.indexOf(data.platform) > -1
+          return listCheckbox.product.indexOf(productList[data.idProduct - 1].text) > -1 || listCheckbox.platform.indexOf(data.platform) > -1
         })
         setCalendar( calenderChange)
+      }
+      
+      if(listCheckbox.product.length == 0 && listCheckbox.platform.length == 0){
+        setCalendar(currentCalendar)
       }
     }
     
