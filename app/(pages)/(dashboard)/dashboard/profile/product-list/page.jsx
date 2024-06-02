@@ -113,7 +113,7 @@ const ProductListPage = () => {
             setUserTableHistory(filteredData)
         }
 
-        if(target.product.length == 0 || target.platform.length == 0 ){
+        if(target.product.length == 0 && target.platform.length == 0 ){
             setUserTableHistory(currentUserTableHistory)
         }
     }

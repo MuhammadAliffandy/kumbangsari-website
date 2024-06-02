@@ -227,19 +227,18 @@ const GenerateAIPage = () => {
     }
 
     const handleFilterContentHistory = (target) => {
-
         
-        if(contentAIHistory.length > 0 ){
+        if(currentContentAIHistory.length > 0 ){
             const filteredData = currentContentAIHistory.filter(data => {
                 if(target.product.indexOf(productList[data.idProduct - 1].text) > -1 || target.platform.indexOf(data.platform) > -1 ){
                     return data
                 }
             })
-            console.log(filteredData)
+        
             setContentAIHistory(filteredData)
         }
-        
-        if(target.product.length == 0 || target.platform.length == 0 ){
+
+        if(target.product.length == 0 && target.platform.length == 0 ){
             setContentAIHistory(currentContentAIHistory)
         }
     }
@@ -263,7 +262,7 @@ const GenerateAIPage = () => {
             fetchContentHistory()
         }
     },[
-        productList,
+        productList
     ])
 
     useEffect(()=> {
