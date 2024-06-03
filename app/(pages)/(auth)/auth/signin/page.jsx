@@ -64,8 +64,16 @@ const SignInPage = () => {
         } catch (error) {
             setOpenModalLoading(false)
             setLoadingProgress(100)
-            toast.error('Email atau Kata Sandi Salah')
-            console.log(error)
+
+            if(error.status == 401){
+                toast.error('Email atau Kata Sandi Salah')
+                
+            }else if(error.status == 404){
+                toast.error('Akun Tidak Terdaftar')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+
         }
     };
 

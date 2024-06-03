@@ -213,11 +213,13 @@ const AppModalAddContent = (props) => {
                 props.onDone()
                 push('/dashboard/calendar')
 
-            }else{
-                toast.error('Tambah Content Gagal')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Sever (500)')
+            if(error.status == 404 ){
+                toast.error('Tambah Content Gagal')
+            }else{
+                toast.error('Ada Kesalahan Sever (500)')
+            }
         }
 
 

@@ -14,12 +14,24 @@ export const PROVIDER_GET = async (pathUrl, token) => {
             case 200:
             case 201:
                 return response.data;
-            case 403:
-                throw new Error("forbidden");
             default:
                 throw new Error("error");
         }
     } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const errorResponse = err.response;
+            if (errorResponse) {
+                switch (errorResponse.status) {
+                    case 401:
+                        throw errorResponse;
+                    case 403:
+                        throw errorResponse;
+                    default:
+                        throw new Error("error");
+                }
+            }
+        }
+
         throw err;
     }
 }
@@ -32,7 +44,6 @@ export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => 
 
     try {
         const response = await axios.post(`${BASE_URL}/${pathUrl}`, data, { headers });
-
         switch (response.status) {
             case 200:
             case 201:
@@ -41,14 +52,15 @@ export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => 
                 throw new Error("error");
         }
     } catch (err) {
+
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response.data;
+            const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
                         throw errorResponse;
                     case 403:
-                        throw new Error("forbidden");
+                        throw errorResponse;
                     case 404:
                         throw errorResponse;
                     default:
@@ -56,6 +68,7 @@ export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => 
                 }
             }
         }
+
         throw err;
     }
 }
@@ -79,13 +92,13 @@ export const PROVIDER_DELETE = async (pathUrl , token ) => {
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response.data;
+            const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
                         throw errorResponse;
                     case 403:
-                        throw new Error("forbidden");
+                        throw errorResponse;
                     case 404:
                         throw errorResponse;
                     default:
@@ -115,13 +128,13 @@ export const PROVIDER_PUT = async (pathUrl, data , token , type = 'object') => {
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response.data;
+            const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
                         throw errorResponse;
                     case 403:
-                        throw new Error("forbidden");
+                        throw errorResponse;
                     case 404:
                         throw errorResponse;
                     default:
@@ -151,13 +164,13 @@ export const PROVIDER_PATCH = async (pathUrl, data , token , type = 'object') =>
         }
     } catch (err) {
         if (axios.isAxiosError(err)) {
-            const errorResponse = err.response.data;
+            const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
                     case 401:
                         throw errorResponse;
                     case 403:
-                        throw new Error("forbidden");
+                        throw errorResponse;
                     case 404:
                         throw errorResponse;
                     default:

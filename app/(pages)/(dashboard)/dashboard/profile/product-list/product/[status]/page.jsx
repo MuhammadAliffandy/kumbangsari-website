@@ -129,12 +129,14 @@ const ProductDetailPage = () => {
             if(res.status == 'OK'){
                 toast.success('Berhasil Edit Product')
                 getUserProduct()
-            }else{
-                toast.error('Gagal Edit Product')
             }
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Gagal Edit Product')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
 
@@ -147,12 +149,14 @@ const ProductDetailPage = () => {
                 toast.success('Berhasil Delete Product')
                 push('/dashboard/profile/product-list')
                 setModalDeleteProduct(false)
-            }else{
-                toast.error('Gagal Delete Product')
-                setModalDeleteProduct(false)
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Gagal Delete Product')
+                setModalDeleteProduct(false)
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
 

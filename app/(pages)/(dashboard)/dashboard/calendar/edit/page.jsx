@@ -206,13 +206,14 @@ const CalendarEditPage = () => {
             if(res.status == 'OK'){
                 toast.success('Edit Content AI Berhasil')
                 push('/dashboard/calendar')
-            }else{
-                toast.error('Edit Content Gagal')
             }
 
         } catch (error) {
-            console.log(error)
-            toast.error('Ada Kesalahan Server')
+            if(error.status == 404){
+                toast.error('Edit Content Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server')
+            }
         }
 
     }

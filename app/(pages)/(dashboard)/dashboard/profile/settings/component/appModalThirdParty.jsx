@@ -16,11 +16,14 @@ const AppModalThirdParty = (props) => {
             if(res.status == 'OK'){
                 toast.success('Hapus Akses Berhasil')
                 props.onCloseButton(false)
-            }else{
-                toast.error('Hapus Akses Gagal')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Hapus Akses Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+                
         }
     }
 

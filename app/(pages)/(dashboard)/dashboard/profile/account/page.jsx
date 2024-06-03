@@ -60,8 +60,13 @@ const ProfilePage = () => {
             }
             setUserLoading(false)
         } catch (error) {
-            toast.error('Authentication Failed')
             setUserLoading(false)
+            if(error.status == 401){
+                toast.error('Authentication Failed') 
+            }else{
+                toast.error('Ada Kesalahan Server (500)') 
+
+            }
         }
     }
     
@@ -81,12 +86,14 @@ const ProfilePage = () => {
             
             if(res.status === 'OK'){
                 toast.success('Edit Profile Berhasil')
-            }else{
-                toast.error('Edit Profile Gagal')
             }
             
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Edit Profile Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
 
     };

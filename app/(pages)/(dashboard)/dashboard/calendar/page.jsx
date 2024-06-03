@@ -66,12 +66,15 @@ const CalenderPage = () => {
           setCalendar(currentData.map(data => {
             return {...data , productName : productList[data.idProduct - 1]?.text}
           }))
-        }else{
-          toast.error('Calendar Content Error')
         }
 
       } catch (error) {
-        toast.error('Ada Kesalahan Sever (500)')
+        if(error.status == 404){
+          toast.error('Calendar Content Error')
+        }else{
+
+          toast.error('Ada Kesalahan Sever (500)')
+        }
       }
     } 
 

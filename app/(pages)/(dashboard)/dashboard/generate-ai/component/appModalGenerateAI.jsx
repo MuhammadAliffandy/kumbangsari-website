@@ -127,13 +127,16 @@ const  AppModalGenerateAI = (props ) => {
                 console.log('GENERATE OK')
                 props.onLoad(load = false)
                 props.onClick(mapping)
-            }else{
-                toast.error('Generate Content AI Gagal')
-                
             }
         } catch (error) {
-            console.log(error.errors)
-            toast.error('Ada Kesalahan Server')
+            if(error.status == 403){
+                toast.error('AI Generate Sudah Limit')
+            }else if(error.status == 404){
+                toast.error('Generate Content AI Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server')
+            }
+
         }
     }
 

@@ -111,11 +111,13 @@ const SubscriptionPage = () => {
 
             if(res.status == 'OK'){
                 setUserSubscription(res.data)
-            }else{
-                toast.error('Silahkan Berlangganan dulu!!')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Silahkan Berlangganan dulu!!') 
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
             
         }
     }
@@ -130,13 +132,15 @@ const SubscriptionPage = () => {
                 fetchPaymentTransaction()
                 toast.success('Berhenti Berlangganan Berhasil')
                 
-            }else{
-                setStopSubscription(false)
-                toast.error('Berhenti Berlangganan Gagal')
             }
-
+            
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            setStopSubscription(false)
+            if(error.status == 404){
+                toast.error('Berhenti Berlangganan Gagal') 
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }        
     }
 
@@ -158,7 +162,11 @@ const SubscriptionPage = () => {
             }
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Transaksi Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
 
@@ -181,7 +189,11 @@ const SubscriptionPage = () => {
             }
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 404){
+                toast.error('Transaksi Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
 

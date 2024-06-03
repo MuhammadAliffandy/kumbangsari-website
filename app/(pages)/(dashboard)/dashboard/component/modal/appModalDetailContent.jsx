@@ -47,9 +47,6 @@ const AppModalDetailContent = (props) => {
                         toast.success('Posting Konten Berhasil')
                         props.onCloseButton(false)
                         
-                    }else{
-                        toast.error('Posting Konten Gagal')
-            
                     }
                     
                 }else{
@@ -58,7 +55,13 @@ const AppModalDetailContent = (props) => {
             }
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            if(error.status == 403){
+                toast.error('Jumlah Post Sudah Limit')
+            }else if(error.status == 404){
+                toast.error('Posting Konten Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
         }
     }
     
