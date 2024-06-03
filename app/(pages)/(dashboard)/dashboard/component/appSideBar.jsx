@@ -96,7 +96,7 @@ const AppSidebar = (props)=> {
                                     text={'Berlangganan'}
                                     active={props.title.split(' > ')[1] == 'Berlangganan' ? true : false}
                                     child = {true}
-                                    urlNavigation='/dashboard/profile/subscription'
+                                    urlNavigation='/dashboard/profile/subscription/pay'
                                     isSubscription={true }
                                 />
                                 <AppNavSidebar

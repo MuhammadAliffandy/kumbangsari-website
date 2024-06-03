@@ -22,11 +22,13 @@ import { addProduct } from '@/app/api/repository/productRepository';
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { getCurrentUser } from '@/app/api/repository/authRepository';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const AppModalAddProduct = (props) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const userSubscription = useSelector(state => state.userSubscription.value) 
     const [nameProduct, setNameProduct] = useState('');
     const [ categoryProduct, setCategoryProduct ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
@@ -44,7 +46,7 @@ const AppModalAddProduct = (props) => {
 
             const currentUser = await getCurrentUser(); 
 
-            if(currentUser.data.countProduct < 3){
+            if(currentUser.data.countProduct < 3 && userSubscription == 3){
                 const genderValue = localStorage.getItem('gender') ;
                 const schoolValue = localStorage.getItem('school');
                 const jobValue = localStorage.getItem('job');

@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
 import { setUserSubscriptionData } from '@/app/redux/slices/userSubscriptionSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 
 const AppLayout = (props) => {
 
@@ -28,6 +28,7 @@ const AppLayout = (props) => {
 
     const { push } = useRouter()
     const dispatch = useDispatch()
+    const userSubs = JSON.parse(useSelector(state => state.userSubscription.value) || null)
 
     const [dateNow, setDateNow] = useState('');
     const [user, setUser] = useState([]);
@@ -45,7 +46,7 @@ const AppLayout = (props) => {
         if(res.status == 'OK') {
             setUserSubscription(res.data.subscription)
             if(res.data.subscription == null ){
-                push('/dashboard/profile/subscription')
+                push(`/dashboard/profile/subscription/pay`)
             }                          
         }
     }
@@ -65,41 +66,42 @@ const AppLayout = (props) => {
 
     const fetchUserList = async () => {
         try {
-            
-            const accountSwitchList = []
-            const accountListFiltered = []
+            if(accountList.length > 0){
+                const accountSwitchList = []
+                const accountListFiltered = []
 
-            for(let i = 0 ; i < 3 ; i++ ){
-                const res = await getUserByToken(accountList[i])
-            
-                if(res.status === 'OK'){
-                    accountSwitchList.push({ ...res.data , token : accountList[i]})
-                }else{
-                    accountListFiltered.push(accountList[i]);
+                for(let i = 0 ; i < 3 ; i++ ){
+                    const res = await getUserByToken(accountList[i])
+                
+                    if(res.status === 'OK'){
+                        accountSwitchList.push({ ...res.data , token : accountList[i]})
+                    }else{
+                        accountListFiltered.push(accountList[i]);
+                    }
                 }
+
+                // filtered account switched on data storage 
+
+                const accountListFinishChecked = accountList.filter((data)=>{
+                    if(accountListFiltered.indexOf(data) <= -1){
+                        return data
+                    }
+                })
+                localStorage.setItem('accountList',JSON.stringify(accountListFinishChecked))
+
+                // filtered account switched list
+
+                const uniqAccountList = Array.from(
+                    new Map(accountSwitchList.map(user => [user.email, user])).values()
+                );
+
+                const accSwitched = uniqAccountList.filter(data => {
+                    if(data.email !== user.email){
+                        return data
+                    }
+                } )
+                setAccountSwitched(accSwitched)
             }
-
-            // filtered account switched on data storage 
-
-            const accountListFinishChecked = accountList.filter((data)=>{
-                if(accountListFiltered.indexOf(data) <= -1){
-                    return data
-                }
-            })
-            localStorage.setItem('accountList',JSON.stringify(accountListFinishChecked))
-
-            // filtered account switched list
-
-            const uniqAccountList = Array.from(
-                new Map(accountSwitchList.map(user => [user.email, user])).values()
-            );
-
-            const accSwitched = uniqAccountList.filter(data => {
-                if(data.email !== user.email){
-                    return data
-                }
-            } )
-            setAccountSwitched(accSwitched)
         } catch (error) {
             if(error.response.status === 400){
             }else{
@@ -136,7 +138,7 @@ const AppLayout = (props) => {
                             { xl ? '' : <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>}
                         </Box>
                         <AppSidebar
-                            isSubscription={userSubscription != null ? true : false}
+                            isSubscription={userSubs != null ? true : false}
                             isDrawer = {false}
                             title = {props.title}
                         />
@@ -151,7 +153,7 @@ const AppLayout = (props) => {
 
                                 <AppDrawer>
                                     <AppSidebar
-                                        isSubscription={userSubscription != null ? true : false}
+                                        isSubscription={userSubs != null ? true : false}
                                         isDrawer = {true}
                                         title = {props.title}
                                     />
@@ -233,8 +235,13 @@ const AppLayout = (props) => {
                                             className='w-[100%] text-[14px] xl:text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
                                             text={sm ? '+' : 'Tambah Akun' }
                                             onClick={()=>{
-                                                push('/auth/signin')
-                                                localStorage.setItem('isAccountAdd' , true)
+                                                console.log(accountSwitched)
+                                                if(accountSwitched.length >= 2){
+                                                    toast.warn('Jumlah Akun Sudah Maksimal')
+                                                }else{
+                                                    push('/auth/signin')
+                                                    localStorage.setItem('isAccountAdd' , true)
+                                                }
                                             }}
                                         />
                                     </div>

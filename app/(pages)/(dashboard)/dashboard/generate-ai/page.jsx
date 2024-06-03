@@ -206,10 +206,12 @@ const GenerateAIPage = () => {
                 setContentAI(contentAIConvert)
                 setContentAILoading(false)
                 
+                setContentAILoading(false)
             }
         }else{
             setContentAILoading(false)
         }
+        setContentAILoading(false)
     }
 
     const handleDeleteContentHistory = async (contentId) => {

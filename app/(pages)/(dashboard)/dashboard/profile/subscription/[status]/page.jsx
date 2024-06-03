@@ -1,6 +1,6 @@
 'use client'
 import AppTablePayment from "@/app/components/appTable/appTablePayment";
-import AppLayout from "../../component/appLayout";
+import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout";
 import AppButton from "@/app/components/appButton/appButton";
 import AppModalSubscriptionList from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/subscriptionListModal'
 import AppModalPaymentDetail from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/appModalPaymentDetail'
@@ -10,16 +10,19 @@ import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import AppModal  from '@/app/components/appModal/appModal'
 import LinearProgress from '@mui/material/LinearProgress';
-import AppCustomModal from "../../../../../components/appModal/AppCustomModal";
-import AppModalSuccessPay from './component/appModalSuccessPay'
-import AppModalFailedPay from './component/appModalFailedPay'
-import AppModalPendingPay from './component/appModalPendingPay'
+import AppCustomModal from "@/app/components/appModal/AppCustomModal";
+import AppModalSuccessPay from '../component/appModalSuccessPay'
+import AppModalFailedPay from '../component/appModalFailedPay'
+import AppModalPendingPay from '../component/appModalPendingPay'
 import { useEffect, useState } from "react";
 import { getUserSubscription , stopUserSubscription} from "@/app/api/repository/subscriptionRepository";
 import { createPayment, getPaymentTransaction, validatePaymentStatus } from "@/app/api/repository/paymentRepository";
-import SubscriptionList, { subscriptionList } from "./component/subscriptionList";
+import SubscriptionList, { subscriptionList } from "../component/subscriptionList";
 import { toast } from "react-toastify";
 import { getCurrentUser } from "@/app/api/repository/authRepository";
+import { useParams , useRouter} from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setUserSubscriptionData } from "@/app/redux/slices/userSubscriptionSlice";
 
 
 const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl ) => {
@@ -28,6 +31,10 @@ const createDataPayment = (date, packet, price, status, expiryDate , updatedAt ,
 
 
 const SubscriptionPage = () => {
+
+    const dispatch = useDispatch()
+    const params = useParams()
+    const statusPaymentParams = params.status 
 
     // state modal 
     const [modalSuccessPay , setModalSuccessPay ] = useState(false)
@@ -48,6 +55,7 @@ const SubscriptionPage = () => {
     const [ subscriptionDetail ,  setSubscriptionDetail ] = useState([])
     const [ userSubscription ,  setUserSubscription ] = useState([])
     const [ paymentTransactions ,  setPaymentTransactions ] = useState([])
+
 
 
     const fetchCurrentUser = async () => {
@@ -121,7 +129,7 @@ const SubscriptionPage = () => {
                 fetchUserSubscription()
                 fetchPaymentTransaction()
                 toast.success('Berhenti Berlangganan Berhasil')
-                window.location.reload()
+                
             }else{
                 setStopSubscription(false)
                 toast.error('Berhenti Berlangganan Gagal')
@@ -169,6 +177,7 @@ const SubscriptionPage = () => {
                 setSubscriptionListModal(false)
                 setPaymentDetailModal(false)
                 fetchPaymentTransaction()
+                dispatch(setUserSubscriptionData(null))
             }
 
         } catch (error) {
@@ -182,6 +191,13 @@ const SubscriptionPage = () => {
         fetchPaymentTransaction()
         fetchUserSubscription()
     },[])
+
+
+    useEffect( ()=> {
+        if(statusPaymentParams == 'success' || statusPaymentParams == 'failed'){
+            dispatch(setUserSubscriptionData(user.subscription))
+        }
+    },[statusPaymentParams , user])
 
 
     return(
@@ -205,7 +221,7 @@ const SubscriptionPage = () => {
                 packet={packetPayment.packet || ''}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
+                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
             />
             <AppModalPendingPay
                 open ={modalPendingPay}
@@ -214,7 +230,7 @@ const SubscriptionPage = () => {
                 status={packetPayment.status}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
+                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
                 expiryDate={packetPayment.expiryDate}
                 callbackUrl={packetPayment.callbackUrl}
             />
@@ -224,7 +240,7 @@ const SubscriptionPage = () => {
                 packet={packetPayment.packet || ''}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={'15 Januari 2024 - 15 Februari 2024'}
+                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
             />
             <AppModalSubscriptionList 
                 open = {subscriptionListModal}
@@ -354,8 +370,8 @@ const SubscriptionPage = () => {
                                                 user?.subscription > 1 ?
                                                 ' Unlimited'
                                                 :
-                                                userSubscription?.remainingGenerate && userSubscription?.SubscriptionDetails?.maxGenerateCount ?  
-                                                `${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}` :
+                                                userSubscription?.remainingGenerate != null && userSubscription?.SubscriptionDetails?.maxGenerateCount != null?  
+                                                ` ${userSubscription?.remainingGenerate}/${userSubscription?.SubscriptionDetails?.maxGenerateCount}` :
                                                 ' Belum Berlangganan'
                                                 
                                                 }
@@ -376,8 +392,8 @@ const SubscriptionPage = () => {
                                                 user?.subscription > 1 ?
                                                 ' Unlimited'
                                                 :
-                                                userSubscription?.remainingPost && userSubscription?.SubscriptionDetails?.maxPostCount ?
-                                                `${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`:
+                                                userSubscription?.remainingPost != null && userSubscription?.SubscriptionDetails?.maxPostCount != null ?
+                                                ` ${userSubscription?.remainingPost}/${userSubscription?.SubscriptionDetails?.maxPostCount}`:
                                                 ' Belum Berlangganan'
                                             }</p></span>
                                             <LinearProgress
@@ -453,7 +469,6 @@ const SubscriptionPage = () => {
                                         if(data.status == 'failed'){
                                             setModalFailedPay(true)
                                         }
-
                                         setPacketPayment(data)
                                     }}
                                 />

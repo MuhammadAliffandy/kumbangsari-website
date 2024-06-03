@@ -132,6 +132,7 @@ const  AppModalGenerateAI = (props ) => {
                 
             }
         } catch (error) {
+            console.log(error.errors)
             toast.error('Ada Kesalahan Server')
         }
     }

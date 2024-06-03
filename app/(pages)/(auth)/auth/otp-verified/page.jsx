@@ -11,7 +11,6 @@ import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import { sendOTPAuth, verificationOTPAuth } from '@/app/api/repository/authRepository';
 import OtpInput from 'react-otp-input';
@@ -24,12 +23,6 @@ const ForgotPasswordPage = ()  => {
     const [otp, setOtp] = useState('');
     const { push } = useRouter()
 
-
-    useEffect(()=>{
-        handleSendOTP()
-    },[])
-
-
     const notify = () => {
         toast.success('Verifikasi Email Berhasil' , 
         {
@@ -41,25 +34,7 @@ const ForgotPasswordPage = ()  => {
         )
     }
     
-    const onSubmit = async () => {
 
-        try {
-            setLoadingProgress(50)
-            const data = {
-                email : sessionStorage.getItem('email'),
-                otp: otp
-            }
-            
-            const res = await verificationOTPAuth(data)
-    
-            if(res.status == 'OK'){
-                notify()
-            }
-        } catch (error) {
-            setLoadingProgress(100)
-            toast.error('Ada Kesalahan Server');
-        }
-    };
 
     const handleTimerSendOTP = () => {
         let timer;
@@ -94,6 +69,30 @@ const ForgotPasswordPage = ()  => {
                 toast.error('OTP Gagal Dikirim ')
 
             }
+    };
+
+    useEffect(()=>{
+        handleSendOTP()
+    },[])
+
+    const onSubmit = async () => {
+
+        try {
+            setLoadingProgress(50)
+            const data = {
+                email : sessionStorage.getItem('email'),
+                otp: otp
+            }
+            
+            const res = await verificationOTPAuth(data)
+    
+            if(res.status == 'OK'){
+                notify()
+            }
+        } catch (error) {
+            setLoadingProgress(100)
+            toast.error('Ada Kesalahan Server');
+        }
     };
 
     return(
