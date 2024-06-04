@@ -10,7 +10,7 @@ import AppSidebar from './appSideBar'
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import { useMediaQuery } from "react-responsive";
 import { useEffect , useState } from 'react'
-import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow } from '@/app/utils/helper'
+import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow, isToday } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { getUserProfile , getUserByToken } from '@/app/api/repository/userRepository'
 import { getAllNotification } from '@/app/api/repository/notificationRepository'
@@ -36,6 +36,7 @@ const AppLayout = (props) => {
     const [accountSwitched, setAccountSwitched] = useState([]);
     const [userSubscription, setUserSubscription] = useState('');
     const [notificationData, setNotificationData] = useState([]);
+    const [notificationCurrentData, setNotificationCurrentData] = useState([]);
     const [expanded , setExpanded ] = useState(true)
     const accountList = JSON.parse(localStorage.getItem('accountList'))
 
@@ -112,33 +113,69 @@ const AppLayout = (props) => {
         }
     }
 
+    const mappingNotificationData = (data) => {
+        const currentData = data
+
+        const mappingDate = currentData.map(item  => {
+            return {
+                dateDay : convertToIndonesianDate(item.createdAt),
+                date : item.createdAt,
+            }
+        })
+
+        const uniqueDate = Array.from(new Set(mappingDate.map(item => item.dateDay)))
+                            .map(dateDay => {
+                                return mappingDate.find(item => item.dateDay === dateDay);
+                            });
+
+        const dataNotification = uniqueDate.map(data => {
+            return {
+                dateDay : isToday(data.date) ? 'Hari ini' : data.dateDay,
+                listDataNotificationChild : 
+                    currentData.filter( i => {
+                        return convertToIndonesianDate(i.createdAt) == data.dateDay
+                    }).map(item => {
+                        return {
+                            title: item.message,
+                            subtitle : `Notification ini terkait dengan proses tentang ${item.message.toLowerCase()}`,
+                            time: convertToTimeWIB(item.createdAt),
+                            notificationType : item.type
+                        }
+                    })
+                
+            }
+        })
+
+        return dataNotification;
+    }
+
     const fetchNotification = async () => {
         try {
             const res = await getAllNotification()
             if(res.status == 'OK'){
-                const data = res.data.map(item => {
-                    return {
-                        dateDay : convertToIndonesianDate(item.createdAt),
-                        listDataNotificationChild : 
-                            [
-                                {
-                                    title: item.type,
-                                    subtitle : `ini notifiaction ${item.type}`,
-                                    time: convertToTimeWIB(item.createdAt),
-                                    notificationType : item.type
-                                },
-                            ]
-                        
-                    }
-                })
-
-                setNotificationData(data)
+                console.log(res.data)
+                const dataNotification = mappingNotificationData(res.data)
+            
+                setNotificationCurrentData(res.data)
+                setNotificationData(dataNotification)
 
             }
         } catch (error) {
             toast.error('Ada Kesalahan Server')
         }
 
+    }
+
+    const handleFilterNotification = (type) => {
+        const data = notificationCurrentData.filter(data => {
+            if(type == 'Semua'){
+                return data
+            }else{
+                return data.type == type
+            }
+        })
+        const dataNotification = mappingNotificationData(data)
+        setNotificationData(dataNotification)
     }
 
     useEffect(()=>{
@@ -200,7 +237,9 @@ const AppLayout = (props) => {
                         <Box className ='flex gap-[20px] items-center' >
                             <AppPopupNotification
                                 available={true}
-                                onSelected={(value)=>{}}
+                                onSelected={(value)=>{
+                                    handleFilterNotification(value)
+                                }}
                                 listNotification = {
 
                                     notificationData.length > 0 ?
@@ -213,10 +252,10 @@ const AppLayout = (props) => {
                                             listDataNotificationChild : 
                                                 [
                                                     {
-                                                        title: 'Pembayaran',
-                                                        subtitle : 'Pembayaran paket berlanggananmu melalui GoPay telah berhasil. Lihat riwayat pembayaran di halaman Profile!',
-                                                        time: "07.00",
-                                                        notificationType : 'pay'
+                                                        title: 'Notification Kosong',
+                                                        subtitle : 'Notification kategori ini kosong',
+                                                        time: "00.00 WIB",
+                                                        notificationType : ''
                                                     },
                                                 ]
                                             

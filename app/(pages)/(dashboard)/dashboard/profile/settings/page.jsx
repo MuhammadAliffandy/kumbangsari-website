@@ -8,7 +8,7 @@ import AppModalThirdParty from './component/appModalThirdParty'
 import AppModalProductList from './component/appModalProductList'
 import AppDropDown from "@/app/components/appDropDown/appDropDown"
 import { useEffect, useState } from "react"
-import { listDropNotifHour, listDropNotifMonth } from "@/app/utils/model"
+import { listDropNotifHour, listDropNotifMonth, listDropNotifDay } from "@/app/utils/model"
 import { convertToIndonesianDate } from "@/app/utils/helper"
 import { toast } from "react-toastify"
 import { getUserActivityHistory, getUserSettings } from "@/app/api/repository/userRepository"
@@ -38,8 +38,9 @@ const SettingsPage = () => {
     const [modalProductList , setModalProductList ] = useState(false)
     // state data
     const [productSelect , setProductSelect ] = useState([])
-    const [notifMonth , setNotifMonth] = useState('1m')
-    const [notifHour , setNotifHour] = useState('1h')
+    const [notifDay , setNotifDay] = useState('DAY_1')
+    const [notifMonth , setNotifMonth] = useState('MONTH_1')
+    const [notifHour , setNotifHour] = useState('MINUTES_30')
     const [lastLogin , setLastLogin] = useState('')
     const [lastChange , setLastChange] = useState('')
     const [lastUpload , setLastUpload] = useState('')
@@ -209,9 +210,9 @@ const SettingsPage = () => {
                                                     borderColor: 'transparent',
                                                     width:'100%'
                                                 }}
-                                                value={notifMonth}
-                                                placeholder={'1 Bulan'}
-                                                listItem = {listDropNotifMonth}
+                                                value={notifDay}
+                                                placeholder={'1 Hari'}
+                                                listItem = {listDropNotifDay}
                                                 onChange={handleDropDown}
                                             />
                                     </Box>
@@ -307,13 +308,13 @@ const SettingsPage = () => {
                                         />
                                 </Box>
                             </Box>
-                            <AppCheckBox
+                            {/* <AppCheckBox
                                     value= 'true'
                                     label = 'Berikan himbauan aktivitas mencurigakan dalam akun'
                                     onChange= {(value , label)=>{
 
                                     }}
-                                />
+                                /> */}
                             <p onClick={()=> {setModalProductList(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
                         </Box>
                     </Box>

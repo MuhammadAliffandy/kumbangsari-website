@@ -134,21 +134,26 @@ export const  formatNumberHashtag = (number) => {
 }
 
 export const convertToTimeWIB = (isoString) => {
-    // Parse ISO string to a Date object
+
     const date = new Date(isoString);
 
-    // WIB is UTC+7
-    const wibOffset = 7 * 60; // offset in minutes
+    const wibOffset = 7 * 60; 
     const wibDate = new Date(date.getTime() + (wibOffset * 60 * 1000));
-
-    // Extract hours and minutes
     const hours = wibDate.getUTCHours();
     const minutes = wibDate.getUTCMinutes();
 
-    // Format hours and minutes
     const formattedHours = hours < 10 ? '0' + hours : hours;
     const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
 
-    // Return formatted time string
     return `${formattedHours} : ${formattedMinutes} WIB`;
 }
+
+export const isToday = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    date.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return date.getTime() === today.getTime();
+};

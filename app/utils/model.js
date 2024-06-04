@@ -31,16 +31,22 @@ export const listDropLanguageStyle = [
     {value : 'persuasif' , text : 'Persuasif'},
 ];
 
+export const listDropNotifDay = [
+    {value : 'DAY_1' , text : '1 Hari'},
+    {value : 'DAY_2' , text : '2 Hari'},
+    {value : 'WEEK_1' , text : '1 Minggu'},
+];
 export const listDropNotifMonth = [
-    {value : '1m' , text : '1 Bulan'},
-    {value : '2m' , text : '2 Bulan'},
-    {value : '3m' , text : '3 Bulan'},
+    {value : 'MONTH_1' , text : '1 Bulan'},
+    {value : 'MONTH_2' , text : '2 Bulan'},
+    {value : 'MONTH_3' , text : '3 Bulan'},
 ];
 
 export const listDropNotifHour = [
-    {value : '1h' , text : '1 Jam'},
-    {value : '2h' , text : '2 Jam'},
-    {value : '3h' , text : '3 Jam'},
+    {value : 'MINUTES_30' , text : '30 Menit'},
+    {value : 'HOUR_1' , text : '1 Jam'},
+    {value : 'HOUR_2' , text : '2 Jam'},
+    {value : 'HOUR_3' , text : '3 Jam'},
 ];
 
 
