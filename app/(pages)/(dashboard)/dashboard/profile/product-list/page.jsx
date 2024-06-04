@@ -84,21 +84,29 @@ const ProductListPage = () => {
     }
 
     const fetchUserConnectHistory = async () => {
-        const res = await getUserConnectHistory()
-        if(res.status == 'OK'){
-            const dataHistory = res.data.map(data => {
-                return userDataHistory(
-                    data.product,
-                    data.platform,
-                    convertToTimeWIB(data.createdAt),
-                    convertToIndonesianDate(data.createdAt),
-                    data.status,
-                )
-            })
-            setCurrentUserTableHistory(dataHistory)
-            setUserTableHistory(dataHistory)
-        }else{
-            toast.error('Data User History Gagal')
+        try {
+            const res = await getUserConnectHistory()
+            if(res.status == 'OK'){
+                const dataHistory = res.data.map(data => {
+                    return userDataHistory(
+                        data.product,
+                        data.platform,
+                        convertToTimeWIB(data.createdAt),
+                        convertToIndonesianDate(data.createdAt),
+                        data.status,
+                    )
+                })
+                setCurrentUserTableHistory(dataHistory)
+                setUserTableHistory(dataHistory)
+            }
+        } catch (error) {
+            console.log(error)
+            if(error.status == 404){
+                toast.error('Data User History Kosong')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+            
         }
     }
 

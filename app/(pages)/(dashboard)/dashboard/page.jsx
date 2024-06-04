@@ -103,8 +103,9 @@ const DashboardPage = () => {
             
             setContentAILoading(true)
             if(res.status == 'OK'){
+                console.log(res.data)
                 const data = res.data.map(item => {
-                    return { ...item , productName :  productList.filter(product => { return item.idProduct === product.value })[0].text, }
+                    return { ...item , productName : '', }
                 }) 
                 setContentAI(data)
                 setContentAILoading(false)
@@ -207,8 +208,14 @@ const DashboardPage = () => {
     },[])
 
     useEffect(()=>{
+        console.log(productList)
         if(productList.length > 0){
             fetchRecommendationContentAI();
+        }
+    },[productList])
+
+    useEffect(()=>{
+        if(productList.length > 0){
             fetchTrendingHashtag();
             fetchContentPreview();
             fetchContentRecap();

@@ -21,18 +21,19 @@ import SubscriptionList, { subscriptionList } from "../component/subscriptionLis
 import { toast } from "react-toastify";
 import { getCurrentUser } from "@/app/api/repository/authRepository";
 import { useParams , useRouter} from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { setUserSubscriptionData } from "@/app/redux/slices/userSubscriptionSlice";
 
 
-const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl ) => {
-    return { date, packet, price, status, expiryDate , updatedAt , callbackUrl};
+const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl , subscriptionExpiryDate ) => {
+    return { date, packet, price, status, expiryDate , updatedAt , callbackUrl , subscriptionExpiryDate};
 }
 
 
 const SubscriptionPage = () => {
 
     const dispatch = useDispatch()
+    const userSubs = JSON.parse(useSelector(state => state.userSubscription.value) || '')
     const params = useParams()
     const statusPaymentParams = params.status 
 
@@ -90,7 +91,8 @@ const SubscriptionPage = () => {
                         data.status == 'PENDING' ? 'waiting' : data.status == 'PAID' || data.status == 'SETTLED' ? 'success' : 'failed' , 
                         data.expiryDate ,
                         data.updatedAt,
-                        data.invoiceUrl
+                        data.invoiceUrl,
+                        data.subscriptionExpiryDate
                     )
                 })
                 setPaymentTransactions(data)
@@ -131,7 +133,7 @@ const SubscriptionPage = () => {
                 fetchUserSubscription()
                 fetchPaymentTransaction()
                 toast.success('Berhenti Berlangganan Berhasil')
-                
+                dispatch(setUserSubscriptionData(null))
             }
             
         } catch (error) {
@@ -233,7 +235,7 @@ const SubscriptionPage = () => {
                 packet={packetPayment.packet || ''}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
+                dateSubscription={`${packetPayment.date} - ${ packetPayment.subscriptionExpiryDate ? convertToIndonesianDate(packetPayment.subscriptionExpiryDate): ''}`}
             />
             <AppModalPendingPay
                 open ={modalPendingPay}
@@ -242,7 +244,7 @@ const SubscriptionPage = () => {
                 status={packetPayment.status}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
+                dateSubscription={`${packetPayment.date} - ${ packetPayment.subscriptionExpiryDate ? convertToIndonesianDate(packetPayment.subscriptionExpiryDate): ''}`}
                 expiryDate={packetPayment.expiryDate}
                 callbackUrl={packetPayment.callbackUrl}
             />
@@ -252,7 +254,7 @@ const SubscriptionPage = () => {
                 packet={packetPayment.packet || ''}
                 price={formatRupiahNumber(packetPayment.price || 0)}
                 updatedAt={convertToIndonesianDate(packetPayment.updatedAt)}
-                dateSubscription={`${packetPayment.date} - ${convertToIndonesianDate(packetPayment.expiryDate)}`}
+                dateSubscription={`${packetPayment.date} - ${ packetPayment.subscriptionExpiryDate ? convertToIndonesianDate(packetPayment.subscriptionExpiryDate): ''}`}
             />
             <AppModalSubscriptionList 
                 open = {subscriptionListModal}
@@ -428,7 +430,7 @@ const SubscriptionPage = () => {
                                 <Box className='flex gap-[10px] justify-end'> 
                                     {
                                         
-                                        user.subscription != null ?
+                                        userSubs != null ?
                                         
                                         <>  
                                             <AppButton
@@ -469,6 +471,7 @@ const SubscriptionPage = () => {
                                 <AppTablePayment
                                     data={paymentTransactions}
                                     onClick={(data)=>{
+                                        console.log(data)
                         
                                         if(data.status == 'waiting'){
                                             setModalPendingPay(true)

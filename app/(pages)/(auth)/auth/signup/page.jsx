@@ -158,10 +158,6 @@ const SignUpPage  = () => {
                             </Box>
                         </Box>
                     </AppAnimationLayout>
-                    
-                    <ToastContainer
-                        autoClose={800}
-                    />
                 </Box>
 
     )

@@ -26,6 +26,8 @@ export const PROVIDER_GET = async (pathUrl, token) => {
                         throw errorResponse;
                     case 403:
                         throw errorResponse;
+                    case 404:
+                        throw errorResponse;
                     default:
                         throw new Error("error");
                 }

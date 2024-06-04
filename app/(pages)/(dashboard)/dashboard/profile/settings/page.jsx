@@ -11,7 +11,7 @@ import { useEffect, useState } from "react"
 import { listDropNotifHour, listDropNotifMonth } from "@/app/utils/model"
 import { convertToIndonesianDate } from "@/app/utils/helper"
 import { toast } from "react-toastify"
-import { getUserActivityHistory } from "@/app/api/repository/userRepository"
+import { getUserActivityHistory, getUserSettings } from "@/app/api/repository/userRepository"
 
 
 const historyActivity = [
@@ -43,6 +43,7 @@ const SettingsPage = () => {
     const [lastLogin , setLastLogin] = useState('')
     const [lastChange , setLastChange] = useState('')
     const [lastUpload , setLastUpload] = useState('')
+    const [settingsData , setSettingsData] = useState([])
 
     const fetchUserActivityHistory = async () => {
         try {
@@ -57,6 +58,14 @@ const SettingsPage = () => {
             toast.error('Ada Kesalahan Server')
         }
     }
+
+    const fetchUserSettings = async () => {
+        const res = await getUserSettings()
+        if(res.status == 'OK'){
+            console.log(res.data)
+            setSettingsData(res.data)
+        }
+    }
     
     const handleDropDown = (event)=>{
         setNotifMonth(event.target.value)
@@ -68,6 +77,7 @@ const SettingsPage = () => {
 
     useEffect(()=>{
         fetchUserActivityHistory()
+        fetchUserSettings()
     },[])
 
     return(
@@ -129,19 +139,20 @@ const SettingsPage = () => {
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Notifikasi</p> 
                             <AppCheckBox
-                                value= 'true'
+                                value= {'true'}
+                                checked={settingsData.news}
                                 label = 'Dapatkan informasi terkait fitur baru dan diskon paket yang tersedia'
                                 onChange= {(value , label)=>{
 
                                 }}
                             />
-                            <AppCheckBox
+                            {/* <AppCheckBox
                                 value= 'true'
                                 label = 'Letakkan notifikasi yang belum dibaca di bagian paling atas'
                                 onChange= {(value , label)=>{
 
                                 }}
-                            />
+                            /> */}
                         </Box>
                         {/*  */}
                         <Box className='flex flex-col gap-[10px] w-[100%]'>
@@ -149,6 +160,7 @@ const SettingsPage = () => {
                             <Box className='flex flex-col gap-[10px] pl-[20px]'>
                                 <AppCheckBox
                                     value= 'true'
+                                    checked={settingsData.connectivity?.statusPlatform || false}
                                     label = 'Status konektivitas (berhasil/gagal)'
                                     onChange= {(value , label)=>{
 
@@ -156,6 +168,7 @@ const SettingsPage = () => {
                                 />
                                 <AppCheckBox
                                     value= 'true'
+                                    checked={settingsData.connectivity?.reminder}
                                     label = 'Himbauan untuk perbarui konektivitas'
                                     onChange= {(value , label)=>{
 
@@ -169,13 +182,15 @@ const SettingsPage = () => {
                             <Box className='flex flex-col gap-[10px] pl-[20px]'>
                                 <AppCheckBox
                                     value= 'true'
+                                    checked={settingsData.account?.historyUpdateAccount}
                                     label = 'Riwayat ubah data akun'
                                     onChange= {(value , label)=>{
-
+                                        
                                     }}
-                                />
+                                    />
                                 <AppCheckBox
                                     value= 'true'
+                                    checked={settingsData.account?.notificationSubscription}
                                     label = 'Himbauan paket berlangganan telah berakhir'
                                     onChange= {(value , label)=>{
 
@@ -210,13 +225,15 @@ const SettingsPage = () => {
                                 <AppCheckBox
                                     value= 'true'
                                     label = 'Batas Waktu Pembayaran'
+                                    checked={settingsData.payment?.reminder}
                                     onChange= {(value , label)=>{
-
+                                        
                                     }}
-                                />
+                                    />
                                 <AppCheckBox
                                     value= 'true'
                                     label = 'Status Pembayaran'
+                                    checked={settingsData.payment?.status}
                                     onChange= {(value , label)=>{
 
                                     }}
@@ -229,14 +246,16 @@ const SettingsPage = () => {
                             <Box className='flex flex-col gap-[10px] pl-[20px]'>
                                 <AppCheckBox
                                     value= 'true'
-                                    label = 'Keberhasilan autopost'
+                                    label = 'Keberhasilan posting'
+                                    checked={settingsData.content?.notification}
                                     onChange= {(value , label)=>{
-
+                                        
                                     }}
-                                />
+                                    />
                                 <AppCheckBox
                                     value= 'true'
                                     label = 'Himbauan tingkat keoptimalan produk'
+                                    checked={settingsData.content?.optimalProduct}
                                     onChange= {(value , label)=>{
 
                                     }}

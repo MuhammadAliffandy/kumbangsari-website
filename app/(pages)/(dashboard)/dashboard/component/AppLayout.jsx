@@ -10,9 +10,10 @@ import AppSidebar from './appSideBar'
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import { useMediaQuery } from "react-responsive";
 import { useEffect , useState } from 'react'
-import { dateIndonesianNow } from '@/app/utils/helper'
+import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { getUserProfile , getUserByToken } from '@/app/api/repository/userRepository'
+import { getAllNotification } from '@/app/api/repository/notificationRepository'
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
@@ -34,6 +35,7 @@ const AppLayout = (props) => {
     const [user, setUser] = useState([]);
     const [accountSwitched, setAccountSwitched] = useState([]);
     const [userSubscription, setUserSubscription] = useState('');
+    const [notificationData, setNotificationData] = useState([]);
     const [expanded , setExpanded ] = useState(true)
     const accountList = JSON.parse(localStorage.getItem('accountList'))
 
@@ -103,13 +105,41 @@ const AppLayout = (props) => {
                 setAccountSwitched(accSwitched)
             }
         } catch (error) {
-            if(error.response.status === 400){
+            if(error.status === 400){
             }else{
-                console.log(error)
+                return
             }
         }
     }
 
+    const fetchNotification = async () => {
+        try {
+            const res = await getAllNotification()
+            if(res.status == 'OK'){
+                const data = res.data.map(item => {
+                    return {
+                        dateDay : convertToIndonesianDate(item.createdAt),
+                        listDataNotificationChild : 
+                            [
+                                {
+                                    title: item.type,
+                                    subtitle : `ini notifiaction ${item.type}`,
+                                    time: convertToTimeWIB(item.createdAt),
+                                    notificationType : item.type
+                                },
+                            ]
+                        
+                    }
+                })
+
+                setNotificationData(data)
+
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server')
+        }
+
+    }
 
     useEffect(()=>{
         setDate()
@@ -118,6 +148,7 @@ const AppLayout = (props) => {
     useEffect(()=>{
         getUser()
         fetchUserProfile()
+        fetchNotification()
     },[])
     
     useEffect( ()=>{
@@ -171,6 +202,11 @@ const AppLayout = (props) => {
                                 available={true}
                                 onSelected={(value)=>{}}
                                 listNotification = {
+
+                                    notificationData.length > 0 ?
+
+                                    notificationData : 
+
                                     [
                                         {
                                             dateDay : 'Hari ini',
@@ -182,15 +218,9 @@ const AppLayout = (props) => {
                                                         time: "07.00",
                                                         notificationType : 'pay'
                                                     },
-                                                    {
-                                                        title: 'Produk berhasil ditambahkan!',
-                                                        subtitle : 'Skincaremoe berhasil ditambahkan ke dalam daftar produkmu! Hubungkan beberapa platform untuk memulai pengalaman manajemen yang mudah dan menyenangkan!',
-                                                        time: "07.00",
-                                                        notificationType : 'connect'
-                                                    },
                                                 ]
                                             
-                                        },
+                                        }, 
                                     
                                     ]
                                 }

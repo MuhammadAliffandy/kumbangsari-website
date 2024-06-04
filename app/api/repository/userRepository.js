@@ -40,3 +40,9 @@ export const getUserActivityHistory = async () => {
     const response = await PROVIDER_GET(`api/v1/profile/activity-history`,token )
     return response
 }
+export const getUserSettings = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/profile/settings`,token )
+    return response
+}

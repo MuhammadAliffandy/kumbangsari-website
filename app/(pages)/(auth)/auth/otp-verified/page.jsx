@@ -34,8 +34,6 @@ const ForgotPasswordPage = ()  => {
         )
     }
     
-
-
     const handleTimerSendOTP = () => {
         let timer;
         if (isSending && countdown > 0) {

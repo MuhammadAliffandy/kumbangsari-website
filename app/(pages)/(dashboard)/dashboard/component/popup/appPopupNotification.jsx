@@ -16,10 +16,10 @@ export const NotificationChildComponent = (props) =>{
                 {
                     props.listDataNotification.map(data => {
                         return(
-                            <Box className='flex gap-[15px] py-[15px] h-auto items-center'>
-                                <img src={`/images/icon/notification/${data.notificationType == 'pay' ? 'dollar' : 
-                                data.notificationType == 'account' ? 'profile' : data.notificationType == 'connect' ? 'setting' : 'setting' }.svg`} className="w-[40px] h-[40px]" />
-                                <Box className = 'flex flex-col justify-start gap-[4px]'>
+                            <Box className='flex gap-[15px] py-[15px] h-auto items-center w-[100%]'>
+                                <img src={`/images/icon/notification/${data.notificationType == 'Pembayaran' ? 'dollar' : 
+                                data.notificationType == 'Akun' ? 'profile' : data.notificationType == 'Konektivitas' ? 'setting' : 'setting' }.svg`} className="w-[40px] h-[40px]" />
+                                <Box className = 'flex flex-col justify-start gap-[4px] w-[100%]'>
                                     <Box className='flex justify-between items-center'>
                                         <p className="text-[14px] font-bold text-TEXT-1" >{data.title}</p>
                                         <p className="text-[14px] text-TEXT-4" >{data.time}</p>
@@ -52,7 +52,7 @@ const AppPopupNotification = (props) => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className={`w-[50%] h-[55%] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] overflow-y-auto shadow-xl scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full`}
+                    className={`w-[40vw] h-[50vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] overflow-y-auto shadow-xl scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full`}
                 >
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[18px] font-bold text-black' >Notifikasi</p>
