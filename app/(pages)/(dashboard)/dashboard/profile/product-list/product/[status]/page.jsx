@@ -109,9 +109,8 @@ const ProductDetailPage = () => {
             if(error.status == 304){
                 
             }
-
             if(error.status == 404){
-                toast.error('Data User History Kosong')
+                
             }else{
                 toast.error('Ada Kesalahan Server (500)')
             }

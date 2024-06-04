@@ -33,7 +33,7 @@ export const listDropLanguageStyle = [
 
 export const listDropNotifDay = [
     {value : 'DAY_1' , text : '1 Hari'},
-    {value : 'DAY_2' , text : '2 Hari'},
+    {value : 'DAY_3' , text : '3 Hari'},
     {value : 'WEEK_1' , text : '1 Minggu'},
 ];
 export const listDropNotifMonth = [

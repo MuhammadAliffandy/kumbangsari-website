@@ -43,11 +43,16 @@ const SignUpPage  = () => {
             sessionStorage.setItem('email' ,data.email)
             const res = await createAuth(data)
 
-            if(res.status = 'OK'){
+            if(res.status == 'OK'){
                 notify();
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server');
+            if(error.status === 404){
+                toast.error('Email Sudah Digunakan')
+            }else{
+
+                toast.error('Ada Kesalahan Server');
+            }
         }
 
 

@@ -16,15 +16,15 @@ const AppContent = (props) => {
                     <Box className='flex-none'> <img src={props.image} className='rounded-[15px] w-[160px] h-[120px] object-fill' /> </Box> 
                     : null
                 }
-                <Box className = 'grow flex flex-col gap-[8px]'> 
+                <Box className = 'grow flex flex-col gap-[8px] '> 
                     {
-                        props.caption ? <Box className = 'h-[34px] overflow-hidden w-[100%] '>
+                        props.caption ? <Box className = 'h-[34px] overflow-hidden  max-w-[90%]'>
                         <p className='text-[12px] text-TEXT-1 font-semibold break-words'>{props.caption}</p>
                         </Box> : null
                     }
                     {
                         props.hashtag ? 
-                        <Box className = 'h-[18px] overflow-hidden w-[100%]'>
+                        <Box className = 'h-[18px] overflow-hidden max-w-[80%]'>
                                 <p className='text-[10px] text-PRIMARY-400 break-words'>{props.hashtag}</p>
                         </Box> : null
                     }

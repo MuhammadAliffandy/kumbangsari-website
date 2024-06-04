@@ -102,7 +102,7 @@ const ProductListPage = () => {
         } catch (error) {
             console.log(error)
             if(error.status == 404){
-                toast.error('Data User History Kosong')
+            
             }else{
                 toast.error('Ada Kesalahan Server (500)')
             }

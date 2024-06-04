@@ -73,7 +73,7 @@ const AppLayout = (props) => {
                 const accountSwitchList = []
                 const accountListFiltered = []
 
-                for(let i = 0 ; i < 3 ; i++ ){
+                for(let i = 0 ; i < accountList.length ; i++ ){
                     const res = await getUserByToken(accountList[i])
                 
                     if(res.status === 'OK'){
@@ -107,6 +107,7 @@ const AppLayout = (props) => {
             }
         } catch (error) {
             if(error.status === 400){
+                console.log(error)
             }else{
                 return
             }
@@ -137,7 +138,7 @@ const AppLayout = (props) => {
                     }).map(item => {
                         return {
                             title: item.message,
-                            subtitle : `Notification ini terkait dengan proses tentang ${item.message.toLowerCase()}`,
+                            subtitle : `Notifikasi ini terkait dengan proses tentang ${item.message.toLowerCase()}`,
                             time: convertToTimeWIB(item.createdAt),
                             notificationType : item.type
                         }
@@ -153,7 +154,6 @@ const AppLayout = (props) => {
         try {
             const res = await getAllNotification()
             if(res.status == 'OK'){
-                console.log(res.data)
                 const dataNotification = mappingNotificationData(res.data)
             
                 setNotificationCurrentData(res.data)
@@ -252,8 +252,8 @@ const AppLayout = (props) => {
                                             listDataNotificationChild : 
                                                 [
                                                     {
-                                                        title: 'Notification Kosong',
-                                                        subtitle : 'Notification kategori ini kosong',
+                                                        title: 'Notifikasi Kosong',
+                                                        subtitle : 'Notifikasi kategori ini kosong',
                                                         time: "00.00 WIB",
                                                         notificationType : ''
                                                     },

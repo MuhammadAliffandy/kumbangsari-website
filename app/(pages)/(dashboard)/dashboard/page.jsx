@@ -103,7 +103,6 @@ const DashboardPage = () => {
             
             setContentAILoading(true)
             if(res.status == 'OK'){
-                console.log(res.data)
                 const data = res.data.map(item => {
                     return { ...item , productName : '', }
                 }) 
@@ -236,7 +235,7 @@ const DashboardPage = () => {
                 open= {openModalDetail}
                 image = {contentDetail ? contentDetail.imageUrlPost : ''}
                 caption = {contentDetail ? contentDetail.captionPost : ''}
-                hashtag = {contentDetail ? contentDetail.hashtagPost : ""}
+                hashtag = {contentDetail ? contentDetail.hashtagPost.split(',').join(' ') : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.contentTitle : ""}
                 isDashboard={true}
@@ -429,7 +428,7 @@ const DashboardPage = () => {
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
                                 loading ={contentPreviewLoading}
-                                data = {contentDataPreview} //contentDataPreview
+                                data = {contentDataPreview} 
                                 onClick = { (value) => {
                                     setOpenModalDetailPreview(!openModalDetailPreview)
                                     setContentDetailPreview(value)
@@ -445,7 +444,7 @@ const DashboardPage = () => {
                         <Box className='flex items-center justify-start '>
                             <p className="text-TEXT-1 font-bold text-[16px]">Rekomendasi Konten</p>
                         </Box>
-                        <Box  className=' h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box  className=' max-h-[23vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
@@ -461,7 +460,7 @@ const DashboardPage = () => {
                                                     productName = {data.contentTitle}
                                                     image={data.imageUrlPost}
                                                     caption = {data.captionPost}
-                                                    hashtag = {data.hashtagPost}
+                                                    hashtag = {data.hashtagPost.split(',').join(' ')}
                                                     onClick={()=>{
                                                         setOpenModalDetail(!openModalDetail)
                                                         setContentDetail(data)

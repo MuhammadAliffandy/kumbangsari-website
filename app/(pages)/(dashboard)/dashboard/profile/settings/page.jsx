@@ -65,9 +65,15 @@ const SettingsPage = () => {
         if(res.status == 'OK'){
             console.log(res.data)
             setSettingsData(res.data)
+            setNotifDay(res.data?.account.reminderSubscription)
+            setNotifHour(res.data?.security.autoLogOut)
+            // setNotifMonth(res.data?.security.uploadPlatformRange)
         }
     }
     
+    const handleDropDownDay = (event)=>{
+        setNotifDay(event.target.value)
+    }
     const handleDropDown = (event)=>{
         setNotifMonth(event.target.value)
     }
@@ -213,7 +219,7 @@ const SettingsPage = () => {
                                                 value={notifDay}
                                                 placeholder={'1 Hari'}
                                                 listItem = {listDropNotifDay}
-                                                onChange={handleDropDown}
+                                                onChange={handleDropDownDay}
                                             />
                                     </Box>
                                 </Box>
@@ -268,7 +274,7 @@ const SettingsPage = () => {
                         {/*  */}
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Keamanan</p> 
-                            <Box className='flex gap-[10px] items-center'>
+                            {/* <Box className='flex gap-[10px] items-center'>
                                 <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Perbarui konektivitas dalam kurun waktu : </p>
                                 <Box className='w-[30%]'>
                                     <AppDropDown
@@ -287,7 +293,7 @@ const SettingsPage = () => {
                                             onChange={handleDropDown}
                                         />
                                 </Box>
-                            </Box>     
+                            </Box>      */}
                             <Box className='flex gap-[10px] items-center '>
                                 <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
                                 <Box className='w-[50%]'>

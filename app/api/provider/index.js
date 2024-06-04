@@ -22,6 +22,8 @@ export const PROVIDER_GET = async (pathUrl, token) => {
             const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
+                    case 400:
+                        throw errorResponse;
                     case 401:
                         throw errorResponse;
                     case 403:
@@ -59,6 +61,8 @@ export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => 
             const errorResponse = err.response;
             if (errorResponse) {
                 switch (errorResponse.status) {
+                    case 400:
+                        throw errorResponse;
                     case 401:
                         throw errorResponse;
                     case 403:
