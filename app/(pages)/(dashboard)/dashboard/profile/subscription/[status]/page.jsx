@@ -33,7 +33,7 @@ const createDataPayment = (date, packet, price, status, expiryDate , updatedAt ,
 const SubscriptionPage = () => {
 
     const dispatch = useDispatch()
-    const userSubs = useSelector(state => state.userSubscription.value)
+    const userSubs = JSON.parse(useSelector(state => state.userSubscription.value) || [])
     const params = useParams()
     const statusPaymentParams = params.status 
 
@@ -132,8 +132,8 @@ const SubscriptionPage = () => {
                 setStopSubscription(false)
                 fetchUserSubscription()
                 fetchPaymentTransaction()
-                toast.success('Berhenti Berlangganan Berhasil')
                 dispatch(setUserSubscriptionData(null))
+                toast.success('Berhenti Berlangganan Berhasil')
             }
             
         } catch (error) {

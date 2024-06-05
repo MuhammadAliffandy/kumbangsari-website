@@ -1,5 +1,6 @@
 import { PROVIDER_DELETE, PROVIDER_GET, PROVIDER_PATCH, PROVIDER_POST, PROVIDER_PUT } from "../provider"
 import { getCookie} from '@/app/utils/helper';
+import { BASE_URL } from "@/app/utils/constants";
 
 const delay = () => new Promise(res => setTimeout(() => res(), 800))
 

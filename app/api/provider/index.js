@@ -79,14 +79,14 @@ export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => 
     }
 }
 
-export const PROVIDER_DELETE = async (pathUrl , data , token ) => {
+export const PROVIDER_DELETE = async (pathUrl , token ) => {
     const headers = {
         'Content-Type': 'application/json' ,
         "Authorization": `Bearer ${token || ''}`,
     }
 
     try {
-        const response = await axios.delete(`${BASE_URL}/${pathUrl}`, data , { headers });
+        const response = await axios.delete(`${BASE_URL}/${pathUrl}`, { headers });
 
         switch (response.status) {
             case 200:

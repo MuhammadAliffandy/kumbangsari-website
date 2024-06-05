@@ -14,10 +14,11 @@ import { toast } from 'react-toastify';
 import AppCheckBox from '@/app/components/appCheckBox/appCheckBox';
 import { facebookPickPages, getFacebookPages , facebookCancelPages} from '@/app/api/repository/facebookRepository';
 
+
 const AppModalFacebookPage = (props) => {
 
+    const token = useSelector(state => state.auth.value)
     const [facebookPageData , setFacebookPageData] = useState([])
-
     const [dataPages , setDataPages ] = useState([])
     const [countCheckbox , setCountCheckbox ] = useState(-1)
 
@@ -36,9 +37,20 @@ const AppModalFacebookPage = (props) => {
     }
     
     const fetchFacebookCancelPages = async () => {
-        const res = await facebookCancelPages({idProduct : props.idProduct});
-        if(res.status = 'OK'){
+        const res = await fetch('http://localhost:3000/api/v1/facebook/cancel-pages', {
+                        method: 'DELETE', 
+                        headers: {
+                            'Content-Type': 'application/json' ,
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            idProduct: props.idProduct
+                        }) 
+                    })
+        if(res.ok){
             toast.success('Facebook Page Dibatalkan')
+        }else{
+            toast.error('Ada Kesalahan Server (500)')
         }
     }
 

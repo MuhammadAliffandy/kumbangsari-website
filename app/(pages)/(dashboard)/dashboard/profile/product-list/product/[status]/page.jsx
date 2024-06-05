@@ -31,6 +31,7 @@ const userDataHistory = ( productName, platform, time, date , status) => {
 
 const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
+    const imageDefault =  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
     const { push } = useRouter()
     // state modal
     const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
@@ -420,7 +421,7 @@ const ProductDetailPage = () => {
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.instagram}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? imageDefault:  listPlatform.instagram}/>
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('facebook')
@@ -441,7 +442,7 @@ const ProductDetailPage = () => {
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isFacebook ? 'https://statik.tempo.co/data/2022/06/25/id_1120454/1120454_720.jpg' :  listPlatform.facebook}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isFacebook ? accountFacebook.profileImageUrl ||  imageDefault :  listPlatform.facebook}/>
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('twitter')
@@ -459,7 +460,7 @@ const ProductDetailPage = () => {
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isTwitter ? accountTwitter.profileImageUrl :  listPlatform.twitter}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isTwitter ? accountTwitter.profileImageUrl  ||  imageDefault  :  listPlatform.twitter}/>
                         </Box>
                     
                     

@@ -55,9 +55,9 @@ export const refreshAI = async (data) => {
     return response
 }
 
-export const deleteContent = async (contentId , data ) => {
+export const deleteContent = async (contentId) => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_DELETE(`api/v1/ai/${contentId}`,data , token)
+    const response = await PROVIDER_DELETE(`api/v1/ai/${contentId}`, token)
     return response
 }
