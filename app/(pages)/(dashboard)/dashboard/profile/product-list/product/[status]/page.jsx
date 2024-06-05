@@ -12,6 +12,7 @@ import AppJobCheckbox from '@/app/(pages)/(input-product)/input-product/add-prod
 import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider'; 
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
 import AppModalConnection from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalConnection'
+import AppModalFacebookPage from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalFacebookPage'
 import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
 import { deleteProduct, editProduct, getProductByUser } from "@/app/api/repository/productRepository";
@@ -36,6 +37,7 @@ const ProductDetailPage = () => {
     const [modalDeleteAccount , setModalDeleteAccount ] = useState(false)
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
+    const [modalFacebookPage , setModalFacebookPage ] = useState(false)
     const [modalCheckConnection , setModalCheckConnection ] = useState(false)
     // state data  
     const [isFacebook , setIsFacebook ] = useState(false)
@@ -198,6 +200,10 @@ const ProductDetailPage = () => {
                     }
                 }}
             />
+            <AppModalFacebookPage
+                open={modalFacebookPage}
+                onCloseButton={(value)=>{setModalFacebookPage(value)}}
+            />
             {/*  */}
             <AppCustomModal
                 open={modalCheckConnection}
@@ -247,7 +253,6 @@ const ProductDetailPage = () => {
                 </>
             }
             />
-            {/*  */}
             <AppCustomModal
                 open={modalDeleteAccount}
                 withClose={true}
@@ -396,7 +401,8 @@ const ProductDetailPage = () => {
                                 isFacebook ?
                                 setModalCheckConnection(!modalCheckConnection) 
                                 :
-                                setModalConnection(!modalConnection)
+                                setModalFacebookPage(true)
+                                // setModalConnection(!modalConnection)
                             }}>
                             {
                                 isFacebook ?
