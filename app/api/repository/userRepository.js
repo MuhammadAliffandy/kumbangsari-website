@@ -46,3 +46,10 @@ export const getUserSettings = async () => {
     const response = await PROVIDER_GET(`api/v1/profile/settings`,token )
     return response
 }
+
+export const editUserSettings = async (data , settingsName) => {
+    await delay();
+    const token = getCookie('token');
+    const response = await PROVIDER_PATCH(`api/v1/profile/settings/${settingsName}`, data, token )
+    return response
+}

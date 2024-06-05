@@ -13,7 +13,7 @@ import { useEffect , useState } from 'react'
 import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow, isToday } from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { getUserProfile , getUserByToken } from '@/app/api/repository/userRepository'
-import { getAllNotification } from '@/app/api/repository/notificationRepository'
+import { getAllNotification, readAllNotification } from '@/app/api/repository/notificationRepository'
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
@@ -35,6 +35,7 @@ const AppLayout = (props) => {
     const [user, setUser] = useState([]);
     const [accountSwitched, setAccountSwitched] = useState([]);
     const [userSubscription, setUserSubscription] = useState('');
+    const [notificationStatus, setNotificationStatus] = useState([]);
     const [notificationData, setNotificationData] = useState([]);
     const [notificationCurrentData, setNotificationCurrentData] = useState([]);
     const [expanded , setExpanded ] = useState(true)
@@ -124,9 +125,15 @@ const AppLayout = (props) => {
             }
         })
 
-        const uniqueDate = Array.from(new Set(mappingDate.map(item => item.dateDay)))
+        const sortingDate = mappingDate.sort((a, b) => {
+            let dateA = new Date(a.date);
+            let dateB = new Date(b.date);
+            return dateB - dateA;
+        });
+
+        const uniqueDate = Array.from(new Set(sortingDate.map(item => item.dateDay)))
                             .map(dateDay => {
-                                return mappingDate.find(item => item.dateDay === dateDay);
+                                return sortingDate.find(item => item.dateDay === dateDay);
                             });
 
         const dataNotification = uniqueDate.map(data => {
@@ -154,6 +161,10 @@ const AppLayout = (props) => {
         try {
             const res = await getAllNotification()
             if(res.status == 'OK'){
+
+                const checkStatus = res.data.some( data => data.activity == 'UNREAD')
+                setNotificationStatus(checkStatus)
+
                 const dataNotification = mappingNotificationData(res.data)
             
                 setNotificationCurrentData(res.data)
@@ -164,6 +175,17 @@ const AppLayout = (props) => {
             toast.error('Ada Kesalahan Server')
         }
 
+    }
+
+    const fetchReadNotification = async () => {
+        try {
+            const res = await readAllNotification()
+            if(res.status == 'OK'){
+                setNotificationStatus(false)    
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
     }
 
     const handleFilterNotification = (type) => {
@@ -236,9 +258,14 @@ const AppLayout = (props) => {
                         </Box>
                         <Box className ='flex gap-[20px] items-center' >
                             <AppPopupNotification
-                                available={true}
+                                available={notificationStatus}
                                 onSelected={(value)=>{
                                     handleFilterNotification(value)
+                                }}
+                                onClick={(value)=>{
+                                    if(value == true){
+                                        fetchReadNotification()
+                                    }
                                 }}
                                 listNotification = {
 

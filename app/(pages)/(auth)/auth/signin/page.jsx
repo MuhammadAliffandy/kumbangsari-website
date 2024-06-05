@@ -39,7 +39,7 @@ const SignInPage = () => {
             setOpenModalLoading(true)
             const res = await loginAuth(data)
             
-            if(isAccountAdd){
+            if(isAccountAdd == true){
                 localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
             }
 

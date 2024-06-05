@@ -9,3 +9,10 @@ export const getAllNotification = async () => {
     const response = await PROVIDER_GET(`api/v1/notification`,token)
     return response
 }
+
+export const readAllNotification = async (data) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_POST(`api/v1/notification`,data,token)
+    return response
+}
