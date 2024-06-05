@@ -10,9 +10,9 @@ export const getUserSubscription = async () => {
     return response
 }
 
-export const stopUserSubscription = async () => {
+export const stopUserSubscription = async (data ) => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_DELETE(`api/v1/subscription/stop-subscription`,token)
+    const response = await PROVIDER_DELETE(`api/v1/subscription/stop-subscription`, data ,token)
     return response;
 }

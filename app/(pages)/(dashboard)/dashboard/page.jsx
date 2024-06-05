@@ -207,7 +207,6 @@ const DashboardPage = () => {
     },[])
 
     useEffect(()=>{
-        console.log(productList)
         if(productList.length > 0){
             fetchRecommendationContentAI();
         }
@@ -238,9 +237,11 @@ const DashboardPage = () => {
                 hashtag = {contentDetail ? contentDetail.hashtagPost.split(',').join(' ') : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.contentTitle : ""}
+                idProduct = {contentDetail ? contentDetail.idProduct : ""}
+                idContent = {contentDetail ? contentDetail.idContent : ""}
                 isDashboard={true}
                 onClick = {()=> {
-                    setOpenModalUpload(!openModalUpload)
+                    // setOpenModalUpload(!openModalUpload)
                 }}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)

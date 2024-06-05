@@ -31,6 +31,8 @@ const  AppCheckBox = (props) => {
                 className="h-5 w-5 text-blue-500 focus:ring-blue-400 border-gray-300 rounded-[50%]"
                 checked={props.checked || checked}
                 onChange={(event)=>{
+                    props.customHandle ? 
+                    props.onChange() :
                     handleChange(event)
                 }}
             />

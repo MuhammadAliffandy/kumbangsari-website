@@ -22,37 +22,40 @@ const AppModalDetailContent = (props) => {
     const fetchPostContent = async () => {
         try {
 
-            if(props.platform == 'twitter'){
-                const resTwitterId = await twitterFindId({idProduct:props.idProduct})
+            console.log(props.idProduct)
+            console.log(props.idContent)
 
-                if(resTwitterId.status == 'OK'){
+            // if(props.platform == 'twitter'){
+            //     const resTwitterId = await twitterFindId({idProduct:props.idProduct})
 
-                    if(resTwitterId.data.twitterId == null){
-                        toast.warn('Cek Konektivitas Akun Twitter Anda !!')
-                        return false
-                    }
+            //     if(resTwitterId.status == 'OK'){
 
-                    const data = {
-                        twitterIds:[resTwitterId.data.twitterId],
-                        idContent: props.idContent,
-                        tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrls:[
-                            props.image,
-                        ]
-                    }
+            //         if(resTwitterId.data.twitterId == null){
+            //             toast.warn('Cek Konektivitas Akun Twitter Anda !!')
+            //             return false
+            //         }
 
-                    const res = await twitterPost(data)
+            //         const data = {
+            //             twitterIds:[resTwitterId.data.twitterId],
+            //             idContent: props.idContent,
+            //             tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+            //             imageUrls:[
+            //                 props.image,
+            //             ]
+            //         }
+
+            //         const res = await twitterPost(data)
             
-                    if(res.status == 'OK'){
-                        toast.success('Posting Konten Berhasil')
-                        props.onCloseButton(false)
+            //         if(res.status == 'OK'){
+            //             toast.success('Posting Konten Berhasil')
+            //             props.onCloseButton(false)
                         
-                    }
+            //         }
                     
-                }else{
-                    toast.error('Gagal Menemukan Id Twitter')
-                }
-            }
+            //     }else{
+            //         toast.error('Gagal Menemukan Id Twitter')
+            //     }
+            // }
 
         } catch (error) {
             if(error.status == 403){

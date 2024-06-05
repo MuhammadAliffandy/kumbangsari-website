@@ -17,8 +17,9 @@ import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
 import { deleteProduct, editProduct, getProductByUser } from "@/app/api/repository/productRepository";
 import { twitterConnect } from "@/app/api/repository/twitterRepository";
+import { facebookConnect } from "@/app/api/repository/facebookRepository";
 import { toast } from "react-toastify";
-import { useRouter , useParams } from 'next/navigation';
+import { useRouter , useParams , useSearchParams } from 'next/navigation';
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
 import { listDropCategory } from "@/app/utils/model";
@@ -59,6 +60,8 @@ const ProductDetailPage = () => {
 
     const params = useParams()
     const statusConnection = params.status 
+    const searchParams = useSearchParams();
+    const queryPlatform = searchParams.get('platform');
 
     const fetchTwitterConnection = async () => {
         try {
@@ -73,6 +76,17 @@ const ProductDetailPage = () => {
         }
     }
 
+    const fetchFacebookConnection = async () => {
+        try {
+            const res = await facebookConnect({idProduct :  productInit.id})
+            if(res.status == 'OK'){
+                window.location.href = res.data.redirect_url
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
@@ -81,10 +95,14 @@ const ProductDetailPage = () => {
             })[0]
 
             setUserProduct(data)
+            // 
             setIsFacebook(data.platform.facebook)
             setIsInstagram(data.platform.instagram)
             setIsTwitter(data.platform.twitter)
+            // 
             setAccountTwitter(data.platformInfo.twitter)
+            setAccountFacebook(data.platformInfo.facebook)
+            // 
             setAgeRange(data.ageRange)
             setGender(JSON.stringify(data.gender))
             setSchool(data.education)
@@ -177,12 +195,18 @@ const ProductDetailPage = () => {
     }, []);
 
     useEffect(()=>{
-        if(statusConnection == 'success'){
-            setModalSuccessConnection(true)
+        if(queryPlatform != null){
+            setModalFacebookPage(true)
+        }else{
+            if(statusConnection == 'success'){
+                setModalSuccessConnection(true)
+            }
+            if(statusConnection == 'failed'){
+                setModalFailedConnection(true)
+            }
         }
-        if(statusConnection == 'failed'){
-            setModalFailedConnection(true)
-        }
+
+
     },[])
 
     return(
@@ -193,7 +217,9 @@ const ProductDetailPage = () => {
                 platform = {platformConnection == 'facebook' ? 'Facebook' : platformConnection == 'instagram' ? 'Instagram' : 'Twitter'}
                 imagePlatform = {platformConnection == 'facebook' ? listPlatform.facebook : platformConnection == 'instagram' ? listPlatform.instagram : listPlatform.twitter}
                 onClick={()=>{
-                    // if(platformConnection == 'facebook'){}
+                    if(platformConnection == 'facebook'){
+                        fetchFacebookConnection()
+                    }
                     // if(platformConnection == 'instagram'){}
                     if(platformConnection == 'twitter'){
                         fetchTwitterConnection()
@@ -201,6 +227,7 @@ const ProductDetailPage = () => {
                 }}
             />
             <AppModalFacebookPage
+                idProduct={productInit.id}
                 open={modalFacebookPage}
                 onCloseButton={(value)=>{setModalFacebookPage(value)}}
             />
@@ -397,12 +424,15 @@ const ProductDetailPage = () => {
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('facebook')
-                                setPlatformStatusConnection(isFacebook)
-                                isFacebook ?
-                                setModalCheckConnection(!modalCheckConnection) 
-                                :
-                                setModalFacebookPage(true)
-                                // setModalConnection(!modalConnection)
+                                if(isFacebook){
+                                    setPlatformStatusConnection(isFacebook)
+                                    setModalCheckConnection(!modalCheckConnection) 
+                                    
+                                }else{
+                                    setModalConnection(!modalConnection)
+                                    // setModalFacebookPage(true)
+                                }
+                            
                             }}>
                             {
                                 isFacebook ?

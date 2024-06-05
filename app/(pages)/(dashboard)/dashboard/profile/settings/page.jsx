@@ -75,6 +75,7 @@ const SettingsPage = () => {
         if(res.status == 'OK'){
             fetchUserSettings()
             toast.success('Update Pengaturan Berhasil')
+            fetchUserActivityHistory()
         }
     }
 
