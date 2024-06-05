@@ -127,6 +127,7 @@ const GenerateAIPage = () => {
             image : data.archives.imageUrl, 
         }
         
+
         const lengthData = generateValue.caption || generateValue.hashtag || generateValue.image
         
         const mappingArray = lengthData.map((data,index)=>{
@@ -177,7 +178,7 @@ const GenerateAIPage = () => {
                         return data
                     }
                 })
-        
+                
                 setCurrentContentAIHistory(currentData)
                 setContentAIHistory(currentData)
                 setContentAIHistoryLoading(false)

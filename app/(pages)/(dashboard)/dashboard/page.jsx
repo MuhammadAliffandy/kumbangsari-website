@@ -56,9 +56,9 @@ const DashboardPage = () => {
     const [openModalUpload , setOpenModalUpload ] = useState(false)
     const [openModalSuccessUpload , setOpenModalSuccessUpload ] = useState(false)
     const [openModalFailedUpload , setOpenModalFailedUpload ] = useState(false)
-    const [contentAILoading , setContentAILoading] = useState(false)
-    const [contentPreviewLoading , setContentPreviewLoading ]= useState(false)
-    const [contentRecapLoading , setContentRecapLoading ]= useState(false)
+    const [contentAILoading , setContentAILoading] = useState(true)
+    const [contentPreviewLoading , setContentPreviewLoading ]= useState(true)
+    const [contentRecapLoading , setContentRecapLoading ]= useState(true)
     // state data
     const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
     const [contentAI , setContentAI ] = useState([])
@@ -232,13 +232,14 @@ const DashboardPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetail}
+                withAddButton = {true}
                 image = {contentDetail ? contentDetail.imageUrlPost : ''}
                 caption = {contentDetail ? contentDetail.captionPost : ''}
                 hashtag = {contentDetail ? contentDetail.hashtagPost.split(',').join(' ') : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.contentTitle : ""}
-                idProduct = {contentDetail ? contentDetail.idProduct : ""}
-                idContent = {contentDetail ? contentDetail.idContent : ""}
+                idProduct = {contentDetail ? productList.filter(data => data.text == contentDetail.contentTitle)[0].value : ""}
+                data = {contentDetail ? contentDetail : ''}
                 isDashboard={true}
                 onClick = {()=> {
                     // setOpenModalUpload(!openModalUpload)

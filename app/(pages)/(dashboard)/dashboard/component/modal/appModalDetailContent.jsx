@@ -9,10 +9,13 @@ import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
 import { useMediaQuery } from "react-responsive";
 import { twitterPost , twitterFindId} from '@/app/api/repository/twitterRepository';
+import { createContentAIManual } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const AppModalDetailContent = (props) => {
 
+    const { push } = useRouter()
     const sm = useMediaQuery({ maxWidth: 640 });
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
@@ -64,6 +67,53 @@ const AppModalDetailContent = (props) => {
         }
     }
     
+    const handleAddContent = async () => {
+        const data = props.data
+        console.log(data)
+        try {
+
+            if(data.platform == 'twitter'){
+                if(caption.length >= 280){
+                    toast.warn('Caption Lebih dari 280 Karakter')
+                    return false;
+                }
+            }
+
+            const formData = new FormData();
+            formData.append('contentTitle', data.contentTitle);
+            formData.append('idProduct', props.idProduct);
+            formData.append('platform', data.platform);
+            formData.append('caption', data.captionPost);
+            formData.append('style', data.style);
+            formData.append('hashtag', props.hashtag);
+            formData.append('postedAt', new Date().toISOString());
+            formData.append('historyHashtag', JSON.stringify([]));
+            formData.append('historyImage', JSON.stringify([]));
+            formData.append('historyCaption', JSON.stringify([{
+                role : 'assistant',
+                content : data.captionPost
+            }]));
+
+            formData.append('image', data.imageUrlPost);
+            formData.set('files', '');
+        
+
+            const res = await createContentAIManual(formData)
+
+            if(res.status === 'OK'){
+                toast.success('Tambah Content Berhasil')
+                props.onCloseButton(false)
+                push('/dashboard/calendar')
+
+            }
+        } catch (error) {
+            if(error.status == 404 ){
+                toast.error('Tambah Content Gagal')
+            }else{
+                toast.error('Ada Kesalahan Sever (500)')
+            }
+        }
+    }
 
     return (
         <Modal 
@@ -116,7 +166,20 @@ const AppModalDetailContent = (props) => {
                         props.postedId != null ? null :
                         props.withButton != null  ? null :
                         <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
-                            <AppButton 
+                            {
+                                props.withAddButton ?
+
+                                <AppButton 
+                                    text ={'Tambahkan Sekarang'}
+                                    type={'submit'}
+                                    onClick={()=>{
+                                        fetchPostContent()
+                                        handleAddContent()
+                                
+                                    }}
+                                />
+                                :
+                                <AppButton 
                                     text ={'Unggah Sekarang'}
                                     type={'submit'}
                                     onClick={()=>{
@@ -125,6 +188,7 @@ const AppModalDetailContent = (props) => {
                                 
                                     }}
                                 />
+                            }
                         </Box>
                     }
                 </Box>
