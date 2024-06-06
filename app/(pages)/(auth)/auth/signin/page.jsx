@@ -21,6 +21,7 @@ import AppModal  from '@/app/components/appModal/appModal'
 import 'react-toastify/dist/ReactToastify.css';
 import "../../../../globals.css";
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const SignInPage = () => {
 
@@ -41,10 +42,6 @@ const SignInPage = () => {
             
             if(isAccountAdd == true){
                 localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
-            }
-
-            if(accountList.length == 0 ){
-                localStorage.setItem('accountList' , JSON.stringify([res.data.token]))
             }
 
             dispatch(setToken(res.data.token))

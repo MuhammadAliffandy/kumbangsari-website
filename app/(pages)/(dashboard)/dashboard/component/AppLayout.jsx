@@ -40,6 +40,7 @@ const AppLayout = (props) => {
     const [notificationCurrentData, setNotificationCurrentData] = useState([]);
     const [expanded , setExpanded ] = useState(true)
     const accountList = JSON.parse(localStorage.getItem('accountList'))
+    const tokenNow = useSelector(state => state.auth.value)
 
     const setDate = () => {
         setDateNow(dateIndonesianNow())
@@ -81,18 +82,23 @@ const AppLayout = (props) => {
     }
 
     const fetchUserList = async () => {
-        try {
+        
             if(accountList.length > 0){
                 const accountSwitchList = []
                 const accountListFiltered = []
 
                 for(let i = 0 ; i < accountList.length ; i++ ){
-                    const res = await getUserByToken(accountList[i])
-                
-                    if(res.status === 'OK'){
-                        accountSwitchList.push({ ...res.data , token : accountList[i]})
-                    }else{
-                        accountListFiltered.push(accountList[i]);
+                    try{
+                        const res = await getUserByToken(accountList[i])
+                        if(res.status === 'OK'){
+                            accountSwitchList.push({ ...res.data , token : accountList[i]})
+                        }
+                    } catch (error) {
+                        if(error.status == 400){
+                            accountListFiltered.push(accountList[i]);
+                        }else{
+                            return
+                        }
                     }
                 }
 
@@ -118,13 +124,7 @@ const AppLayout = (props) => {
                 } )
                 setAccountSwitched(accSwitched)
             }
-        } catch (error) {
-            if(error.status === 400){
-                console.log(error)
-            }else{
-                return
-            }
-        }
+    
     }
 
     const mappingNotificationData = (data) => {
@@ -343,10 +343,14 @@ const AppLayout = (props) => {
                                             className='w-[100%] text-[14px] xl:text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
                                             text={sm ? '+' : 'Tambah Akun' }
                                             onClick={()=>{
-                                                console.log(accountSwitched)
                                                 if(accountSwitched.length >= 2){
                                                     toast.warn('Jumlah Akun Sudah Maksimal')
                                                 }else{
+
+                                                    if(accountList.length == 0 ){
+                                                        localStorage.setItem('accountList' , JSON.stringify([tokenNow]))
+                                                    }
+
                                                     push('/auth/signin')
                                                     localStorage.setItem('isAccountAdd' , true)
                                                 }
