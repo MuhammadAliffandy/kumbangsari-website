@@ -31,6 +31,25 @@ const CalenderPage = () => {
     const [productCheckBoxFilter , setProductCheckboxFilter] = useState('')
     const [platformCheckBoxFilter , setPlatformCheckboxFilter] = useState('')
 
+    const calendarLegend = [
+      {
+        text:"Berhasil Diunggah",
+        color:'#53D34F'
+      },
+      {
+        text:"Gagal Diunggah",
+        color:'#F04438'
+      },
+      {
+        text:"Menunggu (Data Lengkap)",
+        color:'#328EFF'
+      },
+      {
+        text:"Menunggu (Data Tidak Lengkap)",
+        color:'#FFC300'
+      },
+    ]
+
     const fetchUserProduct = async () => {
       const res = await getProductByUser();
       if(res.status = 'OK'){
@@ -104,6 +123,15 @@ const CalenderPage = () => {
 
     return (
         <AppLayout title='Kalender'>
+            <AppModalAddContent
+                open={openModalAdd}
+                onCloseButton = {(value)=> {
+                    setOpenModalAdd(value)
+                }}
+                onDone={()=>{
+                  fetchCalendarContent()
+                }}
+            />
             <Box className='p-[20px] grow w-[100%] flex flex-col gap-[15px] '>
               <Box className='flex justify-between '>
                 <AppAnimationButton className='w-auto'>
@@ -153,17 +181,21 @@ const CalenderPage = () => {
                     })
                   }
                 />
+                <Box className='w-[100%] gap-[20px] pt-[15px] flex items-center justify-center'>
+                  {
+                    calendarLegend.map(data => {
+                      return(
+                        <span className="flex items-center gap-[6px]">
+                            <Box sx={{backgroundColor : data.color}} className={`w-[10px] h-[10px] rounded-full`}></Box>
+                            <p className="text-TEXT-1 text-[12px]">{data.text}</p>
+                        </span>
+                      )
+                    })
+                  }
+                </Box>
               </Box>
             </Box>
-            <AppModalAddContent
-                open={openModalAdd}
-                onCloseButton = {(value)=> {
-                    setOpenModalAdd(value)
-                }}
-                onDone={()=>{
-                  fetchCalendarContent()
-                }}
-            />
+      
         </AppLayout>
     ) 
 }

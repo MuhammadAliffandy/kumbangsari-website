@@ -172,7 +172,7 @@ const AppModalEditContent = (props) => {
 
         // 
 
-        const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
+        const hashtagKeep = JSON.parse(localStorage.getItem('hashtag') || '[]')  
 
         const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
 
@@ -223,6 +223,7 @@ const AppModalEditContent = (props) => {
     useEffect(()=>{
         getContentUser()
         getRecommendationAI()
+        localStorage.setItem('hashtag','[]')
     },[props.open])
 
 
