@@ -425,7 +425,7 @@ const DashboardPage = () => {
 
                     {/*  */}
 
-                    <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-xl '>
+                    <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Preview Konten</p> 
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
@@ -442,7 +442,7 @@ const DashboardPage = () => {
 
                     {/*  */}
 
-                    <Box className='grow rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-xl  '>
+                    <Box className='grow rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
                         <Box className='flex items-center justify-start '>
                             <p className="text-TEXT-1 font-bold text-[16px]">Rekomendasi Konten</p>
                         </Box>
@@ -521,7 +521,7 @@ const DashboardPage = () => {
                         }
                     </Box>
 
-                    <Box className= 'rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-xl  '>
+                    <Box className= 'rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
                         <Box className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
@@ -531,7 +531,7 @@ const DashboardPage = () => {
                         </Box>
                     </Box>
                     {/* filter bar  */}
-                    <Box className= ' grow  rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-xl '>
+                    <Box className= ' grow  rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md '>
                         <Box className='flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Trending Hashtag</p>
                         </Box>

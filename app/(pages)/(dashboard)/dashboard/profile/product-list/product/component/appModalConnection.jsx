@@ -29,7 +29,7 @@ const AppModalConnection = (props) => {
                     
                     <Box className='flex gap-[20px] items-center justify-center w-[100%]'>
                             <img alt='img-platform' className='w-[80px] h-[80px] rounded-[100%]' src={props.imagePlatform} />
-                            <img alt='img-platform' className='w-[auto] h-[80px] ' src={'/images/icon/connect.svg'} />
+                            <img alt='img-platform' className='w-[auto] h-[50px] ' src={'/images/icon/connect.svg'} />
                             <img alt='img-platform' className='w-[80px] h-[80px] ' src={'/images/icon/logo/planify.png'} />
                     </Box>
 

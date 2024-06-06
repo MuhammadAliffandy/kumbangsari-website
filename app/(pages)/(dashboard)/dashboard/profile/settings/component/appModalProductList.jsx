@@ -67,7 +67,7 @@ const AppModalProductList = (props) => {
                                                                 toast.warn('Upgrade ke Premium untuk Mengakses')
                                                             }
 
-                                                            }} className={`${index < idSelection ? 'opacity-[100%]' : 'opacity-[20%]'} p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-xl`}>
+                                                            }} className={`${index < idSelection ? 'opacity-[100%]' : 'opacity-[20%]'} p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-md`}>
                                                             <Box className='flex flex-col gap-[10px] items-start h-full'>
                                                                 <Box className='flex flex-col'>
                                                                     <p className="text-TEXT-1 text-[18px] font-bold">{data.nameProduct}</p>

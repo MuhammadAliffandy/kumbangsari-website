@@ -306,7 +306,7 @@ export default function LandingPage() {
                         subscriptionList.map((data,index)=>{
                             return(
                                 <Grid item xs={12} xl={4}>
-                                    <Box className={`hover:shadow-xl text-TEXT-5 flex flex-col items-center gap-[10px] px-[40px] py-[30px]  rounded-[10px] ${ index == 1 ? 'bg-PRIMARY-700 h-[100%] xl:h-[75vh]' : 'bg-PRIMARY-900' }`} >
+                                    <Box className={`hover:shadow-md text-TEXT-5 flex flex-col items-center gap-[10px] px-[40px] py-[30px]  rounded-[10px] ${ index == 1 ? 'bg-PRIMARY-700 h-[100%] xl:h-[75vh]' : 'bg-PRIMARY-900' }`} >
                                         <p className="text-[22px] font-bold text-center">{data.title}</p>
                                         <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
                                             <p>{data.subtitle}</p>

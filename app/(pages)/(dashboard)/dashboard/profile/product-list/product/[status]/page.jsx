@@ -11,6 +11,7 @@ import AppSchoolCheckbox from '@/app/(pages)/(input-product)/input-product/add-p
 import AppJobCheckbox from '@/app/(pages)/(input-product)/input-product/add-product/component/appJobCheckbox';
 import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider'; 
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
+import AppModalEditProduct from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/component/appModalEditProduct'
 import AppModalConnection from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalConnection'
 import AppModalFacebookPage from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalFacebookPage'
 import AppModalInstagramPage from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalInstagramPage'
@@ -40,6 +41,7 @@ const ProductDetailPage = () => {
     const [modalFailedConnection , setModalFailedConnection ] = useState(false)
     const [modalDeleteAccount , setModalDeleteAccount ] = useState(false)
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
+    const [modalEditProduct , setModalEditProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
     const [modalFacebookPage , setModalFacebookPage ] = useState(false)
     const [modalInstagramPage , setModalInstagramPage ] = useState(false)
@@ -152,38 +154,6 @@ const ProductDetailPage = () => {
         }
     }
 
-    const fetchEditProduct = async () => {
-        try {
-
-            const genderValue = localStorage.getItem('gender') ;
-            const schoolValue = localStorage.getItem('school');
-            const jobValue = localStorage.getItem('job');
-
-            const data = {
-                nameProduct: userProduct.nameProduct,
-                age: ageRange,
-                work:convertValueCheckbox(jobValue),
-                education:convertValueCheckbox(schoolValue),
-                category: userProduct.category,
-                gender:convertValueCheckbox(genderValue)
-            }
-
-            const res = await editProduct(data, productInit.id)
-
-            if(res.status == 'OK'){
-                toast.success('Berhasil Edit Product')
-                getUserProduct()
-            }
-
-        } catch (error) {
-            if(error.status == 404){
-                toast.error('Gagal Edit Product')
-            }else{
-                toast.error('Ada Kesalahan Server (500)')
-            }
-        }
-    }
-
     const fetchDeleteProduct = async () => {
         try {
 
@@ -228,6 +198,15 @@ const ProductDetailPage = () => {
 
     return(
         <AppLayout title={`Profil > Daftar Produk > ${productInit.name}`}>
+            <AppModalEditProduct
+                idProduct={productInit.id}
+                currentData = {userProduct}
+                open={modalEditProduct}
+                onCloseButton={(value)=> setModalEditProduct(value) }
+                onDone={()=>{
+                    getUserProduct()
+                }}
+            />
             <AppModalConnection
                 open={modalConnection}
                 onCloseButton={value => { setModalConnection(value) }}
@@ -549,7 +528,7 @@ const ProductDetailPage = () => {
                                         text={'Ubah Produk'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                            fetchEditProduct()
+                                            setModalEditProduct(!modalEditProduct)
                                         }}
                                     />
                                 </>

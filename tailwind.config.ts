@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow:{
-        'CUSTOM-2' : '0px 0px 3px 1px rgb(33 37 41 / 0.2)',
+        'CUSTOM-2' : '0px 0px 1px 1px rgb(33 37 41 / 0.2)',
         'CUSTOM-3' : '4px 4px 0px 0px rgba(187,187,187)',
         'CUSTOM-4' : '2px 2px 0px 0px rgba(187,187,187)'
       },
