@@ -48,7 +48,8 @@ const AppTablePost = (props) =>  {
                                 <TableCell align="center"><p className='text-[12px]' >{data.share}</p></TableCell>
                                 {/* <TableCell align="center"><p className='text-[12px]' >{data.follower}</p></TableCell> */}
                                 <TableCell align="center"><button onClick={()=>{
-                                    props.onClick(data.data)}} className='underline text-PRIMARY-500'>Detail Konten</button>
+                                    props.onClick(data.content)
+                                }} className='underline text-PRIMARY-500'>Detail Konten</button>
                                 </TableCell>
                             </TableRow>
                         ))

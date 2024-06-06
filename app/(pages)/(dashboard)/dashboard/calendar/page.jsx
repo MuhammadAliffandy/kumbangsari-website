@@ -81,7 +81,7 @@ const CalenderPage = () => {
     const handleChangeCheckbox = (listCheckbox) => {
     
       if(currentCalendar.length > 0){
-        const calenderChange = calendar.filter(data => { 
+        const calenderChange = currentCalendar.filter(data => { 
           return listCheckbox.product.indexOf(productList[data.idProduct - 1].text) > -1 || listCheckbox.platform.indexOf(data.platform) > -1
         })
         setCalendar( calenderChange)

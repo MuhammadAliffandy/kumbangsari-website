@@ -89,6 +89,7 @@ const AnalystPage = () => {
     // state data
     const [contentDetail , setContentDetail] = useState([])
     const [productList , setProductList] = useState([])
+    const [currentBestPerformance , setCurrentBestPerformance ] = useState([])
     const [bestPerformance , setBestPerformance ] = useState([])
     const [recapPost , setRecapPost ] = useState({
         datasets: [
@@ -110,7 +111,6 @@ const AnalystPage = () => {
     const createDataPost = (date, contentTitle, productName, platform, like , comment , share , follower, content) => {
         return { date, contentTitle, productName, platform, like , comment , share , follower , content};
     }
-
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
@@ -135,20 +135,21 @@ const AnalystPage = () => {
             const res = await getAnalysisBestPerformance();
 
             if(res.status == 'OK'){
-                const data = res.data.map(data => {
+                const data = res.data.map(item => {
                     return createDataPost(
-                        convertToIndonesianDate(data.date.createAt),
-                        data.contentTitle,
-                        productList[data.idProduct - 1 ]?.text,
-                        data.platform,
-                        data.detailPost.likes_count,
-                        data.detailPost.comments_count,
-                        data.detailPost.likes_count,
+                        convertToIndonesianDate(item.date.createAt),
+                        item.contentTitle,
+                        productList[item.idProduct - 1 ]?.text,
+                        item.platform,
+                        item.detailPost.likes_count,
+                        item.detailPost.comments_count,
+                        item.detailPost.likes_count,
                         0,
-                        data,
+                        item,
                     )
                 })
 
+                setCurrentBestPerformance(data)
                 setBestPerformance(data)
             }
         } catch (error) {
@@ -193,6 +194,21 @@ const AnalystPage = () => {
 
         } catch (error) {
             console.log(error)
+        }
+    }
+
+
+    const handleFilter = (listCheckbox) => {
+
+        if(currentBestPerformance.length > 0){
+            const bestPerformanceChange = currentBestPerformance.filter(data => { 
+            return listCheckbox.product.indexOf(productList[data.content.idProduct - 1].text) > -1 || listCheckbox.platform.indexOf(data.content.platform) > -1
+            })
+            setBestPerformance( bestPerformanceChange)
+        }
+        
+        if(listCheckbox.product.length == 0 && listCheckbox.platform.length == 0){
+            setBestPerformance(currentBestPerformance)
         }
     }
 
@@ -285,11 +301,13 @@ const AnalystPage = () => {
                                 listProductCheckbox={productCheckBoxFilter}
                                 listPlatformCheckbox={platformCheckBoxFilter}
                                 onCheckProduct = {(value)=>{ 
-                                    setProductCheckboxFilter(value.product)
-                                }}
-                                onCheckPlatform = {(value)=>{ 
-                                    setPlatformCheckboxFilter(value.platform)
-
+                                        setProductCheckboxFilter(value.product)
+                                        handleFilter(value)
+                                    }}
+                                    onCheckPlatform = {(value)=>{ 
+                                        setPlatformCheckboxFilter(value.platform)
+                                        handleFilter(value)
+                                        
                                 }}
                             />
                         </Box>

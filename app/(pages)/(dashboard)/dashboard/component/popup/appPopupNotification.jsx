@@ -52,7 +52,7 @@ const AppPopupNotification = (props) => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className={` w-[75vw] md:w-[70vw] lg:w-[60vw] xl:w-[45vw] max-h-[50vh] rounded-[20px] bg-white p-[15px] flex flex-col gap-[15px] overflow-y-auto shadow-xl scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full`}
+                    className={` w-[75vw] md:w-[70vw] lg:w-[60vw] xl:w-[45vw] max-h-[50vh] rounded-[20px] bg-white p-[15px] flex flex-col gap-[15px] shadow-xl  `}
                 >
                     <Box className = 'flex justify-between '>
                         <p className = 'text-[18px] font-bold text-black' >Notifikasi</p>
@@ -63,7 +63,7 @@ const AppPopupNotification = (props) => {
                             }}
                         />
                     </Box>
-                    <Box className='flex gap-[10px] items-center justify-start w-[100%] overflow-y-hidden overflow-x-scroll xl:overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='flex-none flex gap-[10px] items-center justify-start w-[100%] overflow-y-hidden overflow-x-scroll xl:overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <AppButton
                             text='Semua'
                             className={`${selected == 0 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px]`}
@@ -100,12 +100,12 @@ const AppPopupNotification = (props) => {
                             text='Konten'
                             className={`${selected == 4 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
                             onClick={()=>{
-                                setSelected(3)
+                                setSelected(4)
                                 props.onSelected('Konten')
                             }}
                         />
                     </Box>
-                    <Box className='flex flex-col'>
+                    <Box className='flex flex-col overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
                             props.listNotification.map((data,index)=> {
                                 return(

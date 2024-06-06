@@ -129,8 +129,8 @@ const SettingsPage = () => {
                 onCloseButton = { value => setModalThirdParty(value)}
             />
 
-            <Box className = 'grow h-[86%]  p-[20px] flex flex-col gap-[20px]'>
-                <Box className='w-[100%] h-[100%] rounded-[20px] flex flex-col gap-[20px]'>
+            <Box className = 'grow h-[86%] p-[20px] flex flex-col gap-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                <Box className='w-[100%] h-[100%] rounded-[20px] flex flex-col gap-[20px] '>
                     <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Aktivitas</p> 
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
@@ -151,7 +151,7 @@ const SettingsPage = () => {
                             })
                         }
                     </Grid>
-                    <Box className='w-[100%] flex flex-col gap-[10px] items-start bg-NEUTRAL-100 p-[20px] rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='w-[100%] flex flex-col gap-[10px] items-start bg-NEUTRAL-100 p-[20px] rounded-[20px] '>
                         {/*  */}
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Notifikasi</p> 
@@ -336,6 +336,7 @@ const SettingsPage = () => {
                             <p onClick={()=> {setModalProductList(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
                         </Box>
                     </Box>
+                    
                 </Box>
             </Box>
         </AppLayout>
