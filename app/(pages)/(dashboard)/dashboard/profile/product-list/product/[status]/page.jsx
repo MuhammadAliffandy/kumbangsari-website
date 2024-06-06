@@ -248,12 +248,12 @@ const ProductDetailPage = () => {
                     <Box className='flex flex-col justify-start w-[100%] gap-[15px]'>
                         <Box className='flex items-center gap-[10px]'>
                             <img alt="icon-check" src={`/images/icon/${platformStatusConnection ? 'success': 'failed'}.svg`} className="w-[12px] h-[12px]"/>
-                            <p className="text-TEXT-1 text-[14px] font-medium" >{accountTwitter.username || '@username'}</p>
+                            <p className="text-TEXT-1 text-[14px] font-medium" >{platformConnection == 'facebook' ? accountFacebook.username || '@username' : platformConnection == 'instagram' ? accountInstagram.username || '@username' : accountTwitter.username || '@username'}</p>
                         </Box>
                         <Box className='h-[1px] w-[100%] bg-TEXT-4'></Box>
-                        <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: {convertToIndonesianDate(accountTwitter.date)}</p>
+                        <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: {platformConnection == 'facebook' ? convertToIndonesianDate(accountFacebook.date) : platformConnection == 'instagram' ? convertToIndonesianDate(accountInstagram.date) : convertToIndonesianDate(accountTwitter.date) || ''}</p>
                     </Box>
-                    <Box className=' flex flex-col gap-[10px] w-[100%]'>
+                    {/* <Box className=' flex flex-col gap-[10px] w-[100%]'>
                         <AppButton
                             className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
                             text={ platformConnection ? 'Hapus Akun' : 'Perbarui Konektivitas'} 
@@ -279,7 +279,7 @@ const ProductDetailPage = () => {
                             /> : null
 
                         }
-                    </Box>
+                    </Box> */}
                 </>
             }
             />
@@ -359,7 +359,10 @@ const ProductDetailPage = () => {
 
                 subtitle={'Akun telah berhasil ditambahkan. Mulai pengalaman autopost yang menyenangkan!'}
                 onClose={()=>{}}
-                onCloseButton={(value)=> setModalSuccessConnection(value) }
+                onCloseButton={(value)=> {
+                    setModalSuccessConnection(value) 
+                    push(`/dashboard/profile/product-list/product/${productInit.name.split(' ').join('-').toLowerCase()}`)
+                }}
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
@@ -368,6 +371,7 @@ const ProductDetailPage = () => {
                             type = {'button'}
                             onClick={()=>{
                                 setModalSuccessConnection(false)
+                                push(`/dashboard/profile/product-list/product/${productInit.name.split(' ').join('-').toLowerCase()}`)
                             }}
                         />
                     </Box>
@@ -385,7 +389,10 @@ const ProductDetailPage = () => {
 
                 subtitle={'Gagal menghubungkan akun. Hubungkan ulang untuk pengalaman autopost yang menyenangkan!'}
                 onClose={()=>{}}
-                onCloseButton={(value)=> setModalFailedConnection(value) }
+                onCloseButton={(value)=> {
+                    setModalFailedConnection(value)
+                    push(`/dashboard/profile/product-list/product/${productInit.name.split(' ').join('-').toLowerCase()}`)
+                } }
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
@@ -394,6 +401,7 @@ const ProductDetailPage = () => {
                             type = {'button'}
                             onClick={()=>{
                                 setModalFailedConnection(false)
+                                push(`/dashboard/profile/product-list/product/${productInit.name.split(' ').join('-').toLowerCase()}`)
                             }}
                         />
                     </Box>
