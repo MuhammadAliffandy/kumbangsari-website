@@ -8,7 +8,7 @@ import { listPlatform } from '@/app/utils/model'
 const AppContent = (props) => {
     return(
         <AppAnimationContent className>
-            <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 `} >
+            <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 bg-white `} >
                 {
                     props.image != null && props.caption == null && props.hashtag == null ?   
                     <Box className='flex-none '> <img src={props.image} className='rounded-[15px] w-[160px] h-[140px] object-fill' />  </Box>
@@ -39,7 +39,7 @@ const AppContent = (props) => {
                     {
                         props.isDashboard ? 
                             <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onClick={props.onClick}>
-                                    <img className='w-[18px] h-[18px] ' src={'/images/icon/sparkling-black.svg'}/>
+                                    { props.isDashboard ? null : <img className='w-[18px] h-[18px] ' src={'/images/icon/sparkling-black.svg'}/> }
                                     {props.isResponsive ? null : <p className="text-TEXT-1 font-bold text-[12px]">Lihat Detail</p>} 
                             </AppCustomButton>
                         :  <AppButton

@@ -330,7 +330,7 @@ const GenerateAIPage = () => {
             <Box className={`grow  flex  ${ sm || lg || md  ? 'flex-col' : 'flex-row'  } h-[86%]`}>
                 {/* */}
                 <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[100%] `}>
-                    <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] border-[1px] border-TEXT-4 hover:shadow-xl  '>
+                    <Box className='h-[100%] rounded-[20px] p-[20px]  flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-xl  '>
                         <Box className='flex items-center justify-between'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Hasil Penelusuran</p>
                             <AppAnimationButton className='w-auto'>
@@ -393,7 +393,7 @@ const GenerateAIPage = () => {
                 {/* */}
                 <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } h-[100%] p-[20px]`}>
                     {/* filter bar  */}
-                    <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] border-[1px] border-TEXT-4  hover:shadow-xl '>
+                    <Box className= 'h-[100%] rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100  hover:shadow-xl '>
                         <Box className=' flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Penelusuran</p>
                             <AppPopupFilter

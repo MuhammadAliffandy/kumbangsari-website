@@ -65,6 +65,11 @@ const SignInPage = () => {
             setOpenModalLoading(false)
             setLoadingProgress(100)
 
+            if(error.code == 'ERR_NETWORK'){
+                push('/network-error')
+                return false
+            }
+            
             if(error.status == 401){
                 toast.error('Email atau Kata Sandi Salah')
                 
@@ -137,7 +142,7 @@ const SignInPage = () => {
                         
                         />  
                         <Box className = 'w-[100%] flex justify-end'>
-                            <p onClick = {()=>{push('forgot-pass')}} className='text-black cursor-pointer font-poppins text-[12px] font-semibold'>Lupa Password</p>
+                            <p onClick = {()=>{push('forgot-pass')}} className='text-black cursor-pointer font-poppins text-[12px] font-semibold'>Lupa Password ?</p>
                         </Box>
                         <AppAnimationButton>
                             <AppButton

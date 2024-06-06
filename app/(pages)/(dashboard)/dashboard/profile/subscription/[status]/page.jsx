@@ -323,13 +323,13 @@ const SubscriptionPage = () => {
                 </>
             }
             />
-            <Box className='grow h-[86%] bg-NEUTRAL-100 p-[20px] flex flex-col gap-[20px]'>
+            <Box className='grow h-[86%] bg-white p-[20px] flex flex-col gap-[20px]'>
             
                 {
 
                 paymentTransactions.length != 0  ?               
                     <>
-                        <Box className='flex-none h-auto w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                        <Box className='flex-none h-auto w-[100%] flex flex-col bg-NEUTRAL-100 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px] '>
                                 <Box className='flex gap-[5px] relative'>
                                     <p className="text-PRIMARY-500 font-bold text-[18px]">{user.subscription  ? subscriptionList[user.subscription - 1].title : 'Paket'}</p>
@@ -369,7 +369,7 @@ const SubscriptionPage = () => {
                                     userSubscription?.length != 0 ? 
 
                                     <Box className='flex gap-[10px] w-[100%] text-[14px] flex-col xl:flex-row lg:flex-row'>
-                                        <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%]  text-black'>
+                                        <Box className='w-[100%] xl:w-[50%] flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-TEXT-5  text-black'>
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Jumlah Produk</p><p>: {userSubscription?.SubscriptionDetails?.maxProductCount || 0}</p></span>
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Tanggal Pembelian</p><p>: {
                                                 userSubscription?.startDate ? convertToIndonesianDate(userSubscription?.startDate) : 'Belum Berlangganan'
@@ -378,7 +378,7 @@ const SubscriptionPage = () => {
                                                 userSubscription?.expiresIn ? convertToIndonesianDate(userSubscription?.expiresIn) : 'Belum Berlangganan'
                                             }</p></span>
                                         </Box>
-                                        <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-PRIMARY-100 bg-opacity-[30%] text-black font-bold'>
+                                        <Box className='grow flex flex-col gap-[8px] p-[10px] rounded-[15px] bg-TEXT-5 text-black font-bold'>
                                             <span className="flex gap-[20px]"><p className="w-[30%]">Generate AI</p><p>: 
                                                 { 
                                                 user?.subscription > 1 ?
@@ -465,7 +465,7 @@ const SubscriptionPage = () => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className='grow w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                        <Box className='grow w-[100%] flex flex-col bg-NEUTRAL-100 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                             <Box className='p-[20px] flex flex-col gap-[15px]'>
                                 <p className="text-TEXT-1 font-bold text-[16px]">Riwayat Pembayaran</p> 
                                 <AppTablePayment
@@ -493,7 +493,7 @@ const SubscriptionPage = () => {
                     
                     :
                     
-                    <Box className='h-[100%] w-[100%] flex flex-col border-[1px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className='h-[100%] w-[100%] flex flex-col bg-NEUTRAL-100 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <SubscriptionList
                             onClick={(value)=>{
                                 setPaymentDetailModal(true)

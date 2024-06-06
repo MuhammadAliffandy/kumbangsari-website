@@ -88,11 +88,8 @@ const AppModalDetailContent = (props) => {
             formData.append('hashtag', props.hashtag);
             formData.append('postedAt', new Date().toISOString());
             formData.append('historyHashtag', JSON.stringify([]));
-            formData.append('historyImage', JSON.stringify([]));
-            formData.append('historyCaption', JSON.stringify([{
-                role : 'assistant',
-                content : data.captionPost
-            }]));
+            // formData.append('historyImage', JSON.stringify([]));
+            formData.append('historyCaption', JSON.stringify([]));
 
             formData.append('image', data.imageUrlPost);
             formData.set('files', '');

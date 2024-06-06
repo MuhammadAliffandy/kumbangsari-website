@@ -64,7 +64,19 @@ const AppLayout = (props) => {
                 dispatch(setUserSubscriptionData(res.data.subscription))
             }
         } catch (error) {
-            toast.error('Authentication Failed')
+
+            if(error.code == 'ERR_NETWORK'){
+                push('/network-error')
+                return false
+            }
+
+            if(error.status == 401){
+                toast.error('Authentication Failed')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+
+    
         }
     }
 
@@ -222,7 +234,7 @@ const AppLayout = (props) => {
                         null
                     :
 
-                    <Box className = 'w-[14%] h-[100vh] flex-none bg-NEUTRAL-100 flex flex-col items-center gap-[10px] border-r-[1px] border-r-TEXT-4 '>
+                    <Box className = 'w-[14%] h-[100vh] flex-none bg-NEUTRAL-100 flex flex-col items-center gap-[10px] '>
                         <Box className={`py-[10px] pl-[10%] flex items-center ${xl ? 'justify-center' : 'justify-start' } gap-[8px] w-[100%]`}>
                             <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
                             { xl ? '' : <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>}
@@ -235,7 +247,7 @@ const AppLayout = (props) => {
                     </Box>
                 }
                 <Box className={` ${ sm || md || lg || xl ? 'w-[100%]' : 'w-[86%]' } h-[100vh] flex-none flex  flex-col`}>
-                    <nav className='w-[100%] flex-none h-auto bg-NEUTRAL-100 py-[15px] px-[30px] flex items-center justify-between border-b-[1px] border-b-TEXT-4 '>
+                    <nav className='w-[100%] flex-none h-auto bg-NEUTRAL-100 py-[15px] px-[30px] flex items-center justify-between  '>
                         <Box className = 'flex items-center gap-[20px]' >
                             {
 

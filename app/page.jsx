@@ -18,18 +18,18 @@ import { useRouter } from "next/navigation";
 
 const items = [
   {
-      name: 'Content Optimization',
-      description: 'Get content recommendations that best suit your product!',
+      name: 'Personalized Recommendation',
+      description: 'Get AI-based content recommendations that suit your product!',
       image: '/images/vector/AI.png',
   },
   {
-      name: 'Time Efficiency',
-      description: 'Organize and upload all your product content from just one platform!',
+      name: 'Data Optimization',
+      description: 'Get all your product content data analyzed in one easy-to-use platform!',
       image: '/images/vector/statistic.png',
   },
   {
-      name: 'Structured Scheduling',
-      description: 'Schedule the content you will upload with the auto-post feature!',
+      name: 'Time Efficiency',
+      description: 'Automate your content posting with our scheduled content auto-post feature!',
       image: '/images/vector/content.png',
   },
 ];
@@ -86,7 +86,7 @@ const itemsTestimoni = [
 const subscriptionList = [
   {
       title: 'Basic Package',
-      subtitle: 'Suistable for -- ',
+      subtitle: 'Suistable for Beginner ',
       image : '/images/icon/paket/basic.svg',
       price : 100000,
       benefit : [
@@ -101,7 +101,7 @@ const subscriptionList = [
   },
   {
       title: 'Premium Package',
-      subtitle: 'Suistable for -- ',
+      subtitle: 'Suistable for Intermediate ',
       image : '/images/icon/paket/premium.svg',
       price : 200000,
       benefit : [
@@ -116,7 +116,7 @@ const subscriptionList = [
   },
   {
       title: 'Professional Package',
-      subtitle: 'Suistable for -- ',
+      subtitle: 'Suistable for Professional ',
       image : '/images/icon/paket/pro.svg',
       price : 350000,
       benefit : [
@@ -196,7 +196,7 @@ export default function LandingPage() {
         </Box>
       </section>
       {/*  */}
-      <section className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
+      <section id="benefits"  className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
@@ -425,6 +425,7 @@ const SideBar = (props) => {
         </Box>
 
         <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px] sm:hidden md:flex lg:flex xl:flex'}  font-bold font-poppins `}>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#benefits">Benefits</a></li>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#feature">Feature</a></li>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#subscription">Subscribe</a></li>
           <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#faq">FAQ</a></li>

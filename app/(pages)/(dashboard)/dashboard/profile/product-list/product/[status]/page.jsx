@@ -13,6 +13,7 @@ import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider';
 import AppTableProduct from "@/app/components/appTable/appTableProduct";
 import AppModalConnection from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalConnection'
 import AppModalFacebookPage from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalFacebookPage'
+import AppModalInstagramPage from '@/app/(pages)/(dashboard)/dashboard/profile/product-list/product/component/appModalInstagramPage'
 import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
 import { deleteProduct, editProduct, getProductByUser } from "@/app/api/repository/productRepository";
@@ -23,6 +24,7 @@ import { useRouter , useParams , useSearchParams } from 'next/navigation';
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
 import { listDropCategory } from "@/app/utils/model";
+import { instagramConnect } from "@/app/api/repository/instagramRepository";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -40,6 +42,7 @@ const ProductDetailPage = () => {
     const [modalDeleteProduct , setModalDeleteProduct ] = useState(false)
     const [modalConnection , setModalConnection ] = useState(false)
     const [modalFacebookPage , setModalFacebookPage ] = useState(false)
+    const [modalInstagramPage , setModalInstagramPage ] = useState(false)
     const [modalCheckConnection , setModalCheckConnection ] = useState(false)
     // state data  
     const [isFacebook , setIsFacebook ] = useState(false)
@@ -80,6 +83,17 @@ const ProductDetailPage = () => {
     const fetchFacebookConnection = async () => {
         try {
             const res = await facebookConnect({idProduct :  productInit.id})
+            if(res.status == 'OK'){
+                window.location.href = res.data.redirect_url
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+    const fetchInstagramConnection = async () => {
+        try {
+            
+            const res = await instagramConnect({idProduct :  productInit.id})
             if(res.status == 'OK'){
                 window.location.href = res.data.redirect_url
             }
@@ -196,8 +210,10 @@ const ProductDetailPage = () => {
     }, []);
 
     useEffect(()=>{
-        if(queryPlatform != null){
-            setModalFacebookPage(true)
+        if(queryPlatform == 'facebook'){
+            setModalFacebookPage(true) 
+        }else if(queryPlatform == 'instagram'){
+            setModalInstagramPage(true)
         }else{
             if(statusConnection == 'success'){
                 setModalSuccessConnection(true)
@@ -221,7 +237,9 @@ const ProductDetailPage = () => {
                     if(platformConnection == 'facebook'){
                         fetchFacebookConnection()
                     }
-                    // if(platformConnection == 'instagram'){}
+                    if(platformConnection == 'instagram'){
+                        fetchInstagramConnection()
+                    }
                     if(platformConnection == 'twitter'){
                         fetchTwitterConnection()
                     }
@@ -231,6 +249,11 @@ const ProductDetailPage = () => {
                 idProduct={productInit.id}
                 open={modalFacebookPage}
                 onCloseButton={(value)=>{setModalFacebookPage(value)}}
+            />
+            <AppModalInstagramPage
+                idProduct={productInit.id}
+                open={modalInstagramPage}
+                onCloseButton={(value)=>{setModalInstagramPage(value)}}
             />
             {/*  */}
             <AppCustomModal
@@ -413,6 +436,7 @@ const ProductDetailPage = () => {
                             setModalCheckConnection(!modalCheckConnection) 
                             :
                             setModalConnection(!modalConnection)
+                            
                     }}>
                             {
                                 isInstagram ?
@@ -431,7 +455,7 @@ const ProductDetailPage = () => {
                                     
                                 }else{
                                     setModalConnection(!modalConnection)
-                                    // setModalFacebookPage(true)
+                                    
                                 }
                             
                             }}>

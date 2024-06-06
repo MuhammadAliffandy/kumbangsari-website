@@ -228,7 +228,7 @@ const AnalystPage = () => {
             />
             <Box className = 'grow h-[86%] p-[20px] flex flex-col gap-[20px]'>
             {/*  */}
-                <Box className='p-[20px] flex-none h-[100%] w-[100%] flex flex-col border-[1px] gap-[15px] border-TEXT-4 rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                <Box className='p-[20px] flex-none h-[100%] w-[100%] flex flex-col  gap-[15px]  rounded-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                     <Box className='flex gap-[5px] items-center relative'>
                         <p className="text-TEXT-1 font-bold text-[16px]">Performa Konten</p>
                         <Box 

@@ -5,6 +5,8 @@ import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import { listPlatform } from '@/app/utils/model';
 import { twitterRevoke } from '@/app/api/repository/twitterRepository';
+import { facebookRevoke } from '@/app/api/repository/facebookRepository';
+import { instagramRevoke } from '@/app/api/repository/instagramRepository';
 import { toast } from 'react-toastify';
 
 
@@ -14,7 +16,39 @@ const AppModalThirdParty = (props) => {
         try {
             const res = await twitterRevoke({idProduct : idProduct})
             if(res.status == 'OK'){
-                toast.success('Hapus Akses Berhasil')
+                toast.success('Hapus Akses Twitter Berhasil')
+                props.onCloseButton(false)
+            }
+        } catch (error) {
+            if(error.status == 404){
+                toast.error('Hapus Akses Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+                
+        }
+    }
+    const fetchFacebookRevoke = async (idProduct) => {
+        try {
+            const res = await facebookRevoke({idProduct : idProduct})
+            if(res.status == 'OK'){
+                toast.success('Hapus Akses Facebook Berhasil')
+                props.onCloseButton(false)
+            }
+        } catch (error) {
+            if(error.status == 404){
+                toast.error('Hapus Akses Gagal')
+            }else{
+                toast.error('Ada Kesalahan Server (500)')
+            }
+                
+        }
+    }
+    const fetchInstagramRevoke = async (idProduct) => {
+        try {
+            const res = await instagramRevoke({idProduct : idProduct})
+            if(res.status == 'OK'){
+                toast.success('Hapus Akses Instagram Berhasil')
                 props.onCloseButton(false)
             }
         } catch (error) {
@@ -69,6 +103,12 @@ const AppModalThirdParty = (props) => {
                                                 onClick={()=>{
                                                     if(data.platform == 'twitter'){
                                                         fetchTwitterRevoke(data.idProduct)
+                                                    }
+                                                    if(data.platform == 'facebook'){
+                                                        fetchFacebookRevoke(data.idProduct)
+                                                    }
+                                                    if(data.platform == 'instagram'){
+                                                        fetchInstagramRevoke(data.idProduct)
                                                     }
                                                 }}
                                             />
