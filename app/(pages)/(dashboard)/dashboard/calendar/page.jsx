@@ -52,11 +52,11 @@ const CalenderPage = () => {
 
     const fetchUserProduct = async () => {
       const res = await getProductByUser();
-      if(res.status = 'OK'){
+      if(res.status == 'OK'){
 
-          const currentData = res.data.filter(data => {
+          const currentData = res.data.filter((data , index) => {
                   if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return index === 0
                 }else{
                     return data
                 }
@@ -74,9 +74,9 @@ const CalenderPage = () => {
         const res = await getContentCalendar()
 
         if(res.status === 'OK'){
-          const currentData = res.data.filter(data => {
+          const currentData = res.data.filter(( data , index ) => {
                   if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return index === 0
                 }else{
                     return data
                 }

@@ -27,7 +27,7 @@ const AppModalFacebookPage = (props) => {
         try {
             setFacebookPageDataLoading(true)
             const res = await getFacebookPages(props.idProduct);
-            if(res.status = 'OK'){
+            if(res.status == 'OK'){
                 setFacebookPageData(res.data)
                 setFacebookPageDataLoading(false)
             }
@@ -37,7 +37,7 @@ const AppModalFacebookPage = (props) => {
     }
     const fetchFacebookPickPages = async (data) => {
         const res = await facebookPickPages(data);
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
             toast.success('Facebook Page Berhasil Dipilih')
             props.onCloseButton(false)
         }

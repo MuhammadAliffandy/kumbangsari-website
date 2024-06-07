@@ -28,7 +28,7 @@ const AppModalInstagramPage = (props) => {
         setInstagramPageDataLoading(true)
         try {
             const res = await getInstagramPages(props.idProduct);
-            if(res.status = 'OK'){
+            if(res.status == 'OK'){
                 setInstagramPageData(res.data)
                 setInstagramPageDataLoading(false)
             }
@@ -38,7 +38,7 @@ const AppModalInstagramPage = (props) => {
     }
     const fetchInstagramPickPages = async (data) => {
         const res = await instagramPickPages(data);
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
             toast.success('Instagram Page Berhasil Dipilih')
             props.onCloseButton(false)
         }

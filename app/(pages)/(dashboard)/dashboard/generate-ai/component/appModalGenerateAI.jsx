@@ -51,10 +51,10 @@ const  AppModalGenerateAI = (props ) => {
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
-        if(res.status = 'OK'){
-            const currentData = res.data.filter(data => {
+        if(res.status == 'OK'){
+            const currentData = res.data.filter((data , index) => {
                 if(userSubscription <= 2){
-                    return res.data[0]
+                    return index === 0
                 }else{
                     return data
                 }

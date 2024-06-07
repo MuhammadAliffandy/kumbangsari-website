@@ -21,7 +21,7 @@ const AppModalProductList = (props) => {
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
             setProductData(res.data)
         }
     }

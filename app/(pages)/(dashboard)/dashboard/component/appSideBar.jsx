@@ -120,7 +120,7 @@ const AppSidebar = (props)=> {
                         urlNavigation='/'
                         onClick={()=>{
                             push('/auth/signin')
-                            // setCookie('token','')
+                            setCookie('token','')
                         }}
                         isSubscription={true}
                     />

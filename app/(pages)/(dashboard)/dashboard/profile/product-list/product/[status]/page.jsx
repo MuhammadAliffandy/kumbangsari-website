@@ -131,7 +131,7 @@ const ProductDetailPage = () => {
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
             const data = res.data.filter(data => {
                 return data.idProduct === productInit.id
             })[0]

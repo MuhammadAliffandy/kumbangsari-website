@@ -12,6 +12,7 @@ import { listDropNotifHour, listDropNotifMonth, listDropNotifDay } from "@/app/u
 import { convertToIndonesianDate } from "@/app/utils/helper"
 import { toast } from "react-toastify"
 import { editUserSettings, getUserActivityHistory, getUserSettings } from "@/app/api/repository/userRepository"
+import AppToastPending from "@/app/components/AppToastPending/appToastPending"
 
 
 const historyActivity = [
@@ -79,9 +80,13 @@ const SettingsPage = () => {
         }
     }
 
+    const notifyFetchUpdateUserSettings = (payload , params) => {
+        AppToastPending(fetchUpdateUserSettings(payload , params))
+    }
+
     const handleDropDownDay = (event)=>{
         setNotifDay(event.target.value)
-        fetchUpdateUserSettings({value : event.target.value} , 'reminderExpiresInSubscription')
+        notifyFetchUpdateUserSettings({value : event.target.value} , 'reminderExpiresInSubscription')
     }
     const handleDropDown = (event)=>{
         setNotifMonth(event.target.value)
@@ -89,7 +94,7 @@ const SettingsPage = () => {
     
     const handleDropDownNotifHour = (event)=>{
         setNotifHour(event.target.value)
-        fetchUpdateUserSettings({value : event.target.value} , 'autoLogOut')
+        notifyFetchUpdateUserSettings({value : event.target.value} , 'autoLogOut')
     }
 
     useEffect(()=>{
@@ -160,7 +165,7 @@ const SettingsPage = () => {
                                 checked={settingsData.news}
                                 label = 'Dapatkan informasi terkait fitur baru dan diskon paket yang tersedia'
                                 onChange= {(value , label)=>{
-                                    fetchUpdateUserSettings({news : !settingsData.news} , 'news')
+                                    notifyFetchUpdateUserSettings({news : !settingsData.news} , 'news')
                                 }}
                             />
                             {/* <AppCheckBox
@@ -180,7 +185,7 @@ const SettingsPage = () => {
                                     checked={settingsData.connectivity?.statusPlatform || false}
                                     label = 'Status konektivitas (berhasil/gagal)'
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({statusPlatform : !settingsData.connectivity?.statusPlatform} , 'statusPlatform')
+                                        notifyFetchUpdateUserSettings({statusPlatform : !settingsData.connectivity?.statusPlatform} , 'statusPlatform')
                                     }}
                                 />
                                 <AppCheckBox
@@ -188,7 +193,7 @@ const SettingsPage = () => {
                                     checked={settingsData.connectivity?.notificationExpiresInPlatform}
                                     label = 'Himbauan untuk perbarui konektivitas'
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({notificationExpiresInPlatform : !settingsData.connectivity?.notificationExpiresInPlatform} , 'notificationExpiresInPlatform')
+                                        notifyFetchUpdateUserSettings({notificationExpiresInPlatform : !settingsData.connectivity?.notificationExpiresInPlatform} , 'notificationExpiresInPlatform')
                                     }}
                                 />
                             </Box>
@@ -202,7 +207,7 @@ const SettingsPage = () => {
                                     checked={settingsData.account?.changeDataAccount}
                                     label = 'Riwayat ubah data akun'
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({changeDataAccount : !settingsData.account?.changeDataAccount} , 'changeDataAccount')
+                                        notifyFetchUpdateUserSettings({changeDataAccount : !settingsData.account?.changeDataAccount} , 'changeDataAccount')
                                     }}
                                     />
                                 <AppCheckBox
@@ -210,7 +215,7 @@ const SettingsPage = () => {
                                     checked={settingsData.account?.notificationExpiresInSubscription}
                                     label = 'Himbauan paket berlangganan telah berakhir'
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({notificationExpiresInSubscription : !settingsData.account?.notificationExpiresInSubscription} , 'notificationExpiresInSubscription')  
+                                        notifyFetchUpdateUserSettings({notificationExpiresInSubscription : !settingsData.account?.notificationExpiresInSubscription} , 'notificationExpiresInSubscription')  
                                     }}
                                 />
                                 <Box className='flex gap-[10px] items-center  '>
@@ -244,7 +249,7 @@ const SettingsPage = () => {
                                     label = 'Batas Waktu Pembayaran'
                                     checked={settingsData.payment?.expiresInPayment}
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({expiresInPayment : !settingsData.payment?.expiresInPayment} , 'expiresInPayment')  
+                                        notifyFetchUpdateUserSettings({expiresInPayment : !settingsData.payment?.expiresInPayment} , 'expiresInPayment')  
                                     }}
                                     />
                                 <AppCheckBox
@@ -252,7 +257,7 @@ const SettingsPage = () => {
                                     label = 'Status Pembayaran'
                                     checked={settingsData.payment?.statusPayment}
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({statusPayment : !settingsData.payment?.statusPayment} , 'statusPayment')  
+                                        notifyFetchUpdateUserSettings({statusPayment : !settingsData.payment?.statusPayment} , 'statusPayment')  
                                     }}
                                     />
                             </Box>
@@ -266,7 +271,7 @@ const SettingsPage = () => {
                                     label = 'Keberhasilan posting'
                                     checked={settingsData.content?.statusPost}
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({statusPost : !settingsData.content?.statusPost} , 'statusPost')  
+                                        notifyFetchUpdateUserSettings({statusPost : !settingsData.content?.statusPost} , 'statusPost')  
                                         
                                     }}
                                     />
@@ -275,7 +280,7 @@ const SettingsPage = () => {
                                     label = 'Himbauan tingkat keoptimalan produk'
                                     checked={settingsData.content?.optimalLevel}
                                     onChange= {(value , label)=>{
-                                        fetchUpdateUserSettings({optimalLevel : !settingsData.content?.optimalLevel} , 'optimalLevel')  
+                                        notifyFetchUpdateUserSettings({optimalLevel : !settingsData.content?.optimalLevel} , 'optimalLevel')  
 
                                     }}
                                 />

@@ -81,10 +81,10 @@ const DashboardPage = () => {
     
     const fetchUserProduct = async () => {
         const res = await getProductByUser();
-        if(res.status = 'OK'){
-            const currentData = res.data.filter(data => {
+        if(res.status == 'OK'){
+            const currentData = res.data.filter((data , index) => {
             if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return index === 0
                 }else{
                     return data
                 }

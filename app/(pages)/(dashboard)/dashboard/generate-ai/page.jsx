@@ -78,14 +78,17 @@ const GenerateAIPage = () => {
     const getUserProduct = async () => {
         const res = await getProductByUser();
         
-        if(res.status = 'OK'){
-            const currentData = res.data.filter(data => {
+        if(res.status == 'OK'){
+            const currentData = res.data.filter((data , index) => {
                 if(userSubscription <= 2){
-                    return res.data[0]
+                    return index === 0
                 }else{
                     return data
                 }
-            })    
+            })   
+            
+            console.log(currentData)
+   
             const data = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
@@ -173,14 +176,14 @@ const GenerateAIPage = () => {
         const res = await getContentByHistory();
         if(res.status == 'OK'){
             if(res.data.length !== 0){
-                const currentData = res.data.filter(data => {
+                const currentData = res.data.filter((data , index ) => {
                     if(userSubscription <= 2){
-                        return data.idProduct == 1
+                        return index === 0
                     }else{
                         return data
                     }
                 })
-                
+
                 setCurrentContentAIHistory(currentData)
                 setContentAIHistory(currentData)
                 setContentAIHistoryLoading(false)
@@ -447,7 +450,7 @@ const GenerateAIPage = () => {
                                         <AppContentFilter
                                             key={index}
                                             title = {data.contentTitle}
-                                            subtitle = {productList[data.idProduct - 1 ].text}
+                                            subtitle = {productList[data.idProduct - 1 ]?.text}
                                             contentTypes = {contentTypes.join(' ')}
                                             platform = {data.platform}
                                             onClick= {()=>{

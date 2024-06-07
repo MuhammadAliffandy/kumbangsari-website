@@ -65,11 +65,11 @@ const ProductListPage = () => {
 
     const getUserProduct = async () => {
         const res = await getProductByUser();
-        if(res.status = 'OK'){
+        if(res.status == 'OK'){
 
-            const currentData = res.data.filter(data => {
+            const currentData = res.data.filter((data , index) => {
                 if(userSubscription <= 2){
-                    return res.data[0]
+                    return index === 0
                 }else{
                     return data
                 }

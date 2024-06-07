@@ -23,6 +23,7 @@ import { getCurrentUser } from "@/app/api/repository/authRepository";
 import { useParams , useRouter} from "next/navigation";
 import { useDispatch , useSelector } from "react-redux";
 import { setUserSubscriptionData } from "@/app/redux/slices/userSubscriptionSlice";
+import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 
 
 const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl , subscriptionExpiryDate ) => {
@@ -35,8 +36,10 @@ const SubscriptionPage = () => {
     const dispatch = useDispatch()
     const userSubs = JSON.parse(useSelector(state => state.userSubscription.value) || '[]')
     const params = useParams()
+    const { push } = useRouter()
     const statusPaymentParams = params.status 
 
+    
     // state modal 
     const [modalSuccessPay , setModalSuccessPay ] = useState(false)
     const [modalPendingPay , setModalPendingPay ] = useState(false)
@@ -73,7 +76,6 @@ const SubscriptionPage = () => {
             toast.error('Ada Kesalahan Server (500)')
         }        
     }
-
 
     const fetchPaymentTransaction = async () => {
         try {
@@ -198,7 +200,10 @@ const SubscriptionPage = () => {
             }
         }
     }
-
+    
+    const notifyFetchStopSubscription  = () => { AppToastPending(fetchStopSubscription) }
+    const notifyFetchCreatePayment = (value) => { AppToastPending(fetchCreatePayment(value)) }
+    const notifyFetchUpdatePayment = (value) => { AppToastPending(fetchUpdatePayment(value)) }
 
     useEffect(()=>{
         fetchCurrentUser()
@@ -210,6 +215,7 @@ const SubscriptionPage = () => {
     useEffect( ()=> {
         if(statusPaymentParams == 'success' || statusPaymentParams == 'failed'){
             dispatch(setUserSubscriptionData(user.subscription))
+            push('/dashboard/profile/subscription/pay')
         }
     },[statusPaymentParams , user])
 
@@ -280,11 +286,10 @@ const SubscriptionPage = () => {
                 open={paymentDetailModal}
                 onCloseButton = { () => setPaymentDetailModal(false)  }
                 onClick={()=>{
-                    if(user.subscription != null){
-                        console.log('update')
-                        fetchUpdatePayment(subscriptionDetail)
+                    if(userSubs != null){
+                        notifyFetchUpdatePayment(subscriptionDetail)
                     }else{
-                        fetchCreatePayment(subscriptionDetail)
+                        notifyFetchCreatePayment(subscriptionDetail)
                     }
                 }}
             />
@@ -315,7 +320,7 @@ const SubscriptionPage = () => {
                             text={'Ya'} 
                             type = {'button'}
                             onClick={()=>{
-                                fetchStopSubscription()
+                                notifyFetchStopSubscription()
 
                             }}
                         />
