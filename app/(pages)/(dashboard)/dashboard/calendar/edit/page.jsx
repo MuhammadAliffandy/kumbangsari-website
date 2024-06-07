@@ -186,6 +186,22 @@ const CalendarEditPage = () => {
                 return false
             }
 
+            if(platform == 'instagram'){
+                if(image == null || image == ''){
+                    toast.warn('Gambar wajib diisi khusus instagram')
+                    return false
+                }
+            }
+
+            if(caption == '' && hashtagString  == '' && productImage == null){
+                toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
+                return false
+            }
+            if(platform == '' ){
+                toast.warning('Mohon isi platformnya')
+                return false
+            }
+
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
             formData.append('platform', platform);

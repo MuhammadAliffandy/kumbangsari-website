@@ -62,6 +62,7 @@ const Calendar = (props) => {
                 idProduct={contentDetail ? contentDetail.idProduct : ""}
                 idContent={contentDetail ? contentDetail.idContent : ""}
                 postedId={contentDetail ? contentDetail.postedId : ""}
+                data = {contentDetail ? contentDetail : ""}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     push('/dashboard/calendar/edit')
@@ -70,6 +71,9 @@ const Calendar = (props) => {
                     props.onDeleteDone()
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+                onDone={()=>{
+                    props.onDone()
+                }}
             />
             <FullCalendar
                 height={'100%'}

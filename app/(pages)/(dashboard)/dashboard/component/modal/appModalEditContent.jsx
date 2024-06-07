@@ -189,6 +189,13 @@ const AppModalEditContent = (props) => {
         try {
             convertHashtagString(hashtag);
 
+            if(platform == 'instagram'){
+                if(image == null || image == ''){
+                    toast.warn('Gambar wajib diisi khusus instagram')
+                    return false
+                }
+            }
+
             if(caption == '' && hashtagString  == '' && productImage == null){
                 toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
                 return false
@@ -229,13 +236,6 @@ const AppModalEditContent = (props) => {
                 toast.success('Edit Content AI Berhasil')
                 push('/dashboard/calendar')
             }
-
-            // const dataUpdated = {
-            //     prevData : contentAI,
-            //     newData : data ,
-            // }
-    
-            // dispatch(updateGenerateAI(dataUpdated))
             props.onCloseButton(false)
         } catch (error) {
             console.log(error)

@@ -166,6 +166,9 @@ const CalenderPage = () => {
                   onDeleteDone = {()=> {
                     fetchCalendarContent()
                   }}
+                  onDone = {()=> {
+                    fetchCalendarContent()
+                  }}
                   events={
 
                     calendar.length == 0 ? 

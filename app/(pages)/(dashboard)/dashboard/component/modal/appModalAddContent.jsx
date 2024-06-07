@@ -205,6 +205,13 @@ const AppModalAddContent = (props) => {
                 }
             }
 
+            if(platform == 'instagram'){
+                if(image == null || image == ''){
+                    toast.warn('Gambar wajib diisi khusus instagram')
+                    return false
+                }
+            }
+
             if(caption == '' && hashtagString  == '' && image == null){
                 toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
                 return false
@@ -251,8 +258,8 @@ const AppModalAddContent = (props) => {
                 push('/dashboard/calendar')
 
             }
+            
         } catch (error) {
-            console.log(error)
             if(error.status == 404 ){
                 toast.error('Tambah Content Gagal')
             }else{
@@ -309,7 +316,6 @@ const AppModalAddContent = (props) => {
                                 type = {'button'}
                                 onClick={()=>{
                                     handleAddContent()
-                        
                                     setModalValidation(false)
                                 }}
                             />
@@ -572,6 +578,9 @@ const AppModalAddContent = (props) => {
                                 onClick={()=>{
                                     caption != '' && hashtagString != '' && image != null ?
                                     handleAddContent() : setModalValidation(true)
+
+
+
                                 }}
                             />
                         </Box>

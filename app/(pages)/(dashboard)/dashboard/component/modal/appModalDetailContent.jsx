@@ -44,9 +44,8 @@ const AppModalDetailContent = (props) => {
         formData.set('files', '');
     
 
-        const res = await editContentAIManual(data.idContent , formData)
+        await editContentAIManual(data.idContent , formData)
     }
-
 
 
     const fetchPostContent = async () => {
@@ -85,44 +84,58 @@ const AppModalDetailContent = (props) => {
 
             if(props.platform == 'instagram'){
 
-                const data = {
-                    idContent: props.idContent,
-                    caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                    imageUrl:props.image,
-                }
-
-                const res = await instagramPost(data)
-
-                if(res.status == 'OK'){
-                    toast.success('Posting Konten Instagram Berhasil')
-                    props.onCloseButton(false)
-                    
+                try {
+                    const data = {
+                        idContent: props.idContent,
+                        caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                        imageUrl:props.image,
+                    }
+    
+                    const res = await instagramPost(data)
+    
+                    if(res.status == 'OK'){
+                        toast.success('Posting Konten Instagram Berhasil')
+                        props.onCloseButton(false)
+                        
+                    }
+                } catch (error) {
+                    if(error.status == 400){
+                        toast.warn('Cek Konektivitas Akun Instagram Anda !!')
+                    }
                 }
             }
 
             if(props.platform == 'facebook'){
 
-                const data = {
-                    idContent: props.idContent,
-                    caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                    imageUrl:props.image,
-                }
-
-                const res = await facebookPost(data)
-
-                if(res.status == 'OK'){
-                    toast.success('Posting Konten Facebook Berhasil')
-                    props.onCloseButton(false)
-                    
+                try {
+                    const data = {
+                        idContent: props.idContent,
+                        caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                        imageUrl:props.image,
+                    }
+    
+                    const res = await facebookPost(data)
+    
+                    if(res.status == 'OK'){
+                        toast.success('Posting Konten Facebook Berhasil')
+                        props.onCloseButton(false)
+                        
+                    }
+                } catch (error) {
+                    if(error.status == 400){
+                        toast.warn('Cek Konektivitas Akun Facebook Anda !!')
+                    }
                 }
             }
 
-            fetchEditContent()
+            if(props.isGenerate){
+                fetchEditContent()
+            }
             push('/dashboard/calendar')
+            props.onDone()
 
         } catch (error) {
-            if(error.status == 400){
-                toast.error('Konten sudah pernah di posting')}
+
             if(error.status == 403){
                 toast.error('Jumlah Post Sudah Limit')}
             else if(error.status == 403){
@@ -232,7 +245,7 @@ const AppModalDetailContent = (props) => {
     }
 
     useEffect( ()=> {
-        console.log(props.image)
+        console.log(props.data)
     },[props.open] )
 
     return (
@@ -291,6 +304,19 @@ const AppModalDetailContent = (props) => {
                         </Box>
                     </Box>
                     {
+                        props.postedId != null && props.data?.contentUrl != null  ? 
+                        <Box className={`w-[100%]`}>
+                            <AppButton 
+                                className='w-[100%] p-[15px] text-[14px] bg-PRIMARY-500 text-TEXT-5 font-poppins rounded-[6px]'
+                                text ={'Kunjungi Konten'}
+                                type={'button'}
+                                onClick={()=>{
+                                    window.open(props.data?.contentUrl, '_blank');
+                                }}
+                            /> 
+                        </Box>    
+                        :
+
                         props.postedId != null && props.isGenerate ? 
                         <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
                             <AppButton 
@@ -318,7 +344,7 @@ const AppModalDetailContent = (props) => {
                                 :
                                 <AppButton 
                                     text ={'Unggah Sekarang'}
-                                    type={'submit'}
+                                    type={'submit'} 
                                     onClick={()=>{
                                         fetchPostContent()
                                         props.onClick()

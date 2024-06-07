@@ -242,6 +242,7 @@ const AnalystPage = () => {
 
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+                onDone={()=>{}}
             />
             <Box className = 'grow h-[86%] p-[20px] flex flex-col gap-[20px]'>
             {/*  */}

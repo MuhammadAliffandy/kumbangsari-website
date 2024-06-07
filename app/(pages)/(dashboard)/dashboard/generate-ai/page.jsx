@@ -320,6 +320,7 @@ const GenerateAIPage = () => {
 
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+                onDone={()=>{}}
             />
             <AppModal
                     withClose = {false}

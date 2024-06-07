@@ -29,8 +29,8 @@ import { recommendationContentAI , getContentPreview , contentRecap , trendingHa
 import { useRouter } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 
-const createDataPreview = (time, contentTitle, productName, contentTypes, platform, caption , hashtag , image) => {
-    return { time, contentTitle, productName, contentTypes, platform  , caption , hashtag , image};
+const createDataPreview = (time, contentTitle, productName, contentTypes, platform, caption , hashtag , image ,idProduct , idContent) => {
+    return { time, contentTitle, productName, contentTypes, platform  , caption , hashtag , image , idProduct , idContent};
 }
 
 const createDataRecap = (platform, success , failed , waiting) => {
@@ -132,6 +132,8 @@ const DashboardPage = () => {
                         data.captionPost,
                         data.hashtagPost,
                         data.imageUrlPost,
+                        data.idProduct,
+                        data.idContent,
                     )
                 })
                 setContentDataPreview(data)
@@ -229,6 +231,7 @@ const DashboardPage = () => {
                 onCloseButton = {(value)=> {
                     setOpenModalAdd(value)
                 }}
+                onDone={()=>{}}
             />
             <AppModalDetailContent
                 open= {openModalDetail}
@@ -251,6 +254,7 @@ const DashboardPage = () => {
 
                 }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
+                onDone={()=>{}}
             />
             <AppModalDetailContent
                 open= {openModalDetailPreview}
@@ -259,6 +263,8 @@ const DashboardPage = () => {
                 hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
                 platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
                 productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
+                idProduct = {contentDetailPreview ? contentDetailPreview.idProduct : ""}
+                idContent = {contentDetailPreview ? contentDetailPreview.idContent : ""}
                 isDashboard={true}
                 deleteButton={false}
                 onClick = {()=> {
