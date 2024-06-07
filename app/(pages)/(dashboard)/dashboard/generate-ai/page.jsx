@@ -344,7 +344,7 @@ const GenerateAIPage = () => {
                                 <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
                                     onClick={()=>{setOpenModalAI(!openModalAI)}}
                                 >
-                                    <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>
+                                    <img src="/images/icon/sparkling-white.svg" />
                                     <p className="text-TEXT-5 font-bold text-[14px] ">Generate AI</p>
                                 </AppCustomButton>
                             </AppAnimationButton>

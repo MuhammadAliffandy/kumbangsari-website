@@ -205,6 +205,20 @@ const AppModalAddContent = (props) => {
                 }
             }
 
+            if(caption == '' && hashtagString  == '' && image == null){
+                toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
+                return false
+            }
+            if(dateUp == ''  && timeUp == ''){
+                toast.warning('Mohon isi Tanggal dan Waktunya')
+                return false
+            }
+
+            if(platform == '' ){
+                toast.warning('Mohon isi platformnya')
+                return false
+            }
+
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
             formData.append('idProduct', product);
@@ -238,6 +252,7 @@ const AppModalAddContent = (props) => {
 
             }
         } catch (error) {
+            console.log(error)
             if(error.status == 404 ){
                 toast.error('Tambah Content Gagal')
             }else{
@@ -467,6 +482,7 @@ const AppModalAddContent = (props) => {
                                         type='date'
                                         placeholder='Pilih Tanggal Unggah'
                                         disabled={upNow}
+                                        required={true}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setDateUp(value)
@@ -477,7 +493,7 @@ const AppModalAddContent = (props) => {
                                         label = 'Unggah Sekarang'
                                         onChange= {(value , label)=>{
                                             if(value == 'true'){
-                                                console.log('ANJAY')
+                                            
                                                 setUpNow(true)
                                                 const { date , time } = getCurrentDateTime()
                                                 setTimeUp(time)
@@ -497,6 +513,7 @@ const AppModalAddContent = (props) => {
                                         type='time'
                                         placeholder='Pilih Jam Unggah'
                                         disabled={upNow}
+                                        required={true}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setTimeUp(value)

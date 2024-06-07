@@ -189,10 +189,21 @@ const AppModalEditContent = (props) => {
         try {
             convertHashtagString(hashtag);
 
+            if(caption == '' && hashtagString  == '' && productImage == null){
+                toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
+                return false
+            }
+
             if(dateUp == ''  && timeUp == ''){
                 toast.warning('Mohon isi Tanggal dan Waktunya')
                 return false
             }
+            
+            if(platform == '' ){
+                toast.warning('Mohon isi platformnya')
+                return false
+            }
+            
             
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);

@@ -31,6 +31,7 @@ const AppTextField = (props) => {
             onChange={props.onChange}
             onClick={props.onClick}
             disabled={props.disabled}
+            required={props.required}
 
         />
 }
