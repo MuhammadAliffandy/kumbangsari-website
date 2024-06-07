@@ -270,6 +270,7 @@ const DashboardPage = () => {
                 onClick = {()=> {
 
                 }}
+                onDone={()=>{}}
                 onCloseButton = {(value)=> {setOpenModalDetailPreview(value)}}
             />
             <AppModal

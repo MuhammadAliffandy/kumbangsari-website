@@ -188,7 +188,7 @@ const CalendarEditPage = () => {
             })
 
             if(res.status == 'OK'){
-                props.onCloseButton(false)
+                return
             }
         } catch (error) {
             toast.error('Ada Kesalahan Server (500)')

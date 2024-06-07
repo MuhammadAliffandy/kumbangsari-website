@@ -55,7 +55,7 @@ const CalenderPage = () => {
       if(res.status == 'OK'){
 
           const currentData = res.data.filter((data , index) => {
-                  if(userSubscription <= 2){
+                if(userSubscription <= 2){
                     return index === 0
                 }else{
                     return data
@@ -75,7 +75,7 @@ const CalenderPage = () => {
 
         if(res.status === 'OK'){
           const currentData = res.data.filter(( data , index ) => {
-                  if(userSubscription <= 2){
+                if(userSubscription <= 2){
                     return index === 0
                 }else{
                     return data
@@ -91,7 +91,7 @@ const CalenderPage = () => {
         if(error.status == 404){
           toast.error('Calendar Content Error')
         }else{
-
+          
           toast.error('Ada Kesalahan Sever (500)')
         }
       }

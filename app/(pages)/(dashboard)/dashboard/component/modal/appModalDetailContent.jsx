@@ -11,7 +11,7 @@ import { useMediaQuery } from "react-responsive";
 import { twitterPost , twitterFindId} from '@/app/api/repository/twitterRepository';
 import { facebookPost} from '@/app/api/repository/facebookRepository';
 import { instagramPost} from '@/app/api/repository/instagramRepository';
-import { createContentAIManual, deleteContent, editContentAIManual } from '@/app/api/repository/contentRepository';
+import { createContentAIManual, deleteContent, editContentAIManual, updateContentStatus } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending'
@@ -48,6 +48,20 @@ const AppModalDetailContent = (props) => {
         await editContentAIManual(data.idContent , formData)
     }
 
+    const fetchUpdateContentStatus = async (idContent) => {
+        try {
+            const res = await updateContentStatus({
+                idContent : idContent,
+                status : caption != '' && hashtagString != '' && image != null ? 'COMPLETED' : 'INCOMPLETED'
+            })
+
+            if(res.status == 'OK'){
+                return
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
 
     const fetchPostContent = async () => {
         try {
@@ -102,6 +116,7 @@ const AppModalDetailContent = (props) => {
                 } catch (error) {
                     if(error.status == 400){
                         toast.warn('Cek Konektivitas Akun Instagram Anda !!')
+                        return false
                     }
                 }
             }
@@ -125,6 +140,7 @@ const AppModalDetailContent = (props) => {
                 } catch (error) {
                     if(error.status == 400){
                         toast.warn('Cek Konektivitas Akun Facebook Anda !!')
+                        return false
                     }
                 }
             }
@@ -148,6 +164,7 @@ const AppModalDetailContent = (props) => {
             }
         }
     }
+    
 
     const handleAddContent = async () => {
         const data = props.data
@@ -179,6 +196,7 @@ const AppModalDetailContent = (props) => {
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
+                fetchUpdateContentStatus(res.data.idContent)
                 toast.success('Tambah Content Berhasil')
                 props.onCloseButton(false)
                 push('/dashboard/calendar')
@@ -213,6 +231,7 @@ const AppModalDetailContent = (props) => {
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
+                fetchUpdateContentStatus(res.data.idContent)
                 toast.success('Tambah Content AI Berhasil')
                 props.onCloseButton(false)
                 push('/dashboard/calendar')
