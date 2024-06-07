@@ -37,3 +37,20 @@ export const facebookRevoke = async ( data) => {
     const response = await PROVIDER_PATCH(`api/v1/revoke/facebook`,data , token)
     return response
 }
+
+export const facebookPost = async (data) => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_POST(`api/v1/facebook/create-post`,data , token)
+    return response
+}
+
+
+export const facebookValidation = async (data) => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_POST(`api/v1/facebook/validate-pages`,data , token)
+    return response
+}
+
+

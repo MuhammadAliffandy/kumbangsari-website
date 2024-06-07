@@ -19,13 +19,20 @@ const AppModalFacebookPage = (props) => {
 
     const token = useSelector(state => state.auth.value)
     const [facebookPageData , setFacebookPageData] = useState([])
+    const [facebookPageDataLoading , setFacebookPageDataLoading] = useState(true)
     const [dataPages , setDataPages ] = useState([])
     const [countCheckbox , setCountCheckbox ] = useState(-1)
 
     const fetchFacebookPages = async () => {
-        const res = await getFacebookPages(props.idProduct);
-        if(res.status = 'OK'){
-            setFacebookPageData(res.data)
+        try {
+            setFacebookPageDataLoading(true)
+            const res = await getFacebookPages(props.idProduct);
+            if(res.status = 'OK'){
+                setFacebookPageData(res.data)
+                setFacebookPageDataLoading(false)
+            }
+        } catch (error) {
+            setFacebookPageDataLoading(false)
         }
     }
     const fetchFacebookPickPages = async (data) => {
@@ -85,9 +92,18 @@ const AppModalFacebookPage = (props) => {
                         
                         <Box className='flex flex-col gap-[10px]'>
                             {/*  */}
-                            <p className = 'text-[12px] font-bold text-black' >Pilih halaman Facebook untuk dihubungkan!</p>
+                            { facebookPageData.length > 0 ? <p className = 'text-[12px] font-bold text-black' >Pilih halaman Facebook untuk dihubungkan!</p> : null }
                             <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                                 {
+
+                                    facebookPageDataLoading ? 
+                                    
+                                    <div className="w-[100%] h-[100px] px-[20px] ">
+                                        <Skeleton count={5} className="w-[200px] h-auto"/>
+                                    </div>
+
+                                    :
+
                                     facebookPageData.length > 0 ? 
                                     facebookPageData.map((data,index) => {
                                         return (
@@ -117,10 +133,10 @@ const AppModalFacebookPage = (props) => {
                                         )
                                     }) 
                                     :
-                                    
-                                    <div className="w-[100%] h-[100px] px-[20px] ">
-                                        <Skeleton count={5} className="w-[200px] h-auto"/>
-                                    </div>
+                                    <Box className = 'w-[100%]'>
+                                        <p className="text-TEXT-1 p-[20px] text-[14px] text-center">Ada Masalah pada Facebook tidak bisa menampilkan Page</p> 
+                                    </Box> 
+                                 
 
 
                                 }

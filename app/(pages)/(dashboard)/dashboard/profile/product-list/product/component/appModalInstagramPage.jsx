@@ -19,30 +19,21 @@ import { instagramPickPages, getInstagramPages , instagramCancelPages} from '@/a
 const AppModalInstagramPage = (props) => {
 
     // const token = useSelector(state => state.auth.value)
-    const [instagramPageData , setInstagramPageData] = useState(
-        [
-            {
-                pages: {
-                    pageId: "345135345348517",
-                    picture_url: "https://scontent.fcgk37-2.fna.fbcdn.net/v/t39.30808-1/441923609_122097117524347468_6328410650892793999_n.png?stp=cp0_dst-png_p50x50&_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGCGHD6DRF985h2vTFJHlNX7ns1FEpTuYnuezUUSlO5icVbwhEaZ7N4rnopBdzDWoNAB-VeHGzUm7-S8GLSPWyu&_nc_ohc=6AlQWQXTOiMQ7kNvgFDvm2-&_nc_ht=scontent.fcgk37-2.fna&edm=AGaHXAAEAAAA&oh=00_AYBhTYqCvXOH2mBS8AQ9BZihW4zoYF_v0SgT9TQdcHGVcA&oe=6666426A",
-                    pageName: "Planify-6",
-                    accessTokenPage: "EAAELflMKsRMBO6jzZAaXI4cZBc8g7r5poZANyRSRN1ZBWJp2uYgddUOMNecu3jZCYjvgXq2xY3jqa5MZCb0iq2fVjUUcDdaAB9utXCXl3xsIQ4NMMCzgv53LH2P1Cxc9nkqV0ouZAKxaulKizUsN9ID7WuU0cj2CZBSzIClqxpHddkbuzyEZCk1LG4A1WNE9Pc1JfTNpgHF1IBd8nLchn"
-                },
-                instagram: {
-                    accountId: "2856312281143845",
-                    username: "dk_zhen1",
-                    picture_url: "https://scontent.fcgk37-1.fna.fbcdn.net/v/t51.2885-15/298641298_751822656049298_2528372465966566979_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7d201b&_nc_eui2=AeEBH8rnmQvWOrDR0LHlO68_1L35Tg2ye9XUvflODbJ71eVYzvOgMDVOK4aO9aB_ZdbPRfc-p_2-HNbvLAa00aOX&_nc_ohc=Q1OR-2AsdJoQ7kNvgGpn0oa&_nc_ht=scontent.fcgk37-1.fna&edm=AOV4angEAAAA&oh=00_AYDEIrAlbv9SxqIQSqxNgWHom6Qcyk7O1_9AjBZ367dwfg&oe=6666375F"
-                }
-            },
-        ]
-    )
+    const [instagramPageData , setInstagramPageData] = useState([])
+    const [instagramPageDataLoading , setInstagramPageDataLoading] = useState(true)
     const [countCheckbox , setCountCheckbox ] = useState(-1)
     const [dataPages , setDataPages ] = useState([])
 
     const fetchInstagramPages = async () => {
-        const res = await getInstagramPages(props.idProduct);
-        if(res.status = 'OK'){
-            setInstagramPageData(res.data)
+        setInstagramPageDataLoading(true)
+        try {
+            const res = await getInstagramPages(props.idProduct);
+            if(res.status = 'OK'){
+                setInstagramPageData(res.data)
+                setInstagramPageDataLoading(false)
+            }
+        } catch (error) {
+            setInstagramPageDataLoading(false)
         }
     }
     const fetchInstagramPickPages = async (data) => {
@@ -102,9 +93,15 @@ const AppModalInstagramPage = (props) => {
                         
                         <Box className='flex flex-col gap-[10px]'>
                             {/*  */}
-                            <p className = 'text-[12px] font-bold text-black' >Pilih halaman Instagram untuk dihubungkan!</p>
+                            {instagramPageData.length > 0 ?  <p className = 'text-[12px] font-bold text-black' >Pilih halaman Instagram untuk dihubungkan!</p> : null}
                             <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                                 {
+                                    instagramPageDataLoading ? 
+
+                                    <div className="w-[100%] h-[100px] px-[20px] ">
+                                        <Skeleton count={5} className="w-[200px] h-auto"/>
+                                    </div> :
+
                                     instagramPageData.length > 0 ? 
                                     instagramPageData.map((data,index) => {
                                         return (
@@ -145,9 +142,10 @@ const AppModalInstagramPage = (props) => {
                                     }) 
                                     :
                                     
-                                    <div className="w-[100%] h-[100px] px-[20px] ">
-                                        <Skeleton count={5} className="w-[200px] h-auto"/>
-                                    </div>
+                                    <Box className = 'w-[100%]'>
+                                        <p className="text-TEXT-1 p-[20px] text-[14px] text-center">Ada Masalah pada Instagram tidak bisa menampilkan Page</p> 
+                                    </Box> 
+                            
 
 
                                 }

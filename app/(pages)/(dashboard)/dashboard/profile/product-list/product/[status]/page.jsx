@@ -19,13 +19,13 @@ import { listPlatform } from '@/app/utils/model';
 import { useSelector } from "react-redux";
 import { deleteProduct, editProduct, getProductByUser } from "@/app/api/repository/productRepository";
 import { twitterConnect } from "@/app/api/repository/twitterRepository";
-import { facebookConnect } from "@/app/api/repository/facebookRepository";
+import { facebookConnect, facebookValidation } from "@/app/api/repository/facebookRepository";
 import { toast } from "react-toastify";
 import { useRouter , useParams , useSearchParams } from 'next/navigation';
 import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
 import { listDropCategory } from "@/app/utils/model";
-import { instagramConnect } from "@/app/api/repository/instagramRepository";
+import { instagramConnect, instagramValidation } from "@/app/api/repository/instagramRepository";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -50,11 +50,17 @@ const ProductDetailPage = () => {
     const [isFacebook , setIsFacebook ] = useState(false)
     const [isInstagram , setIsInstagram ] = useState(false)
     const [isTwitter , setIsTwitter ] = useState(false)
+    // 
     const [accountTwitter , setAccountTwitter ] = useState([])
     const [accountInstagram , setAccountInstagram ] = useState([])
     const [accountFacebook , setAccountFacebook ] = useState([])
+    //
+    const [instagramStatus , setInstagramStatus ] = useState(false)
+    const [facebookStatus , setFacebookStatus ] = useState(false)
+    // 
     const [userProduct , setUserProduct] = useState([])
     const [userTableHistory , setUserTableHistory] = useState([])
+    // 
     const [ platformStatusConnection, setPlatformStatusConnection ] = useState(false);
     const [ platformConnection, setPlatformConnection ] = useState('');
     const [ checkboxStatus, setCheckboxStatus ] = useState('');
@@ -104,6 +110,24 @@ const ProductDetailPage = () => {
         }
     }
 
+    const fetchInstagramValidation = async () => {
+        if(productInit.id != null){
+            const res = await instagramValidation({ idProduct : productInit.id })
+            if(res.status == 'OK'){
+                setInstagramStatus(res.data.status)
+            }
+        }
+    }
+
+    const fetchFacebookValidation = async () => {
+        if(productInit.id != null){
+            const res = await facebookValidation({ idProduct : productInit.id })
+            if(res.status == 'OK'){
+                setFacebookStatus(res.data.status)
+            }
+        }
+    }
+
     const getUserProduct = async () => {
         const res = await getProductByUser();
         if(res.status = 'OK'){
@@ -119,6 +143,7 @@ const ProductDetailPage = () => {
             // 
             setAccountTwitter(data.platformInfo.twitter)
             setAccountFacebook(data.platformInfo.facebook)
+            setAccountInstagram(data.platformInfo.instagram)
             // 
             setAgeRange(data.ageRange)
             setGender(JSON.stringify(data.gender))
@@ -174,6 +199,7 @@ const ProductDetailPage = () => {
         }
     }
 
+    
     useEffect(() => {
         getUserProduct()
         fetchUserConnectHistory()
@@ -192,9 +218,17 @@ const ProductDetailPage = () => {
                 setModalFailedConnection(true)
             }
         }
-
-
     },[])
+
+    useEffect(()=>{
+        if(modalCheckConnection && platformConnection == 'instagram'){
+            fetchInstagramValidation()
+        }
+            
+        if(modalCheckConnection && platformConnection == 'facebook'){
+            fetchFacebookValidation()        
+        }
+    },[modalCheckConnection])
 
     return(
         <AppLayout title={`Profil > Daftar Produk > ${productInit.name}`}>
@@ -253,18 +287,38 @@ const ProductDetailPage = () => {
                         <Box className='h-[1px] w-[100%] bg-TEXT-4'></Box>
                         <p className="text-TEXT-1 text-[14px] font-medium">Terakhir diperbarui: {platformConnection == 'facebook' ? convertToIndonesianDate(accountFacebook.date) : platformConnection == 'instagram' ? convertToIndonesianDate(accountInstagram.date) : convertToIndonesianDate(accountTwitter.date) || ''}</p>
                     </Box>
-                    {/* <Box className=' flex flex-col gap-[10px] w-[100%]'>
+                    {
+                        platformConnection == 'instagram' && instagramStatus == true  ? null : 
+                        platformConnection == 'facebook' && facebookStatus == true ? null  :
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
-                            text={ platformConnection ? 'Hapus Akun' : 'Perbarui Konektivitas'} 
-                            type = {'button'}
-                            onClick={()=>{
-                                if(platformConnection){
-                                    setModalDeleteAccount(!modalDeleteAccount)
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                text={
+                                    platformConnection == 'instagram' && instagramStatus == false ||   platformConnection == 'facebook' && facebookStatus == false ? 
+                                    'Pilih Page' : 
+                                    null
+                                } 
+                                type = {'button'}
+                                onClick={()=>{
+                                    // if(platformConnection){
+                                    //     setModalDeleteAccount(!modalDeleteAccount)
+                                    //     setModalCheckConnection(false)
+                                    // }
+                                    
+                                    if(platformConnection == 'facebook'){
+                                        setModalFacebookPage(true) 
+                                    }
+
+                                    if(platformConnection == 'instagram'){
+                                        setModalInstagramPage(true) 
+                                    }
+
                                     setModalCheckConnection(false)
-                                }
-                            }}
-                        />
+                                }}
+                            /> 
+                    
+                    
+                    /* <Box className=' flex flex-col gap-[10px] w-[100%]'>
+                  
                         {
                             !platformConnection ? 
 

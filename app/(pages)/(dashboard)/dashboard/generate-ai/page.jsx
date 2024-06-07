@@ -139,6 +139,7 @@ const GenerateAIPage = () => {
                 platform : currentData.platform,
                 idContent: currentData.idContent,
                 idProduct: currentData.idProduct,
+                style: currentData.style,
             }
         }) 
 
@@ -305,6 +306,7 @@ const GenerateAIPage = () => {
                 productName = {contentDetail ? contentDetail.productName : ""}
                 idProduct={contentDetail ? contentDetail.idProduct : ""}
                 idContent={contentDetail ? contentDetail.idContent : ""}
+                data = { contentDetail ? contentDetail : "" }
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)

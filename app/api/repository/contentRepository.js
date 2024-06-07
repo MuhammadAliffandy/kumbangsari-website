@@ -46,12 +46,17 @@ export const editContentAIManual = async (idContent, data) => {
 
 }
 
-
-
 export const refreshAI = async (data) => {
     await delay()
     const token = getCookie('token');
     const response = await PROVIDER_PATCH(`api/v1/ai/refresh-ai`,data , token)
+    return response
+}
+
+export const updateContentStatus = async (data) => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_PATCH(`api/v1/ai/status-content`,data , token)
     return response
 }
 

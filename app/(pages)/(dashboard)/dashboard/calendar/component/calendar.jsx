@@ -66,6 +66,9 @@ const Calendar = (props) => {
                 onEditButton = {()=> {
                     push('/dashboard/calendar/edit')
                 }}
+                onDeleteDone = {()=>{
+                    props.onDeleteDone()
+                }}
                 onCloseButton = {(value)=> {setOpenModalDetail(value)}}
             />
             <FullCalendar

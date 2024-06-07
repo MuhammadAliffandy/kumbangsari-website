@@ -37,3 +37,17 @@ export const instagramCancelPages = async ( data) => {
     const response = await PROVIDER_DELETE(`api/v1/instagram/cancel-pages`,data , token)
     return response
 }
+
+export const instagramPost = async (data) => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_POST(`api/v1/instagram/create-post`,data , token)
+    return response
+}
+
+export const instagramValidation = async (data) => {
+    await delay()
+    const token = getCookie('token')
+    const response = await PROVIDER_POST(`api/v1/instagram/validate-account`,data , token)
+    return response
+}

@@ -163,6 +163,9 @@ const CalenderPage = () => {
               </Box>
               <Box className='bg-NEUTRAL-100 w-[100%] h-[100%] hover:shadow-md overflow-y-scroll rounded-[20px] p-[20px]  overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                 <Calendar
+                  onDeleteDone = {()=> {
+                    fetchCalendarContent()
+                  }}
                   events={
 
                     calendar.length == 0 ? 

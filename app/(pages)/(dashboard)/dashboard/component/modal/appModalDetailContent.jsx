@@ -9,7 +9,9 @@ import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
 import { useMediaQuery } from "react-responsive";
 import { twitterPost , twitterFindId} from '@/app/api/repository/twitterRepository';
-import { createContentAIManual } from '@/app/api/repository/contentRepository';
+import { facebookPost} from '@/app/api/repository/facebookRepository';
+import { instagramPost} from '@/app/api/repository/instagramRepository';
+import { createContentAIManual, deleteContent, editContentAIManual } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
@@ -21,6 +23,30 @@ const AppModalDetailContent = (props) => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
     
+
+    const fetchEditContent = async () => {
+        const data = props.data
+        console.log(data)
+        const formData = new FormData();
+        formData.append('contentTitle', data.productName);
+        formData.append('idProduct', props.idProduct);
+        formData.append('platform', data.platform);
+        formData.append('caption', data.caption);
+        formData.append('style', data.style);
+        formData.append('hashtag', props.hashtag);
+        formData.append('postedAt', new Date().toISOString());
+        formData.append('historyHashtag', JSON.stringify([]));
+        // formData.append('historyImage', JSON.stringify([]));
+        formData.append('historyCaption', JSON.stringify([]));
+
+        formData.append('image', data.image);
+        formData.set('files', '');
+    
+
+        const res = await editContentAIManual(data.idContent , formData)
+    }
+
+
 
     const fetchPostContent = async () => {
         try {
@@ -46,7 +72,7 @@ const AppModalDetailContent = (props) => {
                     const res = await twitterPost(data)
             
                     if(res.status == 'OK'){
-                        toast.success('Posting Konten Berhasil')
+                        toast.success('Posting Konten Twitter Berhasil')
                         props.onCloseButton(false)
                         
                     }
@@ -56,8 +82,48 @@ const AppModalDetailContent = (props) => {
                 }
             }
 
+            if(props.platform == 'instagram'){
+
+                const data = {
+                    idContent: props.idContent,
+                    caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                    imageUrl:props.image,
+                }
+
+                const res = await instagramPost(data)
+
+                if(res.status == 'OK'){
+                    toast.success('Posting Konten Instagram Berhasil')
+                    props.onCloseButton(false)
+                    
+                }
+            }
+
+            if(props.platform == 'facebook'){
+
+                const data = {
+                    idContent: props.idContent,
+                    caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                    imageUrl:props.image,
+                }
+
+                const res = await facebookPost(data)
+
+                if(res.status == 'OK'){
+                    toast.success('Posting Konten Facebook Berhasil')
+                    props.onCloseButton(false)
+                    
+                }
+            }
+
+            fetchEditContent()
+
         } catch (error) {
+            if(error.status == 400){
+                toast.error('Konten sudah pernah di posting')}
             if(error.status == 403){
+                toast.error('Jumlah Post Sudah Limit')}
+            else if(error.status == 403){
                 toast.error('Jumlah Post Sudah Limit')
             }else if(error.status == 404){
                 toast.error('Posting Konten Gagal')
@@ -66,10 +132,9 @@ const AppModalDetailContent = (props) => {
             }
         }
     }
-    
+
     const handleAddContent = async () => {
         const data = props.data
-        console.log(data)
         try {
 
             if(data.platform == 'twitter'){
@@ -112,6 +177,23 @@ const AppModalDetailContent = (props) => {
         }
     }
 
+
+    const handleDeleteContent = async () => {
+        try {
+            const res = await deleteContent(props.idContent);
+            if(res.status == 'OK'){
+                toast.success('Content Berhasil Dihapus',)
+                props.onDeleteDone()
+                props.onCloseButton(false)
+            }else{
+                toast.error('Content Gagal Dihapus')
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     return (
         <Modal 
             open={props.open}
@@ -133,6 +215,11 @@ const AppModalDetailContent = (props) => {
                                 <img className='w-[18px] h-[18px] ' src={'/images/icon/edit.png'}/>
                             </AppCustomButton>
                         
+                        }
+                        {
+                            <AppCustomButton className=' bg-white ' onClick={handleDeleteContent}>
+                                <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
+                            </AppCustomButton>
                         }
                         <AppCloseButton
                             onClick = {()=>{
