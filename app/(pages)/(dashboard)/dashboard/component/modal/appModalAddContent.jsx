@@ -26,6 +26,7 @@ import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 
 const AppModalAddContent = (props) => {
@@ -109,12 +110,11 @@ const AppModalAddContent = (props) => {
 
             const currentData = res.data.filter(data => {
                 if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return res.data[0]
                 }else{
                     return data
                 }
-            })
-    
+            })    
             const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
@@ -268,6 +268,9 @@ const AppModalAddContent = (props) => {
         }
     }
 
+    const notifyHandleAddContent = () => {
+        AppToastPending(handleAddContent)
+    }
 
 
     useEffect(()=>{
@@ -315,7 +318,7 @@ const AppModalAddContent = (props) => {
                                 text={ 'Lanjutkan'} 
                                 type = {'button'}
                                 onClick={()=>{
-                                    handleAddContent()
+                                    notifyHandleAddContent()
                                     setModalValidation(false)
                                 }}
                             />
@@ -392,7 +395,6 @@ const AppModalAddContent = (props) => {
                                 }}
                                 onGenerate={()=>{
                                     generateRecommendationImage()
-                                    console.log(imageRecommendation)
                                 }}
                                 />
                         </Box>
@@ -577,7 +579,7 @@ const AppModalAddContent = (props) => {
                                 type = {'button'}
                                 onClick={()=>{
                                     caption != '' && hashtagString != '' && image != null ?
-                                    handleAddContent() : setModalValidation(true)
+                                    notifyHandleAddContent() : setModalValidation(true)
 
 
 

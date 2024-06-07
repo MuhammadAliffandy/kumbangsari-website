@@ -69,7 +69,7 @@ const ProductListPage = () => {
 
             const currentData = res.data.filter(data => {
                 if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return res.data[0]
                 }else{
                     return data
                 }

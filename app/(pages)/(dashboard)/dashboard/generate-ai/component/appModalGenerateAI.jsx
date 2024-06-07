@@ -54,12 +54,11 @@ const  AppModalGenerateAI = (props ) => {
         if(res.status = 'OK'){
             const currentData = res.data.filter(data => {
                 if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return res.data[0]
                 }else{
                     return data
                 }
-            })
-    
+            })    
             const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })

@@ -9,6 +9,7 @@ import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validati
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { changePasswordUser } from '@/app/api/repository/userRepository';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 const AppModalChangePass = (props) => {
     
@@ -16,23 +17,25 @@ const AppModalChangePass = (props) => {
 
     const password = watch('password', '');
 
-
-    const onSubmit = async (data) => {
-        
-        const dataPass = {
-            oldPassword : data.oldPassword,
-            newPassword : data.password,
-            newConfirmPassword : data.newConfirmPassword
-        }
-
+    const handleChangePassword = async (data) => {
         try {
-            const res = await changePasswordUser(dataPass)
-            if(res.status == 'OK'){
-                toast.success('Ubah Password Success')
-                props.onClose(false)
-            }
+        
+                const dataPass = {
+                    oldPassword : data.oldPassword,
+                    newPassword : data.password,
+                    newConfirmPassword : data.newConfirmPassword
+                }
+
+
+                
+                const res = await changePasswordUser(dataPass)
+                if(res.status == 'OK'){
+                    toast.success('Ubah Password Success')
+                    props.onClose(false)
+                }
 
         } catch (error) {
+            console.log(error)
             if(error.status == 404){
                 toast.error('Ubah Password Gagal')
             }else{
@@ -40,6 +43,11 @@ const AppModalChangePass = (props) => {
             }
         }
 
+    }
+
+
+    const onSubmit = (data) => {
+        AppToastPending(handleChangePassword(data))
     }
 
     return(
@@ -121,7 +129,7 @@ const AppModalChangePass = (props) => {
                                 <Box className='w-[30%]'>
                                     <AppButton
                                         text={'Simpan'} 
-                                        type = {'Submit'}
+                                        type = {'submit'}
                                         fontSize = {'12px'}
                                     />
                                 </Box>

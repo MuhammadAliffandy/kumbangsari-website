@@ -20,10 +20,11 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { editContentAIManual, generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import { editContentAIManual, generateAI, refreshAI, updateContentStatus } from '@/app/api/repository/contentRepository';
 import {formatDateTime, getCurrentDateTime} from '@/app/utils/helper'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 const AppModalEditContent = (props) => {
 
@@ -185,6 +186,21 @@ const AppModalEditContent = (props) => {
     }
 
 
+    const fetchUpdateContentStatus = async () => {
+        try {
+            const res = await updateContentStatus({
+                idContent : contentAI.idContent,
+                status : caption != '' && hashtagString != '' && productImage != null ? 'COMPLETED' : 'INCOMPLETED'
+            })
+
+            if(res.status == 'OK'){
+                props.onCloseButton(false)
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     const handleEditContent = async () => {
         try {
             convertHashtagString(hashtag);
@@ -233,6 +249,7 @@ const AppModalEditContent = (props) => {
             const res = await editContentAIManual(contentAI.idContent ,formData)
 
             if(res.status == 'OK'){
+                fetchUpdateContentStatus()
                 toast.success('Edit Content AI Berhasil')
                 push('/dashboard/calendar')
             }
@@ -246,6 +263,10 @@ const AppModalEditContent = (props) => {
             }
         }
 
+    }
+
+    const notifyHandleEditContent = () => {
+        AppToastPending(handleEditContent)
     }
 
     useEffect(()=>{
@@ -480,7 +501,7 @@ const AppModalEditContent = (props) => {
                                 type = {'button'}
                                 onClick={()=>{
 
-                                    handleEditContent()
+                                    notifyHandleEditContent()
                                 }}
                             />
                         </Box>

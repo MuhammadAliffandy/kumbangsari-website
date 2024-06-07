@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import { useRouter } from "next/navigation";
+import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 
 const ProfilePage = () => {
     const { push } = useRouter() 
@@ -70,7 +71,7 @@ const ProfilePage = () => {
         }
     }
     
-    const onSubmit= async () => {
+    const handleEditAccount = async () => {
         
         try {
             const formData = new FormData();
@@ -86,6 +87,7 @@ const ProfilePage = () => {
             
             if(res.status === 'OK'){
                 toast.success('Edit Profile Berhasil')
+                fetchUserProfile()
             }
             
         } catch (error) {
@@ -97,6 +99,10 @@ const ProfilePage = () => {
         }
 
     };
+
+    const onSubmit= ()=>{
+        AppToastPending(handleEditAccount)
+    }
 
 
     useEffect(()=>{

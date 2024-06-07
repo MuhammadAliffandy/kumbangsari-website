@@ -23,6 +23,7 @@ import { convertValueCheckbox } from '@/app/utils/helper';
 import { getCurrentUser } from '@/app/api/repository/authRepository';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 const AppModalAddProduct = (props) => {
 
@@ -71,6 +72,10 @@ const AppModalAddProduct = (props) => {
         } catch (error) {
                 toast.error('Produk gagal Ditambahkan')
         }
+    }
+
+    const notifyHandleAddProduct = () => {
+        AppToastPending(handleAddProduct)
     }
 
     return(
@@ -165,7 +170,7 @@ const AppModalAddProduct = (props) => {
                                     text={'Simpan'} 
                                     type = {'button'}
                                     fontSize = {'12px'}
-                                    onClick = {handleAddProduct}
+                                    onClick = {notifyHandleAddProduct}
                                 />
                             </Box>
                     </Box>

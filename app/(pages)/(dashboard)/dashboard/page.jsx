@@ -125,7 +125,7 @@ const DashboardPage = () => {
                     
                     return createDataPreview(
                         data.time,
-                        data.captionPost,
+                        data.contentTitle,
                         productList.filter(item => { return data.idProduct === item.value })[0].text,
                         data.contentType,
                         data.platform,
@@ -241,7 +241,7 @@ const DashboardPage = () => {
                 hashtag = {contentDetail ? contentDetail.hashtagPost.split(',').join(' ') : ""}
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.contentTitle : ""}
-                idProduct = {contentDetail ? productList.filter(data => data.text == contentDetail.contentTitle)[0].value : ""}
+                idProduct = {contentDetail ? productList.filter(data => data.value == contentDetail.idProduct)[0].value : ""}
                 data = {contentDetail ? contentDetail : ''}
                 isDashboard={true}
                 deleteButton={false}
@@ -258,7 +258,7 @@ const DashboardPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetailPreview}
-                image = {contentDetailPreview ? contentDetailPreview.image ? contentDetailPreview.image [0] : null : null}
+                image = {contentDetailPreview ? contentDetailPreview.image ? contentDetailPreview.image[0] : null : null}
                 caption = {contentDetailPreview ? contentDetailPreview.caption : ''}
                 hashtag = {contentDetailPreview ? contentDetailPreview.hashtag : ""}
                 platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
@@ -288,7 +288,7 @@ const DashboardPage = () => {
             {/*  */}
             <AppModalGenerateAI open={openModalAI} onCloseButton={(value)=>{setOpenModalAI(value)}} 
                 onClick = { ( value ) => {  
-                    setContentAI(value) 
+                    // setContentAI(value) 
                 }}
                 onLoad = {
                     (load)=>{

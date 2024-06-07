@@ -19,11 +19,12 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { editContentAIManual, generateAI, refreshAI } from '@/app/api/repository/contentRepository';
+import { editContentAIManual, generateAI, refreshAI, updateContentStatus } from '@/app/api/repository/contentRepository';
 import {getCurrentDateTime} from '@/app/utils/helper'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { formatDateTime } from '@/app/utils/helper'
+import AppToastPending from '@/app/components/AppToastPending/appToastPending'
 
 const CalendarEditPage = () => {
 
@@ -178,6 +179,22 @@ const CalendarEditPage = () => {
         convertHashtagString(matchHashtag)
     }
 
+
+    const fetchUpdateContentStatus = async () => {
+        try {
+            const res = await updateContentStatus({
+                idContent : contentAI.idContent,
+                status : caption != '' && hashtagString != '' && productImage != null ? 'COMPLETED' : 'INCOMPLETED'
+            })
+
+            if(res.status == 'OK'){
+                props.onCloseButton(false)
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     const handleEditContent = async () => {
         try {
             convertHashtagString(hashtag);
@@ -220,6 +237,7 @@ const CalendarEditPage = () => {
             const res = await editContentAIManual(contentAI.idContent ,formData)
 
             if(res.status == 'OK'){
+                fetchUpdateContentStatus()
                 toast.success('Edit Content AI Berhasil')
                 push('/dashboard/calendar')
             }
@@ -232,6 +250,10 @@ const CalendarEditPage = () => {
             }
         }
 
+    }
+
+    const notifyHandleEditContent = () => {
+        AppToastPending(handleEditContent)
     }
 
     useEffect(()=>{
@@ -444,7 +466,7 @@ const CalendarEditPage = () => {
                                             text={'Simpan'} 
                                             type = {'button'}
                                             onClick={()=>{
-                                                handleEditContent()
+                                                notifyHandleEditContent()
                                             }}
                                         />
                                     </Box>

@@ -29,6 +29,7 @@ import {  ToastContainer,toast } from "react-toastify";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 
 
 const GenerateAIPage = () => {
@@ -80,12 +81,11 @@ const GenerateAIPage = () => {
         if(res.status = 'OK'){
             const currentData = res.data.filter(data => {
                 if(userSubscription <= 2){
-                    return data.idProduct == 1
+                    return res.data[0]
                 }else{
                     return data
                 }
-            })
-    
+            })    
             const data = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
@@ -229,6 +229,10 @@ const GenerateAIPage = () => {
         } catch (error) {
             toast.error('Ada Kesalahan Server (500)')
         }
+    }
+
+    const notifyHandleDeleteContentHistory = (contentId) => {
+        AppToastPending(handleDeleteContentHistory(contentId))
     }
 
     const handleFilterContentHistory = (target) => {
@@ -451,7 +455,7 @@ const GenerateAIPage = () => {
                                                 setContentAI(contentAIConvert)
                                             }}
                                             onDeleteButton={()=>{
-                                                handleDeleteContentHistory(data.idContent)
+                                                notifyHandleDeleteContentHistory(data.idContent)
                                             }}
                                         />
                                     )

@@ -26,6 +26,7 @@ import { getUserConnectHistory } from "@/app/api/repository/userRepository";
 import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from "@/app/utils/helper";
 import { listDropCategory } from "@/app/utils/model";
 import { instagramConnect, instagramValidation } from "@/app/api/repository/instagramRepository";
+import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -197,6 +198,10 @@ const ProductDetailPage = () => {
                 toast.error('Ada Kesalahan Server (500)')
             }
         }
+    }
+
+    const notifyFetchDeleteProduct = () => {
+        AppToastPending(fetchDeleteProduct)
     }
 
     
@@ -395,7 +400,7 @@ const ProductDetailPage = () => {
                             text={ 'Hapus'} 
                             type = {'button'}
                             onClick={()=>{
-                                fetchDeleteProduct()
+                                notifyFetchDeleteProduct()
                             }}
                         />
                     </Box>

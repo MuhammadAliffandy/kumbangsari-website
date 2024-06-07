@@ -21,6 +21,7 @@ import { validateText } from '@/app/(pages)/(auth)/auth/component/validation';
 import { editProduct } from '@/app/api/repository/productRepository';
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { toast } from 'react-toastify';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 
 const AppModalEditProduct = (props) => {
@@ -74,6 +75,10 @@ const AppModalEditProduct = (props) => {
         } catch (error) {
                 toast.error('Produk gagal diubah')
         }
+    }
+
+    const notifyHandleEditProduct = () => {
+        AppToastPending(handleEditProduct)
     }
 
     useEffect(()=>{
@@ -174,7 +179,7 @@ const AppModalEditProduct = (props) => {
                                     text={'Simpan'} 
                                     type = {'button'}
                                     fontSize = {'12px'}
-                                    onClick = {handleEditProduct}
+                                    onClick = {notifyHandleEditProduct}
                                 />
                             </Box>
                     </Box>

@@ -14,6 +14,7 @@ import { instagramPost} from '@/app/api/repository/instagramRepository';
 import { createContentAIManual, deleteContent, editContentAIManual } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending'
 import { useEffect } from 'react';
 
 const AppModalDetailContent = (props) => {
@@ -226,8 +227,6 @@ const AppModalDetailContent = (props) => {
         }
     }
 
-    
-
     const handleDeleteContent = async () => {
         try {
             const res = await deleteContent(props.idContent);
@@ -244,9 +243,24 @@ const AppModalDetailContent = (props) => {
         }
     }
 
-    useEffect( ()=> {
-        console.log(props.data)
-    },[props.open] )
+
+    // 
+
+    const notifyFetchPostContent = () => {
+        AppToastPending(fetchPostContent)
+    }
+
+    const notifyHandleAddContent = () => {
+        AppToastPending(handleAddContent)
+    }
+
+    const notifyHandleAddContentAI = () => {
+        AppToastPending(handleAddContentAI)
+    }
+
+    const notifyHandleDeleteContent = () => {
+        AppToastPending(handleDeleteContent)
+    }
 
     return (
         <Modal 
@@ -273,7 +287,7 @@ const AppModalDetailContent = (props) => {
                         {
                             props.postedId != null ? null :
                             props.deleteButton != null ? null :
-                            <AppCustomButton className=' bg-white ' onClick={handleDeleteContent}>
+                            <AppCustomButton className=' bg-white ' onClick={notifyHandleDeleteContent}>
                                 <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
                             </AppCustomButton>
                         }
@@ -290,11 +304,11 @@ const AppModalDetailContent = (props) => {
                         {
                             props.image == null ? null :
                             props.image == ""? null :
-                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>
+                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[100%] lg:w-[50%]  ' }`}>
                                 <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
                             </Box>
                         }
-                        <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
+                        <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[100%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
                             { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold break-words'>{props.caption}</p> : null}
                             {  props.hashtag ? <p className='text-[14px] text-PRIMARY-400'>{props.hashtag}</p> : null }
                             <Box className = 'flex gap-[10px] items-center'>
@@ -323,7 +337,7 @@ const AppModalDetailContent = (props) => {
                             text ={'Tambahkan Sekarang'}
                             type={'submit'}
                             onClick={()=>{
-                                handleAddContentAI()
+                                notifyHandleAddContentAI()
                             }}
                         />
                         </Box> 
@@ -338,7 +352,7 @@ const AppModalDetailContent = (props) => {
                                     text ={'Tambahkan Sekarang'}
                                     type={'submit'}
                                     onClick={()=>{
-                                        handleAddContent()
+                                        notifyHandleAddContent()
                                     }}
                                 />
                                 :
@@ -346,7 +360,7 @@ const AppModalDetailContent = (props) => {
                                     text ={'Unggah Sekarang'}
                                     type={'submit'} 
                                     onClick={()=>{
-                                        fetchPostContent()
+                                        notifyFetchPostContent()
                                         props.onClick()
                                 
                                     }}
