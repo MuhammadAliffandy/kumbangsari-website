@@ -24,10 +24,10 @@ const Calendar = (props) => {
         return (
 
             <div className={` cursor-pointer flex gap-[5px] p-[5px] ${
-                status == 'complete' ? 'bg-STATE-GREEN-BASE bg-opacity-[20%] border-[2px] border-STATE-GREEN-BASE' :
-                status == 'incomplete' ? 'bg-STATE-YELLOW-BASE bg-opacity-[5%]  border-[2px] border-STATE-YELLOW-BASE' :
-                status == 'success' ? 'bg-STATE-GREEN-BASE bg-opacity-[5%] border-[2px] border-STATE-GREEN-BASE' :
-                status == 'failed' ? 'bg-STATE-RED-BASE bg-opacity-[5%] border-[2px] border-STATE-RED-BASE border-opacity-[70%]' :
+                status == 'COMPLETED' ? 'bg-STATE-BLUE-BASE bg-opacity-[20%] border-[2px] border-STATE-BLUE-BASE' :
+                status == 'INCOMPLETED' ? 'bg-STATE-YELLOW-BASE bg-opacity-[5%]  border-[2px] border-STATE-YELLOW-BASE' :
+                status == 'SUCCESS' ? 'bg-STATE-GREEN-BASE bg-opacity-[5%] border-[2px] border-STATE-GREEN-BASE' :
+                status == 'FAILED' ? 'bg-STATE-RED-BASE bg-opacity-[5%] border-[2px] border-STATE-RED-BASE border-opacity-[70%]' :
                 'bg-STATE-GREEN-BASE bg-opacity-[5%]  border-[2px]  border-STATE-GREEN-BASE'
             }  rounded-[10px]`}   onClick={()=> {
                 setOpenModalDetail(!openModalDetail)

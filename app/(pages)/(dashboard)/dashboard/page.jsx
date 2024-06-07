@@ -241,6 +241,7 @@ const DashboardPage = () => {
                 idProduct = {contentDetail ? productList.filter(data => data.text == contentDetail.contentTitle)[0].value : ""}
                 data = {contentDetail ? contentDetail : ''}
                 isDashboard={true}
+                deleteButton={false}
                 onClick = {()=> {
                     // setOpenModalUpload(!openModalUpload)
                 }}
@@ -259,6 +260,7 @@ const DashboardPage = () => {
                 platform = {contentDetailPreview ? contentDetailPreview.platform : ""}
                 productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
                 isDashboard={true}
+                deleteButton={false}
                 onClick = {()=> {
 
                 }}

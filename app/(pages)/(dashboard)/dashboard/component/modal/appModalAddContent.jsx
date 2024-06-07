@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
+import AppCustomModal from '@/app/components/appModal/AppCustomModal'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppButton from '@/app/components/appButton/appButton';
 import AppTextField from '@/app/components/appTextField/appTextField'
@@ -20,7 +21,7 @@ import { updateGenerateAI } from '@/app/redux/slices/generateAISlice'
 import { listDropPlatform } from '@/app/utils/model';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { createContentAIManual, generateAIManual } from '@/app/api/repository/contentRepository';
+import { createContentAIManual, generateAIManual, updateContentStatus } from '@/app/api/repository/contentRepository';
 import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -31,6 +32,10 @@ const AppModalAddContent = (props) => {
 
     const userSubscription = useSelector(state =>  state.userSubscription.value)
     const { push } = useRouter()
+
+
+    const [ modalValidation , setModalValidation  ] = useState(false)
+    // 
     const [contentTitle , setContentTitle] = useState('')
     const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
@@ -173,7 +178,23 @@ const AppModalAddContent = (props) => {
         }
     }
 
+    const fetchUpdateContentStatus = async (idContent) => {
+        try {
+            const res = await updateContentStatus({
+                idContent : idContent,
+                status : caption != '' && hashtagString != '' && image != null ? 'COMPLETED' : 'INCOMPLETED'
+            })
+
+            if(res.status == 'OK'){
+                props.onCloseButton(false)
+            }
+        } catch (error) {
+            toast.error('Ada Kesalahan Server (500)')
+        }
+    }
+
     const handleAddContent = async () => {
+
         try {
             convertHashtagString(hashtag);
 
@@ -196,19 +217,21 @@ const AppModalAddContent = (props) => {
             formData.append('historyImage', JSON.stringify(imageAIHistory));
             formData.append('historyCaption', JSON.stringify(captionAIHistory));
 
-            if(image?.type){
-                formData.append('image', '');
-                formData.set('files',image , image.name );
-            }else{
-                formData.append('image', image);
-                formData.set('files', '');
+            if(image != null){
+                if(image?.type){
+                    formData.append('image', '');
+                    formData.set('files',image , image.name );
+                }else{
+                    formData.append('image', image);
+                    formData.set('files', '');
+                }
             }
             
-
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
                 toast.success('Tambah Content Berhasil')
+                fetchUpdateContentStatus(res.data.idContent)
                 props.onCloseButton(false)
                 props.onDone()
                 push('/dashboard/calendar')
@@ -221,13 +244,14 @@ const AppModalAddContent = (props) => {
                 toast.error('Ada Kesalahan Sever (500)')
             }
         }
-
-
     }
+
+
 
     useEffect(()=>{
         getUserProduct()
         getRecommendationAI()
+        localStorage.setItem('hashtag','[]')
     },[props.open])
 
     return(
@@ -235,11 +259,48 @@ const AppModalAddContent = (props) => {
             open={props.open}
             className='flex flex-col justify-center items-center'
         >
+
+            {/*  */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
                 className = 'w-[90%] h-[90vh] xl:h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+                {/* Modal validation */}
+                <AppCustomModal
+                    open={modalValidation}
+                    withClose={true}
+                    width={'w-[30vw]'}
+                    modalType='modal-status'
+                    status={'info'}
+                    titleTop={true}
+                    alignment={'center text-center'}
+                    title={'Tambah Konten'}
+                    subtitle={'Konten belum lengkap, anda yakin akan lanjutkan?'}
+                    onClose={()=>{}}
+                    onCloseButton={(value)=> setModalValidation(value) }
+                    children={
+                        <Box className=' flex  gap-[10px] w-[100%]'>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-TEXT-4 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Keluar'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalValidation(false)
+                            }}/>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                text={ 'Lanjutkan'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    handleAddContent()
+                        
+                                    setModalValidation(false)
+                                }}
+                            />
+                        </Box>
+                }
+            />
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Tambah Konten</p>
@@ -492,8 +553,8 @@ const AppModalAddContent = (props) => {
                                 text={'Simpan'} 
                                 type = {'button'}
                                 onClick={()=>{
-
-                                    handleAddContent()
+                                    caption != '' && hashtagString != '' && image != null ?
+                                    handleAddContent() : setModalValidation(true)
                                 }}
                             />
                         </Box>

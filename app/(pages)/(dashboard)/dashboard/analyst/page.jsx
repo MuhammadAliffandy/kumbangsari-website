@@ -231,6 +231,7 @@ const AnalystPage = () => {
                 platform = {contentDetail ? contentDetail.platform : ""}
                 productName = {contentDetail ? contentDetail.contentTitle : ""}
                 withButton={false}
+                deleteButton={false}
                 isDashboard={true}
                 onClick = {()=> {
                     setOpenModalUpload(!openModalUpload)

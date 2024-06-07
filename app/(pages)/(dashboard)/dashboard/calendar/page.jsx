@@ -179,7 +179,7 @@ const CalenderPage = () => {
                         date: convertEventDate(data.dates.postedAt), 
                         platform : data.platform , 
                         borderColor:'transparent', 
-                        status : 'success', 
+                        status : data.status || 'INCOMPLETED', 
                       }
                     })
                   }

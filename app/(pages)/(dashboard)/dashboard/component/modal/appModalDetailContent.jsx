@@ -14,6 +14,7 @@ import { instagramPost} from '@/app/api/repository/instagramRepository';
 import { createContentAIManual, deleteContent, editContentAIManual } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const AppModalDetailContent = (props) => {
 
@@ -117,6 +118,7 @@ const AppModalDetailContent = (props) => {
             }
 
             fetchEditContent()
+            push('/dashboard/calendar')
 
         } catch (error) {
             if(error.status == 400){
@@ -177,6 +179,41 @@ const AppModalDetailContent = (props) => {
         }
     }
 
+    const handleAddContentAI = async () => {
+        try {
+
+            const formData = new FormData();
+            formData.append('contentTitle', props.contentTitle);
+            formData.append('idProduct', props.idProduct);
+            formData.append('platform', props.platform);
+            formData.append('caption', props.caption);
+            formData.append('style', props.style);
+            formData.append('hashtag', props.hashtag);
+            formData.append('postedAt', new Date().toISOString());
+
+            if(props.image != null && props.image != ''){
+                formData.append('image', props.image);    
+            }
+
+
+            const res = await createContentAIManual(formData)
+
+            if(res.status === 'OK'){
+                toast.success('Tambah Content AI Berhasil')
+                props.onCloseButton(false)
+                push('/dashboard/calendar')
+
+            }
+        } catch (error) {
+            if(error.status == 404 ){
+                toast.error('Tambah Content AI Gagal')
+            }else{
+                toast.error('Ada Kesalahan Sever (500)')
+            }
+        }
+    }
+
+    
 
     const handleDeleteContent = async () => {
         try {
@@ -193,6 +230,10 @@ const AppModalDetailContent = (props) => {
             toast.error('Ada Kesalahan Server (500)')
         }
     }
+
+    useEffect( ()=> {
+        console.log(props.image)
+    },[props.open] )
 
     return (
         <Modal 
@@ -217,6 +258,8 @@ const AppModalDetailContent = (props) => {
                         
                         }
                         {
+                            props.postedId != null ? null :
+                            props.deleteButton != null ? null :
                             <AppCustomButton className=' bg-white ' onClick={handleDeleteContent}>
                                 <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
                             </AppCustomButton>
@@ -232,10 +275,11 @@ const AppModalDetailContent = (props) => {
                 <Box className={`flex flex-col gap-[20px] w-[100%] h-[100%]`}>
                     <Box className={`${props.caption == null && props.hashtag == null ? 'flex flex-col gap-[8px] ' : 'flex flex-col xl:flex-row lg:flex-row  gap-[20px]  ' }`}>
                         {
-                            props.image != null ? 
+                            props.image == null ? null :
+                            props.image == ""? null :
                             <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>
                                 <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
-                            </Box>: null
+                            </Box>
                         }
                         <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
                             { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold break-words'>{props.caption}</p> : null}
@@ -247,19 +291,28 @@ const AppModalDetailContent = (props) => {
                         </Box>
                     </Box>
                     {
+                        props.postedId != null && props.isGenerate ? 
+                        <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
+                            <AppButton 
+                            text ={'Tambahkan Sekarang'}
+                            type={'submit'}
+                            onClick={()=>{
+                                handleAddContentAI()
+                            }}
+                        />
+                        </Box> 
+                        :
                         props.postedId != null ? null :
                         props.withButton != null  ? null :
                         <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
                             {
                                 props.withAddButton ?
-
+                                
                                 <AppButton 
                                     text ={'Tambahkan Sekarang'}
                                     type={'submit'}
                                     onClick={()=>{
-                                        fetchPostContent()
                                         handleAddContent()
-                                
                                     }}
                                 />
                                 :

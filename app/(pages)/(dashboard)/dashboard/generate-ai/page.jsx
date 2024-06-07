@@ -140,6 +140,7 @@ const GenerateAIPage = () => {
                 idContent: currentData.idContent,
                 idProduct: currentData.idProduct,
                 style: currentData.style,
+                postedId: currentData.postedId,
             }
         }) 
 
@@ -299,6 +300,7 @@ const GenerateAIPage = () => {
             />
             <AppModalDetailContent
                 open= {openModalDetail}
+                contentTitle = {contentDetail ? productList.filter( data => data.value == contentDetail.idProduct )[0].text : ''}  
                 image = {contentDetail ? contentDetail.image : ''}
                 caption = {contentDetail ? contentDetail.caption : ''}
                 hashtag = {contentDetail ? contentDetail.hashtag : ""}
@@ -307,6 +309,9 @@ const GenerateAIPage = () => {
                 idProduct={contentDetail ? contentDetail.idProduct : ""}
                 idContent={contentDetail ? contentDetail.idContent : ""}
                 data = { contentDetail ? contentDetail : "" }
+                postedId = { contentDetail ? contentDetail.postedId : "" }
+                isGenerate = { true}
+                deleteButton = {false}
                 onClick = {()=> {}}
                 onEditButton = {()=> {
                     setOpenModalDetail(false)
