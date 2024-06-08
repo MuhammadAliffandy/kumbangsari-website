@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { BASE_URL } from './app/utils/constants';
 
 export async function middleware(req) {
-    const isLogin = req.cookies.get('token').value;
+    const isLogin = req.cookies.get('token') ?  req.cookies.get('token')?.value  : '';
     const { pathname } = req.nextUrl;
     
     const response = await fetch(`${BASE_URL}/api/v1/users`, {
