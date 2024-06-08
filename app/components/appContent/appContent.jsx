@@ -8,7 +8,9 @@ import { listPlatform } from '@/app/utils/model'
 const AppContent = (props) => {
     return(
         <AppAnimationContent className>
-            <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 bg-white w-[100%]`} >
+            <Box className={` ${  
+                props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 
+                'flex  items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 bg-white w-[100%]`} >
                 {
                     props.image != null && props.caption == null && props.hashtag == null ?   
                     <Box className='flex-none '> <img src={props.image} className='rounded-[15px] w-[160px] h-[140px] object-fill' />  </Box>
@@ -16,7 +18,7 @@ const AppContent = (props) => {
                     <Box className='flex-none'> <img src={props.image} className='rounded-[15px] w-[160px] h-[120px] object-fill' /> </Box> 
                     : null
                 }
-                <Box className = 'grow flex flex-col gap-[8px] '> 
+                <Box className = {`grow flex flex-col gap-[8px] w-full ${props.image != null && props.caption == null && props.hashtag == null ? 'items-center' : '' }`}> 
                     {
                         props.caption ? <Box className = 'h-[34px] overflow-hidden  max-w-[90%]'>
                         <p className='text-[12px] text-TEXT-1 font-semibold break-words'>{props.caption}</p>

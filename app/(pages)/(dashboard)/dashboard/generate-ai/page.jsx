@@ -356,7 +356,7 @@ const GenerateAIPage = () => {
                             </AppAnimationButton>
                         </Box>
                         <Box  className='h-[100%]  overflow-x-hidden overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
-                            <Grid container direction={ sm || md  ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
+                            <Grid container direction={ sm  ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px]" >
                                 {
                                     contentAILoading ?
 
@@ -370,7 +370,8 @@ const GenerateAIPage = () => {
                                         contentAI.map((data,index) => {
                                             return ( 
                                                 <Grid key = {index} item 
-                                                    xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 12}>
+                                                    xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6} 
+                                                    className = ' w-[100%]'>
                                                         <AppContent
                                                             key={index}
                                                             image={data.image}
