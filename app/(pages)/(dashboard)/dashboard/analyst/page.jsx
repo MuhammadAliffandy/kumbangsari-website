@@ -134,6 +134,8 @@ const AnalystPage = () => {
             const res = await getAnalysisBestPerformance();
 
             if(res.status == 'OK'){
+
+                console.log(res.data)
                 const data = res.data.map(item => {
                     return createDataPost(
                         convertToIndonesianDate(item.date.createAt),
@@ -142,7 +144,7 @@ const AnalystPage = () => {
                         item.platform,
                         item.detailPost.likes_count,
                         item.detailPost.comments_count,
-                        item.detailPost.likes_count,
+                        item.detailPost.shares_count,
                         0,
                         item,
                     )
