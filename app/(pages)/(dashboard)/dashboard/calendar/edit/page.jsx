@@ -1,6 +1,6 @@
 'use client'
 
-import AppLayout from '@/app/(pages)/(dashboard)/dashboard/component/appLayout.jsx'
+import AppLayout from '../../component/appLayout'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'

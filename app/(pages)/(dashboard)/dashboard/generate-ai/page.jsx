@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import CircularProgress from '@mui/material/CircularProgress'
-import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout.jsx";
+import AppLayout from "../component/appLayout";
 import AppContent from '@/app/components/appContent/appContent'
 import AppModal from '@/app/components/appModal/appModal'
 import AppContentFilter from "../component/appContentFilter"
