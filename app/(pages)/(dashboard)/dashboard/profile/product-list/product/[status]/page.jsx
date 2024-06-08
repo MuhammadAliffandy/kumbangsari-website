@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout";
+import AppLayout from "@/app/(pages)/(dashboard)/dashboard/component/appLayout.jsx";
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
 import AppCustomModal from "@/app/components/appModal/AppCustomModal";

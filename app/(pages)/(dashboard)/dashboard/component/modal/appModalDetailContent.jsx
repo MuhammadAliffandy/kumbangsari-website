@@ -79,9 +79,9 @@ const AppModalDetailContent = (props) => {
                         twitterIds:[resTwitterId.data.twitterId],
                         idContent: props.idContent,
                         tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrls:[
+                        imageUrls:  props.image ? [
                             props.image,
-                        ]
+                        ] : []
                     }
 
                     const res = await twitterPost(data)
@@ -280,6 +280,9 @@ const AppModalDetailContent = (props) => {
     const notifyHandleDeleteContent = () => {
         AppToastPending(handleDeleteContent)
     }
+    
+    useEffect(()=>{console.log(props.image)},[props.open])
+
 
     return (
         <Modal 
@@ -321,6 +324,7 @@ const AppModalDetailContent = (props) => {
                 <Box className={`flex flex-col gap-[20px] w-[100%] h-[100%]`}>
                     <Box className={`${props.caption == null && props.hashtag == null ? 'flex flex-col gap-[8px] ' : 'flex flex-col xl:flex-row lg:flex-row  gap-[20px]  ' }`}>
                         {
+                            props.image == 'null' ? null :
                             props.image == null ? null :
                             props.image == ""? null :
                             <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>

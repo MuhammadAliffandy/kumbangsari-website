@@ -1,5 +1,5 @@
 'use client'
-import AppLayout from '@/app/(pages)/(dashboard)/dashboard/component/appLayout'
+import AppLayout from '@/app/(pages)/(dashboard)/dashboard/component/appLayout.jsx'
 import React, { useEffect, useState } from "react";
 import Calendar from './component/calendar'
 import Box  from '@mui/material/Box'
