@@ -97,7 +97,7 @@ const AppModalPendingPay = (props) => {
                                 text={'Lanjutkan Pembayaran'} 
                                 type = {'Submit'}
                                 onClick = {()=>{
-                                    console.log(props.status)
+
                                     if(props.status == 'waiting'){
                                         window.location.href = props.callbackUrl
                                     }

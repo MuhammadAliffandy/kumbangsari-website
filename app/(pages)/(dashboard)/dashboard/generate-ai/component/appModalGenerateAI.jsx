@@ -123,7 +123,7 @@ const  AppModalGenerateAI = (props ) => {
 
                 const mapping = await mappingGenerateAIValue(res.data);
                 toast.success('Generate Content AI Berhasil')
-                console.log('GENERATE OK')
+  
                 props.onLoad(load = false)
                 props.onClick(mapping)
             }

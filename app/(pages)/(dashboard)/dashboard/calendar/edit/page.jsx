@@ -130,7 +130,6 @@ const CalendarEditPage = () => {
     }
 
     const getContentUser = () => {
-        console.log(contentAI)
         setContentTitle(contentAI.contentTitle)
         setProduct(contentAI.productName)
         setProductImage(contentAI.imageUrlPost)
@@ -393,7 +392,7 @@ const CalendarEditPage = () => {
                                             label = 'Unggah Sekarang'
                                             onChange= {(value , label)=>{
                                                 if(value == 'true'){
-                                                    console.log('ANJAY')
+                
                                                     setUpNow(true)
                                                     const { date , time } = getCurrentDateTime()
                                                     setTimeUp(time)

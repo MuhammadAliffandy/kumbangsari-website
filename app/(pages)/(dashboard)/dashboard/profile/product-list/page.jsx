@@ -100,7 +100,6 @@ const ProductListPage = () => {
                 setUserTableHistory(dataHistory)
             }
         } catch (error) {
-            console.log(error)
             if(error.status == 404){
             
             }else{

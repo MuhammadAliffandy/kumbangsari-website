@@ -421,7 +421,6 @@ const AppModalAddContent = (props) => {
                                 }}
                                 onGenerate={()=>{
                                     generateRecommendationCaption()
-                                    console.log(captionRecommendation)
                                 }}
                                 onDropdown={(value)=>{setStyle(value)} }
                                 />

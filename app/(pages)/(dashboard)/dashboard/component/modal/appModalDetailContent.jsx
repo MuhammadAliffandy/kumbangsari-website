@@ -28,7 +28,6 @@ const AppModalDetailContent = (props) => {
 
     const fetchEditContent = async () => {
         const data = props.data
-        console.log(data)
         const formData = new FormData();
         formData.append('contentTitle', data.productName);
         formData.append('idProduct', props.idProduct);
@@ -52,7 +51,7 @@ const AppModalDetailContent = (props) => {
         try {
             const res = await updateContentStatus({
                 idContent : idContent,
-                status : caption != '' && hashtagString != '' && image != null ? 'COMPLETED' : 'INCOMPLETED'
+                status : props.caption != '' && props.hashtag != '' && props.image != null ? 'COMPLETED' : 'INCOMPLETED'
             })
 
             if(res.status == 'OK'){
@@ -184,10 +183,7 @@ const AppModalDetailContent = (props) => {
             formData.append('caption', data.captionPost);
             formData.append('style', data.style);
             formData.append('hashtag', props.hashtag);
-            formData.append('postedAt', new Date().toISOString());
-            formData.append('historyHashtag', JSON.stringify([]));
-            // formData.append('historyImage', JSON.stringify([]));
-            formData.append('historyCaption', JSON.stringify([]));
+            formData.append('postedAt', new Date().toISOString());    
 
             formData.append('image', data.imageUrlPost);
             formData.set('files', '');
@@ -227,7 +223,6 @@ const AppModalDetailContent = (props) => {
                 formData.append('image', props.image);    
             }
 
-
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
@@ -257,7 +252,6 @@ const AppModalDetailContent = (props) => {
                 toast.error('Content Gagal Dihapus')
             }
         } catch (error) {
-            console.log(error)
             toast.error('Ada Kesalahan Server (500)')
         }
     }
@@ -281,7 +275,7 @@ const AppModalDetailContent = (props) => {
         AppToastPending(handleDeleteContent)
     }
     
-    useEffect(()=>{console.log(props.image)},[props.open])
+
 
 
     return (

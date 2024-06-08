@@ -36,7 +36,7 @@ const generateAIContentHistorySlice = createSlice({
         filterContentHistory: (state , action) => {
             const data = JSON.parse(getCookie('generateContentHistory'));
             const checkboxIndicator = action.payload;
-            console.log(checkboxIndicator)
+
             const dataFiltered = data.filter(item => {
                 if( checkboxIndicator.product.length == 0 && checkboxIndicator.platform.length == 0){
                     return item;

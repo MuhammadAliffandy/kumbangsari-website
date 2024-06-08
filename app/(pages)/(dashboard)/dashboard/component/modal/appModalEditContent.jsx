@@ -255,7 +255,6 @@ const AppModalEditContent = (props) => {
             }
             props.onCloseButton(false)
         } catch (error) {
-            console.log(error)
             if(error.status == 404){
                 toast.error('Edit Content Gagal')
             }else{
@@ -424,7 +423,7 @@ const AppModalEditContent = (props) => {
                                         label = 'Unggah Sekarang'
                                         onChange= {(value , label)=>{
                                             if(value == 'true'){
-                                                console.log('ANJAY')
+                                  
                                                 setUpNow(true)
                                                 const { date , time } = getCurrentDateTime()
                                                 setTimeUp(time)

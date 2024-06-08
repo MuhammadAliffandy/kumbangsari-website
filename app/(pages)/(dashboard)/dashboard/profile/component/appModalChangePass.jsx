@@ -35,7 +35,6 @@ const AppModalChangePass = (props) => {
                 }
 
         } catch (error) {
-            console.log(error)
             if(error.status == 404){
                 toast.error('Ubah Password Gagal')
             }else{

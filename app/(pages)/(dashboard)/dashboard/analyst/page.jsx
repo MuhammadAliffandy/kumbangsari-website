@@ -135,7 +135,6 @@ const AnalystPage = () => {
 
             if(res.status == 'OK'){
 
-                console.log(res.data)
                 const data = res.data.map(item => {
                     return createDataPost(
                         convertToIndonesianDate(item.date.createAt),

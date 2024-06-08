@@ -148,7 +148,6 @@ const AddProductPage = () => {
 
 
         } catch (error) {
-            console.log(error)
             toast.error('Ada Kesalahan Server')
         }
     };
@@ -183,7 +182,6 @@ const AddProductPage = () => {
             clearForm()
             push('/dashboard')
         } catch (error) {
-            console.log(error)
             toast.error('Server error')
         }
     }
@@ -324,7 +322,6 @@ const AddProductPage = () => {
                                             async (event)=>{
                                                 await onSubmit(event)
                                                 addProductValidation()
-                                                console.log('simpan')
                                             } :
                                             (event)=>{
                                                 handlePageClick('product2')

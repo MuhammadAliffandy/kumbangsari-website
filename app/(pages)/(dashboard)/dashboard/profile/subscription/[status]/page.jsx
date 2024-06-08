@@ -476,8 +476,7 @@ const SubscriptionPage = () => {
                                 <AppTablePayment
                                     data={paymentTransactions}
                                     onClick={(data)=>{
-                                        console.log(data)
-                        
+                    
                                         if(data.status == 'waiting'){
                                             setModalPendingPay(true)
                                         }

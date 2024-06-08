@@ -112,7 +112,6 @@ const DashboardPage = () => {
             }
         } catch (error) {
             setContentAILoading(false)
-            console.log(error)
         }
     }
 
@@ -143,7 +142,6 @@ const DashboardPage = () => {
             }
             
         } catch (error) {
-            console.log(error)
             setContentPreviewLoading(false)
         }
     }
@@ -265,6 +263,7 @@ const DashboardPage = () => {
                 productName = {contentDetailPreview ? contentDetailPreview.productName : ""}
                 idProduct = {contentDetailPreview ? contentDetailPreview.idProduct : ""}
                 idContent = {contentDetailPreview ? contentDetailPreview.idContent : ""}
+                isGenerate={true}
                 isDashboard={true}
                 deleteButton={false}
                 onClick = {()=> {
