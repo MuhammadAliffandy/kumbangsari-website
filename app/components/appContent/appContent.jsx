@@ -40,14 +40,15 @@ const AppContent = (props) => {
                     <Box>
                     {
                         props.isDashboard ? 
-                            <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onClick={props.onClick}>
+                            <AppCustomButton className={`flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4  ${props.image != null && props.caption == null && props.hashtag == null ? 'w-[100%]' : "" }`}
+                            onClick={props.onClick}>
                                     { props.isDashboard ? null : <img className='w-[18px] h-[18px] ' src={'/images/icon/sparkling-black.svg'}/> }
                                     {props.isResponsive ? null : <p className="text-TEXT-1 font-bold text-[12px]">Lihat Detail</p>} 
                             </AppCustomButton>
                         :  <AppButton
                                 text='Lihat Detail'
                                 onClick={props.onClick}
-                                className={'py-[8px] px-[14px] text-[12px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[20px]'}
+                                className={`py-[8px] px-[14px] text-[12px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[20px] ${props.image != null && props.caption == null && props.hashtag == null ? 'w-[100%]' : "" }`}
                             />
                     }
                     </Box>
