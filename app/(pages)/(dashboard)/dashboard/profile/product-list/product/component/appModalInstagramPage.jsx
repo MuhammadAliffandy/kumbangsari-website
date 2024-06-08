@@ -37,7 +37,17 @@ const AppModalInstagramPage = (props) => {
         }
     }
     const fetchInstagramPickPages = async (data) => {
-        const res = await instagramPickPages(data);
+
+        const payload = {
+            idProduct: props.idProduct ,
+            pictureInstagramUrl : data.instagram.picture_url,
+            instagramId : data.instagram.accountId,
+            accessTokenPage:data.pages.accessTokenPage ,
+            username: data.instagram.username,
+            instagramBusinessId: data.instagram.instagramBusinessId ,
+        }
+
+        const res = await instagramPickPages(payload);
         if(res.status == 'OK'){
             toast.success('Instagram Page Berhasil Dipilih')
             props.onCloseButton(false)

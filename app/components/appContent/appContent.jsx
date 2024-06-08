@@ -8,7 +8,7 @@ import { listPlatform } from '@/app/utils/model'
 const AppContent = (props) => {
     return(
         <AppAnimationContent className>
-            <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 bg-white `} >
+            <Box className={` ${  props.image != null && props.caption == null && props.hashtag == null ? 'flex flex-col items-center' : 'flex items-center' } p-[12px] gap-[12px] rounded-[15px] shadow-CUSTOM-2 bg-white w-[100%]`} >
                 {
                     props.image != null && props.caption == null && props.hashtag == null ?   
                     <Box className='flex-none '> <img src={props.image} className='rounded-[15px] w-[160px] h-[140px] object-fill' />  </Box>

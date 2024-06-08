@@ -36,7 +36,16 @@ const AppModalFacebookPage = (props) => {
         }
     }
     const fetchFacebookPickPages = async (data) => {
-        const res = await facebookPickPages(data);
+
+        const payload = {
+            idProduct: data.idProduct,
+            pictureUrl:  data.picture.data.url,
+            accessToken: data.access_token,
+            pageId: data.id ,
+            pageName: data.name
+        }
+
+        const res = await facebookPickPages(payload);
         if(res.status == 'OK'){
             toast.success('Facebook Page Berhasil Dipilih')
             props.onCloseButton(false)

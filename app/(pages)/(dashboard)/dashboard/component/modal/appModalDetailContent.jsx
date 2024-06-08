@@ -323,11 +323,11 @@ const AppModalDetailContent = (props) => {
                         {
                             props.image == null ? null :
                             props.image == ""? null :
-                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[100%] lg:w-[50%]  ' }`}>
+                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>
                                 <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
                             </Box>
                         }
-                        <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[100%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
+                        <Box className ={` flex flex-col gap-[8px] ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? 'w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'} text-wrap`}> 
                             { props.caption ? <p className='text-[14px] text-TEXT-1 font-semibold break-words'>{props.caption}</p> : null}
                             {  props.hashtag ? <p className='text-[14px] text-PRIMARY-400'>{props.hashtag}</p> : null }
                             <Box className = 'flex gap-[10px] items-center'>

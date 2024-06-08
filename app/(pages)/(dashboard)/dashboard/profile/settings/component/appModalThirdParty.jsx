@@ -8,6 +8,7 @@ import { twitterRevoke } from '@/app/api/repository/twitterRepository';
 import { facebookRevoke } from '@/app/api/repository/facebookRepository';
 import { instagramRevoke } from '@/app/api/repository/instagramRepository';
 import { toast } from 'react-toastify';
+import AppToastPending from '@/app/components/AppToastPending/appToastPending';
 
 
 const AppModalThirdParty = (props) => {
@@ -61,6 +62,11 @@ const AppModalThirdParty = (props) => {
         }
     }
 
+
+    const notifyFetchTwitterRevoke = (idProduct) => {AppToastPending(fetchTwitterRevoke(idProduct))}
+    const notifyFetchFacebookRevoke = (idProduct) => {AppToastPending(fetchFacebookRevoke(idProduct))}
+    const notifyFetchInstagramRevoke = (idProduct) => {AppToastPending(fetchInstagramRevoke(idProduct))}
+
     return(
         <Modal 
             open={props.open}
@@ -102,13 +108,13 @@ const AppModalThirdParty = (props) => {
                                                 fontSize = {'12px'}
                                                 onClick={()=>{
                                                     if(data.platform == 'twitter'){
-                                                        fetchTwitterRevoke(data.idProduct)
+                                                        notifyFetchTwitterRevoke(data.idProduct)
                                                     }
                                                     if(data.platform == 'facebook'){
-                                                        fetchFacebookRevoke(data.idProduct)
+                                                        notifyFetchFacebookRevoke(data.idProduct)
                                                     }
                                                     if(data.platform == 'instagram'){
-                                                        fetchInstagramRevoke(data.idProduct)
+                                                        notifyFetchInstagramRevoke(data.idProduct)
                                                     }
                                                 }}
                                             />
