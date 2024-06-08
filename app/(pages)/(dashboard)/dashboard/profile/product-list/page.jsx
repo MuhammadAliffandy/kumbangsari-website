@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import AppLayout from "../../component/appLayout";
+import AppLayout from "../../component/AppLayout";
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
 import AppDropDown from '@/app/components/appDropDown/appDropDown'

@@ -1,7 +1,7 @@
 'use client'
 
 import AppButton from "@/app/components/appButton/appButton";
-import AppLayout from "../../component/appLayout";
+import AppLayout from "../../component/AppLayout";
 import Box from '@mui/material/Box'
 import AppModalChangePass from '@/app/(pages)/(dashboard)/dashboard/profile/component/appModalChangePass'
 import AppTextField from '@/app/components/appTextField/appTextField'

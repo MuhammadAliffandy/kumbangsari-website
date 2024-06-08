@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import CircularProgress from '@mui/material/CircularProgress'
-import AppLayout from "./component/appLayout";
+import AppLayout from "./component/AppLayout";
 import AppContent from '@/app/components/appContent/appContent'
 import AppTablePreview from '@/app/components/appTable/appTablePreview'
 import AppTableRecap from '@/app/components/appTable/appTableRecap'

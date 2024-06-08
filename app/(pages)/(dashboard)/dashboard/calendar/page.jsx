@@ -1,5 +1,5 @@
 'use client'
-import AppLayout from "../component/appLayout";
+import AppLayout from "../component/AppLayout";
 import React, { useEffect, useState } from "react";
 import Calendar from './component/calendar'
 import Box  from '@mui/material/Box'

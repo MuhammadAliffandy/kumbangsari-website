@@ -1,6 +1,6 @@
 'use client'
 import AppTablePayment from "@/app/components/appTable/appTablePayment";
-import AppLayout from "../../../component/appLayout";
+import AppLayout from "../../../component/AppLayout";
 import AppButton from "@/app/components/appButton/appButton";
 import AppModalSubscriptionList from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/subscriptionListModal'
 import AppModalPaymentDetail from '@/app/(pages)/(dashboard)/dashboard/profile/subscription/component/appModalPaymentDetail'

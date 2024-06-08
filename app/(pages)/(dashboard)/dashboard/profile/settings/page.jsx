@@ -1,6 +1,6 @@
 'use client'
 
-import AppLayout from "../../component/appLayout"
+import AppLayout from "../../component/AppLayout"
 import AppCheckBox from "@/app/components/appCheckBox/appCheckBox"
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
