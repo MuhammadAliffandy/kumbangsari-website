@@ -126,6 +126,7 @@ const AppModalInstagramPage = (props) => {
                                                             value= {''}
                                                             checked={ localStorage.getItem('countCheckbox')  != index ? false : true}
                                                             label={''}
+                                                            isCircle={true}
                                                             onChange= {()=>{
                                                                     setCountCheckbox(index)
                                                                     localStorage.setItem('countCheckbox' , index)
