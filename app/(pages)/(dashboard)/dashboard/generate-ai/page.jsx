@@ -174,13 +174,19 @@ const GenerateAIPage = () => {
         const res = await getContentByHistory();
         if(res.status == 'OK'){
             if(res.data.length !== 0){
-                const currentData = res.data.filter((data , index ) => {
+                const dataFiltered = res.data.filter((data , index ) => {
                     if(userSubscription <= 2){
-                        return index === 0
+                        return data.idProduct == 1
                     }else{
                         return data
                     }
                 })
+
+                console.log(dataFiltered)
+
+                const currentData = dataFiltered.filter(data => {
+                    return data.archives.caption != null || data.archives.hashtag != null || data.archives.imageUrl != null
+                } )
 
                 setCurrentContentAIHistory(currentData)
                 setContentAIHistory(currentData)

@@ -22,9 +22,12 @@ import { editProduct } from '@/app/api/repository/productRepository';
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { toast } from 'react-toastify';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending';
+import { useRouter } from 'next/navigation';
 
 
 const AppModalEditProduct = (props) => {
+
+    const { push } = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -68,6 +71,7 @@ const AppModalEditProduct = (props) => {
             if(res.status == 'OK'){
                 toast.success('Berhasil Ubah Produk ')
                 props.onCloseButton(false)
+                push('/dashboard/profile/product-list')
             } 
 
             props.onDone()
@@ -83,6 +87,7 @@ const AppModalEditProduct = (props) => {
 
     useEffect(()=>{
         getCurrentData()
+        console.log(props.idProduct)
     },[
         props.open
     ])
@@ -96,7 +101,7 @@ const AppModalEditProduct = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = 'w-[35%] h-[90vh] rounded-[20px] bg-white p-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                className = 'w-[90%] md:w-[50%]  xl:w-[35%] h-[90vh] rounded-[20px] bg-white p-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
 
                 <form  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
                     <Box className = 'flex items-center justify-between'>
