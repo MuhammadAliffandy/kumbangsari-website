@@ -16,7 +16,7 @@ export async function middleware(req) {
     }
     
 
-    if( pathname.includes('/dashboard') && response.status == 400 || isLogin == '' ){
+    if( pathname.includes('/dashboard') && response.status == 400 ){
         return NextResponse.redirect(new URL('/auth/signin', req.url)); 
     }
     
