@@ -246,7 +246,7 @@ const ProductListPage = () => {
                 {/*  */}
                 <Box className='flex items-center justify-between'>
                     <p className="text-TEXT-1 font-bold text-[16px]">Daftar Produk</p> 
-                    <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED rounded-[10px] px-[15px] py-[5px] '
+                    <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED hover:bg-SECONDARY-600 rounded-[10px] px-[15px] py-[5px] '
                                 onClick={()=>{setModalAddProduct(true)}}
                     >
                         <FontAwesomeIcon icon={faPlus} color={'white'} ></FontAwesomeIcon>

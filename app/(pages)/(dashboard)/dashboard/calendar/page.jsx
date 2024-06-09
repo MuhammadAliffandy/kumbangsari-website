@@ -135,7 +135,7 @@ const CalenderPage = () => {
             <Box className='p-[20px] grow w-[100%] flex flex-col gap-[15px] '>
               <Box className='flex justify-between '>
                 <AppAnimationButton className='w-auto'>
-                  <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                  <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[15px] py-[5px] '
                           onClick={()=>{
                             setOpenModalAdd(!openModalAdd)
                           }}

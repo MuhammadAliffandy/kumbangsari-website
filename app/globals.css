@@ -16,10 +16,11 @@
   }
 }
 
-/* @font-face {
+@font-face {
   font-family: "Poppins";
-  src: url(sansation_light.woff);
-} */
+  src: url('/fonts/Poppins.ttf') format('truetype');
+  font-style: normal;
+}
 
 * , body{
   font-family: "Poppins";

@@ -562,9 +562,9 @@ const AppModalAddContent = (props) => {
                 {/*  */}
                 <Box className = 'flex justify-end'>
                     <Box className='flex justify-end gap-[15px] w-[100%]'>
-                        <Box className='w-[15%]'>
+                        <Box className='w-[25%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] p-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Keluar'} 
                                 type = {'button'}
                                 onClick={()=>{
@@ -572,9 +572,9 @@ const AppModalAddContent = (props) => {
                                 }}
                             />
                         </Box>
-                        <Box className='w-[15%]'>
+                        <Box className='w-[25%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-500 shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] p-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Simpan'} 
                                 type = {'button'}
                                 onClick={()=>{

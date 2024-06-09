@@ -178,7 +178,7 @@ export default function LandingPage() {
             <p className="text-NEUTRAL-700 text-[18px] w-[85%] text-center"
             >Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
             <Box className='flex flex-col xl:flex-row items-center gap-[10px] '>
-              <AppCustomButton className=' flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[24px] py-[10px] '
+              <AppCustomButton className=' flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
                       onClick={()=>{
                       }}
                   >
@@ -280,7 +280,7 @@ export default function LandingPage() {
                               </Box>
                               <p className="text-TEXT-2 text-[18px]">{itemsFeatures[initButton - 1].description}</p>
                           </Box>
-                            <AppCustomButton className='w-[40%] flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[24px] py-[10px] '
+                            <AppCustomButton className='w-[40%] flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
                                   onClick={()=>{
                                   }}
                               >
@@ -443,7 +443,7 @@ const SideBar = (props) => {
             <AppCustomButton 
                     onMouseEnter={()=>{setArrowIcon('/images/icon/ArrowRight.svg')}} 
                     onMouseLeave={()=>{setArrowIcon('/images/icon/ArrowUpRight.svg')}} 
-                    className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 rounded-[6px] px-[20px] py-[6px] `}
+                    className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[20px] py-[6px] `}
                     onClick={()=>{
                         push('/auth/signup')
                     }}

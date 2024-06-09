@@ -279,7 +279,7 @@ const DashboardPage = () => {
             >
                 <Box className ='flex flex-col items-center gap-[40px]'>
                     <CircularProgress style={{color : '#F45B69'}}  />
-                    <Box className='flex flex-col items-center '>
+                    <Box className='flex flex-col items-center text-center'>
                         <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
                         <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
                     </Box>
@@ -305,7 +305,7 @@ const DashboardPage = () => {
                 >
                     <Box className ='flex flex-col items-center gap-[40px]'>
                         <CircularProgress style={{color : '#F45B69'}}  />
-                        <Box className='flex flex-col items-center '>
+                        <Box className='flex flex-col items-center text-center'>
                             <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Generate...</p>
                             <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
                         </Box>
@@ -410,7 +410,7 @@ const DashboardPage = () => {
                                 </AppCustomButton>
                             </AppAnimationButton>
                             <AppAnimationButton className='w-auto'>
-                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 hover:bg-SECONDARY-600  rounded-[10px] px-[15px] py-[5px] '
+                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[15px] py-[5px] '
                                         onClick={()=>{
                                             setOpenModalAI(!openModalAI)
                                         }}
