@@ -79,7 +79,7 @@ const SubscriptionList = (props) => {
                                             }
                                         </Box>
                                         <AppButton
-                                            className={' flex text-white gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px] shadow-xl'}
+                                            className={' flex text-white gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px] shadow-xl'}
                                             text={'Beli Paket'} 
                                             type = {'Submit'}
                                             onClick = {()=>{

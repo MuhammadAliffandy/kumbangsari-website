@@ -323,14 +323,14 @@ const DashboardPage = () => {
                     <p className="text-TEXT-1 text-[14px] font-medium">Apakah Anda yakin ingin mengunggah konten ini sekarang?</p>
                     <Box className=' flex gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Kembali'} 
                             type = {'button'}
                             onClick={()=>{
                             }}
                         />
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Ya'} 
                             type = {'button'}
                             onClick={()=>{
@@ -356,7 +356,7 @@ const DashboardPage = () => {
                 <>
                     <Box className=' flex gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
@@ -381,7 +381,7 @@ const DashboardPage = () => {
                 <>
                     <Box className=' flex gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
@@ -400,7 +400,7 @@ const DashboardPage = () => {
                     <Box className={`${ sm || lg ? 'w-[100%] flex justify-between' : 'w-[100%]'}`}>
                         <Box className='flex items-center justify-left gap-[10px]'>
                             <AppAnimationButton className='w-auto'>
-                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 hover:bg-SECONDARY-600  rounded-[10px] px-[15px] py-[5px] '
                                         onClick={()=>{
                                             setOpenModalAdd(true)
                                         }}
@@ -410,7 +410,7 @@ const DashboardPage = () => {
                                 </AppCustomButton>
                             </AppAnimationButton>
                             <AppAnimationButton className='w-auto'>
-                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 rounded-[10px] px-[15px] py-[5px] '
+                                <AppCustomButton className='flex gap-[10px] items-center bg-SECONDARY-500 hover:bg-SECONDARY-600  rounded-[10px] px-[15px] py-[5px] '
                                         onClick={()=>{
                                             setOpenModalAI(!openModalAI)
                                         }}

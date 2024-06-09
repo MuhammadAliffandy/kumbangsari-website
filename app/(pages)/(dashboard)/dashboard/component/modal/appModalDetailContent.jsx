@@ -338,7 +338,7 @@ const AppModalDetailContent = (props) => {
                         props.postedId != null && props.data?.contentUrl != null  ? 
                         <Box className={`w-[100%]`}>
                             <AppButton 
-                                className='w-[100%] p-[15px] text-[14px] bg-PRIMARY-500 text-TEXT-5 font-poppins rounded-[6px]'
+                                className='w-[100%] p-[15px] text-[14px] bg-PRIMARY-500 hover:bg-PRIMARY-600 text-TEXT-5 font-poppins rounded-[6px]'
                                 text ={'Kunjungi Konten'}
                                 type={'button'}
                                 onClick={()=>{

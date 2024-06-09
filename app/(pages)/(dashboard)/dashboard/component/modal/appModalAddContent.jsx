@@ -307,14 +307,14 @@ const AppModalAddContent = (props) => {
                     children={
                         <Box className=' flex  gap-[10px] w-[100%]'>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-TEXT-4 shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Keluar'} 
                                 type = {'button'}
                                 onClick={()=>{
                                     setModalValidation(false)
                             }}/>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={ 'Lanjutkan'} 
                                 type = {'button'}
                                 onClick={()=>{
@@ -531,9 +531,9 @@ const AppModalAddContent = (props) => {
                             </Stack>
                         </Box>
                     </Box >
-                    <Box className='w-[100%] xl:w-[2px] h-[2px] xl:[100%] bg-black bg-opacity-[10%]'></Box>
+                    <Box className=' hidden xl:flex w-[100%] xl:w-[2px] h-[2px] xl:[100%] bg-black bg-opacity-[10%]'></Box>
                     {/* preview */}
-                    <Box className = 'w-[100%] xl:w-[40%] h-[100%]  flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                    <Box className = ' hidden  w-[100%] xl:w-[40%] h-[100%]  xl:flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                                 <label className='text-black font-semibold' >Preview Konten</label>
                         </Box>
@@ -564,7 +564,7 @@ const AppModalAddContent = (props) => {
                     <Box className='flex justify-end gap-[15px] w-[100%]'>
                         <Box className='w-[15%]'>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Keluar'} 
                                 type = {'button'}
                                 onClick={()=>{
@@ -574,7 +574,7 @@ const AppModalAddContent = (props) => {
                         </Box>
                         <Box className='w-[15%]'>
                             <AppButton
-                                className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-500 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Simpan'} 
                                 type = {'button'}
                                 onClick={()=>{

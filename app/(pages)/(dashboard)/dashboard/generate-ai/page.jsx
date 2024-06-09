@@ -370,7 +370,7 @@ const GenerateAIPage = () => {
                                         contentAI.map((data,index) => {
                                             return ( 
                                                 <Grid key = {index} item 
-                                                    xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 4 : 6} 
+                                                    xs={ data.image == null  ? 4 : data.image != null && data.caption == null && data.hashtag == null ? 3 : 6} 
                                                     className = ' w-[100%]'>
                                                         <AppContent
                                                             key={index}

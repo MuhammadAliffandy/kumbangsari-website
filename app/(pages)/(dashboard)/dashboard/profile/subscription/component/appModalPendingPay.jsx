@@ -93,7 +93,7 @@ const AppModalPendingPay = (props) => {
                             <Box className='w-[100%] h-[1px] bg-TEXT-4'></Box>    
                             
                             <AppButton
-                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
                                 text={'Lanjutkan Pembayaran'} 
                                 type = {'Submit'}
                                 onClick = {()=>{

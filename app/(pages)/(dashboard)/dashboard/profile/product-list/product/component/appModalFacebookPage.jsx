@@ -153,7 +153,7 @@ const AppModalFacebookPage = (props) => {
                             </Grid>
                             <Box className='flex justify-end'>
                                 <AppButton
-                                    className='w-[30%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                    className='w-[30%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                     text={'Simpan'} 
                                     type = {'button'}
                                     onClick={()=>{

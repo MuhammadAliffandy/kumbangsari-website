@@ -73,7 +73,7 @@ const AppModalPaymentDetail = (props) => {
                                     {/*  */}
                                     <Box className='w-[100%] '>
                                         <AppButton
-                                            className='w-[100%] text-[14px] py-[6px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                            className='w-[100%] text-[14px] py-[6px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                             text={'Bayar'} 
                                             type = {'Submit'}
                                             fontSize = {'12px'}

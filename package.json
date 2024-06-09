@@ -21,6 +21,7 @@
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/react": "^6.1.11",
+    "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material-nextjs": "^5.15.11",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react-redux": "^7.1.33",

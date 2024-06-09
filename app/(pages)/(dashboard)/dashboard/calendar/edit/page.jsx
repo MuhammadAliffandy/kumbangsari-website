@@ -451,7 +451,7 @@ const CalendarEditPage = () => {
                                 <Box className='flex items-center justify-center gap-[15px] w-[100%]'>
                                     <Box className='w-[100%]'>
                                         <AppButton
-                                            className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
+                                            className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                                             text={'Keluar'} 
                                             type = {'button'}
                                             onClick={()=>{
@@ -461,7 +461,7 @@ const CalendarEditPage = () => {
                                     </Box>
                                     <Box className='w-[100%]'>
                                         <AppButton
-                                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                             text={'Simpan'} 
                                             type = {'button'}
                                             onClick={()=>{

@@ -308,7 +308,7 @@ const SubscriptionPage = () => {
                     </Box>
                     <Box className=' flex gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-NEUTRAL-500 shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Tidak'} 
                             type = {'button'}
                             onClick={()=>{
@@ -316,7 +316,7 @@ const SubscriptionPage = () => {
                             }}
                         />
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Ya'} 
                             type = {'button'}
                             onClick={()=>{
@@ -439,7 +439,7 @@ const SubscriptionPage = () => {
                                         
                                         <>  
                                             <AppButton
-                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
                                                 text={'Berhenti Langganan'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
@@ -447,7 +447,7 @@ const SubscriptionPage = () => {
                                                 }}
                                             />
                                             <AppButton
-                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
                                                 text={'Ubah Paket'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
@@ -459,7 +459,7 @@ const SubscriptionPage = () => {
                                             :
                                         
                                         <AppButton
-                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500  hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
                                             text={'Beli Paket'} 
                                             type = {'Submit'}
                                             onClick = {()=>{

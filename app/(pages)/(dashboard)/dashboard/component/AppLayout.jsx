@@ -340,7 +340,7 @@ const AppLayout = (props) => {
                                             })
                                         }
                                         <AppButton
-                                            className='w-[100%] text-[14px] xl:text-[12px] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[30px]'
+                                            className='w-[100%] text-[14px] xl:text-[12px] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[30px]'
                                             text={sm ? '+' : 'Tambah Akun' }
                                             onClick={()=>{
                                                 if(accountSwitched.length >= 2){

@@ -102,7 +102,7 @@ const AppModalThirdParty = (props) => {
                                                 </Box>
                                             </Box>
                                             <AppButton
-                                                className='w-[20%] text-[12px] py-[6px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[12px]'
+                                                className='w-[20%] text-[12px] py-[6px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[12px]'
                                                 text={'Hapus Akses'} 
                                                 type = {'Submit'}
                                                 fontSize = {'12px'}

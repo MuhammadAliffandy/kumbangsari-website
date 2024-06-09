@@ -130,7 +130,7 @@ const ProfilePage = () => {
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
                     </Box>
                     <Box className='w-[100%] h-[88%] flex flex-col xl:flex-row md:flex-row sm:flex-col gap-[20px] p-[20px] absolute z-[100] bottom-0 overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
-                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[100%] lg:w-[20%] xl:w-[20%] h-[100%] p-[20px] rounded-[20px] hover:shadow-md'>
+                        <Box className='flex-none flex flex-col items-center justify-between bg-white w-[100%] md:w-[40%] lg:w-[20%] xl:w-[30%] h-[100%] p-[20px] rounded-[20px] hover:shadow-md'>
                             <Box className='flex flex-col gap-[20px] items-center'>
                                 <Box className=' w-[200px] h-[200px] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
@@ -155,7 +155,7 @@ const ProfilePage = () => {
                             </Box>
                             <AppAnimationButton>
                                 <AppButton
-                                        className={' flex gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
+                                        className={' flex gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
                                         text={'Keluar'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
@@ -219,7 +219,7 @@ const ProfilePage = () => {
                                     <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
                                     <Box className='w-[100%] flex justify-end '>
                                             <AppButton
-                                                className={' flex gap-[10px] w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 rounded-[10px] px-[25px] py-[8px]'}
+                                                className={' flex gap-[10px] w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
                                                 text={'Simpan'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{}}

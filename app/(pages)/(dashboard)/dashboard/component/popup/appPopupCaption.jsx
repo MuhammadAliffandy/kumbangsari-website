@@ -79,7 +79,7 @@ const AppPopupCaption = (props) => {
                             props.isDashboard ? 
 
                             <AppButton
-                                className='w-[30vw] py-[15px] bg-CUSTOM-RED shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
+                                className='w-[30vw] py-[15px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
                                 text = 'Generate'
                                 onClick={()=>{
                                     props.onGenerate()

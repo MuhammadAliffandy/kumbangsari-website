@@ -73,7 +73,7 @@ const AppPopupFilter = (props) => {
                         </Box>
                         <Box className='w-[100%] flex justify-end'>
                             <AppButton
-                                className={'py-[8px] px-[20px] text-[12px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[20px]'}
+                                className={'py-[8px] px-[20px] text-[12px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[20px]'}
                                 text='Simpan'
                                 onClick={()=>{
                                     props.onClick(dataProduct)

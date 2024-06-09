@@ -48,7 +48,7 @@ const AppContent = (props) => {
                         :  <AppButton
                                 text='Lihat Detail'
                                 onClick={props.onClick}
-                                className={`py-[8px] px-[14px] text-[12px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[20px] ${props.image != null && props.caption == null && props.hashtag == null ? 'w-[100%]' : "" }`}
+                                className={`py-[8px] px-[14px] text-[12px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[20px] ${props.image != null && props.caption == null && props.hashtag == null ? 'w-[100%]' : "" }`}
                             />
                     }
                     </Box>

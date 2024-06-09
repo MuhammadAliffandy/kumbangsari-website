@@ -296,7 +296,7 @@ const ProductDetailPage = () => {
                         platformConnection == 'instagram' && instagramStatus == true  ? null : 
                         platformConnection == 'facebook' && facebookStatus == true ? null  :
                         <AppButton
-                                className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={
                                     platformConnection == 'instagram' && instagramStatus == false ||   platformConnection == 'facebook' && facebookStatus == false ? 
                                     'Pilih Page' : 
@@ -357,14 +357,14 @@ const ProductDetailPage = () => {
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-TEXT-4 shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
 
                         }}/>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={ 'Hapus'} 
                             type = {'button'}
                             onClick={()=>{
@@ -389,14 +389,14 @@ const ProductDetailPage = () => {
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-TEXT-4 shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
                                 setModalDeleteProduct(false)
                         }}/>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={ 'Hapus'} 
                             type = {'button'}
                             onClick={()=>{
@@ -425,7 +425,7 @@ const ProductDetailPage = () => {
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={ 'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
@@ -455,7 +455,7 @@ const ProductDetailPage = () => {
                 children={
                     <Box className=' flex  gap-[10px] w-[100%]'>
                         <AppButton
-                            className='w-[100%] py-[10px] bg-CUSTOM-RED shadow-xl text-white font-poppins rounded-[18px]'
+                            className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                             text={ 'Keluar'} 
                             type = {'button'}
                             onClick={()=>{
@@ -583,7 +583,7 @@ const ProductDetailPage = () => {
                             <Box className='flex justify-end w-[100%] gap-[15px]'>
                                 <>  
                                     <AppButton
-                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
                                         text={'Hapus Produk'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
@@ -591,7 +591,7 @@ const ProductDetailPage = () => {
                                         }}
                                     />
                                     <AppButton
-                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
                                         text={'Ubah Produk'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
