@@ -27,6 +27,7 @@ const  AppCheckBox = (props) => {
         <div className="flex items-center">
             <input
                 value = {props.value || ''}
+                disabled={props.disabled || false}
                 type="checkbox"
                 className={`h-5 w-5 text-blue-500 focus:ring-blue-400 border-gray-300 rounded-[50%] ${props.isCircle ? 'border-[2px] border-gray-300 rounded-full appearance-none checked:bg-blue-500 checked:border-transparent' : ''}`}
                 checked={props.checked || checked}

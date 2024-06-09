@@ -147,7 +147,7 @@ const ProductDetailPage = () => {
             setAccountInstagram(data.platformInfo.instagram)
             // 
             setAgeRange(data.ageRange)
-            setGender(JSON.stringify(data.gender))
+            setGender(data.gender)
             setSchool(data.education)
             setJob(data.work) 
         }
@@ -557,6 +557,7 @@ const ProductDetailPage = () => {
                                         listValue = {gender}
                                         direction= {'row'}
                                         sx={{justifyContent : 'space-between'}}
+                                        disabled={true}
                                     />
                                 </Box>
                                 <Box className='w-[50%]'>
@@ -568,6 +569,7 @@ const ProductDetailPage = () => {
                                         directionChild={'row'}
                                         sx={{justifyContent : 'space-between' , width : '100%'}}
                                         sxChild={{justifyContent : 'space-between' , width : '40%'}}
+                                        disabled={true}
                                     />
                                 </Box>
                             </Box>
@@ -578,6 +580,7 @@ const ProductDetailPage = () => {
                                     status = {checkboxStatus}
                                     listValue = {job}
                                     sx={{justifyContent : 'space-between'}}
+                                    disabled={true}
                                 />
                             </Box>
                             <Box className='flex justify-end w-[100%] gap-[15px]'>

@@ -36,6 +36,7 @@ const AppModalAddContent = (props) => {
 
 
     const [ modalValidation , setModalValidation  ] = useState(false)
+
     // 
     const [contentTitle , setContentTitle] = useState('')
     const [image , setImage] = useState(null)
@@ -323,8 +324,9 @@ const AppModalAddContent = (props) => {
                                 }}
                             />
                         </Box>
-                }
-            />
+                    }
+                />
+                
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Tambah Konten</p>
@@ -580,9 +582,6 @@ const AppModalAddContent = (props) => {
                                 onClick={()=>{
                                     caption != '' && hashtagString != '' && image != null ?
                                     notifyHandleAddContent() : setModalValidation(true)
-
-
-
                                 }}
                             />
                         </Box>

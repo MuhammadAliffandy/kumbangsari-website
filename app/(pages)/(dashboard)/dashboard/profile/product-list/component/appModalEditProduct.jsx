@@ -44,7 +44,7 @@ const AppModalEditProduct = (props) => {
         setNameProduct(props.currentData.nameProduct)
         setCategoryProduct(props.currentData.category)
         setAgeRange(props.currentData.ageRange)
-        setGender(JSON.stringify(props.currentData.gender))
+        setGender(props.currentData.gender)
         setSchool(props.currentData.education)
         setJob(props.currentData.work) 
     }

@@ -1,9 +1,11 @@
 'use client'
 
+import { useState} from 'react';
 import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
 import AppButton from '@/app/components/appButton/appButton';
+import AppCustomModal from '@/app/components/appModal/AppCustomModal'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { listPlatform } from '@/app/utils/model';
@@ -15,16 +17,13 @@ import { createContentAIManual, deleteContent, editContentAIManual, updateConten
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending'
-import { useEffect } from 'react';
 
 const AppModalDetailContent = (props) => {
 
     const { push } = useRouter()
-    const sm = useMediaQuery({ maxWidth: 640 });
-    const md = useMediaQuery({ maxWidth: 768 });
-    const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
     
+    const [ modalDeleteContent , setModalDeleteContent ] = useState(false)
 
     const fetchEditContent = async () => {
         const data = props.data
@@ -163,7 +162,6 @@ const AppModalDetailContent = (props) => {
             }
         }
     }
-    
 
     const handleAddContent = async () => {
         const data = props.data
@@ -248,6 +246,7 @@ const AppModalDetailContent = (props) => {
                 toast.success('Content Berhasil Dihapus',)
                 props.onDeleteDone()
                 props.onCloseButton(false)
+                setModalDeleteContent(false)
             }else{
                 toast.error('Content Gagal Dihapus')
             }
@@ -255,7 +254,6 @@ const AppModalDetailContent = (props) => {
             toast.error('Ada Kesalahan Server (500)')
         }
     }
-
 
     // 
 
@@ -276,8 +274,6 @@ const AppModalDetailContent = (props) => {
     }
     
 
-
-
     return (
         <Modal 
             open={props.open}
@@ -288,8 +284,43 @@ const AppModalDetailContent = (props) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
             className = {`${ xl ? 'w-[80%] md:w-[40%] lg:w-[40%] xl:w-[60%]' :  props.caption == null && props.hashtag == null ?  'w-[25%]' : props.image ? 'w-[40%]' :  'w-[25%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] `}>
+                 {/* modal delete */}
+                <AppCustomModal
+                    open={modalDeleteContent}
+                    withClose={true}
+                    width={'w-[30vw]'}
+                    modalType='modal-common'
+                    title={'Hapus Konten?'}
+                    onCloseButton={(value)=> setModalDeleteContent(value) }
+                    children={
+                    <>
+                        <Box className='flex flex-col justify-start w-[100%]'>
+                            <p className="text-TEXT-1 text-[14px] font-medium">Apakah Anda yakin ingin menghapus konten dari kalender?</p>
+                        </Box>
+                        <Box className=' flex gap-[10px] w-[100%]'>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Tidak'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalDeleteContent(false)
+                                }}
+                            />
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Ya'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    notifyHandleDeleteContent()
+                                }}
+                            />
+                        </Box>
+                    </>
+                }
+                />
                 {/* headline */}
                 <Box className = 'flex justify-between'>
+                    
                     <p className = 'text-[18px] font-bold text-black' >Detail Konten</p>
                     <Box className='flex items-center gap-[15px]'>
                         
@@ -303,7 +334,7 @@ const AppModalDetailContent = (props) => {
                         {
                             props.postedId != null ? null :
                             props.deleteButton != null ? null :
-                            <AppCustomButton className=' bg-white ' onClick={notifyHandleDeleteContent}>
+                            <AppCustomButton className=' bg-white ' onClick={() => setModalDeleteContent(true)}>
                                 <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
                             </AppCustomButton>
                         }

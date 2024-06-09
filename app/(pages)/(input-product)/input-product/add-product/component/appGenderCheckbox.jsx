@@ -42,6 +42,7 @@ const AppGenderCheckbox = (props) => {
                         value= 'pria'
                         label = 'Pria'
                         status = { listValue.indexOf('pria') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}
@@ -50,6 +51,7 @@ const AppGenderCheckbox = (props) => {
                         value = 'perempuan'
                         label = 'Perempuan'
                         status = { listValue.indexOf('perempuan') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value,label)
                         }}

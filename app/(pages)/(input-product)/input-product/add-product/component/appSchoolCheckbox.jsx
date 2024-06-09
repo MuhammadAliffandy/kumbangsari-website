@@ -39,6 +39,7 @@ const AppSchoolCheckbox = (props) => {
                         label = 'SD'
                         value= 'SD'
                         status = {listValue.indexOf('SD') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -47,6 +48,7 @@ const AppSchoolCheckbox = (props) => {
                         value= 'SMA'
                         label = 'SMA'
                         status = {listValue.indexOf('SMA') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -57,6 +59,7 @@ const AppSchoolCheckbox = (props) => {
                         value= 'SMP'
                         label = 'SMP'
                         status = {listValue.indexOf('SMP') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -65,6 +68,7 @@ const AppSchoolCheckbox = (props) => {
                         value= 'kuliah'
                         label = 'Kuliah'
                         status = {listValue.indexOf('kuliah') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}

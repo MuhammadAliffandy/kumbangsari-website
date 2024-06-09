@@ -39,6 +39,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Tdk Bekerja'
                         value = 'tidakkerja'
                         status = {listValue.indexOf('tidakkerja') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -47,6 +48,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Kesehatan'
                         value = 'kesehatan'
                         status = {listValue.indexOf('kesehatan') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -57,6 +59,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Pelajar/Mhs'
                         value = 'pelajar'
                         status = {listValue.indexOf('pelajar') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -65,6 +68,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Karyawan'
                         value = 'karyawan'
                         status = {listValue.indexOf('karyawan') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -75,6 +79,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Hiburan'
                         value = 'hiburan'
                         status = {listValue.indexOf('hiburan') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -83,6 +88,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Teknis'
                         value = 'teknis'
                         status = {listValue.indexOf('teknis') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -93,6 +99,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Pendidikan'
                         value = 'pendidikan'
                         status = {listValue.indexOf('pendidikan') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
@@ -101,6 +108,7 @@ const AppJobCheckbox = (props) => {
                         label = 'Lainnya'
                         value = 'lainnya'
                         status = {listValue.indexOf('lainnya') > -1 ? 'added' : props.status}
+                        disabled={props.disabled || false}
                         onChange= {(value , label)=>{
                             handleChange(value , label)
                         }}
