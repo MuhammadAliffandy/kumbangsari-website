@@ -8,10 +8,16 @@ import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { listDropLanguageStyle } from '@/app/utils/model';
+import { useMediaQuery } from "react-responsive";
 
 const AppPopupCaption = (props) => {
     const [open, setOpen] = useState(false);
     const [style , setStyle ] = useState('formal')
+
+    const sm = useMediaQuery({ maxWidth: 640 });
+    const md = useMediaQuery({ maxWidth: 768 });
+    const lg = useMediaQuery({ maxWidth: 1024 });
+    const xl = useMediaQuery({ maxWidth: 1280 });
 
     const handleDropDown = (event)=>{
         setStyle(event.target.value)
@@ -22,7 +28,7 @@ const AppPopupCaption = (props) => {
         <Popover
             isOpen={open}
             positions={[ 'left', 'bottom']}
-            containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '6%' : '6%' , paddingRight : props.isDashboard ? '15%' : '0%'}}
+            containerStyle={{ zIndex: 1300 , paddingLeft: props.isDashboard ? '6%' : '6%' , paddingRight : props.isDashboard ? `${ md ? '25%' : lg ?  '40%' : xl ? '55%' : '20%'  }` : '0%'}}
             // onClickOutside={  ()=> setOpen(false)}
             align="center"
             content={
@@ -79,7 +85,7 @@ const AppPopupCaption = (props) => {
                             props.isDashboard ? 
 
                             <AppButton
-                                className='w-[30vw] py-[15px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
+                                className=' w-[100%] xl:w-[30vw] py-[15px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white my-[10px] font-poppins rounded-[15px]'
                                 text = 'Generate'
                                 onClick={()=>{
                                     props.onGenerate()

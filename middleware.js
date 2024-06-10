@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { BASE_URL } from './app/utils/constants';
 
 export async function middleware(req) {
+    
     const isLogin = req.cookies.get('token') ?  req.cookies.get('token')?.value  : null;
     const { pathname } = req.nextUrl;
     
@@ -11,10 +12,9 @@ export async function middleware(req) {
         },
     });
 
-    if ( isLogin != ''  && response.ok) {
+    if ( isLogin != ''  && response.ok && pathname == '/' ) {
         return NextResponse.redirect(new URL('/dashboard', req.url)); 
     }
-    
 
     if( pathname.includes('/dashboard') && response.status == 400 ){
         return NextResponse.redirect(new URL('/auth/signin', req.url)); 
@@ -27,6 +27,8 @@ export async function middleware(req) {
 
 export const config = {
     matcher: [
-        '/' 
+        '/',
+        '/dashboard/:path*'
+        
     ] 
 };
