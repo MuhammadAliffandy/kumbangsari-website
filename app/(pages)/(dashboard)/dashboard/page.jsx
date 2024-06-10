@@ -44,6 +44,8 @@ const DashboardPage = () => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
 
+    const arr = [1,2,3,4,5,6]
+
     const userSubscription = useSelector(state => state.userSubscription.value)
     const dispatch = useDispatch()
     const { push } = useRouter()
@@ -482,10 +484,43 @@ const DashboardPage = () => {
                                     
                                     contentAILoading ? 
                                     <>
-                                        <div className="w-[100%] h-[200px]">
-                                            <Skeleton count={5} className="w-[100%] h-[50px]"/>
-                                        </div>
-                                    </> 
+                                    <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
+                                        {
+                                            arr.map(data => {
+                                                return(
+                                                    <div className="w-[100%] h-[100px] flex items-center gap-[20px]">
+                                                        <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                            <div className="w-[40%] h-[100%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                                <div className="w-[100%] h-[100%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                                <div className="w-[100%] h-[20%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                            <div className="w-[40%] h-[100%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                                <div className="w-[100%] h-[100%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                                <div className="w-[100%] h-[20%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </>
                                     :
                                     <Box className = 'w-[100%]'>
                                         <p className="text-TEXT-1 p-[10px] text-center">Belum Melakukan Aktivitas Generate</p> 
@@ -566,8 +601,29 @@ const DashboardPage = () => {
                                 })
                                 : 
                                 <>
-                                    <div className="w-[100%] h-auto">
-                                        <Skeleton count={6} className="w-[100%] h-[50px]"/>
+                                    <div className="w-[100%] h-[100px] flex flex-col items-center gap-[20px]">
+                                        {
+                                            arr.map(data => {
+                                                return(
+                                                    <div className="w-[100%] h-[60%] flex items-center gap-[10px]">
+                                                        <div className="w-[30%] h-[100%]">
+                                                            <Skeleton className="h-[100%] w-[100%] "/>
+                                                        </div>
+                                                        <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                            <div className="w-[80%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="w-[60%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="w-[100%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </> 
                             } 

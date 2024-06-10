@@ -33,6 +33,7 @@ const userDataHistory = ( productName, platform, time, date , status) => {
 }
 const ProductListPage = () => {
 
+    const arr = [1,2,3]
     const { push } = useRouter()
     const dispatch = useDispatch() 
     const userSubscription = useSelector(state => state.userSubscription.value)
@@ -289,9 +290,31 @@ const ProductListPage = () => {
                             }) 
                             :
                             
-                            <div className="w-[100%] h-[100px] px-[20px] ">
-                                <Skeleton count={5} className="w-[200px] h-auto"/>
+                            <div className="w-[100%] h-[100px] flex items-center gap-[30px] px-[20px]">
+                                {
+                                    arr.map(data => {
+                                        return(
+                                            <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                <div className="w-[40%] h-[100%]">
+                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                </div>
+                                                <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                    <div className="w-[100%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                    <div className="w-[80%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                    <div className="w-[70%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
+                    
 
                         }
                 </Grid>

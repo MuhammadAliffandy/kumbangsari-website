@@ -40,6 +40,7 @@ const GenerateAIPage = () => {
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
     // external state 
+    const arr = [1,2,3,4,5,6]
     const { push } = useRouter()
     const dispatch = useDispatch()
     const userSubscription = useSelector( state => state.userSubscription.value )
@@ -181,8 +182,6 @@ const GenerateAIPage = () => {
                         return data
                     }
                 })
-
-                console.log(dataFiltered)
 
                 const currentData = dataFiltered.filter(data => {
                     return data.archives.caption != null || data.archives.hashtag != null || data.archives.imageUrl != null
@@ -367,8 +366,41 @@ const GenerateAIPage = () => {
                                     contentAILoading ?
 
                                     <>
-                                        <div className="w-[100%] h-[100px]">
-                                            <Skeleton count={5} className="w-[100%]"/>
+                                        <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
+                                            {
+                                                arr.map(data => {
+                                                    return(
+                                                        <div className="w-[100%] h-[100px] flex items-center gap-[20px]">
+                                                            <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                                <div className="w-[40%] h-[100%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                                <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                                    <div className="w-[100%] h-[100%]">
+                                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                                    </div>
+                                                                    <div className="w-[100%] h-[20%]">
+                                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                                <div className="w-[40%] h-[100%]">
+                                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                                </div>
+                                                                <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                                    <div className="w-[100%] h-[100%]">
+                                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                                    </div>
+                                                                    <div className="w-[100%] h-[20%]">
+                                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     </> :
 
@@ -440,8 +472,29 @@ const GenerateAIPage = () => {
                                 contentAIHistoryLoading ? 
 
                                 <>
-                                    <div className="w-[100%] h-[100px]">
-                                        <Skeleton count={5} className="w-[100%]"/>
+                                    <div className="w-[100%] h-[100px] flex flex-col items-center gap-[20px]">
+                                        {
+                                            arr.map(data => {
+                                                return(
+                                                    <div className="w-[100%] h-[60%] flex items-center gap-[10px]">
+                                                        <div className="w-[30%] h-[100%]">
+                                                            <Skeleton className="h-[100%] w-[100%] "/>
+                                                        </div>
+                                                        <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                            <div className="w-[80%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="w-[60%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                            <div className="w-[100%] h-[20%]">
+                                                                <Skeleton className="h-[100%] w-[100%] "/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </> :
 
