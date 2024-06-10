@@ -27,6 +27,7 @@
     "@types/react-redux": "^7.1.33",
     "aos": "^2.3.4",
     "axios": "^1.6.7",
+    "cookie": "^0.6.0",
     "cookie-ts": "^1.0.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.8",

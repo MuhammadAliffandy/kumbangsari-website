@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
 import CircularProgress from '@mui/material/CircularProgress'
 import { useForm , SubmitHandler} from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { getToken, setToken } from '@/app/redux/slices/authSlice';
 import { validateEmail, validatePassword } from '../component/validation';
@@ -18,15 +18,21 @@ import AppLoadingBar from '@/app/components/appLoadingBar/appLoadingBar'
 import AppAnimationLayout from '@/app/components/appAnimation/appAnimationLayout'
 import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton'
 import AppModal  from '@/app/components/appModal/appModal'
+import AppCustomModal from '@/app/components/appModal/AppCustomModal';
 import 'react-toastify/dist/ReactToastify.css';
 import "../../../../globals.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { setCookie } from '@/app/utils/helper';
 
 const SignInPage = () => {
 
+    const searchParams = useSearchParams();
+    const queryToken = searchParams.get('token');
+
     const dispatch = useDispatch();
     const { push } = useRouter()
+    const [modalTokenExp,setModalTokenExp] = useState(false);
     const [loadingProgress,setLoadingProgress] = useState(0);
     const [openModalLoading,setOpenModalLoading] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -44,6 +50,7 @@ const SignInPage = () => {
                 localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
             }
 
+            setCookie('refreshToken', res.data.refreshToken )
             dispatch(setToken(res.data.token))
 
             const currentUser = await getCurrentUser(); 
@@ -79,6 +86,13 @@ const SignInPage = () => {
         }
     };
 
+
+    useEffect(()=>{
+        if(queryToken == 'expired'){
+            setModalTokenExp(true)
+        }
+    },[queryToken])
+
     return(
     
         <Box className = ' h-[100vh] flex flex-col items-center justify-center px-[70px] relative'>
@@ -95,7 +109,46 @@ const SignInPage = () => {
                     </Box>
                 </Box>
             </AppModal>
-            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+            {/*  */}
+            <AppCustomModal
+                    open={modalTokenExp}
+                    withClose={true}
+                    width={'w-[30vw]'}
+                    modalType='modal-status'
+                    status={'info'}
+                    titleTop={true}
+                    alignment={'center text-center'}
+                    title={'Token Expired'}
+                    subtitle={'Token Anda Expired , Silahkan Login Ulang'}
+                    onClose={()=>{}}
+                    onCloseButton={(value)=> {
+                        setModalTokenExp(false)
+                        push('/')
+                    }}
+                    children={
+                        <Box className=' flex  gap-[10px] w-[100%]'>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Tidak'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalTokenExp(false)
+                                    push('/')
+                                    }}/>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={ 'Iya'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalTokenExp(false)
+                                    push('/auth/signin')
+                                }}
+                            />
+                        </Box>
+                    }
+                />
+            {/*  */}
+            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[1]'> 
                 <AppCloseButton
                     onClick = {()=>{
                         push('/auth/signup')

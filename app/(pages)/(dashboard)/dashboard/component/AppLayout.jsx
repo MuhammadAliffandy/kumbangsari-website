@@ -10,11 +10,11 @@ import AppSidebar from './appSideBar'
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import { useMediaQuery } from "react-responsive";
 import { useEffect , useState } from 'react'
-import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow, isToday } from '@/app/utils/helper'
+import { convertToIndonesianDate, convertToTimeWIB, dateIndonesianNow, isToday , getCookie , setCookie} from '@/app/utils/helper'
 import { getCurrentUser } from '@/app/api/repository/authRepository'
 import { getUserProfile , getUserByToken } from '@/app/api/repository/userRepository'
 import { getAllNotification, readAllNotification } from '@/app/api/repository/notificationRepository'
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
 import { setUserSubscriptionData } from '@/app/redux/slices/userSubscriptionSlice';
@@ -26,6 +26,10 @@ const AppLayout = (props) => {
     const md = useMediaQuery({ maxWidth: 768 });
     const lg = useMediaQuery({ maxWidth: 1024 });
     const xl = useMediaQuery({ maxWidth: 1280 });
+
+    const searchParams = useSearchParams()
+    const queryToken = searchParams.get('token');
+    const queryRefreshToken = searchParams.get('refreshToken');
 
     const { push } = useRouter()
     const dispatch = useDispatch()
@@ -225,6 +229,14 @@ const AppLayout = (props) => {
     useEffect( ()=>{
         fetchUserList()
     } ,[user] )
+
+
+    useEffect(()=>{
+        if(queryToken && queryRefreshToken){
+            setCookie('token',queryToken , 365)
+            setCookie('refreshToken',queryRefreshToken , 365)
+        }
+    },[queryToken,queryRefreshToken])
     
 
     return (
