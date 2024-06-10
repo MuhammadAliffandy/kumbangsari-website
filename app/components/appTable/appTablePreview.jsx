@@ -68,7 +68,7 @@ const AppTablePreview = (props) =>  {
                     </TableContainer>
                     : 
                     <Box className = 'w-[100%]'>
-                        <p className="text-TEXT-1 p-[10px] text-center">Belum Ada Konten</p> 
+                        <p className="text-TEXT-1 p-[10px] text-center">Belum Ada Konten Lengkap yang siap di posting</p> 
                     </Box> 
             }   
         </>

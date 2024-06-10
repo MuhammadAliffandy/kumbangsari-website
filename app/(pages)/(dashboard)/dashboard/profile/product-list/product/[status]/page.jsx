@@ -27,6 +27,8 @@ import { convertToTimeWIB , convertToIndonesianDate, convertValueCheckbox } from
 import { listDropCategory } from "@/app/utils/model";
 import { instagramConnect, instagramValidation } from "@/app/api/repository/instagramRepository";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
+import { useDispatch } from "react-redux";
+import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -37,6 +39,7 @@ const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
     const imageDefault =  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
     const { push } = useRouter()
+    const dispatch = useDispatch()
     // state modal
     const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
     const [modalFailedConnection , setModalFailedConnection ] = useState(false)
@@ -242,8 +245,9 @@ const ProductDetailPage = () => {
                 currentData = {userProduct}
                 open={modalEditProduct}
                 onCloseButton={(value)=> setModalEditProduct(value) }
-                onDone={()=>{
+                onDone={(data)=>{
                     getUserProduct()
+                    dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
                 }}
             />
             <AppModalConnection

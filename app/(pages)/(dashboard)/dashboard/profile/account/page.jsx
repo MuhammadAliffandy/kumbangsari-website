@@ -159,7 +159,8 @@ const ProfilePage = () => {
                                         text={'Keluar'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                            push('/')
+                                            push('/auth/signin')
+                                            setCookie('token','')
                                         }}
                                 />
                             </AppAnimationButton>

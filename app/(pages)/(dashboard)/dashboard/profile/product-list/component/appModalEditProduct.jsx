@@ -22,12 +22,13 @@ import { editProduct } from '@/app/api/repository/productRepository';
 import { convertValueCheckbox } from '@/app/utils/helper';
 import { toast } from 'react-toastify';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending';
-import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setNameProduct } from '@/app/redux/slices/nameProductSlice';
 
 
 const AppModalEditProduct = (props) => {
 
-    const { push } = useRouter()
+    const dispatch = useDispatch()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -69,15 +70,15 @@ const AppModalEditProduct = (props) => {
             };
             const res = await editProduct(jsonData, props.idProduct)
             if(res.status == 'OK'){
-                toast.success('Berhasil Ubah Produk ')
+                toast.success('Berhasil Ubah Produk')
                 props.onCloseButton(false)
-                push('/dashboard/profile/product-list')
             } 
-
-            props.onDone()
-        
+                
+            props.onDone(res.data)
+                
         } catch (error) {
                 toast.error('Produk gagal diubah')
+                props.onCloseButton(false)
         }
     }
 
@@ -87,7 +88,6 @@ const AppModalEditProduct = (props) => {
 
     useEffect(()=>{
         getCurrentData()
-        console.log(props.idProduct)
     },[
         props.open
     ])

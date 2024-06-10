@@ -484,7 +484,7 @@ const DashboardPage = () => {
                                     
                                     contentAILoading ? 
                                     <>
-                                    <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
+                                    <div className="w-[100%] h-[100%] flex flex-col gap-[10px]">
                                         {
                                             arr.map(data => {
                                                 return(
