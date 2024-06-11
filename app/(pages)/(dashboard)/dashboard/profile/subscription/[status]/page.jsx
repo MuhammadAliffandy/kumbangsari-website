@@ -423,7 +423,7 @@ const SubscriptionPage = () => {
                                                 variant="determinate"
                                                 value={user?.subscription > 1 ?
                                                     100
-                                                    :userSubscription?.remainingGenerate * 2} 
+                                                    :userSubscription?.remainingGenerate * 2.04} 
                                             />
                                         </Box>
                                     </Box> : 

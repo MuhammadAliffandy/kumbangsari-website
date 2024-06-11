@@ -236,7 +236,10 @@ const AppModalEditContent = (props) => {
             formData.append('platform', platform);
             formData.append('caption', caption);
             formData.append('hashtag', hashtagString);
-            formData.append('postedAt', formatDateTime(dateUp,timeUp));
+            
+            if(!upNow){
+                formData.append('postedAt', formatDateTime(dateUp,timeUp));
+            }
 
             if(image != null){
                 if(image?.type){
