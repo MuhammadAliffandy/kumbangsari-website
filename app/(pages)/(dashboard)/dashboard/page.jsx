@@ -591,7 +591,7 @@ const DashboardPage = () => {
                                             isDashboard={true}
                                             title = {data.hashtag}
                                             subtitle = {productName.text}
-                                            contentTypes = {`${formatNumberHashtag(data.count)} unggahan`}
+                                            contentTypes = {`${formatNumberHashtag(data.count)} interaksi`}
                                             platform = {data.platform}
                                             onClick= {()=>{
                                 
