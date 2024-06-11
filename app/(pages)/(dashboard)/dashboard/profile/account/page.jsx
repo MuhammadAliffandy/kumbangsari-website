@@ -182,8 +182,8 @@ const ProfilePage = () => {
                                             setName(event.target.value)
                                         }}
                                     />
-                                <Box className='flex items-center gap-[20px] w-[100%]'>   
-                                    <Box className='flex flex-col gap-[10px] w-[50%]'>
+                                <Box className='flex flex-col xl:flex-row items-center gap-[20px] w-[100%]'>   
+                                    <Box className='flex flex-col gap-[10px] w-[100%] xl:w-[50%]'>
                                         <label className='text-black font-semibold'>Email</label>
                                         <AppTextField
                                             id="email"
@@ -193,7 +193,7 @@ const ProfilePage = () => {
                                             disabled={true}
                                             />
                                     </Box>
-                                    <Box className='grow flex flex-col gap-[10px] '>
+                                    <Box className='w-[100%] xl:w-[50%] xl:grow flex flex-col gap-[10px] '>
                                         <label className='text-black font-semibold'>Nomor Telepon</label>
                                         <AppTextField            
                                                 id="phoneNumber"
@@ -220,7 +220,7 @@ const ProfilePage = () => {
                                     <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
                                     <Box className='w-[100%] flex justify-end '>
                                             <AppButton
-                                                className={' flex gap-[10px] w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
+                                                className={' flex gap-[10px] w-[60%] xl:w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
                                                 text={'Simpan'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{}}

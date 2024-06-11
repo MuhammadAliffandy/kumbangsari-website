@@ -187,7 +187,7 @@ const CalenderPage = () => {
                     })
                   }
                 />
-                <Box className='w-[100%] gap-[20px] pt-[15px] flex items-center justify-center'>
+                <Box className='w-[100%] gap-[20px] pt-[15px] flex flex-col xl:flex-row items-start xl:items-center justify-center'>
                   {
                     calendarLegend.map(data => {
                       return(

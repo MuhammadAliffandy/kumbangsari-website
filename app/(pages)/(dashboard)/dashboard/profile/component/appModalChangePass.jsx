@@ -58,7 +58,7 @@ const AppModalChangePass = (props) => {
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.2 }}
-                    className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
+                    className = 'w-[80%] xl:w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[25px]'>
                         <Box className = 'flex justify-between'>
                             <p className = 'text-[24px] font-bold text-black' >Ubah Kata Sandi</p>
@@ -86,7 +86,7 @@ const AppModalChangePass = (props) => {
                         </Box>
                         {/*  */}
                         <Box>
-                            <Stack direction="row" spacing={2}>   
+                            <Box className='flex flex-col xl:flex-row gap-[20px] items-center'> 
                                 <Box className='w-[100%] flex flex-col gap-[10px]'>
                                     <label className='text-black font-semibold'>Kata Sandi Baru</label>
                                     <AppTextField
@@ -121,11 +121,11 @@ const AppModalChangePass = (props) => {
 
                                         />
                                 </Box>
-                            </Stack>
+                            </Box>
                         </Box>
 
                         <Box className='w-[100%] flex justify-end'>
-                                <Box className='w-[30%]'>
+                                <Box className='w-[60%] xl:w-[30%]'>
                                     <AppButton
                                         text={'Simpan'} 
                                         type = {'submit'}

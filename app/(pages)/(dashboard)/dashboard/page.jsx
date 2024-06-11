@@ -456,7 +456,7 @@ const DashboardPage = () => {
                         <Box className='flex items-center justify-start '>
                             <p className="text-TEXT-1 font-bold text-[16px]">Rekomendasi Konten</p>
                         </Box>
-                        <Box  className=' max-h-[23vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box  className=' max-h-[80vh] md:max-h-[23vh] lg:max-h-[23vh] xl:max-h-[23vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
@@ -488,8 +488,8 @@ const DashboardPage = () => {
                                         {
                                             arr.map(data => {
                                                 return(
-                                                    <div className="w-[100%] h-[100px] flex items-center gap-[20px]">
-                                                        <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                    <div className="w-[100%] h-[100px] flex flex-col xl:flex-row items-center gap-[20px]">
+                                                        <div className="w-[100%] h-[80%] flex  items-center gap-[10px]">
                                                             <div className="w-[40%] h-[100%]">
                                                                 <Skeleton className="h-[100%] w-[100%] "/>
                                                             </div>
@@ -566,7 +566,7 @@ const DashboardPage = () => {
 
                     <Box className= 'rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
-                        <Box className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='h-[40vh] lg:h-[20vh] xl:h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
                                 loading={contentRecapLoading}
                                 data ={contentDataRecap} // contentDataRecap

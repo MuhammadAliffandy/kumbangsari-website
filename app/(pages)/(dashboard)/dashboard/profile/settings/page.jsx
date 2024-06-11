@@ -212,7 +212,7 @@ const SettingsPage = () => {
                                     }}
                                 />
                                 <Box className='flex gap-[10px] items-center  '>
-                                    <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Himbauan paket berlangganan berakhir dalam : </p>
+                                    <p className="text-TEXT-1 text-[14px] break-words">Himbauan paket berlangganan berakhir dalam : </p>
                                     <Box className='w-[30%]'>
                                         <AppDropDown
                                                 sx={{
@@ -285,7 +285,7 @@ const SettingsPage = () => {
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Keamanan</p> 
                             <Box className='flex gap-[10px] items-center '>
-                                <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
+                                <p className="text-TEXT-1 text-[14px]  break-words">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
                                 <Box className='w-[50%]'>
                                     <AppDropDown
                                             sx={{

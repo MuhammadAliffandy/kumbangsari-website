@@ -224,6 +224,11 @@ const CalendarEditPage = () => {
                 }
             }
 
+            if(caption == ''){
+                toast.warning('Caption Wajib Diisi')
+                return false
+            }
+
             if(caption == '' && hashtagString  == '' && productImage == null){
                 toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
                 return false
@@ -282,10 +287,10 @@ const CalendarEditPage = () => {
     return(
         <AppLayout title = 'Kalender > Edit'>
             <Box className='grow h-[86%] p-[20px] '>
-                <Box className = 'w-[100%] h-[100%]  bg-white flex flex-col gap-[15px]  rounded-[20px]'>
-                    <Box className='flex  gap-[20px] w-[100%] h-[100%]'>
+                <Box className = 'w-[100%] h-auto xl:h-[100%]  bg-white flex flex-col gap-[15px]  rounded-[20px]'>
+                    <Box className='flex flex-col xl:flex-row  gap-[20px] w-[100%] h-auto xl:h-[100%]'>
                         {/* form */}
-                        <Box className='w-[60%] h-[100%] pr-[10px] border-[1px] border-TEXT-4 rounded-[20px] p-[20px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='w-[100%] xl:w-[60%] h-auto  xl:h-[100%] pr-[10px] border-[1px] border-TEXT-4 rounded-[20px] p-[20px] flex flex-col gap-[10px] overflow-y-scroll pb-[10px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             {/* content title */}
                             <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>
                             <Box className='w-[100%] flex flex-col gap-[10px]'>
@@ -440,7 +445,7 @@ const CalendarEditPage = () => {
                             </Box>
                         </Box >
                         {/* preview */}
-                        <Box className = 'border-[1px] border-TEXT-4 rounded-[20px] p-[20px] w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className = 'border-[1px] border-TEXT-4 rounded-[20px] p-[20px] w-[100%] xl:w-[40%] h-[100%] flex flex-col items-center justify-start gap-[20px] pr-[10px] overflow-y-scroll pb-[20px] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Box className='w-[100%] flex flex-col gap-[10px]'>
                                     <label className='text-black font-semibold' >Preview Konten</label>
                             </Box>

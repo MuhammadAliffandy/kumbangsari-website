@@ -219,10 +219,16 @@ const AppModalAddContent = (props) => {
                 }
             }
 
+            if(caption == '' ){
+                toast.warning('Caption Wajib Diisi')
+                return false
+            }
+
             if(caption == '' && hashtagString  == '' && image == null){
                 toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
                 return false
             }
+            
             if(dateUp == ''  && timeUp == ''){
                 toast.warning('Mohon isi Tanggal dan Waktunya')
                 return false

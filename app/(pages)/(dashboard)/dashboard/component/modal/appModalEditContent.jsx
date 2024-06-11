@@ -215,6 +215,11 @@ const AppModalEditContent = (props) => {
                 }
             }
 
+            if(caption == ''){
+                toast.warning('Caption Wajib Diisi')
+                return false
+            }
+
             if(caption == '' && hashtagString  == '' && productImage == null){
                 toast.warning('Mohon isi Salah Satu Caption / Hastag / Gambar')
                 return false

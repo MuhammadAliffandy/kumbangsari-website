@@ -318,8 +318,8 @@ const AnalystPage = () => {
                     <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-md'>
                             <Box className='flex items-center justify-between'>
-                                <p className="text-TEXT-1 font-bold text-[16px]">Grafik Performa Konten</p>
-                                <Box className='flex items-center gap-[20px]'>
+                                <p className="text-TEXT-1 font-bold text-[16px] w-[20%] xl:w-[100%]">Grafik Performa Konten</p>
+                                <Box className='flex xl:flex-row flex-col items-center gap-[20px]'>
                                     {
                                         listPlatform.map(data => {
                                             return(
@@ -333,6 +333,7 @@ const AnalystPage = () => {
                                 </Box>
                             </Box>
                             <Line 
+                                height={xl ? 500 : 150}
                                 data={exampleData} 
                                 options={{
                                     plugins: {

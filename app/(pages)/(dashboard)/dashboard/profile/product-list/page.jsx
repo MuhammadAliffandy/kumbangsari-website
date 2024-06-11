@@ -290,7 +290,7 @@ const ProductListPage = () => {
                             }) 
                             :
                             
-                            <div className="w-[100%] h-[100px] flex items-center gap-[30px] px-[20px]">
+                            <div className="w-[100%] h-[50vh] xl:h-[100px] flex xl:flex-row flex-col items-center gap-[30px] px-[20px]">
                                 {
                                     arr.map(data => {
                                         return(

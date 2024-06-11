@@ -275,9 +275,9 @@ const AppLayout = (props) => {
 
                                 : null
                             }
-                            <Box>
+                            <Box className='hidden md:block lg:block xl:block'>
                                 <p className='text-TEXT-4 text-[14px]'>{dateNow}</p>
-                                <p className='text-TEXT-1 text-[24px] font-bold'>{props.title}</p>
+                                <p className='text-TEXT-1 text-[24px] font-bold '>{props.title}</p>
                             </Box>
                         </Box>
                         <Box className ='flex gap-[20px] items-center' >

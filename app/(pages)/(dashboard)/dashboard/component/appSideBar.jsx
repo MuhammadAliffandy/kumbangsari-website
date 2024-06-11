@@ -8,7 +8,7 @@ import { setCookie } from '@/app/utils/helper';
 const AppSidebar = (props)=> {
     const { push } = useRouter();
     return(
-        <Box className = { props.isDrawer ? 'w-[40vw] h-[100vh] gap-[10px] flex flex-col '  : `w-[100%] `}>
+        <Box className = { props.isDrawer ? 'w-[60vw] xl:w-[40vw] h-[100vh] gap-[10px] flex flex-col '  : `w-[100%] `}>
             {props.isDrawer ? 
                 <Box className={`py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]`}>
                     <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />

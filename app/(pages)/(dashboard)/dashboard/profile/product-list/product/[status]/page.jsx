@@ -29,6 +29,7 @@ import { instagramConnect, instagramValidation } from "@/app/api/repository/inst
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 import { useDispatch } from "react-redux";
 import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
+import { useMediaQuery } from "react-responsive";
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -40,6 +41,8 @@ const ProductDetailPage = () => {
     const imageDefault =  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
     const { push } = useRouter()
     const dispatch = useDispatch()
+    // 
+    const xl = useMediaQuery({ maxWidth: 1280 });
     // state modal
     const [modalSuccessConnection , setModalSuccessConnection ] = useState(false)
     const [modalFailedConnection , setModalFailedConnection ] = useState(false)
@@ -285,7 +288,7 @@ const ProductDetailPage = () => {
                 open={modalCheckConnection}
                 onClose={()=>{setModalCheckConnection(false)}}
                 withClose={false}
-                width={'w-[20vw]'}
+                width={'w-[60vw] md:w-[20vw] lg:w-[20vw] xl:w-[20vw]'}
                 modalType='modal-common'
                 title={platformConnection == 'facebook' ? 'Facebook' : platformConnection == 'instagram' ? 'Instagram' : 'Twitter'}
                 onCloseButton={(value)=> setModalCheckConnection(value) }
@@ -362,7 +365,7 @@ const ProductDetailPage = () => {
             <AppCustomModal
                 open={modalDeleteProduct}
                 withClose={true}
-                width={'w-[30vw]'}
+                width={'w-[80vw] md:w-[30vw] lg:w-[30vw] xl:w-[30vw]'}
                 modalType='modal-status'
                 status={'info'}
                 titleTop={true}
@@ -523,7 +526,7 @@ const ProductDetailPage = () => {
                 </Box>
                 {/*  */}
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
-                    <Box className= 'flex flex-col gap-[12px] w-[100%]'>
+                    <Box className= 'flex flex-col gap-[12px] w-[100%] overflow-x-scroll xl:overflow-x-hidden'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Target Pasar</p> 
                             <label className='text-black font-semibold'>Umur</label>
                             <AppRangeSlider
@@ -533,7 +536,7 @@ const ProductDetailPage = () => {
                                 }}
                             />
                             {/* checkbox */}
-                            <Box className='w-full flex gap-[100px]'>
+                            <Box className='w-full flex  flex:row gap-[100px]'>
                                 <Box className='w-[50%]'>
                                     <label className='text-black font-semibold'>Gender</label>
                                     <CustomSpacing height={10} />
@@ -553,7 +556,7 @@ const ProductDetailPage = () => {
                                         listValue = {school}
                                         directionChild={'row'}
                                         sx={{justifyContent : 'space-between' , width : '100%'}}
-                                        sxChild={{justifyContent : 'space-between' , width : '40%'}}
+                                        sxChild={{justifyContent : 'space-between' , width : xl ? '100%' :'40%'}}
                                         disabled={true}
                                     />
                                 </Box>

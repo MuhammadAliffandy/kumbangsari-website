@@ -225,7 +225,7 @@ const SubscriptionPage = () => {
             <AppModal
                 withClose = {false}
                 open = {payTransactionLoading}
-                width={'w-[35%]'}
+                width={' md:w-[35%]  lg:w-[35%]  xl:w-[35%]'}
             >
                 <Box className ='flex flex-col items-center gap-[40px]'>
                     <CircularProgress style={{color : '#F45B69'}}  />
@@ -296,7 +296,7 @@ const SubscriptionPage = () => {
             <AppCustomModal
                 open={stopSubscription}
                 withClose={true}
-                width={'w-[30vw]'}
+                width={'w-[80vw] md:w-[30vw] lg:w-[30vw] xl:w-[30vw]'}
                 modalType='modal-common'
                 title={'Berhenti Berlangganan'}
                 onCloseButton={(value)=> setStopSubscription(value) }
