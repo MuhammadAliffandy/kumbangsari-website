@@ -32,6 +32,7 @@ const CalendarEditPage = () => {
     const { push } = useRouter()
     const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
+    const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
@@ -45,11 +46,24 @@ const CalendarEditPage = () => {
     const [ captionRecommendation , setCaptionRecommendation ] = useState([])
     const [ imageRecommendation , setImageRecommendation ] = useState([])
     const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
+
+
+    const setDateTime = (dateTimeString) => {
+        const dateObj = new Date(dateTimeString);
+        
+        const dateValue = dateObj.toISOString().split('T')[0];
+        const timeValue = dateObj.toISOString().split('T')[1].substring(0, 5);
+    
+        setDateUp(dateValue);
+        setTimeUp(timeValue);
+    };
+
     
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
     const handleChangeImage = (value) => {
+        setImage(value)
         if (value) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -135,6 +149,7 @@ const CalendarEditPage = () => {
         setProductImage(contentAI.imageUrlPost)
         setPlatform(contentAI.platform)
         setCaption(contentAI.captionPost)
+        setDateTime(contentAI.dates.postedAt)
         if(contentAI.hashtagPost != null){
             setHashtag(convertHashtagStringToJson(contentAI.hashtagPost))
             localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtagPost)))
@@ -225,11 +240,11 @@ const CalendarEditPage = () => {
             formData.append('hashtag', hashtagString);
             formData.append('postedAt', formatDateTime(dateUp,timeUp));
 
-            if(productImage.type){
+            if(image.type){
                 formData.append('image', '');
-                formData.set('files',productImage, productImage.name );
+                formData.set('files',image, image.name );
             }else{
-                formData.append('image', productImage);
+                formData.append('image', image);
                 formData.set('files', '');
             }
 

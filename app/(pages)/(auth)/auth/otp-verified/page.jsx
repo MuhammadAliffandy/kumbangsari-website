@@ -89,7 +89,14 @@ const ForgotPasswordPage = ()  => {
             }
         } catch (error) {
             setLoadingProgress(100)
-            toast.error('Ada Kesalahan Server');
+
+            if(error.status == 401){
+                toast.error('OTP yang dimasukkan Salah');
+            }else{
+                toast.error('Ada Kesalahan Server');
+
+            }
+
         }
     };
 
@@ -140,7 +147,7 @@ const ForgotPasswordPage = ()  => {
             <CustomSpacing height={10}/>
             <Box className = 'flex justify-center items-center gap-[5px]'>
                 <button type='button' onClick={handleSendOTP} disabled={isSending}  className='text-black text-opacity-[50%] bg-transparent text-[14px] '>{isSending ? 'Kirim ulang code' : 'Kirim code'}</button>
-                {isSending && <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam : {countdown} detik</p>}
+                {isSending ? <p className='text-[14px] text-black  text-opacity-[70%] font-poppins ' >dalam : {countdown} detik</p> : null}
             </Box>
         </Box>
     )

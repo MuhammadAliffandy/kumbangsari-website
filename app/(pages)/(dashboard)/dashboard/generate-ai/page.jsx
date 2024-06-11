@@ -141,6 +141,7 @@ const GenerateAIPage = () => {
                 platform : currentData.platform,
                 idContent: currentData.idContent,
                 idProduct: currentData.idProduct,
+                contentTitle:currentData.contentTitle,
                 style: currentData.style,
                 postedId: currentData.postedId,
             }
@@ -214,8 +215,6 @@ const GenerateAIPage = () => {
             }else{
                 setContentAI(contentAIConvert)
                 setContentAILoading(false)
-                
-                setContentAILoading(false)
             }
         }else{
             setContentAILoading(false)
@@ -283,6 +282,8 @@ const GenerateAIPage = () => {
     useEffect(()=> {
         if(contentAIHistory.length > 0){
             fetchCurrentContentAI()
+        }else{
+            setContentAILoading(false)
         }
     },[contentAIHistory])
 

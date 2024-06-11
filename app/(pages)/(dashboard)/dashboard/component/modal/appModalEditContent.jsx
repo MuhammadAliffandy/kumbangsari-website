@@ -32,6 +32,7 @@ const AppModalEditContent = (props) => {
     const { push } = useRouter()
     const contentAI = useSelector(state => state.generateAIByOne.value) 
     const [contentTitle , setContentTitle] = useState('')
+    const [image , setImage] = useState(null)
     const [productImage , setProductImage] = useState(null)
     const [product , setProduct] = useState('')
     const [platform , setPlatform] = useState('')
@@ -50,6 +51,7 @@ const AppModalEditContent = (props) => {
         setPlatform(event.target.value)
     }
     const handleChangeImage = (value) => {
+        setImage(value)
         if (value) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -136,6 +138,7 @@ const AppModalEditContent = (props) => {
 
     const getContentUser = () => {
         if (props.open){
+     
             setContentTitle(contentAI.contentTitle)
             setProduct(contentAI.productName)
             setProductImage(contentAI.image)
@@ -235,16 +238,15 @@ const AppModalEditContent = (props) => {
             formData.append('hashtag', hashtagString);
             formData.append('postedAt', formatDateTime(dateUp,timeUp));
 
-            if(productImage != null){
-                if(productImage?.type){
+            if(image != null){
+                if(image?.type){
                     formData.append('image', '');
-                    formData.set('files',productImage, productImage.name );
+                    formData.set('files',image, image.name );
                 }else{
-                    formData.append('image', productImage);
+                    formData.append('image', image);
                     formData.set('files', '');
                 }
             }
-
 
             const res = await editContentAIManual(contentAI.idContent ,formData)
 

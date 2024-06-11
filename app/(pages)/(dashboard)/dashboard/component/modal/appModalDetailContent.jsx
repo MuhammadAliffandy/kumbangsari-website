@@ -352,7 +352,7 @@ const AppModalDetailContent = (props) => {
                             props.image == 'null' ? null :
                             props.image == null ? null :
                             props.image == ""? null :
-                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%] xl:w-[50%] lg:w-[50%]  ' }`}>
+                            <Box className={`flex flex-col gap-[20px] justify-start h-auto ${ props.caption == null && props.hashtag == null ? 'w-[100%]' : 'w-[100%]' }`}>
                                 <img className='w-[100%] h-[300px] rounded-[15px] object-cover' src={props.image}/>
                             </Box>
                         }
@@ -392,7 +392,7 @@ const AppModalDetailContent = (props) => {
                         :
                         props.postedId != null ? null :
                         props.withButton != null  ? null :
-                        <Box className={` ${ props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] xl:w-[50%] lg:w-[50%]' : 'w-[100%]'}`}>
+                        <Box className={` ${ props.caption != null && props.hashtag == null && props.image == null ? 'w-[100%]' : props.caption == null && props.hashtag == null ? 'w-[100%]' :  props.image != null  ? ' w-[100%] ' : 'w-[100%]'}`}>
                             {
                                 props.withAddButton ?
                                 

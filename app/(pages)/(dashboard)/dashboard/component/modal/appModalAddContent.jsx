@@ -70,6 +70,7 @@ const AppModalAddContent = (props) => {
             const reader = new FileReader();
             reader.onload = () => {
                 setProductImage(reader.result);
+                console.log(reader.result?.type)
             };
             reader.readAsDataURL(value);
         }
@@ -198,6 +199,11 @@ const AppModalAddContent = (props) => {
 
         try {
             convertHashtagString(hashtag);
+
+            if(contentTitle == ''){
+                toast.warn('Judul Konten Harus diisi')
+                return false
+            }
 
             if(platform == 'twitter'){
                 if(caption.length >= 280){

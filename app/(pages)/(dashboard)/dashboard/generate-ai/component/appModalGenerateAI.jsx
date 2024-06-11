@@ -98,6 +98,23 @@ const  AppModalGenerateAI = (props ) => {
     const onGenerate = async () => {
     
         try {
+
+            if(contentTitle == '' || contentTitle == null){
+                toast.warn('Judul Konten Harus diisi')
+                return false
+            }
+
+            if(product == ''){
+                toast.warn('Produk belum dipilih !!')
+                return false;
+            }
+
+            if( !caption && !hashtag && !image ){
+                toast.warn('Pilih Salah Satu Jenis Konten')
+                return false
+            }
+
+
             let load = true ;
             props.onLoad(load)
             const data = {
@@ -169,7 +186,7 @@ const  AppModalGenerateAI = (props ) => {
             transition={{ duration: 0.2 }}
             className = 'w-[90%] xl:w-[60%] h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[25px]'>
                 <Box className = 'flex justify-between'>
-                    <p className = 'text-[24px] font-bold text-black' >Generate Ai</p>
+                    <p className = 'text-[24px] font-bold text-black' >Generate AI</p>
                     <AppCloseButton
                         onClick = {()=>{
                             props.onCloseButton(false)

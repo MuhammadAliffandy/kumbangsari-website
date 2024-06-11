@@ -50,6 +50,10 @@ const SignInPage = () => {
                 localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
             }
 
+            if(accountList.length == 0){
+                localStorage.setItem('accountList',JSON.stringify([]))
+            }
+
             setCookie('refreshToken', res.data.refreshToken )
             dispatch(setToken(res.data.token))
 
@@ -59,9 +63,10 @@ const SignInPage = () => {
                 if(currentUser.data.countProduct > 0){
                     push('/dashboard')
                     localStorage.setItem('isAccountAdd',false)
-                }else{
-                    push('/input-product/add-product')
-                }
+                    }else{
+                        push('/input-product/add-product')
+                    }
+                    
             }
 
             setLoadingProgress(100)

@@ -189,14 +189,16 @@ const ProductDetailPage = () => {
             const res = await deleteProduct(productInit.id)
 
             if(res.status == 'OK'){
-                toast.success('Berhasil Delete Product')
+                toast.success('Berhasil Hapus Produk')
                 push('/dashboard/profile/product-list')
                 setModalDeleteProduct(false)
             }
         } catch (error) {
             if(error.status == 404){
-                toast.error('Gagal Delete Product')
+                toast.error('Gagal Hapus Produk')
                 setModalDeleteProduct(false)
+            }else if (error.status == 403){
+                toast.warn('Produk sudah mencapai batas')
             }else{
                 toast.error('Ada Kesalahan Server (500)')
             }
@@ -247,7 +249,8 @@ const ProductDetailPage = () => {
                 onCloseButton={(value)=> setModalEditProduct(value) }
                 onDone={(data)=>{
                     getUserProduct()
-                    dispatch(setNameProduct({id :data.idProduct , name : data.nameProduct , category : data.category}))
+                    
+                    dispatch(setNameProduct({id :productInit.id , name : data.nameProduct , category : data.category}))
                 }}
             />
             <AppModalConnection
