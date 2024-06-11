@@ -467,7 +467,7 @@ const AppModalAddContent = (props) => {
                             {
                                 hashtagAI.map((data,index) => {
                                     return ( 
-                                        <Grid key = {index} item xs={2}>
+                                        <Grid key = {index} item xs={4} md={3} lg={2} xl={2} >
                                             <Box  onClick={()=>{
                                                 setHashtag(prevHashtag => [...prevHashtag , data] )
                                                 const popData = hashtagAI.filter(item => {

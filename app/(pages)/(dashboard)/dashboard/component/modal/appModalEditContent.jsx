@@ -402,7 +402,7 @@ const AppModalEditContent = (props) => {
                             {
                                 hashtagAI.map((data,index) => {
                                     return ( 
-                                        <Grid key = {index} item xs={2}>
+                                        <Grid key = {index} item xs={4} md={3} lg={2} xl={2} >
                                             <Box key={index} onClick={() => {handleAddMultiSelection(data)}}  className ='cursor-pointer px-[10px] py-[8px] border-[2px] border-PRIMARY-500 text-PRIMARY-500 text-[12px] rounded-[20px] truncate'>
                                                 {data.value}
                                             </Box>
