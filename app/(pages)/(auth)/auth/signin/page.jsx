@@ -104,7 +104,7 @@ const SignInPage = () => {
             <AppModal
                 withClose = {false}
                 open = {openModalLoading}
-                width={'w-[35%]'}
+                width={' md:w-[35%] lg:xl:w-[35%] xl:w-[35%]'}
             >
                 <Box className ='flex flex-col items-center gap-[40px]'>
                     <CircularProgress style={{color : '#F45B69'}}  />
@@ -118,7 +118,7 @@ const SignInPage = () => {
             <AppCustomModal
                     open={modalTokenExp}
                     withClose={true}
-                    width={'w-[30vw]'}
+                    width={'md:w-[30vw] lg:xl:w-[30vw] xl:w-[30vw]'}
                     modalType='modal-status'
                     status={'info'}
                     titleTop={true}
