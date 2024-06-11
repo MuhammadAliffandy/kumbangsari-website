@@ -141,7 +141,7 @@ const AppModalAddContent = (props) => {
                 setHashtagRecommendation(convertHashtagStringToJson(convertResRecommendationAI(resHashtag.data).join(' ')))
                 setHashtagAIHistory(resHashtag.data)
             }else{
-            toast.error('Generate AI Hashtag gagal')
+                toast.error('Generate AI Hashtag gagal')
             }
         }
     }

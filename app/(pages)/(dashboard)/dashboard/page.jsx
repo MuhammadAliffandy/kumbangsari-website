@@ -18,9 +18,9 @@ import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton
 import AppCustomModal from "@/app/components/appModal/AppCustomModal";
 import AppButton from "@/app/components/appButton/appButton";
 import ReactPaginate from 'react-paginate';
-import { formatNumberHashtag } from '@/app/utils/helper'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus ,faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { formatNumberHashtag } from '@/app/utils/helper'
 import { getProductByUser } from '@/app/api/repository/productRepository';
 import { useDispatch , useSelector} from "react-redux";
 import { setGenerateAI } from "@/app/redux/slices/generateAIByOneSlice";
