@@ -168,13 +168,6 @@ const SettingsPage = () => {
                                     notifyFetchUpdateUserSettings({news : !settingsData.news} , 'news')
                                 }}
                             />
-                            {/* <AppCheckBox
-                                value= 'true'
-                                label = 'Letakkan notifikasi yang belum dibaca di bagian paling atas'
-                                onChange= {(value , label)=>{
-
-                                }}
-                            /> */}
                         </Box>
                         {/*  */}
                         <Box className='flex flex-col gap-[10px] w-[100%]'>
@@ -291,26 +284,6 @@ const SettingsPage = () => {
                         {/*  */}
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Keamanan</p> 
-                            {/* <Box className='flex gap-[10px] items-center'>
-                                <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Perbarui konektivitas dalam kurun waktu : </p>
-                                <Box className='w-[30%]'>
-                                    <AppDropDown
-                                            sx={{
-                                                borderRadius: "15px",
-                                                height:'30px',
-                                                backgroundColor: '#E9ECEF',
-                                                width:"30%",
-                                                fontSize:'12px',
-                                                borderColor: 'transparent',
-                                                width:'60%'
-                                            }}
-                                            value={notifMonth}
-                                            placeholder={'1 Bulan'}
-                                            listItem = {listDropNotifMonth}
-                                            onChange={handleDropDown}
-                                        />
-                                </Box>
-                            </Box>      */}
                             <Box className='flex gap-[10px] items-center '>
                                 <p className="text-TEXT-1 text-[14px] whitespace-nowrap">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
                                 <Box className='w-[50%]'>
@@ -331,13 +304,6 @@ const SettingsPage = () => {
                                         />
                                 </Box>
                             </Box>
-                            {/* <AppCheckBox
-                                    value= 'true'
-                                    label = 'Berikan himbauan aktivitas mencurigakan dalam akun'
-                                    onChange= {(value , label)=>{
-
-                                    }}
-                                /> */}
                             <p onClick={()=> {setModalProductList(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
                         </Box>
                     </Box>

@@ -114,6 +114,11 @@ const  AppModalGenerateAI = (props ) => {
                 return false
             }
 
+            if( languageStyle == ''){
+                toast.warn('Gaya Bahasa belum dipilih')
+                return false
+            }
+
 
             let load = true ;
             props.onLoad(load)

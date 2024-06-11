@@ -183,7 +183,6 @@ const GenerateAIPage = () => {
                         return data
                     }
                 })
-
                 const currentData = dataFiltered.filter(data => {
                     return data.archives.caption != null || data.archives.hashtag != null || data.archives.imageUrl != null
                 } )

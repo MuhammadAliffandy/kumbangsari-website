@@ -32,6 +32,15 @@ const AppTextField = (props) => {
             onClick={props.onClick}
             disabled={props.disabled}
             required={props.required}
+            sx={{
+                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#7591D2',
+                    borderWidth:'2px'
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#7591D2', 
+                }
+            }}
 
         />
 }

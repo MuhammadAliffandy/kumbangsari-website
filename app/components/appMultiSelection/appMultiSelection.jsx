@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Select from 'react-select'
 
@@ -17,6 +19,7 @@ const customComponents = {
 };
 
 const  AppMultiSelection = (props) =>  {
+
   return (
     <Select
       components={customComponents}
@@ -31,9 +34,9 @@ const  AppMultiSelection = (props) =>  {
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
-          border: '2px solid black',
+          border: '1px solid #7591D2',
           '&:hover': {
-            borderColor: 'black', 
+            borderColor: '#7591D2', 
           },
           borderRadius: '20px' ,
           backgroundColor: 'transparent',

@@ -181,7 +181,6 @@ const AppModalDetailContent = (props) => {
             formData.append('caption', data.captionPost);
             formData.append('style', data.style);
             formData.append('hashtag', props.hashtag);
-            formData.append('postedAt', new Date().toISOString());    
 
             formData.append('image', data.imageUrlPost);
             formData.set('files', '');
@@ -215,7 +214,6 @@ const AppModalDetailContent = (props) => {
             formData.append('caption', props.caption);
             formData.append('style', props.style);
             formData.append('hashtag', props.hashtag);
-            formData.append('postedAt', new Date().toISOString());
 
             if(props.image != null && props.image != ''){
                 formData.append('image', props.image);    

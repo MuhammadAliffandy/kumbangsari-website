@@ -311,10 +311,6 @@ const ProductDetailPage = () => {
                                 } 
                                 type = {'button'}
                                 onClick={()=>{
-                                    // if(platformConnection){
-                                    //     setModalDeleteAccount(!modalDeleteAccount)
-                                    //     setModalCheckConnection(false)
-                                    // }
                                     
                                     if(platformConnection == 'facebook'){
                                         setModalFacebookPage(true) 
@@ -327,25 +323,7 @@ const ProductDetailPage = () => {
                                     setModalCheckConnection(false)
                                 }}
                             /> 
-                    
-                    
-                    /* <Box className=' flex flex-col gap-[10px] w-[100%]'>
-                  
-                        {
-                            !platformConnection ? 
-
-                            <AppButton
-                                className='w-[100%] py-[10px] bg-TEXT-4 shadow-xl text-white font-poppins rounded-[18px]'
-                                text={'Hapus Akun'} 
-                                type = {'button'}
-                                onClick={()=>{
-                                    setModalDeleteAccount(!modalDeleteAccount)
-                                    setModalCheckConnection(false)
-                                }}
-                            /> : null
-
                         }
-                    </Box> */}
                 </>
             }
             />
