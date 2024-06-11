@@ -19,7 +19,8 @@ While you wanna manage your time to easy for post a some content and you wanna c
 - [Axios](https://axios-http.com/) - Axios is a promise-based HTTP Client for node.js and the browser..
 
 ## Visuals
-https://github.com/MuhammadAliffandy/Planify.id-Frontend-/assets/94156412/cd09d791-c211-4a30-821c-531646d17aa0
+https://github.com/MuhammadAliffandy/Planify.id-Frontend-/assets/94156412/cfbca595-8a53-468e-a0ab-a8c3cb1e1170
+
 
 
 ## Installation
