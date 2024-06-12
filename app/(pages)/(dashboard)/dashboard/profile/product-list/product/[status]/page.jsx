@@ -537,7 +537,7 @@ const ProductDetailPage = () => {
                                 }}
                             />
                             {/* checkbox */}
-                            <Box className='w-full flex  flex:row gap-[100px]'>
+                            <Box className='w-full flex flex-col xl:flex-row gap-[10px] xl:gap-[100px]'>
                                 <Box className='w-[50%]'>
                                     <label className='text-black font-semibold'>Gender</label>
                                     <CustomSpacing height={10} />

@@ -11,7 +11,7 @@ const AppRangeSlider = (props) => {
     };
 
     return (
-        <Box sx={{ width: 'auto'}}>
+        <Box className={`${props.className || 'w-auto'}` } >
             <Slider
                 getAriaLabel={() => 'Temperature range'}
                 value={ props.value ? props.value : value}

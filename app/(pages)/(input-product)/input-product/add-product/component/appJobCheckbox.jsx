@@ -33,7 +33,7 @@ const AppJobCheckbox = (props) => {
 
     return (
         <>
-            <Stack direction={props.direction || 'row'} spacing={1} className={props.className || ''} sx={props.sx}>
+            <div className='flex flex-col gap-[15px] md:flex-row lg:flex-row xl:flex-row xl:gap-0 items-start  xl:justify-between'>
                 <Stack direction='column' spacing={1}>
                     <AppCheckBox
                         label = 'Tdk Bekerja'
@@ -114,7 +114,7 @@ const AppJobCheckbox = (props) => {
                         }}
                     />
                 </Stack>
-            </Stack>
+            </div>
         </>
     )
 }
