@@ -303,7 +303,7 @@ const DashboardPage = () => {
             <AppModal
                     withClose = {false}
                     open = {openModalLoading}
-                    width={'w-[35%]'}
+                    width={'  md:w-[35%] lg:w-[35%]  xl:w-[35%]'}
                 >
                     <Box className ='flex flex-col items-center gap-[40px]'>
                         <CircularProgress style={{color : '#F45B69'}}  />
@@ -417,7 +417,7 @@ const DashboardPage = () => {
                                             setOpenModalAI(!openModalAI)
                                         }}
                                     >
-                                        <img src="/images/icon/sparkling-white.svg" />
+                                        <img className="w-[15px] h-[15px]" src="/images/icon/sparkling-white.svg" />
                                         {sm || lg ? null : <p className="text-TEXT-5 text-[14px]">Generate AI</p> }
                                 </AppCustomButton>
                             </AppAnimationButton>
