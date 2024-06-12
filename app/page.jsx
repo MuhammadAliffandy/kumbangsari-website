@@ -200,7 +200,7 @@ export default function LandingPage() {
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center">Optimal, Efficient and Scheduled</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center px-[20px] ">Optimal, Efficient and Scheduled</p>
                 </Box>
                 <Box className='flex flex-col xl:flex-row items-center gap-[40px] justify-center '>
                   {
