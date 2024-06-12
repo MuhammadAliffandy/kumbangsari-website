@@ -109,8 +109,8 @@ const GenerateAIPage = () => {
         const mappingArray = lengthData.map((data,index)=>{
             return { 
                 image : !generateValue.image ? null : generateValue.image[index] , 
-                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
-                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
+                caption :!generateValue.caption ? null : generateValue.caption[index]?.content ,
+                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index]?.content,
                 productName : productList[currentData.idProduct - 1].text,
                 platform : currentData.platform,
                 idContent: currentData.idContent,
@@ -135,8 +135,8 @@ const GenerateAIPage = () => {
         const mappingArray = lengthData.map((data,index)=>{
             return { 
                 image : !generateValue.image ? null : generateValue.image[index] , 
-                caption :!generateValue.caption ? null : generateValue.caption[index].content ,
-                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index].content,
+                caption :!generateValue.caption ? null : generateValue.caption[index]?.content ,
+                hashtag : !generateValue.hashtag ? null : generateValue.hashtag[index]?.content,
                 productName : productList[currentData.idProduct - 1]?.text,
                 platform : currentData.platform,
                 idContent: currentData.idContent,
@@ -162,9 +162,12 @@ const GenerateAIPage = () => {
             const res = await refreshAI(data)
             if(res.status == 'OK'){
                 const newGenerate =  mappingGenerateAIValue(res.data) 
+                setContentAI(newGenerate)
                 dispatch(updateGenerateAIList(newGenerate))
+                toast.success('Generate AI Refresh Berhasil')
             }
         } catch (error) {
+            console.log(error)
             toast.error('Ada Kesalahan Server (500)')
         }
     }
@@ -257,8 +260,8 @@ const GenerateAIPage = () => {
     }
 
     const paginationMax  = () => {
-        setPrev(!prev)
-        refreshGenerateAI()
+        // setPrev(!prev)
+        AppToastPending(refreshGenerateAI)
         setContentAI(generateListContent)
 
     }
