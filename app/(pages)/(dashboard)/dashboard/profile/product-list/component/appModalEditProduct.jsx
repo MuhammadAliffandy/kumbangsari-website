@@ -101,95 +101,96 @@ const AppModalEditProduct = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = 'w-[90%] md:w-[50%]  xl:w-[35%] h-[90vh] rounded-[20px] bg-white p-[20px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
-
-                <form  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
-                    <Box className = 'flex items-center justify-between'>
-                        <p className = 'text-[18px] font-bold text-black' >Ubah Produk</p>
-                        <AppCloseButton
-                            onClick = {()=>{
-                                props.onCloseButton(false)
-                            }}
-                        />
-                    </Box>
-                    <AppTextWithLine
-                            text = 'Informasi Produk'
-                        />
-                    <label className='text-black font-semibold'>Nama Produk</label>
-                    <AppTextField
-                        id="productName"
-                        value = {nameProduct}
-                        type='text'
-                        placeholder='Masukkkan nama produk di sini'
-                        validationConfig = {register('productName', { 
-                            validate : validateText
-                        })}
-                        error={Boolean(errors.productName)}
-                        helperText={errors.productName && errors.productName.message}
-                        onChange={(event)=>{
-                            setNameProduct(event.target.value)
-                        }}
-                        />
-                    <label className='text-black font-semibold'>Kategori Produk</label>
-                    <AppDropDown
-                        value={categoryProduct}
-                        placeholder={'Pilih Kategori Produk'}
-                        listItem = {listDropCategory}
-                        onChange={handleChangeCategory}
-                    />
-                    <Box className= 'flex flex-col gap-[12px]'>
-                        <AppTextWithLine
-                            text = 'Target Pasar'
-                        />
-                        <label className='text-black font-semibold'>Umur</label>
-                        <AppRangeSlider
-                            value = {ageRange}
-                            onChange={(value)=>{
-                                setAgeRange(value)
-                            }}
-                        />
-                        {/* checkbox */}
-                        <Box className='flex justify-between'>
-                            <Box>
-                                <label className='text-black font-semibold'>Gender</label>
-                                <CustomSpacing height={10} />
-                                <AppGenderCheckbox 
-                                    status = {checkboxStatus}
-                                    listValue = {gender}
-                                />
-                            </Box>
-                            <Box>
-                                <label className='text-black font-semibold'>Pendidikan Terakhir</label>
-                                <CustomSpacing height={10} />
-                                <AppSchoolCheckbox 
-                                    status = {checkboxStatus}
-                                    listValue = {school}
-                                />
-                            </Box>
+                className = ' w-[90%] md:w-[50%] xl:w-[35%] h-[90vh] rounded-[20px] bg-white p-[10px] '>
+                <Box className='w-full h-full p-[10px] overflow-y-scroll scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100  scrollbar-thumb-rounded-full'>
+                    <form  className='flex flex-col pt-[20px] gap-[20px] w-[100%]'>
+                        <Box className = 'flex items-center justify-between'>
+                            <p className = 'text-[18px] font-bold text-black' >Ubah Produk</p>
+                            <AppCloseButton
+                                onClick = {()=>{
+                                    props.onCloseButton(false)
+                                }}
+                            />
                         </Box>
-                        <Box>
-                                <label className='text-black font-semibold'>Ranah Pekerjaan</label>
-                                <CustomSpacing height={10} />
-                                <AppJobCheckbox
-                                    status = {checkboxStatus}
-                                    listValue = {job}
-                                />
+                        <AppTextWithLine
+                                text = 'Informasi Produk'
+                            />
+                        <label className='text-black font-semibold'>Nama Produk</label>
+                        <AppTextField
+                            id="productName"
+                            value = {nameProduct}
+                            type='text'
+                            placeholder='Masukkkan nama produk di sini'
+                            validationConfig = {register('productName', { 
+                                validate : validateText
+                            })}
+                            error={Boolean(errors.productName)}
+                            helperText={errors.productName && errors.productName.message}
+                            onChange={(event)=>{
+                                setNameProduct(event.target.value)
+                            }}
+                            />
+                        <label className='text-black font-semibold'>Kategori Produk</label>
+                        <AppDropDown
+                            value={categoryProduct}
+                            placeholder={'Pilih Kategori Produk'}
+                            listItem = {listDropCategory}
+                            onChange={handleChangeCategory}
+                        />
+                        <Box className= 'flex flex-col gap-[12px]'>
+                            <AppTextWithLine
+                                text = 'Target Pasar'
+                            />
+                            <label className='text-black font-semibold'>Umur</label>
+                            <AppRangeSlider
+                                value = {ageRange}
+                                onChange={(value)=>{
+                                    setAgeRange(value)
+                                }}
+                            />
+                            {/* checkbox */}
+                            <Box className='flex justify-between'>
+                                <Box>
+                                    <label className='text-black font-semibold'>Gender</label>
+                                    <CustomSpacing height={10} />
+                                    <AppGenderCheckbox 
+                                        status = {checkboxStatus}
+                                        listValue = {gender}
+                                    />
+                                </Box>
+                                <Box>
+                                    <label className='text-black font-semibold'>Pendidikan Terakhir</label>
+                                    <CustomSpacing height={10} />
+                                    <AppSchoolCheckbox 
+                                        status = {checkboxStatus}
+                                        listValue = {school}
+                                    />
+                                </Box>
                             </Box>
-                    </Box>
-                    {/* handle button validation  */}
-                
-                    <Box className='w-[100%] flex justify-end'>
-                            <Box className='w-[30%] py-[0px] px-[0px] text-[14px]'>
-                                <AppButton
-                                    text={'Simpan'} 
-                                    type = {'button'}
-                                    fontSize = {'12px'}
-                                    onClick = {notifyHandleEditProduct}
-                                />
-                            </Box>
-                    </Box>
-                
-                </form>
+                            <Box>
+                                    <label className='text-black font-semibold'>Ranah Pekerjaan</label>
+                                    <CustomSpacing height={10} />
+                                    <AppJobCheckbox
+                                        status = {checkboxStatus}
+                                        listValue = {job}
+                                    />
+                                </Box>
+                        </Box>
+                        {/* handle button validation  */}
+                    
+                        <Box className='w-[100%] flex justify-end'>
+                                <Box className='w-[30%] py-[0px] px-[0px] text-[14px]'>
+                                    <AppButton
+                                        text={'Simpan'} 
+                                        type = {'button'}
+                                        fontSize = {'12px'}
+                                        onClick = {notifyHandleEditProduct}
+                                    />
+                                </Box>
+                        </Box>
+                    
+                    </form>
+                </Box>
             </motion.div>
 
         </Modal>
