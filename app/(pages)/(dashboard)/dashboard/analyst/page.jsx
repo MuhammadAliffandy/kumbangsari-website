@@ -333,7 +333,6 @@ const AnalystPage = () => {
                                 </Box>
                             </Box>
                             <Line 
-                                height={150}
                                 data={exampleData} 
                                 options={{
                                     plugins: {
