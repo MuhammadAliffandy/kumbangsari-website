@@ -15,6 +15,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
+import AppAnimationButton from "./components/appAnimation/appAnimationButton";
 
 const items = [
   {
@@ -432,25 +433,29 @@ const SideBar = (props) => {
         </ul>
 
         <Box className={`${props.isDrawer ? 'flex flex-col gap-[10px] items-start p-[10px]' : 'hidden items-center sm:hidden md:flex lg:flex xl:flex '}  gap-[10px] `}>
-            <AppButton
-                className={`${props.isDrawer ? 'w-[100%]' : ''} px-[20px] py-[6px]  text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]`}
-                text={'Login'} 
-                type = {'button'}
-                onClick={()=>{
-                  push('/auth/signin')
-                }}
-            />
-            <AppCustomButton 
-                    onMouseEnter={()=>{setArrowIcon('/images/icon/ArrowRight.svg')}} 
-                    onMouseLeave={()=>{setArrowIcon('/images/icon/ArrowUpRight.svg')}} 
-                    className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[20px] py-[6px] `}
+          <AppAnimationButton className='w-auto'>
+                <AppButton
+                    className={`${props.isDrawer ? 'w-[100%]' : ''} px-[20px] py-[6px]  text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]`}
+                    text={'Login'} 
+                    type = {'button'}
                     onClick={()=>{
-                        push('/auth/signup')
-                    }}
-                >
-                  <p className="text-TEXT-5 text-[12px]">Register</p>
-                  <img src={arrowIcon} alt="alt-icon" />
-            </AppCustomButton>
+                      push('/auth/signin')
+                      }}
+                />
+            </AppAnimationButton>
+            <AppAnimationButton className='w-auto'>
+              <AppCustomButton 
+                      onMouseEnter={()=>{setArrowIcon('/images/icon/ArrowRight.svg')}} 
+                      onMouseLeave={()=>{setArrowIcon('/images/icon/ArrowUpRight.svg')}} 
+                      className={` ${props.isDrawer ? 'w-[100%] justify-center' : ''} flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[20px] py-[6px] `}
+                      onClick={()=>{
+                          push('/auth/signup')
+                      }}
+                  >
+                    <p className="text-TEXT-5 text-[12px]">Register</p>
+                    <img src={arrowIcon} className="h-[16px] w-[auto]" alt="alt-icon" />
+              </AppCustomButton>
+            </AppAnimationButton>
         </Box>
       </>
   ) 
