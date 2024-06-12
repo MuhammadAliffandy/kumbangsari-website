@@ -486,9 +486,9 @@ const DashboardPage = () => {
                                     <>
                                     <div className="w-[100%] h-[100%] flex flex-col gap-[10px]">
                                         {
-                                            arr.map(data => {
+                                            arr.map((data , index) => {
                                                 return(
-                                                    <div className="w-[100%] h-[100px] flex flex-col xl:flex-row items-center gap-[20px]">
+                                                    <div key={index} className="w-[100%] h-[100px] flex flex-col xl:flex-row items-center gap-[20px]">
                                                         <div className="w-[100%] h-[80%] flex  items-center gap-[10px]">
                                                             <div className="w-[40%] h-[100%]">
                                                                 <Skeleton className="h-[100%] w-[100%] "/>
@@ -566,7 +566,7 @@ const DashboardPage = () => {
 
                     <Box className= 'rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
-                        <Box className='h-[40vh] lg:h-[20vh] xl:h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='h-[25vh] lg:h-[20vh] xl:h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
                                 loading={contentRecapLoading}
                                 data ={contentDataRecap} // contentDataRecap
@@ -582,15 +582,13 @@ const DashboardPage = () => {
                         {
                                 trendingDataHashtag.length > 0 ? 
                                 trendingDataHashtag.map((data,index) => {
-
-                                    const productName = productList.filter(data => {return data.value == data.idProduct})
                 
                                     return (
                                         <AppContentFilter
                                             key={index}
                                             isDashboard={true}
                                             title = {data.hashtag}
-                                            subtitle = {productName.text}
+                                            subtitle = {data.product}
                                             contentTypes = {`${formatNumberHashtag(data.count)} interaksi`}
                                             platform = {data.platform}
                                             onClick= {()=>{
@@ -603,9 +601,9 @@ const DashboardPage = () => {
                                 <>
                                     <div className="w-[100%] h-[100px] flex flex-col items-center gap-[20px]">
                                         {
-                                            arr.map(data => {
+                                            arr.map((data , index)=> {
                                                 return(
-                                                    <div className="w-[100%] h-[60%] flex items-center gap-[10px]">
+                                                    <div key={index} className="w-[100%] h-[60%] flex items-center gap-[10px]">
                                                         <div className="w-[30%] h-[100%]">
                                                             <Skeleton className="h-[100%] w-[100%] "/>
                                                         </div>

@@ -28,9 +28,9 @@ const AppModalConnection = (props) => {
                     </Box>
                     
                     <Box className='flex gap-[20px] items-center justify-center w-[100%]'>
-                            <img alt='img-platform' className='w-[80px] h-[80px] rounded-[100%]' src={props.imagePlatform} />
-                            <img alt='img-platform' className='w-[auto] h-[50px] ' src={'/images/icon/connect.svg'} />
-                            <img alt='img-platform' className='w-[80px] h-[80px] ' src={'/images/icon/logo/planify.png'} />
+                            <img alt='img-platform' className=' w-[50px] xl:w-[80px] h-[50px] xl:h-[80px] rounded-[100%]' src={props.imagePlatform} />
+                            <img alt='img-platform' className='w-[auto] h-[30px] xl:h-[50px] ' src={'/images/icon/connect.svg'} />
+                            <img alt='img-platform' className=' w-[50px] xl:w-[80px] h-[50px] xl:h-[80px] ' src={'/images/icon/logo/planify.png'} />
                     </Box>
 
                     <Box className='flex flex-col gap-[10px]'>
@@ -40,7 +40,7 @@ const AppModalConnection = (props) => {
                     </Box>
                     
                     <Box className='w-[100%] flex justify-end '>
-                            <Box className='w-[30%]'>
+                            <Box className=' w-[60%] xl:w-[30%]'>
                                 <AppButton
                                     text={'Selanjutnya'} 
                                     type = {'button'}

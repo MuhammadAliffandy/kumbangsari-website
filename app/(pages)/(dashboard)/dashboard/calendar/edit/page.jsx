@@ -396,7 +396,7 @@ const CalendarEditPage = () => {
                             </Box>
                             {/*  */}
                             <Box>
-                                <Stack direction="row" spacing={2}>   
+                                <Stack direction="row" spacing={2}   justifyContent="center" alignItems="center">   
                                     <Box className='w-[100%] flex flex-col gap-[10px]'>
                                         <label className='text-black font-semibold'>Waktu Unggah</label>
                                         <AppTextField
