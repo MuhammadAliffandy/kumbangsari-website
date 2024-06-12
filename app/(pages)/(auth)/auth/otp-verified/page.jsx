@@ -24,13 +24,7 @@ const ForgotPasswordPage = ()  => {
     const { push } = useRouter()
 
     const notify = () => {
-        toast.success('Verifikasi Email Berhasil' , 
-        {
-            onClose: () => {
-                push('/auth/signin');
-                setLoadingProgress(100)
-            }
-        }
+        toast.success('Verifikasi Email Berhasil'
         )
     }
     
@@ -49,13 +43,6 @@ const ForgotPasswordPage = ()  => {
         return () => clearTimeout(timer);
     }
 
-    useEffect(() => {
-
-        handleTimerSendOTP()
-
-    }, [countdown, isSending]);
-
-
     const handleSendOTP = async () => {
             setIsSending(true); 
             const email = sessionStorage.getItem('email')
@@ -68,6 +55,12 @@ const ForgotPasswordPage = ()  => {
 
             }
     };
+
+    useEffect(() => {
+
+        handleTimerSendOTP()
+
+    }, [countdown, isSending]);
 
     useEffect(()=>{
         handleSendOTP()
@@ -86,7 +79,10 @@ const ForgotPasswordPage = ()  => {
     
             if(res.status == 'OK'){
                 notify()
+                push('/auth/signin');
+                setLoadingProgress(100)
             }
+            setLoadingProgress(100)
         } catch (error) {
             setLoadingProgress(100)
 

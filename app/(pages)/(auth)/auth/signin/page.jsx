@@ -66,7 +66,6 @@ const SignInPage = () => {
                     }else{
                         push('/input-product/add-product')
                     }
-                    
             }
 
             setLoadingProgress(100)
@@ -82,6 +81,10 @@ const SignInPage = () => {
             if(error.status == 401){
                 toast.error('Email atau Kata Sandi Salah')
                 
+            }else if(error.status == 403){
+                toast.warn('Silahkan Aktivasi Akun dahulu !!')
+                sessionStorage.setItem('email',data.email)
+                push('/auth/otp-verified')
             }else if(error.status == 404){
                 toast.error('Akun Tidak Terdaftar')
             }else{

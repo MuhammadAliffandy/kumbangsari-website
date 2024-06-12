@@ -305,6 +305,7 @@ const ProductDetailPage = () => {
                     {
                         platformConnection == 'instagram' && instagramStatus == true  ? null : 
                         platformConnection == 'facebook' && facebookStatus == true ? null  :
+                        platformConnection == 'twitter' ? null :
                         <AppButton
                                 className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={
@@ -479,7 +480,7 @@ const ProductDetailPage = () => {
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
                             }
 
-                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? imageDefault:  listPlatform.instagram}/>
+                            <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? accountInstagram.profileImageUrl ||  imageDefault :  listPlatform.instagram}/>
                         </Box>
                         <Box className='w-[40px] h-[40px] relative cursor-pointer' onClick={()=>{
                                 setPlatformConnection('facebook')

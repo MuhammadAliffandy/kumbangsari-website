@@ -57,9 +57,9 @@ const SubscriptionList = (props) => {
                         return(
                             <Grid key={index} item  xs={12} xl={4} lg={4} md={4} >
                                 <Box className='hover:shadow-md text-black flex flex-col items-center gap-[10px] bg-NEUTRAL-100 p-[20px]  rounded-[20px]' >
-                                    <p className="text-TEXT-1 text-[22px] font-bold">{data.title}</p>
+                                    <p className="text-center text-TEXT-1 text-[22px] font-bold">{data.title}</p>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
-                                        <p>{data.subtitle}</p>
+                                        <p className="text-center">{data.subtitle}</p>
                                         <img className="w-[80px] h-[80px]" src={data.image} alt="image-subscription"  />
                                         <span className="flex items-center gap-[8px]">
                                             <p className="text-TEXT-3">Rp</p>
