@@ -247,7 +247,7 @@ const  AppModalGenerateAI = (props ) => {
                 {/*  */}
                 <Box className='flex flex-col gap-[10px]'>
                         <label className='text-black font-semibold'>Jenis Konten</label>
-                        <Box className ='flex flex-col xl:flex-row gap-[10px] xl:gap-[100px]'>
+                        <Box className ='flex flex-col md:flex-row lg:flex-row xl:flex-row gap-[10px] xl:gap-[100px]'>
                             <AppCheckBox
                                 value= 'caption'
                                 label = 'Caption'

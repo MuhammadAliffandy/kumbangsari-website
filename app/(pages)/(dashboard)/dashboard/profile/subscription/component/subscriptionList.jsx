@@ -55,37 +55,39 @@ const SubscriptionList = (props) => {
                 {
                     subscriptionList.map((data,index)=>{
                         return(
-                            <Grid key={index} item  xs={12} xl={4} lg={4} md={4} >
-                                <Box className='hover:shadow-md text-black flex flex-col items-center gap-[10px] bg-NEUTRAL-100 p-[20px]  rounded-[20px]' >
-                                    <p className="text-center text-TEXT-1 text-[22px] font-bold">{data.title}</p>
-                                    <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
-                                        <p className="text-center">{data.subtitle}</p>
-                                        <img className="w-[80px] h-[80px]" src={data.image} alt="image-subscription"  />
-                                        <span className="flex items-center gap-[8px]">
-                                            <p className="text-TEXT-3">Rp</p>
-                                            <p className="text-[30px] font-bold">{formatRupiahNumber(data.price)}</p>
-                                            <p className="text-TEXT-3">/bln</p>
-                                        </span>
-                                        <Box className='flex flex-col gap-[10px]'>
-                                            {
-                                                data.benefit.map((data,index)=>{
-                                                    return(
-                                                        <span key={index} className="flex">
-                                                            <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
-                                                            <p className="text-[14px]">{data}</p>
-                                                        </span>
-                                                    )
-                                                })
-                                            }
-                                        </Box>
-                                        <AppButton
-                                            className={' flex text-white gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px] shadow-xl'}
-                                            text={'Beli Paket'} 
-                                            type = {'Submit'}
-                                            onClick = {()=>{
-                                                props.onClick({...data,codeNumber : index + 1})
-                                            }}
-                                        />
+                            <Grid key={index} item  xs={12} xl={4} lg={4} md={4}  >
+                                <Box className='hover:shadow-md text-black flex flex-col items-center gap-[10px] bg-NEUTRAL-100 p-[20px] h-[100%] rounded-[20px]' >
+                                        <Box className='h-[100%] flex flex-col justify-between gap-[10px]'>
+                                            <p className="text-center text-TEXT-1 text-[22px] font-bold">{data.title}</p>
+                                            <Box className='flex flex-col items-center gap-[20px] w-[100%]'>
+                                                <p className="text-center">{data.subtitle}</p>
+                                                <img className="w-[80px] h-[80px]" src={data.image} alt="image-subscription"  />
+                                                <span className="flex items-center gap-[8px]">
+                                                    <p className="text-TEXT-3">Rp</p>
+                                                    <p className="text-[30px] font-bold">{formatRupiahNumber(data.price)}</p>
+                                                    <p className="text-TEXT-3">/bln</p>
+                                                </span>
+                                                <Box className='flex flex-col gap-[10px]'>
+                                                    {
+                                                        data.benefit.map((data,index)=>{
+                                                            return(
+                                                                <span key={index} className="flex">
+                                                                    <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
+                                                                    <p className="text-[14px]">{data}</p>
+                                                                </span>
+                                                            )
+                                                        })
+                                                    }
+                                                </Box>
+                                            </Box>
+                                            <AppButton
+                                                className={' flex text-white gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px] shadow-xl'}
+                                                text={'Beli Paket'} 
+                                                type = {'Submit'}
+                                                onClick = {()=>{
+                                                    props.onClick({...data,codeNumber : index + 1})
+                                                }}
+                                            />
                                     </Box>
                                 </Box>
                             </Grid>

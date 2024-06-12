@@ -16,7 +16,7 @@ const AppModalConnection = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = ' w-[80%] xl:w-[30%] h-auto rounded-[20px] bg-white p-[20px] '>
+                className = ' w-[80%] md:w-[40%] lg:w-[40%]  xl:w-[30%] h-auto rounded-[20px] bg-white p-[20px] '>
                 <Box  className='flex flex-col gap-[25px]'>
                     <Box className = 'flex justify-between'>
                         <p className = 'text-[16px] font-bold text-black' >Hubungkan {props.platform}</p>
@@ -40,7 +40,7 @@ const AppModalConnection = (props) => {
                     </Box>
                     
                     <Box className='w-[100%] flex justify-end '>
-                            <Box className=' w-[60%] xl:w-[30%]'>
+                            <Box className=' w-[60%] md:w-[30%] lg:w-[30%]  xl:w-[30%]'>
                                 <AppButton
                                     text={'Selanjutnya'} 
                                     type = {'button'}

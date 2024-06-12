@@ -129,10 +129,10 @@ const ProfilePage = () => {
                 <Box className='h-[100%] w-[100%] flex flex-col bg-NEUTRAL-100 rounded-[20px] relative'>
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
                     </Box>
-                    <Box className='w-[100%] h-[88%] flex flex-col xl:flex-row md:flex-row sm:flex-col gap-[20px] p-[20px] absolute z-[100] bottom-0 overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
+                    <Box className='w-[100%] h-[100%] xl:h-[88%] flex flex-col xl:flex-row md:flex-row sm:flex-col gap-[20px] p-[20px] absolute z-[100] bottom-0 overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full '>
                         <Box className='flex-none flex flex-col items-center justify-between bg-white w-[100%] md:w-[40%] lg:w-[20%] xl:w-[30%] h-[100%] p-[20px] rounded-[20px] hover:shadow-md'>
                             <Box className='flex flex-col gap-[20px] items-center'>
-                                <Box className=' w-[200px] h-[200px] relative'>
+                                <Box className=' w-[100%]  xl:w-[200px] h-[150px] xl:h-[200px] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
                                     <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
                                     <img className="rounded-[100%] w-[100%] h-[100%] xl:h-[100%] object-cover relative" 
@@ -165,7 +165,7 @@ const ProfilePage = () => {
                                 />
                             </AppAnimationButton>
                         </Box>
-                        <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] hover:shadow-md'>
+                        <Box className='grow flex flex-col bg-white h-[100%] p-[20px] rounded-[20px] hover:shadow-md overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[20px] w-[100%]'>
                                 <label className='text-black font-semibold'>Nama</label>
                                 <AppTextField
