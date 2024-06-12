@@ -21,10 +21,10 @@ export const NotificationChildComponent = (props) =>{
                                 data.notificationType == 'Akun' ? 'profile' : data.notificationType == 'Konektivitas' ? 'setting' : 'setting' }.svg`} className="w-[40px] h-[40px]" />
                                 <Box className = 'flex flex-col justify-start gap-[4px] w-[100%]'>
                                     <Box className='flex justify-between items-center'>
-                                        <p className="text-[14px] font-bold text-TEXT-1" >{data.title}</p>
-                                        <p className="text-[14px] text-TEXT-4" >{data.time}</p>
+                                        <p className="text-[10px] xl:text-[14px] font-bold text-TEXT-1" >{data.title}</p>
+                                        <p className="text-[8px] xl:text-[14px] text-TEXT-4" >{data.time}</p>
                                     </Box>
-                                    <p className="text-[14px] text-TEXT-1" >{data.subtitle}</p>
+                                    <p className="text-[10px] xl:text-[14px] text-TEXT-1" >{data.subtitle}</p>
                                 </Box>
                             </Box>
                         )
@@ -52,7 +52,7 @@ const AppPopupNotification = (props) => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className={` w-[75vw] md:w-[70vw] lg:w-[60vw] xl:w-[45vw] max-h-[50vh] rounded-[20px] bg-white p-[15px] flex flex-col gap-[15px] shadow-xl  `}
+                    className={` w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[45vw] max-h-[50vh] rounded-[20px] bg-white p-[15px] flex flex-col gap-[15px] shadow-xl  `}
                 >
                     <Box className = 'flex justify-between '>
                         <p className = 'text-[18px] font-bold text-black' >Notifikasi</p>
@@ -66,7 +66,7 @@ const AppPopupNotification = (props) => {
                     <Box className='flex-none flex gap-[10px] items-center justify-start w-[100%] overflow-y-hidden overflow-x-scroll xl:overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         <AppButton
                             text='Semua'
-                            className={`${selected == 0 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px]`}
+                            className={`${selected == 0 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[10px] xl:text-[14px]`}
                             onClick={()=>{
                                 setSelected(0)
                                 props.onSelected('Semua')
@@ -74,7 +74,7 @@ const AppPopupNotification = (props) => {
                         />
                         <AppButton
                             text='Konektivitas'
-                            className={`${selected == 1 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
+                            className={`${selected == 1 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[10px] xl:text-[14px] `}
                             onClick={()=>{
                                 setSelected(1)
                                 props.onSelected('Konektivitas')
@@ -82,7 +82,7 @@ const AppPopupNotification = (props) => {
                         />
                         <AppButton
                             text='Pembayaran'
-                            className={`${selected == 2 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
+                            className={`${selected == 2 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[10px] xl:text-[14px] `}
                             onClick={()=>{
                                 setSelected(2)
                                 props.onSelected('Pembayaran')
@@ -90,7 +90,7 @@ const AppPopupNotification = (props) => {
                         />
                         <AppButton
                             text='Akun'
-                            className={`${selected == 3 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
+                            className={`${selected == 3 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[10px] xl:text-[14px] `}
                             onClick={()=>{
                                 setSelected(3)
                                 props.onSelected('Akun')
@@ -98,7 +98,7 @@ const AppPopupNotification = (props) => {
                         />
                         <AppButton
                             text='Konten'
-                            className={`${selected == 4 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[14px] `}
+                            className={`${selected == 4 ? 'bg-PRIMARY-500' : 'bg-white border-[1px] border-TEXT-4 text-TEXT-1'} py-[8px] px-[20px] rounded-[30px] text-[10px] xl:text-[14px] `}
                             onClick={()=>{
                                 setSelected(4)
                                 props.onSelected('Konten')
