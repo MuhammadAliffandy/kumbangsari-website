@@ -213,7 +213,7 @@ const AddProductPage = () => {
                 onLoaderFinished={() => setLoadingProgress(0)
             } />
 
-            <Box className='flex justify-between w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
+            <Box className='flex justify-start w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}
@@ -228,13 +228,8 @@ const AddProductPage = () => {
                         
                     }}
                 />
-                <AppCloseButton
-                    onClick = {()=>{
-                        push('/input-product/add-count-product')
-                    }}
-                />
             </Box>
-            <Box className='flex flex-col h-[70%] items-center overflow-y-scroll pb-[10px] overflow-x-hidden px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+            <Box className='flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-[95vw] px-[10px] lg:w-0 xl:w-0 items-center overflow-y-scroll pb-[10px]  overflow-x-auto lg:overflow-x-hidden xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
                 <AppAnimationLayout>
                     <AppHeadline 
                         title = {'Data Produk'}
@@ -281,7 +276,7 @@ const AddProductPage = () => {
                                 }}
                             />
                             {/* checkbox */}
-                            <Box className='flex justify-between'>
+                            <Box className='flex flex-col gap-[20px] xl:flex-row xl:gap-0 justify-between'>
                                 <Box>
                                     <label className='text-black font-semibold'>Gender</label>
                                     <CustomSpacing height={10} />

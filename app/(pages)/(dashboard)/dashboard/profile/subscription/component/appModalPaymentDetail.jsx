@@ -19,7 +19,7 @@ const AppModalPaymentDetail = (props) => {
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.2 }}
-                    className = 'w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
+                    className = 'w-[90%] md:w-[60%] lg:w-[60%] xl:w-[60%] h-auto rounded-[20px] bg-white p-[20px] '>
                     <Box className='flex flex-col gap-[25px]'>
                         <Box className = 'flex justify-between'>
                             <p className = 'text-[18px] font-bold text-black' >Detail Pembayaran</p>

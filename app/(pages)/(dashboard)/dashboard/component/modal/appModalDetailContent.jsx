@@ -286,7 +286,7 @@ const AppModalDetailContent = (props) => {
                 <AppCustomModal
                     open={modalDeleteContent}
                     withClose={true}
-                    width={'w-[30vw]'}
+                    width={'w-[80vw]  md:w-[30vw]  lg:w-[30vw]  xl:w-[30vw]'}
                     modalType='modal-common'
                     title={'Hapus Konten?'}
                     onCloseButton={(value)=> setModalDeleteContent(value) }

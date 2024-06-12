@@ -65,7 +65,7 @@ const SignUpPage  = () => {
                         progress={loadingProgress} 
                         onLoaderFinished={() => setLoadingProgress(0)
                     } />
-                    <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+                    <Box className='  flex justify-end  top-0 mt-[40px] right-[30px] lg:right-0 xl:right-0  w-[100%] absolute z-[12]'> 
                         <AppCloseButton
                             onClick = {()=>{
                                 push('/auth/signin')

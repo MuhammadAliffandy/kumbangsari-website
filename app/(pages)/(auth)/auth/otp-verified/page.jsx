@@ -97,8 +97,8 @@ const ForgotPasswordPage = ()  => {
     };
 
     return(
-        <Box className = 'flex flex-col items-center justify-center rounded-sm p-[10px] h-[100vh] relative'>
-            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[12]'> 
+        <Box className = 'flex flex-col items-center justify-center rounded-sm p-[40px] xl:p-[10px] h-[100vh] relative'>
+            <Box className='  flex justify-end  top-0 mt-[40px] right-[30px] lg:right-0 xl:right-0 w-[100%] absolute z-[12]'> 
                 <AppCloseButton
                     onClick = {()=>{
                         push('/auth/signin')

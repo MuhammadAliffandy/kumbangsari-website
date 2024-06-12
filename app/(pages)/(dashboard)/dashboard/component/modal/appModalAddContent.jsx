@@ -307,12 +307,12 @@ const AppModalAddContent = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = 'w-[90%] h-[90vh] xl:h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+                className = 'xl:w-[90%] h-[90vh] xl:h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* Modal validation */}
                 <AppCustomModal
                     open={modalValidation}
                     withClose={true}
-                    width={'w-[30vw]'}
+                    width={' w-[80vw] md:w-[30vw] lg:w-[30vw] xl:w-[30vw]'}
                     modalType='modal-status'
                     status={'info'}
                     titleTop={true}
@@ -374,9 +374,9 @@ const AppModalAddContent = (props) => {
                         </Box>
                         {/*  */}
                         <Box>
-                            <Stack direction="row" spacing={2}>   
+                            <Box className='flex flex-row items-center gap-[10px]' >  
                             {/* product */}
-                                <Box className='w-[100%] flex flex-col gap-[10px]'>
+                                <Box className='w-[50%]  md:w-[100%] lg:w-[100%] xl:w-[100%] flex flex-col gap-[10px]'>
                                     <label className='text-black font-semibold'>Produk</label>
                                     <AppDropDown
                                             value={product}
@@ -385,7 +385,7 @@ const AppModalAddContent = (props) => {
                                             onChange={handleChangeProduct}
                                         />
                                 </Box>
-                                <Box className='w-[100%] flex flex-col gap-[10px]'>
+                                <Box className='w-[50%]  md:w-[100%] lg:w-[100%] xl:w-[100%] flex flex-col gap-[10px]'>
                                     {/* platform */}
                                     <label className='text-black font-semibold'>Platform</label>
                                     <AppDropDown
@@ -395,7 +395,7 @@ const AppModalAddContent = (props) => {
                                             onChange={handleChangePlatform}
                                     />
                                 </Box>
-                            </Stack>
+                            </Box>
                         </Box>
                         {/*  */}
 
@@ -499,16 +499,15 @@ const AppModalAddContent = (props) => {
                         </Box>
                         {/*  */}
                         <Box>
-                            <Stack direction="row" spacing={2}>   
-                                <Box className='w-[100%] flex flex-col gap-[10px]'>
-                                    <label className='text-black font-semibold'>Waktu Unggah</label>
+                            <p className='text-black font-semibold text-left py-[10px]'>Waktu Unggah</p>
+                            <Box className='flex flex-col-reverse md:flex-row lg:flex-row  xl:flex-row items-start gap-[10px]' >  
+                                <Box className='w-[100%]  md:w-[100%] lg:w-[100%] xl:w-[100%] flex flex-col gap-[10px]'>
                                     <AppTextField
                                         id="date"
                                         value = { dateUp }
                                         type='date'
                                         placeholder='Pilih Tanggal Unggah'
                                         disabled={upNow}
-                                        required={true}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setDateUp(value)
@@ -519,7 +518,6 @@ const AppModalAddContent = (props) => {
                                         label = 'Unggah Sekarang'
                                         onChange= {(value , label)=>{
                                             if(value == 'true'){
-                                            
                                                 setUpNow(true)
                                                 const { date , time } = getCurrentDateTime()
                                                 setTimeUp(time)
@@ -532,21 +530,20 @@ const AppModalAddContent = (props) => {
                                         }}
                                     />
                                 </Box>
-                                <Box className='w-[100%] flex flex-col gap-[10px] justify-center'>
+                                <Box className='w-[100%]  md:w-[100%] lg:w-[100%] xl:w-[100%] flex flex-col gap-[10px] justify-center'>
                                     <AppTextField
                                         id="time"
                                         value = { timeUp }
                                         type='time'
                                         placeholder='Pilih Jam Unggah'
                                         disabled={upNow}
-                                        required={true}
                                         onChange={(event)=>{
                                             const value = event.target.value
                                             setTimeUp(value)
                                         }}
                                     />
                                 </Box>
-                            </Stack>
+                            </Box>
                         </Box>
                     </Box >
                     <Box className=' hidden xl:flex w-[100%] xl:w-[2px] h-[2px] xl:[100%] bg-black bg-opacity-[10%]'></Box>
@@ -580,7 +577,7 @@ const AppModalAddContent = (props) => {
                 {/*  */}
                 <Box className = 'flex justify-end'>
                     <Box className='flex justify-end gap-[15px] w-[100%]'>
-                        <Box className='w-[25%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
+                        <Box className='w-[35%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
                             <AppButton
                                 className='w-[100%] p-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Keluar'} 
@@ -590,7 +587,7 @@ const AppModalAddContent = (props) => {
                                 }}
                             />
                         </Box>
-                        <Box className='w-[25%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
+                        <Box className='w-[35%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
                             <AppButton
                                 className='w-[100%] p-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
                                 text={'Simpan'} 

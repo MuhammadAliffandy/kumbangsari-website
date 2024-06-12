@@ -370,7 +370,7 @@ const GenerateAIPage = () => {
                                             {
                                                 arr.map(data => {
                                                     return(
-                                                        <div className="w-[100%] h-[100px] flex items-center gap-[20px]">
+                                                        <div className="w-[100%] h-[100px] flex flex-col xl:flex-row items-center gap-[20px]">
                                                             <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
                                                                 <div className="w-[40%] h-[100%]">
                                                                     <Skeleton className="h-[100%] w-[100%] "/>
@@ -436,9 +436,9 @@ const GenerateAIPage = () => {
                         </Box>
                         <Box className = 'w-[100%] flex items-center justify-center'>
                             <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4  '
-                                    onClick={()=>{prev ?  paginationMax() : paginationMin()}}
+                                    onClick={()=>{paginationMax()}}
                                 >
-                                    <p className="text-TEXT-1 font-bold text-[14px]">{prev ? 'Selanjutnya' : 'Sebelumnya'}</p>
+                                    <p className="text-TEXT-1 font-bold text-[14px]">{'Selanjutnya'}</p>
                                     <FontAwesomeIcon icon={prev ? faChevronDown : faChevronUp} color={'black'} ></FontAwesomeIcon>
                             </AppCustomButton>
                         </Box>

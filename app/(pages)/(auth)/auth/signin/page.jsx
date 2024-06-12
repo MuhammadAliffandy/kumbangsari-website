@@ -156,7 +156,7 @@ const SignInPage = () => {
                     }
                 />
             {/*  */}
-            <Box className='  flex justify-end  top-0 mt-[40px]  w-[100%] absolute z-[1]'> 
+            <Box className='  flex justify-end  top-0 right-[30px] lg:right-0 xl:right-0 mt-[40px]  w-[100%] absolute z-[1]'> 
                 <AppCloseButton
                     onClick = {()=>{
                         push('/auth/signup')
@@ -169,7 +169,7 @@ const SignInPage = () => {
             } />
 
             <AppAnimationLayout>
-                <AppHeadline 
+                    <AppHeadline 
                         title = {'Selamat Datang Kembali!'}
                         subtitle = {'Masuk ke dalam akun, dan akses kembali datamu!'}
                     />

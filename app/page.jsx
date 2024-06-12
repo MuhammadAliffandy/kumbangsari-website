@@ -173,9 +173,9 @@ export default function LandingPage() {
             <p className="text-PRIMARY-500 text-[18px]">WELCOME TO PLANIFY</p>
             <Box className='flex flex-col gap-[8px] text-[32px] items-center font-poppins font-extrabold'>
               <p className="text-TEXT-1 text-center">One platform for all your</p>
-              <p className="text-PRIMARY-500">Social Media!</p>
+              <p className="text-PRIMARY-500 text-center">Social Media!</p>
             </Box>
-            <p className="text-NEUTRAL-700 text-[18px] w-[85%] text-center"
+            <p className="text-NEUTRAL-700 text-[18px] w-[100%] md:w-[85%] lg:w-[85%] xl:w-[85%] text-center"
             >Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
             <Box className='flex flex-col xl:flex-row items-center gap-[10px] '>
               <AppCustomButton className=' flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
@@ -200,13 +200,13 @@ export default function LandingPage() {
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1">Optimal, Efficient and Scheduled</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center">Optimal, Efficient and Scheduled</p>
                 </Box>
                 <Box className='flex flex-col xl:flex-row items-center gap-[40px] justify-center '>
                   {
                     items.map(data => {
                       return(
-                        <Box className='flex flex-col gap-[10px] items-center w-[20%]'>
+                        <Box className='flex flex-col gap-[10px] items-center w-[50%] md:w-[20%]  lg:w-[20%]  xl:w-[20%]'>
                           <img className="xl:w-[auto] w-[200px]  h-auto xl:h-[200px]" src={data.image} alt="picture-content" />
                           <p className="text-[14px] text-TEXT-1 font-bold text-center">{data.name}</p>
                           <p className="text-[12px] text-TEXT-1 text-center">{data.description}</p>
@@ -296,12 +296,12 @@ export default function LandingPage() {
       </section>
       {/*  */}
       <section id="subscription" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
-          <Box  className='flex flex-col items-center gap-[50px] w-[70%]' data-aos="fade-up">
+          <Box  className='flex flex-col items-center gap-[50px] w-[85%] md:w-[70%] lg:w-[70%] xl:w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
                   <p className="text-[18px] text-PRIMARY-500">Subscription</p>
                   <p className="text-[24px] font-extrabold text-TEXT-1 text-center">Affordable price for your business!</p>
                 </Box>
-                <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={4} className="p-[20px] w-[100%] flex flex-col xl:flex-row items-center" >
+                <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={4} className=" lg:xl:p-[20px]  xl:p-[20px] w-[100%] flex flex-col xl:flex-row items-center" >
                     {
                         subscriptionList.map((data,index)=>{
                             return(
@@ -350,7 +350,7 @@ export default function LandingPage() {
           <Box className='flex flex-col items-center gap-[50px] w-[100%] h-[70%]' data-aos="fade-up">
               <Box className='flex flex-col gap-[5px] items-center'>
                 <p className="text-[18px] text-PRIMARY-500">Testimonials</p>
-                <span className="flex items-center gap-[10px]">
+                <span className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center gap-[10px] text-center">
                   <p className="text-[24px] font-extrabold text-TEXT-1">What they say about</p>
                   <p className="text-[24px] font-extrabold text-PRIMARY-500">Planify</p>
                 </span>
@@ -365,19 +365,19 @@ export default function LandingPage() {
           </Box>
       </section>
       <footer className="w-[100%] h-[100%] xl:h-[50%] flex items-center pb-[50px]">
-          <Box className='flex flex-col justify-center px-[100px] xl:px-[200px] '>
-              <Box className='flex flex-col gap-[40px] xl:gap-[0px]  xl:flex-row justify-between  xl:items-start  border-y-[1px] border-TEXT-4 border-opacity-25 py-[15px]  '>
-                  <Box className='flex flex-col items-start gap-[10px]  w-[50%] xl:w-[30%]'>
+          <Box className='flex flex-col justify-center px-[50px] xl:px-[200px] '>
+              <Box className='flex flex-col gap-[40px] xl:gap-[0px]  xl:flex-row justify-between   items-center md:items-start lg:items-start xl:items-start  border-y-[1px] border-TEXT-4 border-opacity-25 py-[15px]  '>
+                  <Box className='flex flex-col items-center md:items-start lg:items-start  xl:items-start gap-[10px]  w-[50%] xl:w-[30%]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Who are we?</p>
-                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px]'>Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
+                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] text-center md:xl:text-left lg:text-left  xl:text-left'>Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
                   </Box>
                   {/*  */}
-                  <Box className='flex flex-col items-start gap-[10px]'>
+                  <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Who are we?</p>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] '>planify@mail.io</p>
                   </Box>
                   {/*  */}
-                  <Box className='flex flex-col items-start gap-[10px]'>
+                  <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Links</p>
                     <ul className="flex flex-col gap-[6px]">
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Why Planify?</a></li>
@@ -387,9 +387,9 @@ export default function LandingPage() {
                     </ul>
                   </Box>
                   {/*  */}
-                  <Box className='flex flex-col items-start gap-[10px]'>
+                  <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Contact</p>
-                    <ul className="flex flex-col gap-[6px]">
+                    <ul className="flex flex-col gap-[6px] items-center md:items-start lg:items-start xl:items-start">
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Email</a></li>
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Instagram</a></li>
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Twitter</a></li>
@@ -398,7 +398,7 @@ export default function LandingPage() {
                   </Box>
               </Box>
               {/*  */}
-              <Box className='flex flex-col xl:flex-row  items-start gap-[10px] xl:gap-0 xl:items-center justify-between py-[15px]'>
+              <Box className='flex flex-col xl:flex-row  items-center gap-[10px] xl:gap-0 xl:items-center justify-between py-[15px]'>
                   <Box className='flex items-center gap-[10px]'>
                       <img className='w-[20px] h-[20px]' src='/images/icon/logo/planify-black.svg' />
                       <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Planify</p>

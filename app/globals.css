@@ -133,7 +133,9 @@ body {
       font-size: 12px !important;  
   }
 
-  .fc-dayGridMonth-view {
+  .fc-dayGridMonth-view,
+  .fc-dayGridWeek-view,
+  .fc-dayGridDay-view{
     width: 200vw !important;
   }
   
