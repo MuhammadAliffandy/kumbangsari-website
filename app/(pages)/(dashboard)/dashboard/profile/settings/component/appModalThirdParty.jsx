@@ -76,7 +76,7 @@ const AppModalThirdParty = (props) => {
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.2 }}
-                    className = 'w-[40%] h-auto rounded-[20px] bg-white p-[20px] '>
+                    className = 'w-[90%]  md:w-[40%]  lg:w-[40%]  xl:w-[40%] h-auto rounded-[20px] bg-white p-[20px] '>
                     <Box  className='flex flex-col gap-[25px]'>
                         <Box className = 'flex justify-between'>
                             <p className = 'text-[16px] font-bold text-black' >Daftar Aplikasi Pihak Ketiga</p>
