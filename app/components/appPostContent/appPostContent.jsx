@@ -109,8 +109,6 @@ const AppPostContent = async (props ,push) => {
             }
         }
 
-        window.location.reload()
-
     } catch (error) {
 
         if(error.status == 403){

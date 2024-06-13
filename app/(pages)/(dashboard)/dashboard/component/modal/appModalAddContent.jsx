@@ -288,21 +288,21 @@ const AppModalAddContent = (props) => {
                     const dataPost = {
                         caption: res.data.captionPost != ''? res.data.captionPost : '',
                         hashtag:res.data.hashtagPost != '' ? res.data.hashtagPost : '',
-                        image: res.data.imageUrlPost != '' ? res.data.imageUrlPost : '' ,
+                        image: res.data.imageUrlPost != '' ? res.data.imageUrlPost[0] : '' ,
                         idProduct : res.data.idProduct,
                         idContent: res.data.idContent,
                         platform: res.data.platform,
                         }
                         
-                        AppPostContent(dataPost , push)
+                        AppToastPending(AppPostContent(dataPost , push))
                 }else{
                     fetchUpdateContentStatus(res.data.idContent)
+                    push('/dashboard/calendar')
                 }
 
 
                 props.onCloseButton(false)
                 props.onDone()
-                push('/dashboard/calendar')
 
             }
             
