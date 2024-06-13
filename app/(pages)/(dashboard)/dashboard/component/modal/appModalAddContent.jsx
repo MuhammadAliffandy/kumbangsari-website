@@ -27,6 +27,8 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending';
+// 
+import AppPostContent from '@/app/components/appPostContent/appPostContent'
 
 
 const AppModalAddContent = (props) => {
@@ -280,7 +282,24 @@ const AppModalAddContent = (props) => {
 
             if(res.status === 'OK'){
                 toast.success('Tambah Content Berhasil')
-                fetchUpdateContentStatus(res.data.idContent)
+                
+                if(upNow){
+
+                    const dataPost = {
+                        caption: res.data.captionPost != ''? res.data.captionPost : '',
+                        hashtag:res.data.hashtagPost != '' ? res.data.hashtagPost : '',
+                        image: res.data.imageUrlPost != '' ? res.data.imageUrlPost : '' ,
+                        idProduct : res.data.idProduct,
+                        idContent: res.data.idContent,
+                        platform: res.data.platform,
+                        }
+                        
+                        AppPostContent(dataPost , push)
+                }else{
+                    fetchUpdateContentStatus(res.data.idContent)
+                }
+
+
                 props.onCloseButton(false)
                 props.onDone()
                 push('/dashboard/calendar')
@@ -288,6 +307,7 @@ const AppModalAddContent = (props) => {
             }
             
         } catch (error) {
+
             if(error.status == 404 ){
                 toast.error('Tambah Content Gagal')
             }else{

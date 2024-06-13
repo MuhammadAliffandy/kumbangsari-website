@@ -25,6 +25,7 @@ import {formatDateTime, getCurrentDateTime} from '@/app/utils/helper'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending';
+import AppPostContent from '@/app/components/appPostContent/appPostContent'
 
 const AppModalEditContent = (props) => {
 
@@ -260,7 +261,23 @@ const AppModalEditContent = (props) => {
             const res = await editContentAIManual(contentAI.idContent ,formData)
 
             if(res.status == 'OK'){
-                fetchUpdateContentStatus()
+                
+                if(upNow){
+
+                    const dataPost = {
+                        caption: res.data.captionPost != ''? res.data.captionPost : '',
+                        hashtag:res.data.hashtagPost != '' ? res.data.hashtagPost : '',
+                        image: res.data.imageUrlPost != '' ? res.data.imageUrlPost : '' ,
+                        idProduct : res.data.idProduct,
+                        idContent: res.data.idContent,
+                        platform: res.data.platform,
+                        }
+                        
+                        AppPostContent(dataPost , push)
+                }else{
+                    fetchUpdateContentStatus(res.data.idContent)
+                }
+
                 toast.success('Edit Content AI Berhasil')
                 push('/dashboard/calendar')
             }
