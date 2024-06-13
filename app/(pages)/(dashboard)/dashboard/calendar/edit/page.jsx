@@ -238,9 +238,7 @@ const CalendarEditPage = () => {
                 toast.warning('Mohon isi platformnya')
                 return false
             }
-
-            console.log(hashtagString)
-
+            
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
             formData.append('platform', platform);

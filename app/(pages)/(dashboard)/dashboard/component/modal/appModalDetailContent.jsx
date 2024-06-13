@@ -77,7 +77,7 @@ const AppModalDetailContent = (props) => {
                         twitterIds:[resTwitterId.data.twitterId],
                         idContent: props.idContent,
                         tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrls:  props.image != null || props.image == 'null' || props.image == '' ? [
+                        imageUrls:  props.image != null || props.image != 'null' || props.image != '' ? [
                             props.image,
                         ] : []
                     }
@@ -101,7 +101,9 @@ const AppModalDetailContent = (props) => {
                     const data = {
                         idContent: props.idContent,
                         caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrl:props.image,
+                        imageUrl:props.image != null || props.image != 'null' || props.image != '' ? 
+                        props.image
+                        : null
                     }
     
                     const res = await instagramPost(data)
@@ -125,7 +127,9 @@ const AppModalDetailContent = (props) => {
                     const data = {
                         idContent: props.idContent,
                         caption:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrl:props.image,
+                        imageUrl:props.image != null || props.image != 'null' || props.image != '' ? 
+                        props.image
+                        : null
                     }
     
                     const res = await facebookPost(data)

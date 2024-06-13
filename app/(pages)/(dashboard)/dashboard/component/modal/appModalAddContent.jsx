@@ -59,10 +59,21 @@ const AppModalAddContent = (props) => {
     const [ captionAIHistory , setCaptionAIHistory ] = useState([])
     const [ imageAIHistory , setImageAIHistory ] = useState([])
     const [ hashtagAIHistory , setHashtagAIHistory ] = useState([])
+
+
+    const resetForm = () => {
+        setContentTitle('')
+        setPlatform('')
+        setCaption('')
+        setHashtagString('')
+        setImage(null)
+        setProductImage(null)
+    }
     
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
+    
 
     const handleChangeImage = (value) => {
         setImage(value)
@@ -291,6 +302,7 @@ const AppModalAddContent = (props) => {
 
 
     useEffect(()=>{
+        resetForm()
         getUserProduct()
         getRecommendationAI()
         localStorage.setItem('hashtag','[]')
