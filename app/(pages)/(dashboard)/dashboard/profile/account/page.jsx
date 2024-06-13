@@ -159,7 +159,7 @@ const ProfilePage = () => {
                                         text={'Keluar'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                            push('/auth/signin')
+                                            push('/')
                                             setCookie('token','')
                                         }}
                                 />

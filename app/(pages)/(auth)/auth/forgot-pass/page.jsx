@@ -24,11 +24,8 @@ const ForgotPasswordPage = () => {
             const res = await resetPasswordAuth({email : data.email});
 
             if(res.status == 'OK'){
-                toast.success('Email Berhasil dikirim' , {
-                    onClose : () => {
-                        push('/auth/signin')
-                    }
-                })
+                toast.success('Email Berhasil dikirim')
+                push('/auth/signin')
             }
         } catch (error) {
             if(error.status == 404){
