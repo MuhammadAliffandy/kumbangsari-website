@@ -3,12 +3,54 @@ import AppNavSidebar  from './appNavSidebar'
 import AppExpansionList from "@/app/components/appExpansionList/appExpansionList";
 import Box from '@mui/material/Box'
 import { setCookie } from '@/app/utils/helper';
-
+import AppCustomModal from '@/app/components/appModal/AppCustomModal';
+import AppButton from '@/app/components/appButton/appButton';
+import { useState } from 'react';
 
 const AppSidebar = (props)=> {
     const { push } = useRouter();
+    const [ modalLogout , setModalLogout ] = useState(false)
+
+
     return(
         <Box className = { props.isDrawer ? 'w-[70vw] md:w-[40vw] lg:w-[40vw] xl:w-[40vw] h-[100vh] gap-[10px] flex flex-col '  : `w-[100%] `}>
+            <AppCustomModal
+                    open={modalLogout}
+                    withClose={true}
+                    width={'md:w-[30vw] lg:xl:w-[30vw] xl:w-[30vw]'}
+                    modalType='modal-status'
+                    status={'info'}
+                    titleTop={true}
+                    alignment={'center text-center'}
+                    title={'Keluar Akun'}
+                    subtitle={'Anda yakin akan keluar ?'}
+                    onClose={()=>{}}
+                    onCloseButton={(value)=> {
+                        setModalLogout(false)
+                    }}
+                    children={
+                        <Box className=' flex  gap-[10px] w-[100%]'>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Tidak'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalLogout(false)
+                                    }}/>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={ 'Iya'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    push('/')
+                                    setCookie('token','')
+                                    setModalLogout(false)
+                                }}
+                            />
+                        </Box>
+                    }
+                />
+            {/*  */}
             {props.isDrawer ? 
                 <Box className={`py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]`}>
                     <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
@@ -119,8 +161,7 @@ const AppSidebar = (props)=> {
                         onlyButton = {true}
                         urlNavigation='/'
                         onClick={()=>{
-                            push('/')
-                            setCookie('token','')
+                           setModalLogout(true)
                         }}
                         isSubscription={true}
                     />

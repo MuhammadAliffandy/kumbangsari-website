@@ -2,6 +2,7 @@
 
 import AppButton from "@/app/components/appButton/appButton";
 import AppLayout from "../../component/AppLayout";
+import AppCustomModal from '@/app/components/appModal/AppCustomModal';
 import Box from '@mui/material/Box'
 import AppModalChangePass from '@/app/(pages)/(dashboard)/dashboard/profile/component/appModalChangePass'
 import AppTextField from '@/app/components/appTextField/appTextField'
@@ -10,6 +11,7 @@ import { useForm , } from 'react-hook-form';
 import { getUserProfile , editUserProfile } from '@/app/api/repository/userRepository'
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { setCookie } from "@/app/utils/helper";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import { useRouter } from "next/navigation";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
@@ -27,6 +29,7 @@ const ProfilePage = () => {
     const inputFileImageRef = useRef(null)
     const [fileImage, setFileImage] = useState(null);
     const [imgPayload, setImgPayload] = useState(null);
+    const [ modalLogout , setModalLogout ] = useState(false)
 
     const handleFileChange = (event) => {
         const value = event.target.files[0]
@@ -125,6 +128,42 @@ const ProfilePage = () => {
                     setOpenModalChangePass(value)
                 }}
             />
+            <AppCustomModal
+                    open={modalLogout}
+                    withClose={true}
+                    width={'md:w-[30vw] lg:xl:w-[30vw] xl:w-[30vw]'}
+                    modalType='modal-status'
+                    status={'info'}
+                    titleTop={true}
+                    alignment={'center text-center'}
+                    title={'Keluar Akun'}
+                    subtitle={'Anda yakin akan keluar ?'}
+                    onClose={()=>{}}
+                    onCloseButton={(value)=> {
+                        setModalLogout(false)
+                    }}
+                    children={
+                        <Box className=' flex  gap-[10px] w-[100%]'>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={'Tidak'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    setModalLogout(false)
+                                    }}/>
+                            <AppButton
+                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
+                                text={ 'Iya'} 
+                                type = {'button'}
+                                onClick={()=>{
+                                    push('/')
+                                    setCookie('token','')
+                                    setModalLogout(false)
+                                }}
+                            />
+                        </Box>
+                    }
+                />
             <Box className = "grow h-[86%] p-[20px] bg-white">
                 <Box className='h-[100%] w-[100%] flex flex-col bg-NEUTRAL-100 rounded-[20px] relative'>
                     <Box className='w-[100%] bg-gradient-to-r from-[#44B8F8] to-[#4F55E3] rounded-t-[20px] h-[30%]'>
@@ -159,8 +198,7 @@ const ProfilePage = () => {
                                         text={'Keluar'} 
                                         type = {'Submit'}
                                         onClick = {()=>{
-                                            push('/')
-                                            setCookie('token','')
+                                            setModalLogout(true)
                                         }}
                                 />
                             </AppAnimationButton>
