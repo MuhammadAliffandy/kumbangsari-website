@@ -132,16 +132,19 @@ const  AppModalGenerateAI = (props ) => {
                 caption : caption ,
                 hashtag: hashtag,
             }
+
+            console.log(data)
+
             const res = await generateAI(data);
             
             if(res.status == 'OK'){
-                dispatch( setGenerateHistory(data) )
+                // dispatch( setGenerateHistory(data) )
 
-                if(getCookie('generateContentHistory') != null ){
-                    dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
-                }else{
-                    dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
-                }
+                // if(getCookie('generateContentHistory') != null ){
+                //     dispatch( updateContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
+                // }else{
+                //     dispatch( createContentHistory({ ...data ,  productName : productList[data.idProduct - 1].text , idContent : res.data.idContent }))
+                // }
 
                 const mapping = await mappingGenerateAIValue(res.data);
                 toast.success('Generate Content AI Berhasil')
@@ -179,6 +182,12 @@ const  AppModalGenerateAI = (props ) => {
     useEffect(()=>{
         getUserProduct() 
     },[])
+
+    useEffect(()=>{
+        setCaption(false)
+        setHashtag(false)
+        setImage(false)
+    },[props.open])
 
     return(
         <Modal 

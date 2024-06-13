@@ -111,6 +111,7 @@ const AddProductPage = () => {
             const res = await addProduct(data);
             if(res.status == 'OK'){
                 toast.success('Produk berhasil ditambahkan ')
+                push('/dashboard')
                 setLoadingProgress(100)
             } 
         } catch (error) {
@@ -127,6 +128,10 @@ const AddProductPage = () => {
             const schoolValue = localStorage.getItem('school');
             const jobValue = localStorage.getItem('job');
             
+            if( nameProduct == ''  && jobValue == '' && schoolValue == '' && categoryProduct == '' && genderValue == ''){
+                toast.warn('Mohon di isi semua !!')
+            }
+
             const jsonData = {
                 nameProduct :nameProduct,
                 age : ageRange,
@@ -180,7 +185,7 @@ const AddProductPage = () => {
             }
 
             clearForm()
-            push('/dashboard')
+        
         } catch (error) {
             toast.error('Server error')
         }
@@ -213,7 +218,7 @@ const AddProductPage = () => {
                 onLoaderFinished={() => setLoadingProgress(0)
             } />
 
-            <Box className='flex justify-start w-[100%] px-[20px] xl:px-[140px] md:px-[70px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
+            <Box className='flex justify-start w-[100%] px-[20px] xl:px-[140px] md:px-[20px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}
@@ -229,7 +234,7 @@ const AddProductPage = () => {
                     }}
                 />
             </Box>
-            <Box className='flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-[95vw] px-[10px] md:w-[90%] lg:w-[90%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-auto lg:overflow-x-hidden xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+            <Box className='flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-[95vw] px-[10px] md:w-[100%] lg:w-[100%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-auto lg:overflow-x-scroll xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
                 <AppAnimationLayout>
                     <AppHeadline 
                         title = {'Data Produk'}
