@@ -37,7 +37,12 @@ const  ResetPasswordPage = () => {
             const jsonData = {
                 uniqueId : uniqueId,
                 newPassword : data.password,
-                newConfirmPassword : data.password, 
+                newConfirmPassword : data.confirmPassword, 
+            }
+
+            if(data.password != data.confirmPassword){
+                toast.warn('Passward tidak cocok')
+                return false
             }
 
             const res = await verifyPasswordAuth(jsonData)
@@ -48,7 +53,7 @@ const  ResetPasswordPage = () => {
                 toast.success('Ganti Kata Sandi Berhasil')
                 setLoadingProgress(100)
                 push('/auth/signin')
-                }
+            }
                 
         } catch (error) {
             if(error.status == 400){
