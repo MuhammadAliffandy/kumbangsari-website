@@ -307,7 +307,7 @@ const AppModalAddContent = (props) => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className = 'xl:w-[90%] h-[90vh] xl:h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+                className = ' w-[90%]  md:w-[90%]  lg:w-[90%] xl:w-[90%] h-[90vh] xl:h-[80vh] rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* Modal validation */}
                 <AppCustomModal
                     open={modalValidation}
@@ -463,7 +463,7 @@ const AppModalAddContent = (props) => {
                                     setHashtagAI(generalHashtagAI)
                                 }}
                             />
-                            <Grid container spacing={1}>
+                            <Grid container spacing={1} className='w-[100vw]'>
                             {
                                 hashtagAI.map((data,index) => {
                                     return ( 

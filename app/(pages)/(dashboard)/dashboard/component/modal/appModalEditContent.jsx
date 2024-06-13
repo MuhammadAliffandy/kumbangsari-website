@@ -294,7 +294,7 @@ const AppModalEditContent = (props) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
-            className = 'w-[90%] h-[90vh] xl:h-[80vh]  rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
+            className = 'w-[90%]  md:w-[90%]  lg:w-[90%] xl:w-[90%]  h-[90vh] xl:h-[80vh]  rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] '>
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     <p className = 'text-[18px] font-bold text-black' >Edit Konten</p>

@@ -28,12 +28,7 @@ const SignUpPage  = () => {
     const password = watch('password', '');
     
     const notify = () => {
-        toast.success('Pendaftaran Berhasil',{
-            onClose : () => {
-                push('/auth/otp-verified')
-                setLoadingProgress(100)
-            }
-        })
+        toast.success('Pendaftaran Berhasil')
     }
 
     const onSubmit= async (data ) => {
@@ -45,14 +40,19 @@ const SignUpPage  = () => {
 
             if(res.status == 'OK'){
                 notify();
+                push('/auth/otp-verified')
+                setLoadingProgress(100)
             }
         } catch (error) {
             if(error.status === 404){
                 toast.error('Email Sudah Digunakan')
-            }else{
-
+            }else if(error.status == 400){
+                toast.error(error.data.message)
+            }
+            else{
                 toast.error('Ada Kesalahan Server');
             }
+            setLoadingProgress(100)
         }
 
 
