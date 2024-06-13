@@ -47,6 +47,7 @@ const AppModalEditContent = (props) => {
     const [ imageRecommendation , setImageRecommendation ] = useState([])
     const [ hashtagRecommendation , setHashtagRecommendation ] = useState([])
     
+    
     const handleChangePlatform = (event) => {
         setPlatform(event.target.value)
     }
@@ -141,6 +142,7 @@ const AppModalEditContent = (props) => {
      
             setContentTitle(contentAI.contentTitle)
             setProduct(contentAI.productName)
+            setImage(contentAI.image)
             setProductImage(contentAI.image)
             setPlatform(contentAI.platform)
             setCaption(contentAI.caption)
@@ -187,7 +189,6 @@ const AppModalEditContent = (props) => {
         // to created hashtag string at ui 
         convertHashtagString(matchHashtag)
     }
-
 
     const fetchUpdateContentStatus = async () => {
         try {

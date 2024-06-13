@@ -77,7 +77,7 @@ const AppModalDetailContent = (props) => {
                         twitterIds:[resTwitterId.data.twitterId],
                         idContent: props.idContent,
                         tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                        imageUrls:  props.image ? [
+                        imageUrls:  props.image != null || props.image == 'null' || props.image == '' ? [
                             props.image,
                         ] : []
                     }

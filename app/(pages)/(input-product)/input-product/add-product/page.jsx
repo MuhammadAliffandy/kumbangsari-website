@@ -234,7 +234,7 @@ const AddProductPage = () => {
                     }}
                 />
             </Box>
-            <Box className='bg-red-500 flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-[95vw] px-[10px] md:w-[100%] lg:w-[100%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-auto lg:overflow-x-scroll xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+            <Box className=' flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-auto px-[10px] md:w-[100%] lg:w-[100%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-scroll md:overflow-x-scroll lg:overflow-x-scroll xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
                 <AppAnimationLayout>
                     <AppHeadline 
                         title = {'Data Produk'}

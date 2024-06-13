@@ -53,7 +53,6 @@ const CalendarEditPage = () => {
         
         const dateValue = dateObj.toISOString().split('T')[0];
         const timeValue = dateObj.toISOString().split('T')[1].substring(0, 5);
-    
         setDateUp(dateValue);
         setTimeUp(timeValue);
     };
@@ -144,9 +143,11 @@ const CalendarEditPage = () => {
     }
 
     const getContentUser = () => {
+
         setContentTitle(contentAI.contentTitle)
         setProduct(contentAI.productName)
-        setProductImage(contentAI.imageUrlPost)
+        setProductImage(contentAI.imageUrlPost == "null" || contentAI.imageUrlPost == "" || contentAI.imageUrlPost == null ? null : contentAI.imageUrlPost )
+        setImage(contentAI.imageUrlPost == "null" || contentAI.imageUrlPost == "" || contentAI.imageUrlPost == null ? null : contentAI.imageUrlPost) 
         setPlatform(contentAI.platform)
         setCaption(contentAI.captionPost)
         setDateTime(contentAI.dates.postedAt)
@@ -181,7 +182,7 @@ const CalendarEditPage = () => {
 
         // 
 
-        const hashtagKeep = JSON.parse(localStorage.getItem('hashtag'))  
+        const hashtagKeep = JSON.parse(localStorage.getItem('hashtag') || '[]')  
 
         const filteredDataArr = hashtagAI.filter(value => !popData.includes(value));
 
@@ -237,6 +238,8 @@ const CalendarEditPage = () => {
                 toast.warning('Mohon isi platformnya')
                 return false
             }
+
+            console.log(hashtagString)
 
             const formData = new FormData();
             formData.append('contentTitle', contentTitle);
