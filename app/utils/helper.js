@@ -67,10 +67,10 @@ export const formatDateTime = (inputDate, inputTime) => {
     const dateComponents = inputDate.split("-");
     const timeComponents = inputTime.split(":");
 
-    const hours = parseInt(timeComponents[0]);
-    const minutes = parseInt(timeComponents[1]);
-    const seconds = timeComponents[2] ? parseInt(timeComponents[2]) : 0;
-
+    const hours = timeComponents[0];
+    const minutes = timeComponents[1];
+    const seconds = timeComponents[2] ? timeComponents[2] : 0;
+    
     const postedAt = new Date(
         parseInt(dateComponents[0]),
         parseInt(dateComponents[1]) - 1, 
@@ -80,7 +80,13 @@ export const formatDateTime = (inputDate, inputTime) => {
         seconds
     );
 
-    const formattedDateTime = postedAt.toISOString();
+    const year = postedAt.getUTCFullYear();
+    const month = String(postedAt.getUTCMonth() + 1).padStart(2, '0'); 
+    const day = String(postedAt.getUTCDate()).padStart(2, '0');
+
+
+
+    const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
     return formattedDateTime;
 }
 

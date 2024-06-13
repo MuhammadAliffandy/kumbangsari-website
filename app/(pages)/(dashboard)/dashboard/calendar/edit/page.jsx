@@ -49,10 +49,9 @@ const CalendarEditPage = () => {
 
 
     const setDateTime = (dateTimeString) => {
-        const dateObj = new Date(dateTimeString);
         
-        const dateValue = dateObj.toISOString().split('T')[0];
-        const timeValue = dateObj.toISOString().split('T')[1].substring(0, 5);
+        const dateValue = dateTimeString.split('T')[0];
+        const timeValue = dateTimeString.split('T')[1].split('.000Z')[0] ;
         setDateUp(dateValue);
         setTimeUp(timeValue);
     };
