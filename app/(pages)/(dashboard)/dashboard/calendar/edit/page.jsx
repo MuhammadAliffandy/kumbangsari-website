@@ -248,7 +248,7 @@ const CalendarEditPage = () => {
                 formData.append('postedAt', formatDateTime(dateUp,timeUp));
             }
 
-            if(image.type){
+            if(image?.type){
                 formData.append('image', '');
                 formData.set('files',image, image.name );
             }else{
@@ -265,6 +265,7 @@ const CalendarEditPage = () => {
             }
 
         } catch (error) {
+
             if(error.status == 404){
                 toast.error('Edit Content Gagal')
             }else{
