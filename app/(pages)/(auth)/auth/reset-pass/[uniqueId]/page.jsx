@@ -45,14 +45,18 @@ const  ResetPasswordPage = () => {
             setLoadingProgress(80)
 
             if(res.status == 'OK'){
-                toast.success('Ganti Kata Sandi Berhasil' , {  onClose : () => { 
-                    setLoadingProgress(100)
-                    push('/auth/signin')
-                } })
-            }
-            
+                toast.success('Ganti Kata Sandi Berhasil')
+                setLoadingProgress(100)
+                push('/auth/signin')
+                }
+                
         } catch (error) {
-            toast.error('Ada Kesalahan Server')   
+            if(error.status == 400){
+                toast.error(error.data.message)
+            }else{
+                toast.error('Ada Kesalahan Server')   
+            }
+                setLoadingProgress(100)
         }
 
 
