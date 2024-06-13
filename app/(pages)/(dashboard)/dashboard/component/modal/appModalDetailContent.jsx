@@ -86,9 +86,14 @@ const AppModalDetailContent = (props) => {
             
                     if(res.status == 'OK'){
                         toast.success('Posting Konten Twitter Berhasil')
-                        props.onCloseButton(false)
                         
+                        if(props.isGenerate){
+                            fetchEditContent()
+                        }
+                        push('/dashboard/calendar')
+                        props.onCloseButton(false)
                     }
+                    
                     
                 }else{
                     toast.error('Gagal Menemukan Id Twitter')
@@ -110,13 +115,19 @@ const AppModalDetailContent = (props) => {
     
                     if(res.status == 'OK'){
                         toast.success('Posting Konten Instagram Berhasil')
+                        if(props.isGenerate){
+                            fetchEditContent()
+                        }
+                        push('/dashboard/calendar')
                         props.onCloseButton(false)
-                        
                     }
+
                 } catch (error) {
                     if(error.status == 400){
                         toast.warn('Cek Konektivitas Akun Instagram Anda !!')
                         return false
+                    }else{
+                        toast.error('Ada Kesalahan Sever (500)')
                     }
                 }
             }
@@ -136,21 +147,26 @@ const AppModalDetailContent = (props) => {
     
                     if(res.status == 'OK'){
                         toast.success('Posting Konten Facebook Berhasil')
-                        props.onCloseButton(false)
                         
+                        if(props.isGenerate){
+                            fetchEditContent()
+                        }
+                        push('/dashboard/calendar')
+                        props.onCloseButton(false)
+                    
+
                     }
+
                 } catch (error) {
                     if(error.status == 400){
                         toast.warn('Cek Konektivitas Akun Facebook Anda !!')
                         return false
+                    }else{
+                        toast.error('Ada Kesalahan Sever (500)')
                     }
                 }
             }
 
-            if(props.isGenerate){
-                fetchEditContent()
-            }
-            push('/dashboard/calendar')
             props.onDone()
 
         } catch (error) {
