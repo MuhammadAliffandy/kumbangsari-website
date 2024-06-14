@@ -595,12 +595,12 @@ const ProductDetailPage = () => {
                         </Box>
                 </Box>
                 {/*  */}
-                <p className="text-TEXT-1 font-bold text-[16px]">Daftar Riwayat</p> 
+                {/* <p className="text-TEXT-1 font-bold text-[16px]">Daftar Riwayat</p> 
                 <Box className='bg-NEUTRAL-100 flex justify-between gap-[10px] items-center p-[20px] rounded-[20px]'>
                     <AppTableProduct
                         data={userTableHistory}
                     />
-                </Box>
+                </Box> */}
             </Box>
         </AppLayout>
     )

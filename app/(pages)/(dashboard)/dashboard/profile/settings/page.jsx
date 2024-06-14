@@ -285,24 +285,14 @@ const SettingsPage = () => {
                         <Box className='flex flex-col gap-[10px]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Keamanan</p> 
                             <Box className='flex gap-[10px] items-center '>
-                                <p className="text-TEXT-1 text-[14px]  break-words">Keluar secara otomatis apabila tidak ada aktivitas dalam waktu: </p>
-                                <Box className='w-[50%]'>
-                                    <AppDropDown
-                                            sx={{
-                                                borderRadius: "15px",
-                                                height:'30px',
-                                                backgroundColor: '#E9ECEF',
-                                                width:"30%",
-                                                fontSize:'12px',
-                                                borderColor: 'transparent',
-                                                width:'100%'
-                                            }}
-                                            value={notifHour}
-                                            placeholder={'30 Menit'}
-                                            listItem = {listDropNotifHour}
-                                            onChange={handleDropDownNotifHour}
-                                        />
-                                </Box>
+                                <AppCheckBox
+                                    value= 'true'
+                                    checked={settingsData.connectivity?.notificationExpiresInPlatform}
+                                    label = 'Berikan himbauan aktivitas mencurigakan dalam akun'
+                                    onChange= {(value , label)=>{
+                                        notifyFetchUpdateUserSettings({notificationExpiresInPlatform : !settingsData.connectivity?.notificationExpiresInPlatform} , 'notificationExpiresInPlatform')
+                                    }}
+                                />
                             </Box>
                             <p onClick={()=> {setModalProductList(true)}} className="text-PRIMARY-400 text-[14px] underline cursor-pointer ">Akses Aplikasi pihak ketiga</p>     
                         </Box>
