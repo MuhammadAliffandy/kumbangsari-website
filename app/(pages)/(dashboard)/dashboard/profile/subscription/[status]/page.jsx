@@ -215,7 +215,9 @@ const SubscriptionPage = () => {
     useEffect( ()=> {
         if(statusPaymentParams == 'success' || statusPaymentParams == 'failed'){
             dispatch(setUserSubscriptionData(user.subscription))
-            push('/dashboard/profile/subscription/pay')
+            if(userSubs != null){
+                push('/dashboard/profile/subscription/pay')
+            }
         }
     },[statusPaymentParams , user])
 

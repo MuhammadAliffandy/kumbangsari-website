@@ -113,8 +113,9 @@ const AddProductPage = () => {
                 toast.success('Produk berhasil ditambahkan ')
                 push('/dashboard')
                 setLoadingProgress(100)
-            } 
+                } 
         } catch (error) {
+                setLoadingProgress(100)
                 toast.error('Data gagal Ditambahkan')
         }
     }
@@ -130,6 +131,7 @@ const AddProductPage = () => {
             
             if( nameProduct == ''  && jobValue == '' && schoolValue == '' && categoryProduct == '' && genderValue == ''){
                 toast.warn('Mohon di isi semua !!')
+                return false
             }
 
             const jsonData = {

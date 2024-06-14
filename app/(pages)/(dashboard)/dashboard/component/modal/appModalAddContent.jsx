@@ -281,7 +281,6 @@ const AppModalAddContent = (props) => {
             const res = await createContentAIManual(formData)
 
             if(res.status === 'OK'){
-                toast.success('Tambah Content Berhasil')
                 
                 if(upNow){
 
@@ -295,9 +294,10 @@ const AppModalAddContent = (props) => {
                         }
                         
                         AppToastPending(AppPostContent(dataPost , push))
-                }else{
-                    fetchUpdateContentStatus(res.data.idContent)
-                    push('/dashboard/calendar')
+                    }else{
+                        fetchUpdateContentStatus(res.data.idContent)
+                        toast.success('Tambah Content Berhasil')
+                        push('/dashboard/calendar')
                 }
 
 
@@ -622,7 +622,7 @@ const AppModalAddContent = (props) => {
                         <Box className='w-[35%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
                             <AppButton
                                 className='w-[100%] p-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
-                                text={'Simpan'} 
+                                text={upNow ? 'Unggah' : 'Simpan'} 
                                 type = {'button'}
                                 onClick={()=>{
                                     caption != '' && hashtagString != '' && image != null ?

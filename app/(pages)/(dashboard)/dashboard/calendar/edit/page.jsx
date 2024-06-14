@@ -276,11 +276,11 @@ const CalendarEditPage = () => {
                         AppToastPending(AppPostContent(dataPost , push))
                 }else{
                     fetchUpdateContentStatus(res.data.idContent)
+                    toast.success('Edit Content AI Berhasil')
                     push('/dashboard/calendar')
                 }
 
 
-                toast.success('Edit Content AI Berhasil')
             }
 
         } catch (error) {
@@ -505,7 +505,7 @@ const CalendarEditPage = () => {
                                     <Box className='w-[100%]'>
                                         <AppButton
                                             className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
-                                            text={'Simpan'} 
+                                            text={upNow ? 'Unggah' : 'Simpan'} 
                                             type = {'button'}
                                             onClick={()=>{
                                                 notifyHandleEditContent()

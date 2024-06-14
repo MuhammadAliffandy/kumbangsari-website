@@ -32,7 +32,7 @@ const AppModalPaymentDetail = (props) => {
                         
                         {/*  */}
                         <Box className='flex flex-col xl:flex-row lg:flex-row w-[100%] gap-[15px]'>
-                                <Box className=' w-[100%] xl:w-[50%] lg:w-[50%] border-[1px] border-NEUTRAL-100 rounded-[20px]'>
+                                <Box className=' w-[100%] xl:w-[50%] lg:w-[50%]  bg-NEUTRAL-100 rounded-[20px]'>
                                     <Box className='flex flex-col gap-[15px] p-[20px]'>
                                         <p className = 'text-[18px] font-bold text-PRIMARY-500' >{props.data.title || 'Paket'}</p>
                                         <Box className={'flex flex-col gap-[5px]'}>
@@ -52,7 +52,7 @@ const AppModalPaymentDetail = (props) => {
                                 </Box>
                                 <Box className='w-[100%] flex  flex-col gap-[15px]'>
 
-                                    <Box className='border-[1px] border-NEUTRAL-100 rounded-[20px] flex flex-col p-[20px] gap-[15px]'>
+                                    <Box className=' bg-NEUTRAL-100 rounded-[20px] flex flex-col p-[20px] gap-[15px]'>
                                         <p className = 'text-[14px] font-bold text-black' >Detail Tagihan</p>
                                         <Box className='flex flex-col gap-[10px]'>
                                             <span className="flex w-[100%] justify-between">
