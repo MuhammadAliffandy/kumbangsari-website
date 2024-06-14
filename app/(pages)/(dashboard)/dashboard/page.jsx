@@ -393,11 +393,11 @@ const DashboardPage = () => {
                 </>
             }
             />
-            <Box className={` grow w-[100%] flex ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
+            <Box className={` grow h-[86%] w-[100%] flex ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
                 {/* 
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] h-[100%] flex flex-col gap-[15px]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%] px-[20px]' : xl ?  'w-[60%] pl-[20px]'  : 'w-[65%] pl-[20px]'  } py-[20px] flex flex-col gap-[15px]  h-[100%]`}>
 
                     <Box className={`${ sm || lg ? 'w-[100%] flex justify-between' : 'w-[100%]'}`}>
                         <Box className='flex items-center justify-left gap-[10px]'>
@@ -435,7 +435,7 @@ const DashboardPage = () => {
 
                     {/*  */}
 
-                    <Box className='rounded-[20px] p-[20px]  flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md '>
+                    <Box className='flex-none rounded-[20px] p-[20px]  flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md h-auto '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Preview Konten</p> 
                         <Box  className='h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTablePreview
@@ -452,11 +452,11 @@ const DashboardPage = () => {
 
                     {/*  */}
 
-                    <Box className='grow rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
-                        <Box className='flex items-center justify-start '>
+                    <Box className='grow rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md '>
+                        <Box className='flex-none flex items-center justify-start '>
                             <p className="text-TEXT-1 font-bold text-[16px]">Rekomendasi Konten</p>
                         </Box>
-                        <Box  className=' max-h-[80vh] md:max-h-[23vh] lg:max-h-[23vh] xl:max-h-[23vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box  className='grow h-[80vh] md:h-[20vh] lg:h-[20vh] xl:h-[20vh] overflow-x-hidden overflow-y-auto scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <Grid container direction={ sm || lg || md || xl ? 'column' : 'row' }  justifyContent="flex-start" alignItems="flex-start" spacing={2} className=" p-[8px] " >
                                 {
                         
@@ -464,7 +464,7 @@ const DashboardPage = () => {
 
                                     currentPageData.map((data,index) => {
                                         return ( 
-                                            <Grid className="w-[100%]" key = {index} item xs={ 6}>
+                                            <Grid className="w-[100%]" key = {index} item xs={6}>
                                                 <AppContent
                                                     key={index}
                                                     isDashboard = {true}
@@ -529,7 +529,7 @@ const DashboardPage = () => {
                                 }
                             </Grid>
                         </Box>
-                        <Box className = 'w-[100%] flex items-center justify-center'>
+                        <Box className = 'flex-none w-[100%] flex items-center justify-center'>
                             {
                                 contentAI.length > 0 ? 
                                 <ReactPaginate
@@ -550,7 +550,7 @@ const DashboardPage = () => {
                 {/* 
                 *
                 */}
-                <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } p-[20px] grow flex flex-col gap-[15px]`}>
+                <Box className={`${ sm || lg || md ? 'w-[100%]' : xl ? 'w-[40%]' : ' w-[35%]' } p-[20px] grow flex flex-col gap-[15px] h-[100%]`}>
 
                     <Box className='flex items-center justify-end w-[100%]'>
                         {
@@ -564,7 +564,7 @@ const DashboardPage = () => {
                         }
                     </Box>
 
-                    <Box className= 'rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md  '>
+                    <Box className= 'flex-none rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md h-auto  '>
                         <p className="text-TEXT-1 font-bold text-[16px]">Rekap Hari Ini</p>
                         <Box className='h-[25vh] lg:h-[20vh] xl:h-[20vh] overflow-x-hidden scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                             <AppTableRecap
@@ -573,12 +573,12 @@ const DashboardPage = () => {
                             />
                         </Box>
                     </Box>
-                    {/* filter bar  */}
+                    {/* list hashatag  */}
                     <Box className= ' grow  rounded-[20px] p-[20px] flex flex-col gap-[15px] bg-NEUTRAL-100 hover:shadow-md '>
-                        <Box className='flex items-center justify-between w-[100%]'>
+                        <Box className='flex-none flex items-center justify-between w-[100%]'>
                             <p className="text-TEXT-1 font-bold text-[16px]">Trending Hashtag</p>
                         </Box>
-                        <Box className=' h-[30vh] py-[10px] pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
+                        <Box className='grow h-[30vh] py-[10px] pl-[4px] pr-[5px] flex flex-col gap-[15px] overflow-x-hidden overflow-y-auto scrollbar scrollbar-w-[4px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'>
                         {
                                 trendingDataHashtag.length > 0 ? 
                                 trendingDataHashtag.map((data,index) => {
