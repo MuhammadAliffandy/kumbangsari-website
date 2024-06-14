@@ -60,6 +60,14 @@ const AppModalAddProduct = (props) => {
                     category : categoryProduct,
                     gender : convertValueCheckbox(genderValue),
                 };
+
+                if( nameProduct == ''  || jobValue == '' || schoolValue == '' || categoryProduct == '' || genderValue == ''){
+                    toast.warn('Mohon di isi semua !!')
+                    return false
+                }
+    
+
+
                 const res = await addProduct(jsonData);
                 if(res.status == 'OK'){
                     toast.success('Produk berhasil ditambahkan ')

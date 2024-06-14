@@ -129,8 +129,9 @@ const AddProductPage = () => {
             const schoolValue = localStorage.getItem('school');
             const jobValue = localStorage.getItem('job');
             
-            if( nameProduct == ''  && jobValue == '' && schoolValue == '' && categoryProduct == '' && genderValue == ''){
+            if( nameProduct == ''  || jobValue == '' || schoolValue == '' || categoryProduct == '' || genderValue == ''){
                 toast.warn('Mohon di isi semua !!')
+                setLoadingProgress(100)
                 return false
             }
 
@@ -164,13 +165,13 @@ const AddProductPage = () => {
 
         try {
             const product1Value = localStorage.getItem( 'product1')
-            const product1 = JSON.parse(product1Value);
+            const product1 = JSON.parse(product1Value || '[]');
             
             const product2Value = localStorage.getItem( 'product2')
-            const product2 =  product2Value != '' ? JSON.parse(product2Value) : '';
+            const product2 =  product2Value != '' ? JSON.parse(product2Value || '[]') : '';
             
             const product3Value = localStorage.getItem( 'product3')
-            const product3 = product3Value != '' ? JSON.parse(product3Value) : '';
+            const product3 = product3Value != '' ? JSON.parse(product3Value || '[]') : '';
 
             setLoadingProgress(50)
     
@@ -189,6 +190,7 @@ const AddProductPage = () => {
             clearForm()
         
         } catch (error) {
+            console.log(error)
             toast.error('Server error')
         }
     }
@@ -283,7 +285,7 @@ const AddProductPage = () => {
                                 }}
                             />
                             {/* checkbox */}
-                            <Box className='flex flex-col gap-[20px] xl:flex-row xl:gap-0 justify-between'>
+                            <Box className='flex flex-col gap-[20px] md:flex-row lg:flex-row xl:flex-row xl:gap-0 justify-between'>
                                 <Box>
                                     <label className='text-black font-semibold'>Gender</label>
                                     <CustomSpacing height={10} />
