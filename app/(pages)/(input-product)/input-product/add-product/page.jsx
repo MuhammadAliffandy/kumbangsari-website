@@ -215,14 +215,14 @@ const AddProductPage = () => {
 
 
     return(
-        <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm px-[140px] w-[100%] relative'>
+        <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm  px-[20px] sm:px-[20px] md:px-[50px] lg:px-[100px]  xl:px-[140px] w-[100%] relative'>
             <AppLoadingBar 
                 
                 progress={loadingProgress} 
                 onLoaderFinished={() => setLoadingProgress(0)
             } />
 
-            <Box className='flex justify-start w-[100%] px-[20px] xl:px-[140px] md:px-[20px] lg:px-[20px] top-0 mt-[40px] absolute z-[12]'> 
+            <Box className='hidden justify-start w-[100%] px-[20px] xl:px-[140px] md:px-[20px] lg:px-[20px] top-0 xl:flex absolute z-[12]'> 
                 <AppSubNav 
                     status={page}
                     value={countProduct}

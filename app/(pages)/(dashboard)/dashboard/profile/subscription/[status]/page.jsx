@@ -134,6 +134,7 @@ const SubscriptionPage = () => {
                 setStopSubscription(false)
                 fetchUserSubscription()
                 fetchPaymentTransaction()
+                fetchCurrentUser()
                 dispatch(setUserSubscriptionData(null))
                 toast.success('Berhenti Berlangganan Berhasil')
             }
