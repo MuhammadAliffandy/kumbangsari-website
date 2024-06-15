@@ -393,7 +393,7 @@ const DashboardPage = () => {
                 </>
             }
             />
-            <Box className={` grow h-[86%] w-[100%] flex ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
+            <Box className={` grow  xl:h-[86%] w-[100%] flex ${ sm || lg || md  ? 'flex-col' : 'flex-row'  }`}>
                 {/* 
                 *
                 */}
