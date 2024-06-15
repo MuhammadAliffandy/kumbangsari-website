@@ -304,11 +304,16 @@ const GenerateAIPage = () => {
                         fetchContentHistory()
                     }
                 }
+
                 />
             <AppModalEditContent
                 open={openModalEdit}
                 onCloseButton = {(value)=> {
                     setOpenModalEdit(value)
+                }}
+                onDone = {()=>{
+                    fetchContentHistory()
+                    console.log('CEKK TEST')
                 }}
             />
             <AppModalDetailContent

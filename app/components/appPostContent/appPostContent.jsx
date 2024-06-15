@@ -5,7 +5,7 @@ import { deleteContent } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 
 
-const AppPostContent = async (props ,push , idContent = '' , isEdit = false) => {
+const AppPostContent = async (props ,push , idContent = '' , isEdit = false , method = () => {} ) => {
 
 
     try {
@@ -20,7 +20,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false) => 
                         const resDelete =  await deleteContent(idContent)
 
                         if(resDelete.status == 'OK' && isEdit){
-                            window.location.reload()
+                            method()
                         }
 
                         toast.warn('Cek Konektivitas Akun Twitter Anda !!')
@@ -76,7 +76,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false) => 
             } catch (error) {
                 const resDelete =  await deleteContent(idContent)
                 if(resDelete.status == 'OK' && isEdit){
-                    window.location.reload()
+                    method()
                 }
 
                 if(error.status == 400){
@@ -115,7 +115,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false) => 
                 const resDelete = await deleteContent(idContent)
                 
                 if(resDelete.status == 'OK' && isEdit){
-                    window.location.reload()
+                    method()
                 }
                 
                 if(error.status == 400){

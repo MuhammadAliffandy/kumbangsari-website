@@ -273,7 +273,7 @@ const AppModalEditContent = (props) => {
                         platform: res.data.platform,
                         }
                     
-                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent , true))
+                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent , true , props.onDone))
 
                     }else{
                         fetchUpdateContentStatus(res.data.idContent)
