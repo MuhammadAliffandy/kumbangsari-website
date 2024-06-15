@@ -50,10 +50,11 @@ const CalendarEditPage = () => {
 
 
     const setDateTime = (dateTimeString) => {
-        
         const dateValue = dateTimeString.split('T')[0];
+        
+        const timeFilter = dateTimeString.split('T')[1].split('.')[0] ;
+        const timeValue = timeFilter.split(':')[0] + ':' + timeFilter.split(':')[1] 
 
-        const timeValue = dateTimeString.split('T')[1].split('.')[0] ;
         setDateUp(dateValue);
         setTimeUp(timeValue);
     };
