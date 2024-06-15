@@ -1,13 +1,10 @@
 'use client'
 
 import React from 'react'
-import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable';
 
 
 const colourOptions = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
 ];
 
 const DropdownIndicator = props => {
@@ -21,15 +18,15 @@ const customComponents = {
 const  AppMultiSelection = (props) =>  {
 
   return (
-    <Select
+    <CreatableSelect
       components={customComponents}
       closeMenuOnSelect={false}
       value={ props.value}
       isMulti
-      isSearchable={false}
-      options={ props.options || colourOptions}
-      menuIsOpen={false}
-      onChange={(value) => { props.onChange(value) }}
+      options={[]}
+      onChange={(value) => { 
+        props.onChange(value) 
+      }}
       classNamePrefix={'border-[1px]'}
       styles={{
         control: (baseStyles, state) => ({
@@ -71,3 +68,5 @@ const  AppMultiSelection = (props) =>  {
   );
 }
 export default AppMultiSelection;
+
+

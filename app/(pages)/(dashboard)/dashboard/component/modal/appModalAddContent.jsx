@@ -320,7 +320,6 @@ const AppModalAddContent = (props) => {
         AppToastPending(handleAddContent)
     }
 
-
     useEffect(()=>{
         resetForm()
         getUserProduct()
