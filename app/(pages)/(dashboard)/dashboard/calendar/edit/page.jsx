@@ -281,7 +281,6 @@ const CalendarEditPage = () => {
                     push('/dashboard/calendar')
                 }
 
-
             }
 
         } catch (error) {

@@ -140,13 +140,13 @@ const AppModalEditContent = (props) => {
 
     const getContentUser = () => {
         if (props.open){
-     
+            
             setContentTitle(contentAI.contentTitle)
             setProduct(contentAI.productName)
             setImage(contentAI.image)
             setProductImage(contentAI.image)
             setPlatform(contentAI.platform)
-            setCaption(contentAI.caption)
+            setCaption(contentAI.caption || '')
             if(contentAI.hashtag != null){
                 setHashtag(convertHashtagStringToJson(contentAI.hashtag))
                 localStorage.setItem('hashtag',JSON.stringify(convertHashtagStringToJson(contentAI.hashtag)))

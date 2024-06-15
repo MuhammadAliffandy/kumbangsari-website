@@ -56,7 +56,7 @@ export const convertValueCheckbox = (text) => {
 
 export const getCurrentDateTime = () => {
     const now = new Date();
-    const time = format(now, 'HH:mm:ss', { timeZone: 'Asia/Jakarta' });
+    const time = format(now, 'HH:mm', { timeZone: 'Asia/Jakarta' });
     const date = format(now, 'yyyy-MM-dd', { timeZone: 'Asia/Jakarta' });
     return { time, date };
 };
@@ -68,6 +68,9 @@ export const formatDateTime = (inputDate, inputTime) => {
     const timeComponents = inputTime.split(":");
 
     const hours = timeComponents[0];
+
+
+
     const minutes = timeComponents[1];
     const seconds = timeComponents[2] ? timeComponents[2] : '00.00';
     
@@ -80,10 +83,9 @@ export const formatDateTime = (inputDate, inputTime) => {
         seconds
     );
 
-    const year = postedAt.getUTCFullYear();
+    const year = dateComponents[0]
     const month = String(postedAt.getUTCMonth() + 1).padStart(2, '0'); 
-    const day = String(postedAt.getUTCDate()).padStart(2, '0');
-
+    const day = dateComponents[2];
 
 
     const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
