@@ -293,11 +293,11 @@ const AppModalAddContent = (props) => {
                         platform: res.data.platform,
                         }
                         
-                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent))
-                    }else{
-                        fetchUpdateContentStatus(res.data.idContent)
-                        toast.success('Tambah Content Berhasil')
-                        push('/dashboard/calendar')
+                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent ,props.onDone))
+                }else{
+                    fetchUpdateContentStatus(res.data.idContent)
+                    toast.success('Tambah Content Berhasil')
+                    push('/dashboard/calendar')
                 }
 
 
@@ -311,7 +311,7 @@ const AppModalAddContent = (props) => {
             if(error.status == 404 ){
                 toast.error('Tambah Content Gagal')
             }else{
-                toast.error('Ada Kesalahan Sever (500)')
+                toast.error('Ada Kesalahan Server (500)')
             }
         }
     }

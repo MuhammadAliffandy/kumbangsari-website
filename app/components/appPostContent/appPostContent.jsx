@@ -5,7 +5,7 @@ import { deleteContent } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
 
 
-const AppPostContent = async (props ,push , idContent = '' , isEdit = false , method = () => {} ) => {
+const AppPostContent = async (props ,push , idContent = '' ,  method = () => {} ) => {
 
 
     try {
@@ -19,7 +19,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false , me
         
                         const resDelete =  await deleteContent(idContent)
 
-                        if(resDelete.status == 'OK' && isEdit){
+                        if(resDelete.status == 'OK' ){
                             method()
                         }
 
@@ -75,7 +75,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false , me
 
             } catch (error) {
                 const resDelete =  await deleteContent(idContent)
-                if(resDelete.status == 'OK' && isEdit){
+                if(resDelete.status == 'OK' ){
                     method()
                 }
 
@@ -114,7 +114,7 @@ const AppPostContent = async (props ,push , idContent = '' , isEdit = false , me
             } catch (error) {
                 const resDelete = await deleteContent(idContent)
                 
-                if(resDelete.status == 'OK' && isEdit){
+                if(resDelete.status == 'OK' ){
                     method()
                 }
                 
