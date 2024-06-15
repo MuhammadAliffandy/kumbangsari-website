@@ -31,7 +31,7 @@ const ForgotPasswordPage = () => {
             if(error.status == 404){
                 toast.error('Email tidak terdaftar')
             }else{
-                toast.error('Ada Kesalahan Server')
+                toast.error(error.data.message)
             }
         }
     };

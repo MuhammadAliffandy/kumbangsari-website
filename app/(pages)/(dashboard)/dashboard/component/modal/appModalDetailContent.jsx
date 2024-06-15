@@ -57,7 +57,7 @@ const AppModalDetailContent = (props) => {
                 return
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -178,7 +178,7 @@ const AppModalDetailContent = (props) => {
             }else if(error.status == 404){
                 toast.error('Posting Konten Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
         }
     }
@@ -269,7 +269,7 @@ const AppModalDetailContent = (props) => {
                 toast.error('Content Gagal Dihapus')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 

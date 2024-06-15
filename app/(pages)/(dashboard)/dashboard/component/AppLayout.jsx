@@ -78,7 +78,7 @@ const AppLayout = (props) => {
             if(error.status == 401){
                 toast.error('Authentication Failed')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
 
     
@@ -188,7 +188,7 @@ const AppLayout = (props) => {
 
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server')
+            toast.error(error.data.message)
         }
 
     }
@@ -200,7 +200,7 @@ const AppLayout = (props) => {
                 setNotificationStatus(false)    
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 

@@ -59,7 +59,7 @@ const  ResetPasswordPage = () => {
             if(error.status == 400){
                 toast.error(error.data.message)
             }else{
-                toast.error('Ada Kesalahan Server')   
+                toast.error(error.data.message)   
             }
                 setLoadingProgress(100)
         }

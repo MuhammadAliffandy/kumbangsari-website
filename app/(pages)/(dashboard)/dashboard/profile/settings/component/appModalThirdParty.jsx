@@ -24,7 +24,7 @@ const AppModalThirdParty = (props) => {
             if(error.status == 404){
                 toast.error('Hapus Akses Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
                 
         }
@@ -40,7 +40,7 @@ const AppModalThirdParty = (props) => {
             if(error.status == 404){
                 toast.error('Hapus Akses Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
                 
         }
@@ -56,7 +56,7 @@ const AppModalThirdParty = (props) => {
             if(error.status == 404){
                 toast.error('Hapus Akses Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
                 
         }

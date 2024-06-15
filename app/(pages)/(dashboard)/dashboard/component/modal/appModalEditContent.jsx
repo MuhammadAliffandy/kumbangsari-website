@@ -202,7 +202,7 @@ const AppModalEditContent = (props) => {
                 props.onCloseButton(false)
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -273,20 +273,21 @@ const AppModalEditContent = (props) => {
                         platform: res.data.platform,
                         }
                     
-                        AppToastPending(AppPostContent(dataPost , push))
-                }else{
-                        fetchUpdateContentStatus(res.data.idContent)
-                        toast.success('Edit Content AI Berhasil')
-                        push('/dashboard/calendar')
-                }
+                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent , true))
 
+                    }else{
+                        fetchUpdateContentStatus(res.data.idContent)
+                        push('/dashboard/calendar')
+                        toast.success('Edit Content AI Berhasil')
+                    }
+                    
             }
             props.onCloseButton(false)
         } catch (error) {
             if(error.status == 404){
                 toast.error('Edit Content Gagal')
             }else{
-                toast.error('Ada Kesalahan Server')
+                toast.error(error.data.message)
             }
         }
 

@@ -68,7 +68,7 @@ const ProfilePage = () => {
             if(error.status == 401){
                 toast.error('Authentication Failed') 
             }else{
-                toast.error('Ada Kesalahan Server (500)') 
+                toast.error(error.data.message) 
 
             }
         }
@@ -97,7 +97,7 @@ const ProfilePage = () => {
             if(error.status == 404){
                 toast.error('Edit Profile Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
         }
 

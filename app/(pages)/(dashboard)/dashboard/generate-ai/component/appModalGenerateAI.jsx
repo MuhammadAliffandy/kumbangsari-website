@@ -158,7 +158,7 @@ const  AppModalGenerateAI = (props ) => {
             }else if(error.status == 404){
                 toast.error('Generate Content AI Gagal')
             }else{
-                toast.error('Ada Kesalahan Server')
+                toast.error(error.data.message)
             }
 
         }

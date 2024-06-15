@@ -104,7 +104,7 @@ const ProductListPage = () => {
             if(error.status == 404){
             
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
             
         }

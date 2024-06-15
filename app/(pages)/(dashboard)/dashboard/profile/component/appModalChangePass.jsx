@@ -38,7 +38,7 @@ const AppModalChangePass = (props) => {
             if(error.status == 404){
                 toast.error('Ubah Password Gagal')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
         }
 

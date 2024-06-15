@@ -91,7 +91,7 @@ const ProductDetailPage = () => {
                 toast.error('Koneksi Twitter Gagal')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -102,7 +102,7 @@ const ProductDetailPage = () => {
                 window.location.href = res.data.redirect_url
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
     const fetchInstagramConnection = async () => {
@@ -113,7 +113,7 @@ const ProductDetailPage = () => {
                 window.location.href = res.data.redirect_url
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -181,7 +181,7 @@ const ProductDetailPage = () => {
             if(error.status == 404){
                 
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
         }
     }
@@ -203,7 +203,7 @@ const ProductDetailPage = () => {
             }else if (error.status == 403){
                 toast.warn('Produk sudah mencapai batas')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
         }
     }

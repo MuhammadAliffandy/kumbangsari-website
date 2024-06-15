@@ -50,7 +50,7 @@ const SignUpPage  = () => {
                 toast.error(error.data.message)
             }
             else{
-                toast.error('Ada Kesalahan Server');
+                toast.error(error.data.message);
             }
             setLoadingProgress(100)
         }

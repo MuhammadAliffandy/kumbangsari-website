@@ -66,7 +66,7 @@ const AppModalFacebookPage = (props) => {
         if(res.ok){
             toast.success('Facebook Page Dibatalkan')
         }else{
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 

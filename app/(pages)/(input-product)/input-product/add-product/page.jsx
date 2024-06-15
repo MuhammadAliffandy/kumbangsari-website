@@ -156,7 +156,7 @@ const AddProductPage = () => {
 
 
         } catch (error) {
-            toast.error('Ada Kesalahan Server')
+            toast.error(error.data.message)
         }
     };
 

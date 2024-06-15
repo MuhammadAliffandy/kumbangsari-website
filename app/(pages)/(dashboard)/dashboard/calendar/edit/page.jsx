@@ -208,7 +208,7 @@ const CalendarEditPage = () => {
                 return
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -274,7 +274,7 @@ const CalendarEditPage = () => {
                         platform: res.data.platform,
                         }
                         
-                        AppToastPending(AppPostContent(dataPost , push))
+                        AppToastPending(AppPostContent(dataPost , push, res.data.idContent))
                 }else{
                     fetchUpdateContentStatus(res.data.idContent)
                     toast.success('Edit Content AI Berhasil')
@@ -288,7 +288,7 @@ const CalendarEditPage = () => {
             if(error.status == 404){
                 toast.error('Edit Content Gagal')
             }else{
-                toast.error('Ada Kesalahan Server')
+                toast.error(error.data.message)
             }
         }
 

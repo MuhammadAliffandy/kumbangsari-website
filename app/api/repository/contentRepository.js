@@ -60,9 +60,9 @@ export const updateContentStatus = async (data) => {
     return response
 }
 
-export const deleteContent = async (contentId) => {
+export const deleteContent = async (idContent) => {
     await delay()
     const token = getCookie('token');
-    const response = await PROVIDER_DELETE(`api/v1/ai/${contentId}`, token)
+    const response = await PROVIDER_DELETE(`api/v1/ai/${idContent}`, token)
     return response
 }

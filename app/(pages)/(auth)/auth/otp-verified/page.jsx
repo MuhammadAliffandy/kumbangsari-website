@@ -89,7 +89,7 @@ const ForgotPasswordPage = ()  => {
             if(error.status == 401){
                 toast.error('OTP yang dimasukkan Salah');
             }else{
-                toast.error('Ada Kesalahan Server');
+                toast.error(error.data.message);
 
             }
 

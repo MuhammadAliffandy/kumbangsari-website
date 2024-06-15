@@ -168,7 +168,7 @@ const GenerateAIPage = () => {
             }
         } catch (error) {
             console.log(error)
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -234,7 +234,7 @@ const GenerateAIPage = () => {
                 toast.error('Content History Gagal Dihapus')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -304,7 +304,7 @@ const GenerateAIPage = () => {
                         fetchContentHistory()
                     }
                 }
-            />
+                />
             <AppModalEditContent
                 open={openModalEdit}
                 onCloseButton = {(value)=> {

@@ -204,7 +204,7 @@ const AppModalAddContent = (props) => {
                 props.onCloseButton(false)
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 
@@ -293,7 +293,7 @@ const AppModalAddContent = (props) => {
                         platform: res.data.platform,
                         }
                         
-                        AppToastPending(AppPostContent(dataPost , push))
+                        AppToastPending(AppPostContent(dataPost , push , res.data.idContent))
                     }else{
                         fetchUpdateContentStatus(res.data.idContent)
                         toast.success('Tambah Content Berhasil')

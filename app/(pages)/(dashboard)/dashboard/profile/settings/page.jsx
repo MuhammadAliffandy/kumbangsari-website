@@ -57,7 +57,7 @@ const SettingsPage = () => {
                 setLastUpload(res.data.lastUploadContent ? convertToIndonesianDate(res.data.lastUploadContent) : 'Data Kosong')
             }
         } catch (error) {
-            toast.error('Ada Kesalahan Server')
+            toast.error(error.data.message)
         }
     }
 

@@ -1,45 +1,53 @@
 import { twitterPost , twitterFindId} from '@/app/api/repository/twitterRepository';
 import { facebookPost} from '@/app/api/repository/facebookRepository';
 import { instagramPost} from '@/app/api/repository/instagramRepository';
+import { deleteContent } from '@/app/api/repository/contentRepository';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 
-const AppPostContent = async (props ,push) => {
+
+const AppPostContent = async (props ,push , idContent = '' , isEdit = false) => {
 
 
     try {
         if(props.platform == 'twitter'){
-            const resTwitterId = await twitterFindId({idProduct:props.idProduct})
+            try {
+                const resTwitterId = await twitterFindId({idProduct:props.idProduct})
 
-            if(resTwitterId.status == 'OK'){
+                if(resTwitterId.status == 'OK'){
 
-                if(resTwitterId.data.twitterId == null){
-                    toast.warn('Cek Konektivitas Akun Twitter Anda !!')
-                    return false
-                }
-
-                const data = {
-                    twitterIds:[resTwitterId.data.twitterId],
-                    idContent: props.idContent,
-                    tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
-                    imageUrls:  props.image != null && props.image != 'null' && props.image != '' ? [
-                        props.image,
-                    ] : []
-                }
-
-                const res = await twitterPost(data)
+                    if(resTwitterId.data.twitterId == null){
         
-                if(res.status == 'OK'){
-                    toast.success('Posting Konten Twitter Berhasil')
-                    
-                    if(props.isGenerate){
-                        fetchEditContent()
+                        const resDelete =  await deleteContent(idContent)
+
+                        if(resDelete.status == 'OK' && isEdit){
+                            window.location.reload()
+                        }
+
+                        toast.warn('Cek Konektivitas Akun Twitter Anda !!')
+                        return false
                     }
-                    push('/dashboard/calendar')
-                }
-                
-                
-            }else{
+
+                    const data = {
+                        twitterIds:[resTwitterId.data.twitterId],
+                        idContent: props.idContent,
+                        tweetText:`${props.caption ||'' }\n\n${props.hashtag || ''}`,
+                        imageUrls:  props.image != null && props.image != 'null' && props.image != '' ? [
+                            props.image,
+                        ] : []
+                    }
+
+                    const res = await twitterPost(data)
+            
+                    if(res.status == 'OK'){
+                        toast.success('Posting Konten Twitter Berhasil')
+                        
+                        if(props.isGenerate){
+                            fetchEditContent()
+                        }
+                        push('/dashboard/calendar')
+                    }
+                } 
+            }catch (error) {
                 toast.error('Gagal Menemukan Id Twitter')
             }
         }
@@ -66,11 +74,16 @@ const AppPostContent = async (props ,push) => {
                 }
 
             } catch (error) {
+                const resDelete =  await deleteContent(idContent)
+                if(resDelete.status == 'OK' && isEdit){
+                    window.location.reload()
+                }
+
                 if(error.status == 400){
                     toast.warn('Cek Konektivitas Akun Instagram Anda !!')
                     return false
                 }else{
-                    toast.error('Ada Kesalahan Sever (500)')
+                    toast.error('Ada Kesalahan Server (500)')
                 }
             }
         }
@@ -95,11 +108,16 @@ const AppPostContent = async (props ,push) => {
                         fetchEditContent()
                     }
                     push('/dashboard/calendar')
-                
-
+    
                 }
 
             } catch (error) {
+                const resDelete = await deleteContent(idContent)
+                
+                if(resDelete.status == 'OK' && isEdit){
+                    window.location.reload()
+                }
+                
                 if(error.status == 400){
                     toast.warn('Cek Konektivitas Akun Facebook Anda !!')
                     return false
@@ -118,7 +136,7 @@ const AppPostContent = async (props ,push) => {
         }else if(error.status == 404){
             toast.error('Posting Konten Gagal')
         }else{
-            toast.error('Ada Kesalahan Server (500)')
+            toast.error(error.data.message)
         }
     }
 }

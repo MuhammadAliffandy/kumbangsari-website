@@ -40,7 +40,7 @@ const AddCountProductPage = () => {
             const count = dispatch(setCountInputProduct(countProduct))
             push('/input-product/add-product')
         } catch (error) {
-            toast.error('Ada Kesalahan Server')
+            toast.error(error.data.message)
         }
     };
 

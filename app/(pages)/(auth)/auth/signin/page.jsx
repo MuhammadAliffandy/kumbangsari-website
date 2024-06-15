@@ -88,7 +88,7 @@ const SignInPage = () => {
             }else if(error.status == 404){
                 toast.error('Akun Tidak Terdaftar')
             }else{
-                toast.error('Ada Kesalahan Server (500)')
+                toast.error(error.data.message)
             }
 
         }
