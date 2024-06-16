@@ -226,7 +226,7 @@ const  AppModalGenerateAI = (props ) => {
                 {/*  */}
                 <Box>
                     <Stack direction="row" spacing={2}>   
-                        <Box className='w-[100%] flex flex-col gap-[10px]'>
+                        <Box className='w-[50%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Produk</label>
                             <AppDropDown
                                     value={product ? product : ''}
@@ -242,7 +242,7 @@ const  AppModalGenerateAI = (props ) => {
                                 }}
                             />
                         </Box>
-                        <Box className='w-[100%] flex flex-col gap-[10px]'>
+                        <Box className='w-[50%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Platform</label>
                             <AppDropDown
                                     value={platform ? platform : ''}
