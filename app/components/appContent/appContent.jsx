@@ -15,7 +15,7 @@ const AppContent = (props) => {
                     props.image != null && props.caption == null && props.hashtag == null ?   
                     <Box className='flex-none '> <img src={props.image} className='rounded-[15px] w-[160px] h-[140px] object-fill' />  </Box>
                     : props.image != null ? 
-                    <Box className='flex-none'> <img src={props.image} className='rounded-[15px] w-[160px] h-[120px] object-fill' /> </Box> 
+                    <Box className='flex-none'> <img src={props.image} className='rounded-[15px] w-[120px] xl:w-[160px] h-[120px] object-fill' /> </Box> 
                     : null
                 }
                 <Box className = {`grow flex flex-col gap-[8px] w-full ${props.image != null && props.caption == null && props.hashtag == null ? 'items-center' : '' }`}> 
