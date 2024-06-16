@@ -215,7 +215,7 @@ const AddProductPage = () => {
 
 
     return(
-        <Box className = 'bg-transparent flex flex-col items-center justify-center rounded-sm  px-[20px] sm:px-[20px] md:px-[50px] lg:px-[100px]  xl:px-[140px] w-[100%] relative'>
+        <Box className = 'bg-transparent h-[100vh] flex flex-col items-center justify-center rounded-sm  px-[20px] sm:px-[20px] md:px-[50px] lg:px-[100px]  xl:px-[140px] w-[100%] relative'>
             <AppLoadingBar 
                 
                 progress={loadingProgress} 
@@ -238,7 +238,7 @@ const AddProductPage = () => {
                     }}
                 />
             </Box>
-            <Box className=' flex flex-col h-[80%] lg:h-[70%] xl:h-[70%] w-auto px-[10px] md:w-[100%] lg:w-[100%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-scroll md:overflow-x-scroll lg:overflow-x-scroll xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
+            <Box className=' flex flex-col h-[70%] lg:h-[70%] xl:h-[70%] w-[80%] px-[10px] md:w-[100%] lg:w-[100%] xl:w-[90%] items-center overflow-y-scroll pb-[10px]  overflow-x-scroll md:overflow-x-scroll lg:overflow-x-scroll xl:overflow-x-hidden  lg:px-[20px] xl:px-[20px] scrollbar scrollbar-w-[8px] scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar-thumb-rounded-full'> 
                 <AppAnimationLayout>
                     <AppHeadline 
                         title = {'Data Produk'}
