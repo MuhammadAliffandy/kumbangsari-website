@@ -378,12 +378,14 @@ const AppModalEditContent = (props) => {
                         <Box className='w-[100%] flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold' >Gambar</label>
                             <AppTextFieldImage
+                                value = {image != null ?  image?.type ? null : image : null}
                                 onClick={handleChangeImage}
                             />
                             <AppPopupImage
                                 images={imageRecommendation}
                                 onClick ={(value)=>{
                                     setProductImage(value)
+                                    setImage(value)
                                 }}
                             /> 
                         </Box>
@@ -501,8 +503,8 @@ const AppModalEditContent = (props) => {
                                 
                                 }
                                 <Box className = 'flex flex-col gap-[8px] p-[10px] rounded-[15px] border-[1px] border-TEXT-1 '>
-                                    <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-all whitespace-normal'>{ caption || '. . .'}</p>
-                                    <p className='text-[14px] text-PRIMARY-400'>{hashtagString || ' . . . '}</p>
+                                    <p className='text-[14px] w-[100%] text-TEXT-1 font-semibold break-all whitespace-normal'>{ caption || '( Caption Kosong )'}</p>
+                                    <p className='text-[14px] text-PRIMARY-400'>{hashtagString || '( Hashtag Kosong )'}</p>
                                 </Box>
                             </> 
                         }

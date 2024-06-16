@@ -28,7 +28,7 @@ const AppTextFieldImage = (props) =>  {
             />
             <AppTextField
                 id="image"
-                value = { file ?  file.name : ''}
+                value = { props.value != null ? props.value : file ?  file.name : ''}
                 type='text'
                 placeholder='Masukkkan gambar Product konten di sini'
                 InputProps={

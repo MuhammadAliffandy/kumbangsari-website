@@ -38,7 +38,7 @@ const AppPopupCaption = (props) => {
                     exit={{ opacity: 0, y: -10 }}
                     onMouseEnter={() => {setOpen(true)}}
                     onMouseLeave = {() => { setOpen(false)}}
-                    className={`${props.captions.length == 0 ? 'w-[100%]' : 'w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
+                    className={`${props.captions.length == 0 ? ' w-[100%]' : 'w-[100%] xl:w-[50%]'} h-auto rounded-[20px] bg-white p-[20px] flex flex-col gap-[15px] border-[2px] border-TEXT-1 shadow-xl `}>
                     {/* headline */}
                     <Box className='flex items-center justify-between'>
                         <p className='w-[100%] text-[18px] font-bold text-black'>Rekomendasi Caption</p>

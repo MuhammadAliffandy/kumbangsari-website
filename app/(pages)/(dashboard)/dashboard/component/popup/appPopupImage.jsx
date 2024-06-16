@@ -44,9 +44,9 @@ const AppPopupImage = (props) => {
 
                                 props.images.map((data,index)=>{
                                     return(
-                                        <Grid onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
+                                        <Grid  onClick={()=>{props.onClick(data)}} item xs={4} key={index}>
                                             <Box>
-                                                <img className='cursor-pointer w-[300px] h-[200px] object-cover rounded-[15px]' src={data} />
+                                                <img className='cursor-pointer  w-[150px] h-[100px] xl:w-[300px] xl:h-[200px] object-cover rounded-[15px]' src={data} />
                                             </Box>
                                         </Grid>
                                     )
