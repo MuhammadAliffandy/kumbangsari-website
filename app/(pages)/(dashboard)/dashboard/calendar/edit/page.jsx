@@ -53,6 +53,7 @@ const CalendarEditPage = () => {
         const dateValue = dateTimeString.split('T')[0];
         
         const timeFilter = dateTimeString.split('T')[1].split('.')[0] ;
+        
         const timeValue = timeFilter.split(':')[0] + ':' + timeFilter.split(':')[1] 
 
         setDateUp(dateValue);

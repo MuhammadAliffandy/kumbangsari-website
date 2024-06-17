@@ -68,9 +68,6 @@ export const formatDateTime = (inputDate, inputTime) => {
     const timeComponents = inputTime.split(":");
 
     const hours = timeComponents[0];
-
-    console.log(hours)
-
     const minutes = timeComponents[1];
     const seconds = timeComponents[2] ? timeComponents[2] : '00.000';
     

@@ -151,13 +151,14 @@ const GenerateAIPage = () => {
     }
     
     const refreshGenerateAI = async () => {
+
         try {
             const data = {
-                idContent : generateListContent[0].idContent,
+                idContent : contentAI[0].idContent,
                 nameProduct :true,
-                image: true, 
-                caption : true,
-                hashtag: true,
+                image: contentAI[0].image != null ? true : false, 
+                caption :contentAI[0].caption != null ? true : false,
+                hashtag: contentAI[0].hashtag != null ? true : false,
             }
             const res = await refreshAI(data)
             if(res.status == 'OK'){
@@ -313,7 +314,6 @@ const GenerateAIPage = () => {
                 }}
                 onDone = {()=>{
                     fetchContentHistory()
-                    console.log('CEKK TEST')
                 }}
             />
             <AppModalDetailContent
