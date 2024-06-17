@@ -69,10 +69,10 @@ export const formatDateTime = (inputDate, inputTime) => {
 
     const hours = timeComponents[0];
 
-
+    console.log(hours)
 
     const minutes = timeComponents[1];
-    const seconds = timeComponents[2] ? timeComponents[2] : '00.00';
+    const seconds = timeComponents[2] ? timeComponents[2] : '00.000';
     
     const postedAt = new Date(
         parseInt(dateComponents[0]),

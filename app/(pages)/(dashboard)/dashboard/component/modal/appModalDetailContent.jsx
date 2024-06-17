@@ -17,6 +17,7 @@ import { createContentAIManual, deleteContent, editContentAIManual, updateConten
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending'
+import AppModalAddTime from './appModalAddTime'
 
 const AppModalDetailContent = (props) => {
 
@@ -24,6 +25,7 @@ const AppModalDetailContent = (props) => {
     const xl = useMediaQuery({ maxWidth: 1280 });
     
     const [ modalDeleteContent , setModalDeleteContent ] = useState(false)
+    const [ modalAddTime , setModalAddTime ] = useState(false)
 
     const fetchEditContent = async () => {
         const data = props.data
@@ -183,7 +185,7 @@ const AppModalDetailContent = (props) => {
         }
     }
 
-    const handleAddContent = async () => {
+    const handleAddContent = async (timePost) => {
         const data = props.data
         try {
 
@@ -201,7 +203,7 @@ const AppModalDetailContent = (props) => {
             formData.append('caption', data.captionPost);
             formData.append('style', data.style);
             formData.append('hashtag', props.hashtag);
-
+            formData.append('postedAt', timePost);
             formData.append('image', data.imageUrlPost);
             formData.set('files', '');
         
@@ -279,8 +281,8 @@ const AppModalDetailContent = (props) => {
         AppToastPending(fetchPostContent)
     }
 
-    const notifyHandleAddContent = () => {
-        AppToastPending(handleAddContent)
+    const notifyHandleAddContent = (timePost) => {
+        AppToastPending(handleAddContent(timePost))
     }
 
     const notifyHandleAddContentAI = () => {
@@ -334,8 +336,15 @@ const AppModalDetailContent = (props) => {
                             />
                         </Box>
                     </>
-                }
+                    }
                 />
+                    <AppModalAddTime 
+                        open = {modalAddTime} 
+                        onCloseButton={(value)=> setModalAddTime(value) }
+                        onClick={ (value)=>{
+                            notifyHandleAddContent(value)
+                        } }
+                    />
                 {/* headline */}
                 <Box className = 'flex justify-between'>
                     
@@ -404,6 +413,7 @@ const AppModalDetailContent = (props) => {
                             type={'submit'}
                             onClick={()=>{
                                 notifyHandleAddContentAI()
+                       
                             }}
                         />
                         </Box> 
@@ -418,7 +428,8 @@ const AppModalDetailContent = (props) => {
                                     text ={'Tambahkan Sekarang'}
                                     type={'submit'}
                                     onClick={()=>{
-                                        notifyHandleAddContent()
+                               
+                                        setModalAddTime(true)
                                     }}
                                 />
                                 :
