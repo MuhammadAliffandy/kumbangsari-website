@@ -24,6 +24,7 @@ import { useParams , useRouter} from "next/navigation";
 import { useDispatch , useSelector } from "react-redux";
 import { setUserSubscriptionData } from "@/app/redux/slices/userSubscriptionSlice";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 
 
 const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl , subscriptionExpiryDate ) => {
@@ -441,34 +442,39 @@ const SubscriptionPage = () => {
                                         userSubs != null ?
                                         
                                         <>  
+                                            <AppAnimationButton className='w-auto'>
+                                                <AppButton
+                                                        className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
+                                                        text={'Berhenti Langganan'} 
+                                                        type = {'Submit'}
+                                                        onClick = {()=>{
+                                                            setStopSubscription(!stopSubscription)
+                                                        }}
+                                                    />
+                                            </AppAnimationButton>
+                                            <AppAnimationButton className='w-auto'>
+                                                <AppButton
+                                                    className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                                    text={'Ubah Paket'} 
+                                                    type = {'Submit'}
+                                                    onClick = {()=>{
+                                                        setSubscriptionListModal(!subscriptionListModal)
+                                                    }}
+                                                />
+                                            </AppAnimationButton>
+                                        </>
+
+                                            :
+                                        <AppAnimationButton className='w-auto'>
                                             <AppButton
-                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 rounded-[12px] px-[25px] py-[8px] shadow-xl'}
-                                                text={'Berhenti Langganan'} 
-                                                type = {'Submit'}
-                                                onClick = {()=>{
-                                                    setStopSubscription(!stopSubscription)
-                                                }}
-                                            />
-                                            <AppButton
-                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
-                                                text={'Ubah Paket'} 
+                                                className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500  hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
+                                                text={'Beli Paket'} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
                                                     setSubscriptionListModal(!subscriptionListModal)
                                                 }}
                                             />
-                                        </>
-
-                                            :
-                                        
-                                        <AppButton
-                                            className={' flex text-white gap-[10px] w-auto justify-center items-center text-[12px] bg-SECONDARY-500  hover:bg-SECONDARY-600 rounded-[12px] px-[40px] py-[8px] shadow-xl'}
-                                            text={'Beli Paket'} 
-                                            type = {'Submit'}
-                                            onClick = {()=>{
-                                                setSubscriptionListModal(!subscriptionListModal)
-                                            }}
-                                        />
+                                        </AppAnimationButton>
                                     }
                                 </Box>
                             </Box>

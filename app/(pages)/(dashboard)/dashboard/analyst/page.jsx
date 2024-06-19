@@ -15,6 +15,7 @@ import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { convertToIndonesianDate } from "@/app/utils/helper";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 
 
     const listPlatform = [
@@ -275,19 +276,21 @@ const AnalystPage = () => {
                             exampleProduct.map(data => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
-                                        <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-md'>
-                                            <p className="text-TEXT-3 text-[12px]">{data.productName}</p>
-                                            <Box className='flex justify-between items-center'>
-                                                <Box className='flex flex-col'>
-                                                    <p className="text-TEXT-1 text-[28px] font-bold">14.000</p>
-                                                    <span className="flex gap-[10px] items-center">
-                                                        <img src="/images/icon/analyst/traffic-up.svg" alt="icon-grow"/>
-                                                        <p className="text-STATE-GREEN-BASE text-[12px] font-bold">15%</p>
-                                                    </span>
+                                        <AppAnimationButton className='w-auto'>
+                                            <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-md'>
+                                                <p className="text-TEXT-3 text-[12px]">{data.productName}</p>
+                                                <Box className='flex justify-between items-center'>
+                                                    <Box className='flex flex-col'>
+                                                        <p className="text-TEXT-1 text-[28px] font-bold">14.000</p>
+                                                        <span className="flex gap-[10px] items-center">
+                                                            <img src="/images/icon/analyst/traffic-up.svg" alt="icon-grow"/>
+                                                            <p className="text-STATE-GREEN-BASE text-[12px] font-bold">15%</p>
+                                                        </span>
+                                                    </Box>
+                                                    <img src="/images/icon/analyst/growth-up.svg" alt="icon-grow" className="w-auto h-[60px]"/>
                                                 </Box>
-                                                <img src="/images/icon/analyst/growth-up.svg" alt="icon-grow" className="w-auto h-[60px]"/>
                                             </Box>
-                                        </Box>
+                                        </AppAnimationButton>
                                     </Grid>
                                 )
                             })

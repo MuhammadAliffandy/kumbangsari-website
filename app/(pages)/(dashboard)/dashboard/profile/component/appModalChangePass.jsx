@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { changePasswordUser } from '@/app/api/repository/userRepository';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending';
+import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton';
 
 const AppModalChangePass = (props) => {
     
@@ -126,11 +127,13 @@ const AppModalChangePass = (props) => {
 
                         <Box className='w-[100%] flex justify-end'>
                                 <Box className='w-[60%] xl:w-[30%]'>
-                                    <AppButton
-                                        text={'Simpan'} 
-                                        type = {'submit'}
-                                        fontSize = {'12px'}
-                                    />
+                                    <AppAnimationButton>
+                                        <AppButton
+                                            text={'Simpan'} 
+                                            type = {'submit'}
+                                            fontSize = {'12px'}
+                                        />
+                                    </AppAnimationButton>
                                 </Box>
                         </Box>
                     </form>

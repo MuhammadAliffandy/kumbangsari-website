@@ -19,6 +19,7 @@ import { setGenerateHistory }  from '@/app/redux/slices/generateAIHistorySlice';
 import { createContentHistory, updateContentHistory } from '@/app/redux/slices/generateAIContentHistorySlice';
 import { getCookie } from '@/app/utils/helper';
 import { toast } from 'react-toastify';
+import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton';
 
 
 const  AppModalGenerateAI = (props ) => {
@@ -292,12 +293,14 @@ const  AppModalGenerateAI = (props ) => {
                 </Box>
                 <Box className='w-[100%] flex justify-end'>
                         <Box className='w-[30%]'>
-                            <AppButton
-                                text={'Generate'} 
-                                type = {'button'}
-                                fontSize = {'12px'}
-                                onClick = {onGenerate}
-                            />
+                            <AppAnimationButton className='w-auto'>
+                                    <AppButton
+                                        text={'Generate'} 
+                                        type = {'button'}
+                                        fontSize = {'12px'}
+                                        onClick = {onGenerate}
+                                    />
+                            </AppAnimationButton>
                         </Box>
                 </Box>
             </motion.div>

@@ -257,13 +257,18 @@ const ProfilePage = () => {
                                     />
                                     <p onClick={() => setOpenModalChangePass(!openModalChangePass)} className="text-TEXT-1 underline font-bold text-[14px] cursor-pointer ">Ubah Kata Sandi</p>
                                     <Box className='w-[100%] flex justify-end '>
-                                            <AppButton
-                                                className={' flex gap-[10px] w-[60%] md:w-[20%] lg:w-[20%] xl:w-[20%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
-                                                text={'Simpan'} 
-                                                type = {'Submit'}
-                                                onClick = {()=>{}}
-                                            />
-                                        
+
+                                        <Box className='w-[60%] md:w-[20%] lg:w-[20%] xl:w-[20%]'>
+                                            <AppAnimationButton className='w-auto'>
+                                                <AppButton
+                                                        className={' flex gap-[10px] w-[100%] justify-center items-center text-[14px] bg-SECONDARY-500 hover:bg-SECONDARY-600 rounded-[10px] px-[25px] py-[8px]'}
+                                                        text={'Simpan'} 
+                                                        type = {'Submit'}
+                                                        onClick = {()=>{}}
+                                                    />
+                                            </AppAnimationButton>
+                                        </Box>
+
                                     </Box>
                             </form>
                         </Box>
