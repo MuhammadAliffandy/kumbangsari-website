@@ -50,7 +50,6 @@ const CalendarEditPage = () => {
 
 
     const setDateTime = (dateTimeString) => {
-        console.log(dateTimeString)
         const dateValue = dateTimeString.split('T')[0];
         
         const timeFilter = dateTimeString.split('T')[1].split('.')[0] ;
@@ -59,7 +58,6 @@ const CalendarEditPage = () => {
 
         setDateUp(dateValue);
         setTimeUp(timeValue);
-        console.log(formatDateTime(dateValue,timeValue))
     };
 
     
