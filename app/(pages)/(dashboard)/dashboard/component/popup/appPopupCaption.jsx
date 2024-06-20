@@ -9,6 +9,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { listDropLanguageStyle } from '@/app/utils/model';
 import { useMediaQuery } from "react-responsive";
+import images from '@/public/images/images'
 
 const AppPopupCaption = (props) => {
     const [open, setOpen] = useState(false);
@@ -101,7 +102,7 @@ const AppPopupCaption = (props) => {
                     className='flex items-center gap-[5px]'
                     onMouseEnter={() => {setOpen(true)}}
                 >
-                        <img className='w-[14px] h-[14px]' src='/images/icon/sparkling-blue.png' alt="Sparkling icon" />
+                        <img className='w-[14px] h-[14px]' src={images.icon.sparklingBlue} alt="Sparkling icon" />
                         <p className='text-[12px] text-PRIMARY-500  font-poppins font-semibold'>Tampilkan Rekomendasi AI</p>
                 </AppCustomButton>
             </div>

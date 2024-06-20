@@ -2,12 +2,13 @@ import { formatRupiahNumber } from "@/app/utils/helper";
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
+import images from '@/public/images/images'
 
 export const subscriptionList = [
     {
         title: 'Paket Dasar',
         subtitle: 'Cocok Untuk Pemula',
-        image : '/images/icon/paket/basic.svg',
+        image : images.icon.packet.basic,
         price : 100000,
         benefit : [
             'Rekomendasi Konten',
@@ -21,7 +22,7 @@ export const subscriptionList = [
     {
         title: 'Paket Premium',
         subtitle: 'Cocok Untuk Menengah',
-        image : '/images/icon/paket/premium.svg',
+        image :  images.icon.packet.premium,
         price : 200000,
         benefit : [
             'Rekomendasi Konten',
@@ -35,7 +36,7 @@ export const subscriptionList = [
     {
         title: 'Paket Profesional',
         subtitle: 'Cocok Untuk Profesional',
-        image : '/images/icon/paket/pro.svg',
+        image :  images.icon.packet.pro,
         price : 350000,
         benefit : [
             'Rekomendasi Konten',

@@ -1,13 +1,10 @@
 import { motion } from 'framer-motion';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import AppTextField from '@/app/components/appTextField/appTextField'
-import AppButton from '@/app/components/appButton/appButton'
+
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
-import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validation';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import images from '@/public/images/images'
+
 
 const AppModalFailedPay = (props) => {
     
@@ -36,7 +33,7 @@ const AppModalFailedPay = (props) => {
                             {/*  */}
 
                             <Box className='flex items-center gap-[10px] bg-STATE-RED-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
-                                <img className='w-[24px] h-[24px] ' src='/images/icon/failed.svg' />
+                                <img className='w-[24px] h-[24px] ' src={images.icon.failed} />
                                 <p className='flex text-STATE-RED-DARKEN text-[14px]'>Pembayaran gagal dilakukan</p>
                             </Box>
 

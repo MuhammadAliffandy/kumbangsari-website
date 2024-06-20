@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import AppToastPending from '@/app/components/AppToastPending/appToastPending'
 import AppModalAddTime from './appModalAddTime'
+import images from '@/public/images/images'
 
 const AppModalDetailContent = (props) => {
 
@@ -354,7 +355,7 @@ const AppModalDetailContent = (props) => {
                     {   props.postedId != null ? null :
                         props.isDashboard ? null : 
                             <AppCustomButton className=' bg-white ' onClick={props.onEditButton}>
-                                <img className='w-[18px] h-[18px] ' src={'/images/icon/edit.png'}/>
+                                <img className='w-[18px] h-[18px] ' src={images.icon.edit}/>
                             </AppCustomButton>
                         
                         }
@@ -362,7 +363,7 @@ const AppModalDetailContent = (props) => {
                             props.postedId != null ? null :
                             props.deleteButton != null ? null :
                             <AppCustomButton className=' bg-white ' onClick={() => setModalDeleteContent(true)}>
-                                <img className='w-[18px] h-[18px] ' src={'/images/icon/trash.png'}/>
+                                <img className='w-[18px] h-[18px] ' src={images.icon.trash}/>
                             </AppCustomButton>
                         }
                         <AppCloseButton

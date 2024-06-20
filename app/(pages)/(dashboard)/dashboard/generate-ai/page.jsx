@@ -30,6 +30,7 @@ import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
+import images from "@/public/images/images";
 
 
 const GenerateAIPage = () => {
@@ -363,7 +364,7 @@ const GenerateAIPage = () => {
                                 <AppCustomButton className='flex gap-[10px] items-center bg-CUSTOM-RED hover:bg-SECONDARY-600 rounded-[10px] px-[15px] py-[5px] '
                                     onClick={()=>{setOpenModalAI(!openModalAI)}}
                                 >
-                                    <img src="/images/icon/sparkling-white.svg" />
+                                    <img src={images.icon.sparklingWhite} />
                                     <p className="text-TEXT-5 font-bold text-[14px] ">Generate AI</p>
                                 </AppCustomButton>
                             </AppAnimationButton>

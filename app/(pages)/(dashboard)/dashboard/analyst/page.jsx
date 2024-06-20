@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { convertToIndonesianDate } from "@/app/utils/helper";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import images from '@/public/images/images'
 
 
     const listPlatform = [
@@ -258,7 +259,7 @@ const AnalystPage = () => {
                                 setOptimalProduct(false)
                             }}
                             className = 'flex flex-col relative'> 
-                                <img className="w-[24px] h-[24px] relative " src="/images/icon/info-packet.svg" />
+                                <img className="w-[24px] h-[24px] relative " src={images.icon.infoPacket} />
                                 {
                                     optimalProduct ? 
 
@@ -283,11 +284,11 @@ const AnalystPage = () => {
                                                     <Box className='flex flex-col'>
                                                         <p className="text-TEXT-1 text-[28px] font-bold">14.000</p>
                                                         <span className="flex gap-[10px] items-center">
-                                                            <img src="/images/icon/analyst/traffic-up.svg" alt="icon-grow"/>
+                                                            <img src={images.icon.analyst.trafficUp} alt="icon-grow"/>
                                                             <p className="text-STATE-GREEN-BASE text-[12px] font-bold">15%</p>
                                                         </span>
                                                     </Box>
-                                                    <img src="/images/icon/analyst/growth-up.svg" alt="icon-grow" className="w-auto h-[60px]"/>
+                                                    <img src={images.icon.analyst.growthUp} alt="icon-grow" className="w-auto h-[60px]"/>
                                                 </Box>
                                             </Box>
                                         </AppAnimationButton>
@@ -358,7 +359,7 @@ const AnalystPage = () => {
                                         setPostRecap(false)
                                     }}
                                     className = 'flex flex-col relative'> 
-                                        <img className="w-[24px] h-[24px] relative " src="/images/icon/info-packet.svg" />
+                                        <img className="w-[24px] h-[24px] relative " src={images.icon.infoPacket} />
                                         {
                                             postRecap ? 
 

@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import AppCarousel from '@/app/components/appCaraousel/appCaraousel';
+import images from '@/public/images/images'
 
 
 const Layout = (props) => {
@@ -8,19 +9,20 @@ const Layout = (props) => {
         {
             name: 'Optimalisasi konten dengan bantuan AI',
             description: 'Personalisasi data produk dan generate konten dengan AI sesuai kebutuhanmu!',
-            image: '/images/vector/AI.png',
+            image: images.vector.AIVector,
         },
         {
             name: 'Dashboard analitik unggahan konten',
             description: 'Lihat rekap unggahan seluruh konten dan produkmu hanya dalam satu halaman!',
-            image: '/images/vector/statistic.png',
+            image: images.vector.statisticVector,
         },
         {
             name: 'Efisiensi waktu dan penjadwalan yang terstruktur',
             description: 'Tingkatkan efisiensi pengelolaan konten melalui penjadwalan dan auto-posting ke dalam seluruh akun!',
-            image: '/images/vector/content.png',
+            image: images.vector.contentVector,
         },
     ];
+
 
     return (
         <>
@@ -38,12 +40,14 @@ const Layout = (props) => {
                 {/* background */}
                 <Box className = 'h-[100%] flex flex-col justify-between bg-white'>
                     <Box className='relative'>
-                        <img src='/images/shape/ShapeUp2.png' className='absolute w-[100%] h-[60px]' />
-                        <img src='/images/shape/ShapeUp.png' className='w-[100%] h-[70px]' />
+                        <img src={images.shape.shapeUp2} className='absolute w-[100%] h-[60px]' />
+                        <img src={images.icon.logo.planifyWhite} className='absolute w-auto h-[40px] z-[60px] pl-[20px] pt-[10px]' />
+                        <img src={images.shape.shapeUp} className='w-[100%] h-[70px]' />
+                        
                     </Box>
                     <Box className='relative'>
-                        <img src='/images/shape/ShapeDown2.png' className='absolute w-[100%] h-[50px]' />
-                        <img src='/images/shape/ShapeDown.png' className='w-[100%] h-[50px]' />
+                        <img src={images.shape.shapeDown2} className='absolute w-[100%] h-[50px]' />
+                        <img src={images.shape.shapeDown} className='w-[100%] h-[50px]' />
                     </Box>
                 </Box>
             </Box>

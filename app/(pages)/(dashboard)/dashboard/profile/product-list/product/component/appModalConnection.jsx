@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton';
 import AppButton from '@/app/components/appButton/appButton';
 import { motion } from 'framer-motion';
+import images from '@/public/images/images'
 
 const AppModalConnection = (props) => {
     return(
@@ -29,8 +30,8 @@ const AppModalConnection = (props) => {
                     
                     <Box className='flex gap-[20px] items-center justify-center w-[100%]'>
                             <img alt='img-platform' className=' w-[50px] xl:w-[80px] h-[50px] xl:h-[80px] rounded-[100%]' src={props.imagePlatform} />
-                            <img alt='img-platform' className='w-[auto] h-[30px] xl:h-[50px] ' src={'/images/icon/connect.svg'} />
-                            <img alt='img-platform' className=' w-[50px] xl:w-[80px] h-[50px] xl:h-[80px] ' src={'/images/icon/logo/planify.png'} />
+                            <img alt='img-platform' className='w-[auto] h-[30px] xl:h-[50px] ' src={images.icon.connect} />
+                            <img alt='img-platform' className=' w-[50px] xl:w-[80px] h-[50px] xl:h-[80px] ' src={images.icon.logo.planify} />
                     </Box>
 
                     <Box className='flex flex-col gap-[10px]'>

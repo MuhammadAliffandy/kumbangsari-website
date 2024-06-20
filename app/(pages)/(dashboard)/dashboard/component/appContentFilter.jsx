@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import AppAnimationContent from "@/app/components/appAnimation/appAnimationContent";
 import { listPlatform } from '@/app/utils/model';
 import { useState } from 'react';
+import images from '@/public/images/images';
 
 
 const AppContentFilter = (props) => {
@@ -23,7 +24,7 @@ const AppContentFilter = (props) => {
                     props.isDashboard ? 
                     null :    
                     <button type={'button'} onClick={props.onDeleteButton} className={`bg-transparent px-[10px]`}>
-                        <img className='w-[22px] h-[22px] ' src={`/images/icon/${isHover? 'trash-blue.png':'trash.png'}`}/>
+                        <img className='w-[22px] h-[22px] ' src={isHover? images.icon.trashBlue : images.icon.trash}/>
                     </button>
                 }
             </Box>

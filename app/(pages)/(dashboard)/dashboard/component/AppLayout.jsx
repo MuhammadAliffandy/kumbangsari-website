@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { setToken } from '@/app/redux/slices/authSlice';
 import { setUserSubscriptionData } from '@/app/redux/slices/userSubscriptionSlice';
 import { useDispatch , useSelector} from 'react-redux';
+import images from '@/public/images/images';
 
 const AppLayout = (props) => {
 
@@ -248,7 +249,7 @@ const AppLayout = (props) => {
 
                     <Box className = 'w-[14%] h-[100vh] flex-none bg-NEUTRAL-100 flex flex-col items-center gap-[10px] '>
                         <Box className={`py-[10px] pl-[10%] flex items-center ${xl ? 'justify-center' : 'justify-start' } gap-[8px] w-[100%]`}>
-                            <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
+                            <img className='w-[40px] h-[40px]' src={images.icon.logo.planify} />
                             { xl ? '' : <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>}
                         </Box>
                         <AppSidebar

@@ -5,7 +5,7 @@ import { subscriptionList } from '@/app/(pages)/(dashboard)/dashboard/profile/su
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import { formatRupiahNumber } from '@/app/utils/helper';
-import { toast } from 'react-toastify';
+import images from '@/public/images/images'
 
 
 const AppModalPaymentDetail = (props) => {
@@ -41,7 +41,7 @@ const AppModalPaymentDetail = (props) => {
                                                 props.data.benefit.map((data,index)=>{
                                                     return(
                                                         <span className="flex">
-                                                            <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
+                                                            <img src={images.icon.successCheck} alt="icon-check" />    
                                                             <p className="text-[14px] text-TEXT-1">{data}</p>
                                                         </span>
                                                     )

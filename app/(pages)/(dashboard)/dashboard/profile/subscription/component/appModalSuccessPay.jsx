@@ -8,6 +8,7 @@ import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import {  validatePassword, } from '@/app/(pages)/(auth)/auth/component/validation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import images from '@/public/images/images'
 
 const AppModalSuccessPay = (props) => {
 
@@ -34,7 +35,7 @@ const AppModalSuccessPay = (props) => {
                         <Box className='flex flex-col gap-[10px]'>
                             {/*  */}
                             <Box className='flex items-center gap-[10px] bg-STATE-GREEN-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
-                                <img className='w-[24px] h-[24px] ' src='/images/icon/success.svg' />
+                                <img className='w-[24px] h-[24px] ' src={images.icon.success} />
                                 <Box className='flex flex-col items-start justify-center'>
                                     <p className='flex text-STATE-GREEN-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
                                     <p className='flex text-STATE-GREEN-DARKEN text-[14px] font-bold'>{props.updatedAt}</p>

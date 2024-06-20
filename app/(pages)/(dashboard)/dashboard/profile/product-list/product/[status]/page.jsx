@@ -30,6 +30,7 @@ import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 import { useDispatch } from "react-redux";
 import { setNameProduct } from "@/app/redux/slices/nameProductSlice";
 import { useMediaQuery } from "react-responsive";
+import images from '@/public/images/images'
 
 
 const userDataHistory = ( productName, platform, time, date , status) => {
@@ -38,7 +39,7 @@ const userDataHistory = ( productName, platform, time, date , status) => {
 
 const ProductDetailPage = () => {
     const productInit = JSON.parse(useSelector(state => state.nameProduct.value))
-    const imageDefault =  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
+    const imageDefault =  images.icon.profileDefault
     const { push } = useRouter()
     const dispatch = useDispatch()
     // 
@@ -296,7 +297,7 @@ const ProductDetailPage = () => {
                 <>
                     <Box className='flex flex-col justify-start w-[100%] gap-[15px]'>
                         <Box className='flex items-center gap-[10px]'>
-                            <img alt="icon-check" src={`/images/icon/${platformStatusConnection ? 'success': 'failed'}.svg`} className="w-[12px] h-[12px]"/>
+                            <img alt="icon-check" src={platformStatusConnection ? images.icon.success  : images.icon.failed} className="w-[12px] h-[12px]"/>
                             <p className="text-TEXT-1 text-[14px] font-medium" >{platformConnection == 'facebook' ? accountFacebook.username || '@username' : platformConnection == 'instagram' ? accountInstagram.username || '@username' : accountTwitter.username || '@username'}</p>
                         </Box>
                         <Box className='h-[1px] w-[100%] bg-TEXT-4'></Box>
@@ -477,7 +478,7 @@ const ProductDetailPage = () => {
                                 isInstagram ?
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={listPlatform.instagram}/>
                                 :
-                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
+                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={images.icon.addCircleIcon}/>
                             }
 
                             <img className='w-full h-full rounded-[100%] relative object-cover' src={ isInstagram ? accountInstagram.profileImageUrl ||  imageDefault :  listPlatform.instagram}/>
@@ -498,7 +499,7 @@ const ProductDetailPage = () => {
                                 isFacebook ?
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={listPlatform.facebook}/>
                                 :
-                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
+                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={images.icon.addCircleIcon}/>
                             }
 
                             <img className='w-full h-full rounded-[100%] relative object-cover' src={ isFacebook ? accountFacebook.profileImageUrl ||  imageDefault :  listPlatform.facebook}/>
@@ -516,7 +517,7 @@ const ProductDetailPage = () => {
                                 isTwitter ?
                                 <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={listPlatform.twitter}/>
                                 :
-                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={'/images/icon/add-circle.svg'}/>
+                                <img className=' absolute z-[100] bottom-0 right-0 w-[18px] h-[18px] rounded-[100%]' src={images.icon.addCircleIcon}/>
                             }
 
                             <img className='w-full h-full rounded-[100%] relative object-cover' src={ isTwitter ? accountTwitter.profileImageUrl  ||  imageDefault  :  listPlatform.twitter}/>

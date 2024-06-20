@@ -25,6 +25,7 @@ import { useDispatch , useSelector } from "react-redux";
 import { setUserSubscriptionData } from "@/app/redux/slices/userSubscriptionSlice";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import images from '@/public/images/images'
 
 
 const createDataPayment = (date, packet, price, status, expiryDate , updatedAt , callbackUrl , subscriptionExpiryDate ) => {
@@ -350,7 +351,7 @@ const SubscriptionPage = () => {
                                         setInfoPacket(false)
                                     }}
                                     className = 'flex flex-col relative'> 
-                                        <img className="w-[28px] h-[28px] relative " src="/images/icon/info-packet.svg" />
+                                        <img className="w-[28px] h-[28px] relative " src={images.icon.infoPacket} />
                                         {
                                             infoPacket ? 
 
@@ -360,7 +361,7 @@ const SubscriptionPage = () => {
                                                     subscriptionList[user.subscription - 1 ||  0].benefit.map((data , index) => {
                                                         return(
                                                             <span key={index} className="flex text-TEXT-1">
-                                                                <img src={'/images/icon/success-check.svg'} alt="icon-check" />    
+                                                                <img src={images.icon.successCheck } alt="icon-check" />    
                                                                 <p className="text-[14px]">{data}</p>
                                                             </span>
                                                         )

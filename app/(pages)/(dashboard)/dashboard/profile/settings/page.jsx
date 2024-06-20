@@ -13,23 +13,23 @@ import { convertToIndonesianDate } from "@/app/utils/helper"
 import { toast } from "react-toastify"
 import { editUserSettings, getUserActivityHistory, getUserSettings } from "@/app/api/repository/userRepository"
 import AppToastPending from "@/app/components/AppToastPending/appToastPending"
-
+import images from '@/public/images/images'
 
 const historyActivity = [
     {
         title : 'Terakhir Login',
         logData : '15 September 2024',
-        icon : '/images/icon/settings/profile.svg'
+        icon : images.icon.settings.profileSetting
     },
     {
         title : 'Terakhir Ubah Izin',
         logData : '15 September 2024',
-        icon : '/images/icon/settings/shield.svg'
+        icon : images.icon.settings.shield
     },
     {
         title : 'Terakhir Unggah Konten',
         logData : '15 September 2024',
-        icon : '/images/icon/settings/gallery.svg'
+        icon : images.icon.settings.gallery
     },
 ]
 

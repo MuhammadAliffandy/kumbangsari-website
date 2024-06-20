@@ -5,6 +5,7 @@ import AppCheckBox from '@/app/components/appCheckBox/appCheckBox'
 import AppCustomButton from '@/app/components/appButton/appCustomButton';
 import { useState } from 'react';
 import AppButton from '@/app/components/appButton/appButton';
+import images from '@/public/images/images'
 
 const AppPopupFilter = (props) => {
     
@@ -89,7 +90,7 @@ const AppPopupFilter = (props) => {
                 <AppCustomButton className='flex gap-[10px] items-center bg-white rounded-[20px] px-[15px] py-[5px] border-[1px] border-TEXT-4' onClick={()=>{
                     setOpen(!open)
                 }}>
-                        <img className='w-[18px] h-[18px] ' src={'/images/icon/filter.png'}/>
+                        <img className='w-[18px] h-[18px] ' src={images.icon.filter}/>
                         {props.isResponsive ? null : <p className="text-TEXT-1 font-bold text-[14px]">Filter</p>} 
                 </AppCustomButton>
             </div>

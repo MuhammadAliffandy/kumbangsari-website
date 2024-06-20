@@ -6,6 +6,7 @@ import { setCookie } from '@/app/utils/helper';
 import AppCustomModal from '@/app/components/appModal/AppCustomModal';
 import AppButton from '@/app/components/appButton/appButton';
 import { useState } from 'react';
+import images from '@/public/images/images';
 
 const AppSidebar = (props)=> {
     const { push } = useRouter();
@@ -53,7 +54,7 @@ const AppSidebar = (props)=> {
             {/*  */}
             {props.isDrawer ? 
                 <Box className={`py-[10px] pl-[10%] flex items-center justify-start gap-[8px] w-[100%]`}>
-                    <img className='w-[40px] h-[40px]' src='/images/icon/logo/planify.png' />
+                    <img className='w-[40px] h-[40px]' src={images.icon.logo.planify} />
                     <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
                 </Box>
 

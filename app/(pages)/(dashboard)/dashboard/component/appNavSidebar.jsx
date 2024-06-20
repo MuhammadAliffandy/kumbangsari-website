@@ -2,6 +2,7 @@
 import { useMediaQuery } from "react-responsive";
 import { useState } from 'react'
 import Link from "next/link";
+import images from "@/public/images/images";
 
 const AppNavSidebar = (props) => {
     const xl = useMediaQuery({ maxWidth: 1280 });
@@ -34,7 +35,7 @@ const AppNavSidebar = (props) => {
                     </p> 
                 }
                 {
-                    props.isSubscription ? null : <img className="w-[12px] h-[12px]" src='/images/icon/lock.svg'/>
+                    props.isSubscription ? null : <img className="w-[12px] h-[12px]" src={images.icon.lock} />
                 }
             </div>
         </Link> 

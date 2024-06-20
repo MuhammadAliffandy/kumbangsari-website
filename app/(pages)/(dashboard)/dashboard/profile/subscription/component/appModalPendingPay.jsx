@@ -5,7 +5,7 @@ import AppTextField from '@/app/components/appTextField/appTextField'
 import AppButton from '@/app/components/appButton/appButton'
 import AppCloseButton from '@/app/components/appCloseButton/appCloseButton'
 import { useEffect, useState } from 'react';
-
+import images from '@/public/images/images'
 
 const AppModalPendingPay = (props) => {
 
@@ -71,7 +71,7 @@ const AppModalPendingPay = (props) => {
 
                             {/*  */}
                             <Box className='flex items-center gap-[10px] bg-STATE-YELLOW-BASE bg-opacity-[20%] p-[15px] rounded-[15px]'>
-                                <img className='w-[24px] h-[24px] ' src='/images/icon/pending.svg' />
+                                <img className='w-[24px] h-[24px] ' src={images.icon.pending} />
                                 <Box className='flex flex-col items-start justify-center'>
                                     <p className='flex text-STATE-YELLOW-DARKEN text-[14px]'>Pembayaran Berhasil Dilakukan pada : </p>
                                     <p className='flex text-STATE-YELLOW-DARKEN text-[14px] font-bold'>{props.updatedAt}</p>

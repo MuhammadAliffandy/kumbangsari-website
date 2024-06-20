@@ -15,6 +15,7 @@ import { setCookie } from "@/app/utils/helper";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import { useRouter } from "next/navigation";
 import AppToastPending from "@/app/components/AppToastPending/appToastPending";
+import images from "@/public/images/images";
 
 const ProfilePage = () => {
     const { push } = useRouter() 
@@ -173,10 +174,10 @@ const ProfilePage = () => {
                             <Box className='flex flex-col gap-[20px] items-center'>
                                 <Box className=' w-[150px]  xl:w-[200px] h-[150px] xl:h-[200px] relative'>
                                     <input type="file" onChange={handleFileChange} ref={inputFileImageRef} hidden/>
-                                    <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src="/images/icon/edit-profile.svg" /></button>
+                                    <button onClick={handleButtonFileClick} className="bg-PRIMARY-500 rounded-[20px] border-white border-[4px] p-[7px] absolute z-[100] bottom-0 right-5" ><img src={images.icon.editProfile} /></button>
                                     <img className="rounded-[100%] w-[100%] h-[100%] xl:h-[100%] object-cover relative" 
                                         src={
-                                            fileImage ? fileImage : image ? image :  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" 
+                                            fileImage ? fileImage : image ? image :  images.icon.profileDefault
                                             
                                         } alt="image-profile" 
                                     />
@@ -185,7 +186,7 @@ const ProfilePage = () => {
                                     <p className="text-TEXT-1 text-[16px] font-bold">{user.name || 'Your Name'}</p>
                                     <span className="flex items-center gap-[3px]">
                                         <p className="text-TEXT-1 text-[12px]">Paket {user.subscription || 0}</p>
-                                        <img src="/images/icon/success-check.svg" />
+                                        <img className="w-[14px] h-[14px]"  src={images.icon.success} />
                                     </span>
                                     <p className="text-TEXT-1 text-[12px]">{user.phoneNumber || '081xxxxxx'}</p>
                                     <p className="text-TEXT-1 text-[12px]">{user.email || 'taylorsiwft@gmail.com' }</p>

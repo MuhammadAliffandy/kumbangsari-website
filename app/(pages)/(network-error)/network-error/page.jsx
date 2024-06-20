@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-
+import images from '@/public/images/images'
 
 
 const NetworkErrorPage = () => {
@@ -11,7 +11,7 @@ const NetworkErrorPage = () => {
     return(
         <div className="flex  justify-center items-center h-[100vh] w-[100vw]">
             <div className="flex flex-col gap-[10px] items-center px-[40px] xl:px-0">
-                <img src="/images/vector/error.svg" alt="image-error" className="w-[50%] h-[50%]"/>
+                <img src={images.vector.errorVector} alt="image-error" className="w-[50%] h-[50%]"/>
                 <div className="flex flex-col gap-[10px]">
                     <h1 className="text-black text-[40px] font-bold text-center">Error - Page Not Found</h1>
                     <div className="flex items-center justify-center gap-[15px]">
