@@ -191,7 +191,7 @@ const AppModalDetailContent = (props) => {
         try {
 
             if(data.platform == 'twitter'){
-                if(caption.length >= 280){
+                if(data.captionPost.length >= 280){
                     toast.warn('Caption Lebih dari 280 Karakter')
                     return false;
                 }
@@ -222,6 +222,8 @@ const AppModalDetailContent = (props) => {
             if(error.status == 404 ){
                 toast.error('Tambah Content Gagal')
             }else{
+                console.log(error)
+                console.log(data)
                 toast.error('Ada Kesalahan Sever (500)')
             }
         }

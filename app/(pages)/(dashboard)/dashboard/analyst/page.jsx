@@ -16,13 +16,14 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { convertToIndonesianDate } from "@/app/utils/helper";
 import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import Skeleton from "react-loading-skeleton";
 import images from '@/public/images/images'
 
 
     const listPlatform = [
+    { color : '#5A4999' , platform : 'Twitter'},
     { color : '#FFC300' , platform : 'Instagram'},
     { color : '#8E8E8E' , platform : 'Facebook'},
-    { color : '#5A4999' , platform : 'Twitter'},
     ]
 
     const exampleProduct = [
@@ -81,6 +82,7 @@ const AnalystPage = () => {
 
     // state responsive
     const xl = useMediaQuery({ maxWidth: 1280 });
+    const arr = [1,2,3]
     // 
     const userSubscription = useSelector(state => state.userSubscription.value)
     // state modal
@@ -90,7 +92,9 @@ const AnalystPage = () => {
     const [postRecap , setPostRecap ] = useState(false)
     // state data
     const [contentDetail , setContentDetail] = useState([])
+    const [product , setProduct] = useState([])
     const [productList , setProductList] = useState([])
+    const [productListChart , setProductListChart] = useState([])
     const [currentBestPerformance , setCurrentBestPerformance ] = useState([])
     const [bestPerformance , setBestPerformance ] = useState([])
     const [recapPost , setRecapPost ] = useState({
@@ -99,9 +103,9 @@ const AnalystPage = () => {
             label: '# of Votes',
             data: [12,7,3],
             backgroundColor: [
+                '#5A4999',
                 '#FFC300',
                 '#8E8E8E',
-                '#5A4999',
             ],
             borderWidth: 1,
             },
@@ -127,7 +131,15 @@ const AnalystPage = () => {
             const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
             })
+
+            const productListChart = currentData.map((data,index) => {
+                return { ...data , color : listPlatform[index].color }
+            })
+
+
+            setProductListChart(productListChart)
             setProductList(productList)
+            setProduct(currentData)
         }
     }
 
@@ -182,9 +194,9 @@ const AnalystPage = () => {
                         label: '# of Votes',
                         data: data,
                         backgroundColor: [
+                            '#5A4999',
                             '#FFC300',
                             '#8E8E8E',
-                            '#5A4999',
                         ],
                         borderWidth: 1,
                         },
@@ -274,12 +286,15 @@ const AnalystPage = () => {
                     </Box>
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
-                            exampleProduct.map(data => {
+
+                            product.length > 0 ?
+
+                            product.map(data => {
                                 return (
                                     <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
                                         <AppAnimationButton className='w-auto'>
                                             <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-md'>
-                                                <p className="text-TEXT-3 text-[12px]">{data.productName}</p>
+                                                <p className="text-TEXT-3 text-[12px]">{data.nameProduct}</p>
                                                 <Box className='flex justify-between items-center'>
                                                     <Box className='flex flex-col'>
                                                         <p className="text-TEXT-1 text-[28px] font-bold">14.000</p>
@@ -294,42 +309,47 @@ const AnalystPage = () => {
                                         </AppAnimationButton>
                                     </Grid>
                                 )
-                            })
+                            }) : 
+                            <div className="w-[100%] h-[50vh] xl:h-[100px] flex xl:flex-row flex-col items-center gap-[30px] px-[20px]">
+                                {
+                                    arr.map(data => {
+                                        return(
+                                            <div className="w-[100%] h-[80%] flex items-center gap-[10px]">
+                                                <div className="w-[40%] h-[100%]">
+                                                    <Skeleton className="h-[100%] w-[100%] "/>
+                                                </div>
+                                                <div className="flex flex-col gap-[10px] h-[100%] w-[100%]">
+                                                    <div className="w-[100%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                    <div className="w-[80%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                    <div className="w-[70%] h-[25%]">
+                                                        <Skeleton className="h-[100%] w-[100%] "/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         }
                     </Grid>
             {/*  */}
-                    <Box className='w-[100%]'>
-                        <Box className='flex w-[100%] justify-end items-center'>
-                            <AppPopupFilter
-                                paddingRight={'8%'}
-                                isResponsive = { xl ? true : false  }
-                                product = { productList}
-                                listProductCheckbox={productCheckBoxFilter}
-                                listPlatformCheckbox={platformCheckBoxFilter}
-                                onCheckProduct = {(value)=>{ 
-                                        setProductCheckboxFilter(value.product)
-                                        handleFilter(value)
-                                    }}
-                                    onCheckPlatform = {(value)=>{ 
-                                        setPlatformCheckboxFilter(value.platform)
-                                        handleFilter(value)
-                                        
-                                }}
-                            />
-                        </Box>
-                    </Box>
+                    
                     {/*  */}
                     <Box className='flex flex-col xl:flex-row lg:flex-row gap-[15px] w-[100%]'>
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-md'>
                             <Box className='flex items-center justify-between'>
-                                <p className="text-TEXT-1 font-bold text-[16px] w-[20%] xl:w-[100%]">Grafik Performa Konten</p>
-                                <Box className='flex xl:flex-row flex-col items-center gap-[20px]'>
+                                <p className="text-TEXT-1 font-bold text-[16px] w-[20%] xl:w-[70%]">Grafik Performa Konten</p>
+                                <Box className='flex xl:flex-row flex-col items-center justify-end gap-[20px] w-[30%]'>
                                     {
-                                        listPlatform.map(data => {
+                                        productListChart.map(data => {
                                             return(
-                                                <span className="flex items-center gap-[6px]">
+                                                <span className="flex items-center gap-[6px] w-[100%]">
                                                     <Box sx={{backgroundColor : data.color}} className={`w-[10px] h-[10px] rounded-full`}></Box>
-                                                    <p className="text-TEXT-1 text-[12px]">{data.platform}</p>
+                                                    <p className="text-TEXT-1 text-[12px]">{data.nameProduct}</p>
                                                 </span>
                                             )
                                         })
@@ -397,6 +417,26 @@ const AnalystPage = () => {
                         </Box>
                     </Box>
                     {/*  */}
+                    <Box className='w-[100%]'>
+                        <Box className='flex w-[100%] justify-end items-center'>
+                            <AppPopupFilter
+                                paddingRight={'8%'}
+                                isResponsive = { xl ? true : false  }
+                                product = { productList}
+                                listProductCheckbox={productCheckBoxFilter}
+                                listPlatformCheckbox={platformCheckBoxFilter}
+                                onCheckProduct = {(value)=>{ 
+                                        setProductCheckboxFilter(value.product)
+                                        handleFilter(value)
+                                    }}
+                                    onCheckPlatform = {(value)=>{ 
+                                        setPlatformCheckboxFilter(value.platform)
+                                        handleFilter(value)
+                                        
+                                }}
+                            />
+                        </Box>
+                    </Box>
                     <Box className=' bg-NEUTRAL-100 p-[20px] rounded-[20px] flex flex-col gap-[15px] hover:shadow-md'> 
                         <AppTablePost
                                 data = {bestPerformance}
