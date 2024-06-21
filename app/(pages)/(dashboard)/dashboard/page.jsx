@@ -62,8 +62,11 @@ const DashboardPage = () => {
     const [contentPreviewLoading , setContentPreviewLoading ]= useState(true)
     const [contentRecapLoading , setContentRecapLoading ]= useState(true)
     // state data
-    const [trendingDataHashtag , setTrendingDataHashtag ] = useState([])
+    const [currentTrendingDataHashtag , setCurrentTrendingDataHashtag ] = useState([]) 
+    const [trendingDataHashtag , setTrendingDataHashtag ] = useState([]) 
+    const [currentContentAI , setCurrentContentAI ] = useState([])
     const [contentAI , setContentAI ] = useState([])
+    const [currentContentDataPreview , setCurrentContentDataPreview ] = useState([])
     const [contentDataPreview , setContentDataPreview ] = useState([])
     const [contentDataRecap , setContentDataRecap ] = useState([])
     const [contentDetail , setContentDetail ] = useState()
@@ -109,6 +112,7 @@ const DashboardPage = () => {
                     return { ...item , productName : '', }
                 }) 
                 setContentAI(data)
+                setCurrentContentAI(data)
                 setContentAILoading(false)
                 
             }
@@ -137,6 +141,7 @@ const DashboardPage = () => {
                         data.idContent,
                     )
                 })
+                setCurrentContentDataPreview(data)
                 setContentDataPreview(data)
                 setContentPreviewLoading(false)
             }else{
@@ -191,6 +196,7 @@ const DashboardPage = () => {
                         })[0].text, 
                     }
                 }) 
+                setCurrentTrendingDataHashtag(data)
                 setTrendingDataHashtag(data)
             }
         } catch (error) {
@@ -199,9 +205,31 @@ const DashboardPage = () => {
     }
 
     const handleFilter = (value) => {
-        setContentDataPreview(contentDataPreview.filter(data => value.product.indexOf(data.productName) > -1))
-        setTrendingDataHashtag(trendingDataHashtag.filter(data => value.product.indexOf(data.productName) > -1))
-        setContentAI(contentAI.filter(data => value.product.indexOf(data.productName) > -1))
+        // 
+        setContentDataPreview(currentContentDataPreview.filter(data => {
+            if(value.product.length == 0){
+                return data
+            }else{
+                return value.product.indexOf(data.productName) > -1
+            }
+        }))
+        // 
+        setTrendingDataHashtag(currentTrendingDataHashtag.filter(data => {
+            if(value.product.length == 0){
+                return data
+            }else{
+                return value.product.indexOf(data.product) > -1
+            }
+        }))
+
+        // 
+        setContentAI(currentContentAI.filter(data => {
+            if(value.product.length == 0){
+                return data
+            }else {
+                return value.product.indexOf(data.contentTitle) > -1
+            }
+        }))
     }
 
     useEffect(()=>{
