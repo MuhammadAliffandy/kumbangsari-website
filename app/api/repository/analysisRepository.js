@@ -16,3 +16,10 @@ export const getAnalysisRecapPost = async () => {
     const response = await PROVIDER_GET(`api/v1/analysis/count-recap-post`,token)
     return response
 }
+
+export const getAnalysisChartPerformance = async () => {
+    await delay()
+    const token = getCookie('token');
+    const response = await PROVIDER_GET(`api/v1/analysis/chart-performance`,token)
+    return response
+}

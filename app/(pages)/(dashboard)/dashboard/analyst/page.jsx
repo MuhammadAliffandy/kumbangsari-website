@@ -9,7 +9,7 @@ import Chart from 'chart.js/auto';
 import AppTablePost from "@/app/components/appTable/appTablePost";
 import AppModalDetailContent from '@/app/(pages)/(dashboard)/dashboard/component/modal/appModalDetailContent';
 import { getProductByUser } from '@/app/api/repository/productRepository';
-import { getAnalysisBestPerformance, getAnalysisRecapPost } from '@/app/api/repository/analysisRepository';
+import { getAnalysisBestPerformance, getAnalysisChartPerformance, getAnalysisRecapPost } from '@/app/api/repository/analysisRepository';
 import { useMediaQuery } from "react-responsive";
 import AppPopupFilter from '@/app/(pages)/(dashboard)/dashboard/component/popup/appPopupFilter'
 import { useSelector } from "react-redux";
@@ -27,9 +27,9 @@ import images from '@/public/images/images'
     ]
 
     const exampleProduct = [
-    {productName : 'Bakso kuat'},
-    {productName : 'Bakso mantap'},
-    {productName : 'Bakso enjoy'},
+        {productName : 'Bakso kuat'},
+        {productName : 'Bakso mantap'},
+        {productName : 'Bakso enjoy'},
     ]
 
     const exampleData = {
@@ -40,8 +40,8 @@ import images from '@/public/images/images'
                 data: [33, 53, 85, 41, 44, 65, 45],
                 fill: false,
                 lineTension: 0.5,
-                backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "#8E8E8E"
+                // backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "#5A4999"
             },
             {
                 label: null,
@@ -51,12 +51,12 @@ import images from '@/public/images/images'
                 borderColor: "#FFC300"
             },
             {
-
+                
                 label: null,
                 data: [33, 15, 45, 21, 44, 56 , 18],
                 fill: false,
                 lineTension: 0.5,
-                borderColor: "#5A4999"
+                borderColor: "#8E8E8E"
             }
         ]
     };
@@ -96,6 +96,8 @@ const AnalystPage = () => {
     const [productList , setProductList] = useState([])
     const [productListChart , setProductListChart] = useState([])
     const [currentBestPerformance , setCurrentBestPerformance ] = useState([])
+    const [chartPerformance , setChartPerformance ] = useState([])
+    const [chartGraphicPerformance , setChartGraphicPerformance ] = useState(exampleData)
     const [bestPerformance , setBestPerformance ] = useState([])
     const [recapPost , setRecapPost ] = useState({
         datasets: [
@@ -211,6 +213,42 @@ const AnalystPage = () => {
         }
     }
 
+    const fetchChartPerformance = async () => {
+        try {
+            const res = await getAnalysisChartPerformance()
+            if(res.status == 'OK'){
+
+                const chartGraphic = res.data.map((data,index)=> {
+                    return {
+                        label: null,
+                        data: [
+                            data.avg_monday || 0,
+                            data.avg_tuesday || 0,
+                            data.avg_wednesday || 0,
+                            data.avg_thursday || 0,
+                            data.avg_friday || 0,
+                            data.avg_saturday || 0,
+                            data.avg_sunday || 0,
+                        ],
+                        fill: false,
+                        lineTension: 0.5,
+                        borderColor: listPlatform[index].color
+                    }
+                })
+                
+
+                setChartGraphicPerformance({
+                    labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",'Minggu'],
+                    datasets:[
+                        ...chartGraphic
+                    ]
+                })
+                setChartPerformance(res.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleFilter = (listCheckbox) => {
 
@@ -233,6 +271,7 @@ const AnalystPage = () => {
     useEffect(()=>{
         fetchAnalysisBestPerformance()
         fetchAnalysisRecapPost()
+        fetchChartPerformance()
     },[productList])
 
     return (
@@ -287,23 +326,23 @@ const AnalystPage = () => {
                     <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={2} className="w-[100%]" >
                         {
 
-                            product.length > 0 ?
+                            chartPerformance.length > 0 ?
 
-                            product.map(data => {
+                            chartPerformance.map(data => {
                                 return (
-                                    <Grid xs={12} xl={4} lg={4} md={12} sm={12} item>
+                                    <Grid xs={12} xl={ 12 / chartPerformance.length || 4 } lg={ 12 / chartPerformance.length || 4 } md={12} sm={12} item>
                                         <AppAnimationButton className='w-auto'>
                                             <Box className='p-[20px] bg-NEUTRAL-100 rounded-[20px] flex flex-col gap-[8px] hover:shadow-md'>
-                                                <p className="text-TEXT-3 text-[12px]">{data.nameProduct}</p>
+                                                <p className="text-TEXT-3 text-[12px]">{data.product}</p>
                                                 <Box className='flex justify-between items-center'>
                                                     <Box className='flex flex-col'>
-                                                        <p className="text-TEXT-1 text-[28px] font-bold">14.000</p>
+                                                        <p className="text-TEXT-1 text-[28px] font-bold">{data.average_score_today}</p>
                                                         <span className="flex gap-[10px] items-center">
-                                                            <img src={images.icon.analyst.trafficUp} alt="icon-grow"/>
-                                                            <p className="text-STATE-GREEN-BASE text-[12px] font-bold">15%</p>
+                                                            <img src={data.status == 'up' ? images.icon.analyst.trafficUp : images.icon.analyst.trafficDown} alt="icon-grow"/>
+                                                            <p className={`${data.status == 'down' ? 'text-STATE-RED-BASE' : 'text-STATE-GREEN-BASE'} text-[12px] font-bold`}>{data.percentage_change}</p>
                                                         </span>
                                                     </Box>
-                                                    <img src={images.icon.analyst.growthUp} alt="icon-grow" className="w-auto h-[60px]"/>
+                                                    <img src={ data.status == 'up' ?  images.icon.analyst.growthUp : images.icon.analyst.growthDown} alt="icon-grow" className="w-auto h-[60px]"/>
                                                 </Box>
                                             </Box>
                                         </AppAnimationButton>
@@ -357,7 +396,7 @@ const AnalystPage = () => {
                                 </Box>
                             </Box>
                             <Line 
-                                data={exampleData} 
+                                data={ chartGraphicPerformance || exampleData} 
                                 options={{
                                     plugins: {
                                         legend: {

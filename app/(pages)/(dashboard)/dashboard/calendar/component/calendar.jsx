@@ -27,7 +27,7 @@ const Calendar = (props) => {
                 status == 'COMPLETED' ? 'bg-STATE-BLUE-BASE bg-opacity-[20%] border-[2px] border-STATE-BLUE-BASE' :
                 status == 'INCOMPLETED' ? 'bg-STATE-YELLOW-BASE bg-opacity-[5%]  border-[2px] border-STATE-YELLOW-BASE' :
                 status == 'SUCCESS' ? 'bg-STATE-GREEN-BASE bg-opacity-[5%] border-[2px] border-STATE-GREEN-BASE' :
-                status == 'FAILED' ? 'bg-STATE-RED-BASE bg-opacity-[5%] border-[2px] border-STATE-RED-BASE border-opacity-[70%]' :
+                status == 'FAILURE' ? 'bg-STATE-RED-BASE bg-opacity-[5%] border-[2px] border-STATE-RED-BASE border-opacity-[70%]' :
                 'bg-STATE-GREEN-BASE bg-opacity-[5%]  border-[2px]  border-STATE-GREEN-BASE'
             }  rounded-[10px]`}   onClick={()=> {
                 setOpenModalDetail(!openModalDetail)
