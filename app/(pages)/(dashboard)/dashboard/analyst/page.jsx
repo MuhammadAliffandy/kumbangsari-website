@@ -132,14 +132,8 @@ const AnalystPage = () => {
             })    
             const productList = currentData.map(item => {
                 return {value: item.idProduct , text : item.nameProduct}
-            })
+            });
 
-            const productListChart = currentData.map((data,index) => {
-                return { ...data , color : listPlatform[index].color }
-            })
-
-
-            setProductListChart(productListChart)
             setProductList(productList)
             setProduct(currentData)
         }
@@ -187,7 +181,7 @@ const AnalystPage = () => {
                 })
         
                 const data  = currentData.map(item => {
-                    return item.total_count || 1
+                    return item.total_count 
                 })
 
             const doughnutData = {
@@ -235,7 +229,15 @@ const AnalystPage = () => {
                         borderColor: listPlatform[index].color
                     }
                 })
-                
+
+                const productTextChart = res.data.map((data,index) => {
+                    return {
+                        nameProduct : data.product,
+                        color : listPlatform[index].color
+                    }
+                })
+
+                setProductListChart(productTextChart)
 
                 setChartGraphicPerformance({
                     labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu",'Minggu'],
@@ -243,6 +245,7 @@ const AnalystPage = () => {
                         ...chartGraphic
                     ]
                 })
+                
                 setChartPerformance(res.data)
             }
         } catch (error) {
@@ -382,11 +385,11 @@ const AnalystPage = () => {
                         <Box className='grow h-auto rounded-[20px] bg-NEUTRAL-100 flex flex-col gap-[15px] p-[20px] hover:shadow-md'>
                             <Box className='flex items-center justify-between'>
                                 <p className="text-TEXT-1 font-bold text-[16px] w-[20%] xl:w-[70%]">Grafik Performa Konten</p>
-                                <Box className='flex xl:flex-row flex-col items-center justify-end gap-[20px] w-[30%]'>
+                                <Box className='flex xl:flex-row flex-col items-center justify-end gap-[10px] w-[30%]'>
                                     {
                                         productListChart.map(data => {
                                             return(
-                                                <span className="flex items-center gap-[6px] w-[100%]">
+                                                <span className="flex items-center justify gap-[6px] w-[100%]">
                                                     <Box sx={{backgroundColor : data.color}} className={`w-[10px] h-[10px] rounded-full`}></Box>
                                                     <p className="text-TEXT-1 text-[12px]">{data.nameProduct}</p>
                                                 </span>
@@ -438,14 +441,14 @@ const AnalystPage = () => {
                                     </Box>
                                     <Box className='flex flex-col items-center gap-[20px] w-[100%] justify-between'>
                                             {
-                                                productList.map((data,index) => {
+                                                chartPerformance.map((data,index) => {
                                                     return(
                                                         <span className="w-[60%] flex items-center gap-[10px] justify-between" >
                                                             <Box className='flex gap-[6px] items-center'>
                                                                 <Box className={`w-[10px] h-[10px] rounded-full`} sx={{ backgroundColor: listPlatform[index].color }}></Box>
-                                                                <p className="text-TEXT-1 text-[12px]">{data.text}</p>
+                                                                <p className="text-TEXT-1 text-[12px]">{data.product}</p>
                                                             </Box>
-                                                                <p className="text-TEXT-1 text-[12px]">{recapPost.datasets[0].data[index] || 0 } Postingan</p>
+                                                            <p className="text-TEXT-1 text-[12px]">{recapPost.datasets[0].data[index] || 0 } Postingan</p>
 
                                                         </span>
                                                     )
