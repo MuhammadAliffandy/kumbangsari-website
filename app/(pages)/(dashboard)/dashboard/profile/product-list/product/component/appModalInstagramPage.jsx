@@ -54,7 +54,7 @@ const AppModalInstagramPage = (props) => {
         }
     }
     
-    // const fetchFacebookCancelPages = async () => {
+    // const fetchInstagramCancelPages = async () => {
     //     const res = await fetch('http://localhost:3000/api/v1/facebook/cancel-pages', {
     //                     method: 'DELETE', 
     //                     headers: {

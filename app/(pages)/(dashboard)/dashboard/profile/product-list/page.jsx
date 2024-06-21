@@ -263,7 +263,7 @@ const ProductListPage = () => {
                             productData.length > 0 ? 
                             productData.map((data,index) => {
                                 return (
-                                    <Grid key={index} xs={12} xl={4} lg={4} md={12} sm={12} item>
+                                    <Grid key={index} xs={12} xl={ 12 / productData.length  ||  4  } lg={4} md={12} sm={12} item>
                                             <AppAnimationButton className='w-auto cursor-pointer'>
                                                 <Box onClick={()=>{
                                                     if(index < idSelection){
