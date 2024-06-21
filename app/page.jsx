@@ -16,6 +16,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
 import AppAnimationButton from "./components/appAnimation/appAnimationButton";
+import images from "@/public/images/images";
 
 const items = [
   {
@@ -401,7 +402,7 @@ export default function LandingPage() {
               {/*  */}
               <Box className='flex flex-col xl:flex-row  items-center gap-[10px] xl:gap-0 xl:items-center justify-between py-[15px]'>
                   <Box className='flex items-center gap-[10px]'>
-                      <img className='w-[20px] h-[20px]' src='/images/icon/logo/planify-black.svg' />
+                      <img className='w-[20px] h-[20px]' src={images.icon.logo.planifyBlack} />
                       <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Planify</p>
                   </Box>
                   <p className="text-TEXT-1 bg-clip-text font-poppins text-[12px] ">© 2024 Planify. All rights reserved</p>
@@ -421,7 +422,7 @@ const SideBar = (props) => {
 
     
         <Box className={`${props.isDrawer ? 'p-[10px]' : ''} flex items-center gap-[10px]`}>
-            <img className='w-[30px] h-[30px]' src='/images/icon/logo/planify.png' />
+            <img className='w-[30px] h-[30px]' src={images.icon.logo.planify} />
             <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
         </Box>
 
