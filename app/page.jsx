@@ -251,7 +251,7 @@ export default function LandingPage() {
             <img className="w-[100%] h-[100%]" src="/images/icon/landing-page/background/bg-intro.svg"/>
         </Box>
         <Box className='flex flex-col gap-[15px] items-center justify-center w-[60%] xl:w-[50%] absolute'>
-            <p className="text-PRIMARY-500 text-[18px]">{language == 'ID' ? 'SELAMAT DATANG DI PLANIFY' : 'WELCOME TO PLANIFY'}</p>
+            <p className="text-PRIMARY-500 text-[18px] text-center">{language == 'ID' ? 'SELAMAT DATANG DI PLANIFY' : 'WELCOME TO PLANIFY'}</p>
             <Box className='flex flex-col gap-[8px] text-[32px] items-center font-poppins font-extrabold'>
               <p className="text-TEXT-1 text-center">{language == 'ID' ? 'Satu platform untuk seluruh' : 'One platform for all your' }</p>
               <p className="text-PRIMARY-500 text-center">{language == 'ID' ? 'Media Sosialmu!' : 'Social Media!'}</p>
@@ -364,7 +364,7 @@ export default function LandingPage() {
                               </Box>
                               <p className="text-TEXT-2 text-[18px]">{language == 'ID' ? itemsFeatures[initButton - 1].descriptionID : itemsFeatures[initButton - 1].description}</p>
                           </Box>
-                            <AppCustomButton className='w-[60%] xl:w-[40%] flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
+                            <AppCustomButton className={`${language == 'ID' ? 'w-[50%]' : "w-[60%]"} xl:${language == 'ID' ? 'w-[30%]' : "w-[40%]"} flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] `}
                                   onClick={()=>{
                                   }}
                               >
@@ -527,20 +527,25 @@ const SideBar = (props) => {
           <AppDropDown
               sx={{
                 backgroundColor : 'transparent',
-                padding: '0px',
+                padding: 0,
                 fontSize: '12px',
                 height: '12px',
                 width:'auto',
                 boxShadow: "none",
                 fontWeight : 700,
-                ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                '& .MuiSelect-select' : {
+                  padding: 0
+                },
+                ".MuiOutlinedInput-notchedOutline": { border: 0,     },
                 "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
                   {
                     border: 0,
+                    
                   },
                 "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                   {
                     border: 0,
+                    
                   },
               }}
               value={language}
