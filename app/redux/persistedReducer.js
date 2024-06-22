@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     generateAIHistory : generateAIHistoryReducer,
     generateAIContentHistory : generateAIContentHistoryReducer,
     nameProduct : nameProductReducer,
-    userSubscription : userSubscriptionReducer
+    userSubscription : userSubscriptionReducer,
 })
 
 const persistConfig = {

@@ -3,35 +3,45 @@ import Image from "next/image";
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
-import { formatRupiahNumber } from "@/app/utils/helper";
+import { formatRupiahNumber, getCookie, setCookie } from "@/app/utils/helper";
 import Grid from '@mui/material/Grid'
 import { motion } from 'framer-motion';
 import Link from "next/link";
 import { useState , useEffect} from "react";
 import AppCarouselTestimoni from '@/app/components/appCaraousel/appCaraouselTestimoni';
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
+import AppDropDown from "./components/appDropDown/appDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch  } from "react-redux";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
 import AppAnimationButton from "./components/appAnimation/appAnimationButton";
 import images from "@/public/images/images";
+import { listLanguage } from "./utils/model";
+
 
 const items = [
   {
       name: 'Personalized Recommendation',
       description: 'Get AI-based content recommendations that suit your product!',
+      nameID : "Rekomendasi yang Dipersonalisasi",
+      descriptionID : "Dapatkan rekomendasi konten berbasis kecerdasan buatan yang sesuai dengan produk Anda!",
       image: '/images/vector/AI.png',
   },
   {
       name: 'Data Optimization',
       description: 'Get all your product content data analyzed in one easy-to-use platform!',
+      nameID : "Optimisasi Data",
+      descriptionID : "Dapatkan semua data konten produk Anda dianalisis dalam satu platform yang mudah digunakan!",
       image: '/images/vector/statistic.png',
   },
   {
       name: 'Time Efficiency',
       description: 'Automate your content posting with our scheduled content auto-post feature!',
+      nameID : "Efisiensi Waktu",
+      descriptionID : "Otomatisasikan pengunggahan konten Anda dengan fitur unggah konten otomatis!",
       image: '/images/vector/content.png',
   },
 ];
@@ -40,18 +50,24 @@ const itemsFeatures = [
   {
     title:'AI Generate',
     description:"Personalize product data and generate content with AI according to your needs! Stop wasting time creating generic content. Boost engagement with AI-powered personalization",
+    titleID: 'Generate AI',
+    descriptionID : 'Personalisasi data produk dan hasilkan konten dengan AI sesuai kebutuhan Anda! Berhenti membuang waktu membuat konten generik. Tingkatkan keterlibatan pengguna dengan personalisasi yang didukung oleh kecerdasan buatan.',
     icon: '/images/icon/landing-page/Sparkle.svg',
     image : "/images/icon/landing-page/description/slide1.svg"
   },
   {
     title:'Content Analysis',
     description:"See uploaded recaps of all your content and products on just one page! Get started now and see how our services can help you reach more customers and increase sales.",
+    titleID: 'Analisis Konten',
+    descriptionID : 'Lihat ringkasan unggahan semua konten dan produk Anda hanya dalam satu halaman! Mulailah sekarang dan lihat bagaimana layanan kami dapat membantu Anda menjangkau lebih banyak pelanggan dan meningkatkan penjualan.',
     icon: '/images/icon/landing-page/MagnifyingGlass.svg',
     image : "/images/icon/landing-page/description/slide2.svg"
   },
   {
     title:'Auto-Post Content',
     description:"Tired of spending hours posting content on social media? Increase content management efficiency through scheduling and auto-posting across accounts!",
+    titleID: 'Unggah Konten Otomatis',
+    descriptionID : 'Lelah menghabiskan waktu berjam-jam untuk memposting konten di media sosial? Tingkatkan efisiensi manajemen konten melalui penjadwalan dan otomatisasi unggahan di berbagai akun!',
     icon: '/images/icon/landing-page/ClockCountdown.svg',
     image : "/images/icon/landing-page/description/slide3.svg"
   },
@@ -89,7 +105,7 @@ const subscriptionList = [
   {
       title: 'Basic Package',
       subtitle: 'Suistable for Beginner ',
-      image : '/images/icon/paket/basic.svg',
+      image : images.icon.packet.basic,
       price : 100000,
       benefit : [
           'Content Recommendation',
@@ -104,7 +120,7 @@ const subscriptionList = [
   {
       title: 'Premium Package',
       subtitle: 'Suistable for Intermediate ',
-      image : '/images/icon/paket/premium.svg',
+      image :  images.icon.packet.premium,
       price : 200000,
       benefit : [
         'Content Recommendation',
@@ -119,7 +135,7 @@ const subscriptionList = [
   {
       title: 'Professional Package',
       subtitle: 'Suistable for Professional ',
-      image : '/images/icon/paket/pro.svg',
+      image :  images.icon.packet.pro,
       price : 350000,
       benefit : [
         'Content Recommendation',
@@ -133,13 +149,67 @@ const subscriptionList = [
   },
 ]
 
+const subscriptionListID = [
+  {
+      title: 'Paket Dasar',
+      subtitle: 'Cocok Untuk Pemula',
+      image : images.icon.packet.basic,
+      price : 100000,
+      benefit : [
+          'Rekomendasi Konten',
+          'Jadwal dan Kalender',
+          'Analisis Performa',
+          '1 Produk',
+          'Semua Platform',
+          '50 Generate AI / Hari',
+          '15 Autopost'
+      ]
+  },
+  {
+      title: 'Paket Premium',
+      subtitle: 'Cocok Untuk Menengah',
+      image :  images.icon.packet.premium,
+      price : 200000,
+      benefit : [
+          'Rekomendasi Konten',
+          'Jadwal dan Kalender',
+          'Analisis Performa',
+          '1 Produk',
+          'Semua Platform',
+          'Unlimited Generate AI / Hari',
+          'Unlimited Autopost'
+      ]
+  },
+  {
+      title: 'Paket Profesional',
+      subtitle: 'Cocok Untuk Profesional',
+      image :  images.icon.packet.pro,
+      price : 350000,
+      benefit : [
+          'Rekomendasi Konten',
+          'Jadwal dan Kalender',
+          'Analisis Performa',
+          '3 Produk',
+          'Semua Platform',
+          'Unlimited Generate AI / Hari',
+          'Unlimited Autopost'
+      ]
+  },
+]
+
 
 export default function LandingPage() {
+  
+  const [ language ,setLanguage ] = useState(getCookie('language') != null ? getCookie('language') : 'EN')
 
   const { push } = useRouter()
+  
   // state animation
   
+  
   const [initButton , setInitButton] = useState(1)
+  
+  const subscriptionData = language == 'ID' ? subscriptionListID : subscriptionList 
 
   useEffect(() => {
     AOS.init({
@@ -154,12 +224,21 @@ export default function LandingPage() {
   return (
     <main className="flex flex-col w-full">
       <nav className="sticky top-0 z-50 bg-white bg-opacity-[50%] backdrop-blur-xl flex items-center justify-between px-[15px] xl:px-0 sm:justify-between md:justify-between xl:justify-around py-[15px] border-b-[1px] border-TEXT-4 border-opacity-25">
-          <SideBar isDrawer={false} />
+          <SideBar 
+            isDrawer={false}
+            onChangeLanguage={(value) => {
+              setLanguage(value)
+            }} />
 
           <Box className=" flex flex-col xl:hidden lg:hidden  md:hidden sm:block">
               <AppDrawer anchor='right'>
                 <div className="flex flex-col w-[40vw] bg-white h-[100vh] ">
-                  <SideBar isDrawer = {true}/>
+                  <SideBar 
+                    isDrawer = {true}
+                    onChangeLanguage={(value) => {
+                      setLanguage(value)
+                    }}
+                  />
                 </div>
               </AppDrawer>
           </Box>
@@ -172,25 +251,28 @@ export default function LandingPage() {
             <img className="w-[100%] h-[100%]" src="/images/icon/landing-page/background/bg-intro.svg"/>
         </Box>
         <Box className='flex flex-col gap-[15px] items-center justify-center w-[60%] xl:w-[50%] absolute'>
-            <p className="text-PRIMARY-500 text-[18px]">WELCOME TO PLANIFY</p>
+            <p className="text-PRIMARY-500 text-[18px]">{language == 'ID' ? 'SELAMAT DATANG DI PLANIFY' : 'WELCOME TO PLANIFY'}</p>
             <Box className='flex flex-col gap-[8px] text-[32px] items-center font-poppins font-extrabold'>
-              <p className="text-TEXT-1 text-center">One platform for all your</p>
-              <p className="text-PRIMARY-500 text-center">Social Media!</p>
+              <p className="text-TEXT-1 text-center">{language == 'ID' ? 'Satu platform untuk seluruh' : 'One platform for all your' }</p>
+              <p className="text-PRIMARY-500 text-center">{language == 'ID' ? 'Media Sosialmu!' : 'Social Media!'}</p>
             </Box>
             <p className="text-NEUTRAL-700 text-[18px] w-[100%] md:w-[85%] lg:w-[85%] xl:w-[85%] text-center"
-            >Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
+            >{
+              language == 'ID' ? 'Planify adalah platform manajemen konten yang mengumpulkan semua konten Anda di satu tempat. Dengan bantuan Generate AI dan Auto-Post, rasakan kemudahan dalam mengelola konten bersama kami!' : 
+              'Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!'
+            }</p>
             <Box className='flex flex-col xl:flex-row items-center gap-[10px] '>
               <AppCustomButton className=' flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
                       onClick={()=>{
                       }}
                   >
-                    <p onClick={()=> {push('/auth/signup')}} className="text-TEXT-5 text-[14px]">Get Started</p>
+                    <p onClick={()=> {push('/auth/signup')}} className="text-TEXT-5 text-[14px]">{ language  == 'ID' ? 'Mulai' : 'Get Started' }</p>
                     <img src="/images/icon/sparkling-white.svg" />
               </AppCustomButton>
               <Link href={'#feature'}>
                 <AppButton
                     className='px-[24px] py-[10px] text-[14px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]'
-                    text={'Our Feature'} 
+                    text={language == 'ID' ? 'Fitur Kami' : "Our Feature"} 
                     type = {'button'}
                 />
               </Link>
@@ -201,17 +283,17 @@ export default function LandingPage() {
       <section id="benefits"  className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[100px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
-                  <p className="text-[18px] text-PRIMARY-500">Why Planify?</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center px-[20px] ">Optimal, Efficient and Scheduled</p>
+                  <p className="text-[18px] text-PRIMARY-500">{language == 'ID' ? 'Mengapa Planify?' : 'Why Planify?'}</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center px-[20px] ">{language == 'ID' ? "Personalisasi, Optimal, dan Efisien" : "Optimal, Efficient and Scheduled"}</p>
                 </Box>
                 <Box className='flex flex-col xl:flex-row items-center gap-[40px] justify-center '>
                   {
                     items.map(data => {
                       return(
                         <Box className='flex flex-col gap-[10px] items-center w-[50%] md:w-[20%]  lg:w-[20%]  xl:w-[20%]'>
-                          <img className="xl:w-[auto] w-[200px]  h-auto xl:h-[200px]" src={data.image} alt="picture-content" />
-                          <p className="text-[14px] text-TEXT-1 font-bold text-center">{data.name}</p>
-                          <p className="text-[12px] text-TEXT-1 text-center">{data.description}</p>
+                          <img className="xl:w-[auto] w-[200px]  h-auto xl:h-[200px]" src={ data.image } alt="picture-content" />
+                          <p className="text-[14px] text-TEXT-1 font-bold text-center">{ language == 'ID' ? data.nameID  :  data.name }</p>
+                          <p className="text-[12px] text-TEXT-1 text-center">{language == 'ID' ? data.descriptionID : data.description }</p>
                         </Box>
                       )
                     })
@@ -223,8 +305,8 @@ export default function LandingPage() {
       <section id="feature" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
-                  <p className="text-[18px] text-PRIMARY-500">How Do We Work?</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1">Our Features</p>
+                  <p className="text-[18px] text-PRIMARY-500">{ language == 'ID' ? 'Bagaimana Kami bekerja'  : 'How Do We Work?' }</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1">{ language == 'ID' ? 'Fitur Kami' : "Our Features"}</p>
                 </Box>
                 
                 <Box className='flex flex-col items-center justify-center w-[100%] gap-[30px] '>
@@ -241,7 +323,7 @@ export default function LandingPage() {
                         whileTap={{ scale: 0, opacity: 0.6 }}
                       >
                         <img className="w-[20px] h-[20px]" src={`/images/icon/landing-page/${initButton != 1 ? 'Sparkle.svg' : 'Sparkle-soft.svg'}`} alt="icon-button" />
-                        {initButton != 1 ? null : <p>Generate AI</p>}
+                        {initButton != 1 ? null : <p>{ language == 'ID' ? 'AI Generate' : 'Generate AI' }</p>}
                       </motion.div>
                       <motion.div 
                         onClick={() => { setInitButton(2) }} 
@@ -250,7 +332,7 @@ export default function LandingPage() {
                         whileTap={{ scale: 0, opacity: 0.6 }}
                       >
                         <img className="w-[20px] h-[20px]" src={`/images/icon/landing-page/${initButton != 2 ? 'MagnifyingGlass.svg' : 'MagnifyingGlass-soft.svg'}`} alt="icon-button" />
-                        {initButton != 2 ? null : <p>Content Analysis</p>}
+                        {initButton != 2 ? null : <p>{language == 'ID' ? 'Analisis Konten' : "Content Analysis"}</p>}
                       </motion.div>
                       <motion.div 
                         onClick={() => { setInitButton(3) }} 
@@ -259,7 +341,7 @@ export default function LandingPage() {
                         whileTap={{ scale: 0, opacity: 0.6 }}
                       >
                         <img className="w-[20px] h-[20px]" src={`/images/icon/landing-page/${initButton != 3 ? 'ClockCountdown.svg' : 'ClockCountdown-soft.svg'}`} alt="icon-button" />
-                        {initButton != 3 ? null : <p>Auto-Post Content</p>}
+                        {initButton != 3 ? null : <p>{ language == 'ID' ? "Unggah Kontent Otomatis" : "Auto-Post Content" }</p>}
                       </motion.div>
                   </motion.div>
                   {/*  */}
@@ -278,15 +360,15 @@ export default function LandingPage() {
                           <Box className='flex flex-col gap-[10px] ]'>
                             <Box className='flex gap-[10px] items-center'>
                                 <img className="w-[25px] h-[25px]" src={itemsFeatures[initButton - 1].icon} alt='icon-title' />
-                                <p className="text-TEXT-2 text-[20px] font-medium">{itemsFeatures[initButton - 1].title}</p>
+                                <p className="text-TEXT-2 text-[20px] font-medium">{language == 'ID' ? itemsFeatures[initButton - 1].titleID : itemsFeatures[initButton - 1].title}</p>
                               </Box>
-                              <p className="text-TEXT-2 text-[18px]">{itemsFeatures[initButton - 1].description}</p>
+                              <p className="text-TEXT-2 text-[18px]">{language == 'ID' ? itemsFeatures[initButton - 1].descriptionID : itemsFeatures[initButton - 1].description}</p>
                           </Box>
                             <AppCustomButton className='w-[60%] xl:w-[40%] flex gap-[10px] items-center bg-PRIMARY-500 hover:bg-PRIMARY-600 rounded-[6px] px-[24px] py-[10px] '
                                   onClick={()=>{
                                   }}
                               >
-                                <p onClick={()=>{push('/auth/signup')}} className="text-TEXT-5 text-[14px]">Get Started</p>
+                                <p onClick={()=>{push('/auth/signup')}} className="text-TEXT-5 text-[14px]">{ language == 'ID' ? 'Mulai' : 'Get Started' }</p>
                                 <img src="/images/icon/sparkling-white.svg" />
                           </AppCustomButton>
                         </Box>           
@@ -300,12 +382,12 @@ export default function LandingPage() {
       <section id="subscription" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box  className='flex flex-col items-center gap-[50px] w-[85%] md:w-[70%] lg:w-[70%] xl:w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
-                  <p className="text-[18px] text-PRIMARY-500">Subscription</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center">Affordable price for your business!</p>
+                  <p className="text-[18px] text-PRIMARY-500">{ language  == 'ID' ? 'Berlangganan' : 'Subscription' }</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1 text-center">{ language == 'ID' ? 'Harga terjangkau untuk bisnis Anda!' : 'Affordable price for your business!' }</p>
                 </Box>
                 <Grid container  justifyContent="flex-center" alignItems="flex-center" spacing={4} className=" lg:xl:p-[20px]  xl:p-[20px] w-[100%] flex flex-col xl:flex-row items-center" >
                     {
-                        subscriptionList.map((data,index)=>{
+                        subscriptionData.map((data,index)=>{
                             return(
                                 <Grid item xs={12} xl={4}>
                                     <Box className={`hover:shadow-md text-TEXT-5 flex flex-col items-center gap-[10px] px-[40px] py-[30px]  rounded-[10px] ${ index == 1 ? 'bg-PRIMARY-700 h-[100%] xl:h-[75vh]' : 'bg-PRIMARY-900' }`} >
@@ -351,9 +433,9 @@ export default function LandingPage() {
       <section id="faq" className="py-[80px] xl:py-[0px] flex flex-col items-center justify-center h-[100vh]">
           <Box className='flex flex-col items-center gap-[50px] w-[100%] h-[70%]' data-aos="fade-up">
               <Box className='flex flex-col gap-[5px] items-center'>
-                <p className="text-[18px] text-PRIMARY-500">Testimonials</p>
+                <p className="text-[18px] text-PRIMARY-500">{language == 'ID' ? "Testimoni" : "Testimonials"}</p>
                 <span className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center gap-[10px] text-center">
-                  <p className="text-[24px] font-extrabold text-TEXT-1">What they say about</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1">{language == 'ID' ? "Kata mereka tentang" : "What they say about"}</p>
                   <p className="text-[24px] font-extrabold text-PRIMARY-500">Planify</p>
                 </span>
               </Box>
@@ -370,27 +452,30 @@ export default function LandingPage() {
           <Box className='flex flex-col justify-center px-[50px] xl:px-[200px] '>
               <Box className='flex flex-col gap-[40px] xl:gap-[0px]  xl:flex-row justify-between   items-center md:items-start lg:items-start xl:items-start  border-y-[1px] border-TEXT-4 border-opacity-25 py-[15px]  '>
                   <Box className='flex flex-col items-center md:items-start lg:items-start  xl:items-start gap-[10px]  w-[50%] xl:w-[30%]'>
-                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Who are we?</p>
-                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] text-center md:xl:text-left lg:text-left  xl:text-left'>Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!</p>
+                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>{language == 'ID' ? "Siapa Kita" : "Who are we?"}</p>
+                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] text-center md:xl:text-left lg:text-left  xl:text-left'>{
+                        language == 'ID' ? "Planify adalah platform manajemen konten yang mengumpulkan semua konten Anda menjadi satu. Dengan bantuan Generate AI dan Auto-Post, rasakan kemudahan dalam mengelola konten bersama kami!" :
+                        "Planify is a content management platform that brings all your content together. With the help of Generate AI and Auto-Post, experience the ease of content management with us!"
+                      }</p>
                   </Box>
                   {/*  */}
                   <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
-                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Who are we?</p>
+                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Email</p>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] '>planify@mail.io</p>
                   </Box>
                   {/*  */}
                   <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
                     <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Links</p>
                     <ul className="flex flex-col gap-[6px]">
-                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Why Planify?</a></li>
-                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Our Features</a></li>
-                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Subscriptions</a></li>
-                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Testimonials</a></li>
+                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>{ language == 'ID' ? "Mengapa Planify" : 'Why Planify?' }</a></li>
+                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>{ language == 'ID' ? 'Fitur Kami' : 'Our Features' }</a></li>
+                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>{ language == 'ID' ? 'Berlangganan' : 'Subscriptions' }</a></li>
+                      <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>{ language == 'ID' ? 'Testimoni' : 'Testimonials' }</a></li>
                     </ul>
                   </Box>
                   {/*  */}
                   <Box className='flex flex-col items-center md:items-start lg:items-start xl:items-start gap-[10px]'>
-                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Contact</p>
+                    <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>{language == 'ID' ? 'Kontak' : 'Contact'}</p>
                     <ul className="flex flex-col gap-[6px] items-center md:items-start lg:items-start xl:items-start">
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Email</a></li>
                       <li className="text-TEXT-1 bg-clip-text font-poppins text-[12px]"><a>Instagram</a></li>
@@ -405,7 +490,7 @@ export default function LandingPage() {
                       <img className='w-[20px] h-[20px]' src={images.icon.logo.planifyBlack} />
                       <p className='text-TEXT-1 bg-clip-text font-poppins text-[12px] font-bold'>Planify</p>
                   </Box>
-                  <p className="text-TEXT-1 bg-clip-text font-poppins text-[12px] ">© 2024 Planify. All rights reserved</p>
+                  <p className="text-TEXT-1 bg-clip-text font-poppins text-[12px] ">{`© 2024 Planify. ${language == 'ID'? 'Seluruh Hak Dilindungi' : 'All rights reserved'}`}</p>
               </Box>
           </Box>
       </footer>
@@ -415,29 +500,61 @@ export default function LandingPage() {
 
 
 const SideBar = (props) => {
+  
   const { push } = useRouter()
   const [arrowIcon , setArrowIcon ] = useState('/images/icon/ArrowUpRight.svg')
-  return(
-    <>
+  const [ language ,setLanguage ] = useState(getCookie('language') != null ? getCookie('language') : 'EN')
+  
 
-    
+  const handleChangeLanguage = (event) => {
+    setLanguage(event.target.value)
+    setCookie('language',event.target.value, 365)
+    props.onChangeLanguage(event.target.value)
+  }
+
+  return(
+    <>    
         <Box className={`${props.isDrawer ? 'p-[10px]' : ''} flex items-center gap-[10px]`}>
             <img className='w-[30px] h-[30px]' src={images.icon.logo.planify} />
             <p className='bg-gradient-to-b from-[#44B8F8] to-[#4E5FE5] text-transparent bg-clip-text ont-poppins text-[24px] font-extrabold'>Planify</p>
         </Box>
 
-        <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px] sm:hidden md:flex lg:flex xl:flex'}  font-bold font-poppins `}>
-          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#benefits">Benefits</a></li>
-          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#feature">Feature</a></li>
-          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#subscription">Subscribe</a></li>
-          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#faq">FAQ</a></li>
+        <ul className={`text-[12px] ${props.isDrawer ? 'p-[10px] flex flex-col gap-[10px] ' : 'hidden gap-[30px] sm:hidden md:flex lg:flex xl:flex items-center'}  font-bold font-poppins `}>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#benefits">{language == 'ID' ? 'Keunggulan' : 'Benefits'}</a></li>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#feature">{language == 'ID' ? 'Fitur' : "Feature"}</a></li>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#subscription">{language == 'ID' ? 'Berlangganan' : 'Subscribe'}</a></li>
+          <li className="text-TEXT-1 hover:text-PRIMARY-500"><a href="#faq">{language == 'ID'? "Testimoni" : "FAQ"}</a></li>
+          <AppDropDown
+              sx={{
+                backgroundColor : 'transparent',
+                padding: '0px',
+                fontSize: '12px',
+                height: '12px',
+                width:'auto',
+                boxShadow: "none",
+                fontWeight : 700,
+                ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: 0,
+                  },
+                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: 0,
+                  },
+              }}
+              value={language}
+              placeholder={'Bahasa'}
+              listItem = {listLanguage}
+              onChange={handleChangeLanguage}
+          />
         </ul>
 
         <Box className={`${props.isDrawer ? 'flex flex-col gap-[10px] items-start p-[10px]' : 'hidden items-center sm:hidden md:flex lg:flex xl:flex '}  gap-[10px] `}>
           <AppAnimationButton className='w-auto'>
                 <AppButton
                     className={`${props.isDrawer ? 'w-[100%]' : ''} px-[20px] py-[6px]  text-[12px] bg-PRIMARY-100 text-PRIMARY-500 font-poppins rounded-[6px]`}
-                    text={'Login'} 
+                    text={language  == 'ID' ? 'Masuk' : 'Login'} 
                     type = {'button'}
                     onClick={()=>{
                       push('/auth/signin')
@@ -453,7 +570,7 @@ const SideBar = (props) => {
                           push('/auth/signup')
                       }}
                   >
-                    <p className="text-TEXT-5 text-[12px]">Register</p>
+                    <p className="text-TEXT-5 text-[12px]">{language  == 'ID' ? 'Daftar' :'Register'}</p>
                     <img src={arrowIcon} className="h-[16px] w-[auto]" alt="alt-icon" />
               </AppCustomButton>
             </AppAnimationButton>
