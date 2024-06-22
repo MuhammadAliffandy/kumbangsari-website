@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image";
 import Box from '@mui/material/Box'
 import AppButton from "@/app/components/appButton/appButton";
 import AppCustomButton from "@/app/components/appButton/appCustomButton";
@@ -11,9 +10,6 @@ import { useState , useEffect} from "react";
 import AppCarouselTestimoni from '@/app/components/appCaraousel/appCaraouselTestimoni';
 import AppDrawer from '@/app/components/appDrawer/appDrawer'
 import AppDropDown from "./components/appDropDown/appDropDown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch  } from "react-redux";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useRouter } from "next/navigation";
@@ -205,6 +201,12 @@ export default function LandingPage() {
   const { push } = useRouter()
   
   // state animation
+
+  const checkLanguage = () => {
+    if(getCookie('language') == null){
+      setCookie('language','EN', 365)
+    }
+  }
   
   
   const [initButton , setInitButton] = useState(1)
@@ -219,6 +221,9 @@ export default function LandingPage() {
     });
   }, []);
 
+  useEffect(()=>{
+    checkLanguage()
+  },[])
   
 
   return (
@@ -507,8 +512,8 @@ const SideBar = (props) => {
   
 
   const handleChangeLanguage = (event) => {
+    setCookie('language',event.target.value , 365)
     setLanguage(event.target.value)
-    setCookie('language',event.target.value, 365)
     props.onChangeLanguage(event.target.value)
   }
 
