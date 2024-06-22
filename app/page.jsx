@@ -290,7 +290,7 @@ export default function LandingPage() {
                   {
                     items.map(data => {
                       return(
-                        <Box className='flex flex-col gap-[10px] items-center w-[50%] md:w-[20%]  lg:w-[20%]  xl:w-[20%]'>
+                        <Box className='flex flex-col gap-[10px] items-center justify-start w-[50%] md:w-[20%]  lg:w-[20%]  xl:w-[20%]'>
                           <img className="xl:w-[auto] w-[200px]  h-auto xl:h-[200px]" src={ data.image } alt="picture-content" />
                           <p className="text-[14px] text-TEXT-1 font-bold text-center">{ language == 'ID' ? data.nameID  :  data.name }</p>
                           <p className="text-[12px] text-TEXT-1 text-center">{language == 'ID' ? data.descriptionID : data.description }</p>
