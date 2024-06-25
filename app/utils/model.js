@@ -50,8 +50,8 @@ export const listDropNotifHour = [
 ];
 
 export const listLanguage = [
-    {value : 'ID' , text : 'Bahasa'},
-    {value : 'EN' , text : 'Language'},
+    {value : 'ID' , text : 'Indonesia'},
+    {value : 'EN' , text : 'English'},
 ]
 
 export const listPlatform = {

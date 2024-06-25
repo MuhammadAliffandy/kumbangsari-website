@@ -75,27 +75,57 @@ const itemsTestimoni = [
       subtitle: `"This AI content generator has been a game-changer for my team! We used to spend hours brainstorming and writing blog posts, but now the AI helps us generate high-quality content in a fraction of the time. It's also great for creating social media captions, product descriptions, and even website copy. I can't recommend it enough!"`,
       image: '/images/icon/landing-page/user/user1.svg',
       username: 'Sarah, Marketing Manager',
+
   },
   {
       title: 'Top Tier AI Generator',
       subtitle: `"This AI content generator is a lifesaver for busy freelancers like me. It helps me meet deadlines and deliver high-quality content to my clients. I love that it can adapt to different writing styles and tones, so I can always get the perfect voice for each project."`,
       image: '/images/icon/landing-page/user/user2.svg',
       username: 'Lisa, Content Creator',
-  },
-  {
+    },
+    {
       title: 'Top Tier AI Generator',
       subtitle: `"This AI content generator is a lifesaver for busy freelancers like me. It helps me meet deadlines and deliver high-quality content to my clients. I love that it can adapt to different writing styles and tones, so I can always get the perfect voice for each project."`,
       image: '/images/icon/landing-page/user/user3.svg',
       username: 'Lisa, Content Creator',
+
   },
   {
       title: 'Effortless Social Media Management',
       subtitle: `"Since using this social media scheduling tool, managing my brand's online presence has become a breeze!  I can schedule posts for the entire week in minutes and even auto-publish them across different platforms. It's saved me tons of time and helped me stay consistent, which has led to a significant boost in engagement."`,
       image: '/images/icon/landing-page/user/user4.svg',
       username: 'David Lee, Marketing Manager',
+
   },
  
 ];
+
+const itemTestimoniID = [
+  {
+    title:'Keputusan Konten Berbasis Data',
+    subtitle:`"Pembuat konten AI ini telah mengubah cara saya mendekati pembuatan konten. Ini menganalisis audiens target saya dan memberikan wawasan berbasis data untuk membantu saya menyusun konten yang beresonansi. Tak ada lagi permainan tebak-tebakan! Sekarang, saya bisa fokus pada pembuatan konten yang benar-benar ingin dilihat oleh audiens saya, yang telah menghasilkan peningkatan dramatis dalam lalu lintas situs web dan menghasilkan prospek."`,
+    username: `Mark Robinson, Strategi Pemasaran Konten`,
+    image: '/images/icon/landing-page/user/user1.svg',
+  },
+  {
+    title:'Pembuat Konten AI Terbaik',
+    subtitle:`"Pembuat konten AI ini sangat membantu bagi freelancer sibuk seperti saya. Ini membantu saya memenuhi tenggat waktu dan memberikan konten berkualitas tinggi kepada klien saya. Saya suka bahwa ini dapat beradaptasi dengan berbagai gaya dan nada penulisan, jadi saya selalu mendapatkan suara yang sempurna untuk setiap proyek."`,
+    username:`Lisa, Pembuat Konten`,
+    image: '/images/icon/landing-page/user/user2.svg',
+  },
+  {
+    title:'Pembuat Konten AI Terbaik',
+    subtitle:`"Pembuat konten AI ini sangat membantu bagi freelancer sibuk seperti saya. Ini membantu saya memenuhi tenggat waktu dan memberikan konten berkualitas tinggi kepada klien saya. Saya suka bahwa ini dapat beradaptasi dengan berbagai gaya dan nada penulisan, jadi saya selalu mendapatkan suara yang sempurna untuk setiap proyek."`,
+    username:`Lisa, Pembuat Konten`,
+    image: '/images/icon/landing-page/user/user3.svg',
+  },
+  {
+    title:'Manajemen Media Sosial yang Mudah',
+    subtitle:`"Sejak menggunakan alat penjadwalan media sosial ini, mengelola kehadiran online merek saya menjadi sangat mudah! Saya bisa menjadwalkan posting untuk seluruh minggu dalam beberapa menit dan bahkan mempublikasikannya secara otomatis di berbagai platform. Ini telah menghemat banyak waktu dan membantu saya tetap konsisten, yang telah menghasilkan peningkatan signifikan dalam keterlibatan."`,
+    username:`David Lee, Manajer Pemasaran`,
+    image: '/images/icon/landing-page/user/user4.svg',
+  }
+]
 
 const subscriptionList = [
   {
@@ -406,7 +436,7 @@ export default function LandingPage() {
                                             </span>
                                             <AppButton
                                                 className={`flex ${index == 1 ? 'text-PRIMARY-700' : 'text-PRIMARY-900'} gap-[10px] w-[100%] justify-center items-center text-[14px] bg-white SECONDARY-500 rounded-[10px] px-[25px] py-[8px] shadow-xl`}
-                                                text={`Upgrade to ${data.title.split('Package')[0]}`} 
+                                                text={language == 'ID' ? `Beli ${data.title.split('Package')[0]}` : `Upgrade to ${data.title.split('Package')[0]}`} 
                                                 type = {'Submit'}
                                                 onClick = {()=>{
                                                   push('/auth/signin')
@@ -447,7 +477,7 @@ export default function LandingPage() {
 
               <Box className='w-[100%] h-[100%] flex items-center justify-center text-TEXT-5 bg-black'>
                   <AppCarouselTestimoni
-                    items={itemsTestimoni}
+                    items={ language == 'ID' ? itemTestimoniID :  itemsTestimoni}
                   />
               </Box>
                 
