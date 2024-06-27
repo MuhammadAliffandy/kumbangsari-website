@@ -34,7 +34,7 @@ const SignInPage = () => {
     const { push } = useRouter()
     const [modalTokenExp,setModalTokenExp] = useState(false);
     const [loadingProgress,setLoadingProgress] = useState(0);
-    const [openModalLoading,setOpenModalLoading] = useState(0);
+    const [openModalLoading,setOpenModalLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const isAccountAdd = JSON.parse(localStorage.getItem('isAccountAdd') || 'false')
     const accountList = JSON.parse(localStorage.getItem('accountList') || '[]')
