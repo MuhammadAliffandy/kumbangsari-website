@@ -97,6 +97,7 @@ const  AppModalGenerateAI = (props ) => {
     }
 
     const onGenerate = async () => {
+        let load = true ;
     
         try {
 
@@ -121,7 +122,6 @@ const  AppModalGenerateAI = (props ) => {
             }
 
 
-            let load = true ;
             props.onLoad(load)
             const data = {
                 contentTitle : contentTitle,
@@ -134,7 +134,6 @@ const  AppModalGenerateAI = (props ) => {
                 hashtag: hashtag,
             }
 
-            console.log(data)
 
             const res = await generateAI(data);
             
@@ -154,6 +153,7 @@ const  AppModalGenerateAI = (props ) => {
                 props.onClick(mapping)
             }
         } catch (error) {
+            props.onLoad(load = false)
             if(error.status == 403){
                 toast.error('AI Generate Sudah Limit')
             }else if(error.status == 404){

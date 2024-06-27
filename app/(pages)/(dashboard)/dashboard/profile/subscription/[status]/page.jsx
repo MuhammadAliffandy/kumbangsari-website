@@ -188,11 +188,10 @@ const SubscriptionPage = () => {
             const res = await createPayment(data)
             
             if(res.status == 'OK'){
-                toast.success('Transaksi Berhasil')
                 setSubscriptionListModal(false)
                 setPaymentDetailModal(false)
                 fetchPaymentTransaction()
-                dispatch(setUserSubscriptionData(null))
+                toast.success('Transaksi Berhasil')
             }
 
         } catch (error) {

@@ -20,6 +20,12 @@ const AppModalChangePass = (props) => {
 
     const handleChangePassword = async (data) => {
         try {
+
+                if(data.password != data.newConfirmPassword){
+                    toast.warn('Konfirmasi Password tidak cocok')
+                    return
+                }
+
         
                 const dataPass = {
                     oldPassword : data.oldPassword,

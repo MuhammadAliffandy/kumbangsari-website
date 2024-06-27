@@ -15,7 +15,7 @@ import AppJobCheckbox from '@/app/(pages)/(input-product)/input-product/add-prod
 import AppRangeSlider from '@/app/components/appRangeSlider/appRangeSlider'; 
 import AppAnimationButton from '@/app/components/appAnimation/appAnimationButton' 
 import CustomSpacing from '@/app/components/appCustomSpacing/appCustomSpacing';
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { validateText } from '@/app/(pages)/(auth)/auth/component/validation';
 import { addProduct } from '@/app/api/repository/productRepository';
@@ -42,6 +42,12 @@ const AppModalAddProduct = (props) => {
         setCategoryProduct(event.target.value);
     };
 
+    const refreshLocalCheckbox = async () => {
+        localStorage.setItem('gender','')
+        localStorage.setItem('school','')
+        localStorage.setItem('job','')
+    }
+
     const handleAddProduct = async () => {
         try {
 
@@ -66,8 +72,6 @@ const AppModalAddProduct = (props) => {
                     return false
                 }
     
-
-
                 const res = await addProduct(jsonData);
                 if(res.status == 'OK'){
                     toast.success('Produk berhasil ditambahkan ')
@@ -85,6 +89,10 @@ const AppModalAddProduct = (props) => {
     const notifyHandleAddProduct = () => {
         AppToastPending(handleAddProduct)
     }
+
+    useEffect(()=>{
+        refreshLocalCheckbox()
+    },[props.open])
 
     return(
         <Modal
