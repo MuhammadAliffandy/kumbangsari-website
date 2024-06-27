@@ -80,10 +80,11 @@ const ProfilePage = () => {
         try {
             const formData = new FormData();
 
+
             formData.append('name',name)
             formData.append('phoneNumber',phoneNumber)
             
-            if(imgPayload){
+            if(imgPayload != null){
                 formData.set('image',imgPayload , imgPayload.name)
             }
             

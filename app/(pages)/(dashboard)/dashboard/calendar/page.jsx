@@ -57,7 +57,7 @@ const CalenderPage = () => {
 
           const currentData = res.data.filter((data , index) => {
                 if(userSubscription <= 2){
-                    return index === 0
+                    return data.idProduct === 1
                 }else{
                     return data
                 }
@@ -77,7 +77,7 @@ const CalenderPage = () => {
         if(res.status === 'OK'){
           const currentData = res.data.filter(( data , index ) => {
                 if(userSubscription <= 2){
-                    return index === 0
+                    return data.idProduct === 1
                 }else{
                     return data
                 }
