@@ -176,9 +176,9 @@ const  AppModalGenerateAI = (props ) => {
         }   
     }
 
-    useEffect(()=>{
-        handleGenerateHistory()
-    },[])
+    // useEffect(()=>{
+    //     handleGenerateHistory()
+    // },[])
 
     useEffect(()=>{
         getUserProduct() 
