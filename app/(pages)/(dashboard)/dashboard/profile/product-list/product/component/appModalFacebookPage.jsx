@@ -53,7 +53,7 @@ const AppModalFacebookPage = (props) => {
     }
     
     const fetchFacebookCancelPages = async () => {
-        const res = await fetch('http://localhost:3000/api/v1/facebook/cancel-pages', {
+        const res = await fetch('https://api-planify.adslink.id/api/v1/facebook/cancel-pages', {
                         method: 'DELETE', 
                         headers: {
                             'Content-Type': 'application/json' ,

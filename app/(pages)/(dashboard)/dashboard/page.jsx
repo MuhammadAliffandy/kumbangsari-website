@@ -141,6 +141,7 @@ const DashboardPage = () => {
                         data.idContent,
                     )
                 })
+
                 setCurrentContentDataPreview(data)
                 setContentDataPreview(data)
                 setContentPreviewLoading(false)

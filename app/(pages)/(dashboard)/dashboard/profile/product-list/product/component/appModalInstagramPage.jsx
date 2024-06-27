@@ -54,23 +54,23 @@ const AppModalInstagramPage = (props) => {
         }
     }
     
-    // const fetchInstagramCancelPages = async () => {
-    //     const res = await fetch('http://localhost:3000/api/v1/facebook/cancel-pages', {
-    //                     method: 'DELETE', 
-    //                     headers: {
-    //                         'Content-Type': 'application/json' ,
-    //                         'Authorization': `Bearer ${token}`
-    //                     },
-    //                     body: JSON.stringify({
-    //                         idProduct: props.idProduct
-    //                     }) 
-    //                 })
-    //     if(res.ok){
-    //         toast.success('Facebook Page Dibatalkan')
-    //     }else{
-    //         toast.error(error.data.message)
-    //     }
-    // }
+    const fetchInstagramCancelPages = async () => {
+        const res = await fetch('https://api-planify.adslink.id/api/v1/instagram/cancel-instagram-account', {
+                        method: 'DELETE', 
+                        headers: {
+                            'Content-Type': 'application/json' ,
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            idProduct: props.idProduct
+                        }) 
+                    })
+        if(res.ok){
+            toast.success('Instagram Page Dibatalkan')
+        }else{
+            toast.error(error.data.message)
+        }
+    }
 
     useEffect(() => {
         if(props.open == true){
@@ -95,7 +95,7 @@ const AppModalInstagramPage = (props) => {
                             <p className = 'text-[16px] font-bold text-black' >Silahkan Pilih Page</p>
                             <AppCloseButton
                                 onClick = {()=>{
-                                    // fetchFacebookCancelPages()
+                                    fetchInstagramCancelPages()
                                     props.onCloseButton(false)
                                 }}
                             />
