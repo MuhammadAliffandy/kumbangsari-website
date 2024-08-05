@@ -24,6 +24,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { setNewsData } from './redux/slices/newsSlice';
+import { setProductData } from './redux/slices/productSlice';
 
 
 const arr = [1,2,3,4,5]
@@ -54,23 +56,23 @@ const items = [
 
 const organizationStructure = [
   {
-    name: 'Robert Journey',
+    name: 'Syamsuyono',
     role :'Kepala Desa',
     image: '/images/icon/landing-page/user/user1.svg'
   },
   {
-    name: 'Robert Journey',
-    role :'Kepala Desa',
+    name: 'Kusnadi',
+    role :'Sekretaris Desa',
     image: '/images/icon/landing-page/user/user2.svg'
   },
   {
-    name: 'Robert Journey',
-    role :'Kepala Desa',
+    name: 'Sarwan',
+    role :'KA. Urusan Tata Usaha dan Umum',
     image: '/images/icon/landing-page/user/user3.svg'
   },
   {
-    name: 'Robert Journey',
-    role :'Kepala Desa',
+    name: 'Fathorrosi',
+    role :'KA. Keuangan',
     image: '/images/icon/landing-page/user/user4.svg'
   },
 ]
@@ -431,7 +433,7 @@ export default function LandingPage() {
                     organizationStructure.map(data => {
                       return(
                         <Box className='w-[100%] rounded-[10px] bg-PRIMARY-500 p-[10px] flex flex-col gap-[15px]'>
-                            <img className='w-full h-[300px] object-fill' src={data.image}/>
+                            <img className='w-full h-[300px] object-cover' src={images.icon.profileDefault}/>
                             <div className='text-center'>
                               <p className='text-white text-[16px] font-bold'>{data.name}</p>
                               <p className='text-white text-[12px]'>{data.role}</p>
@@ -502,9 +504,10 @@ export default function LandingPage() {
                       news.map(data => {
                         return(
                           <Grid item xs={4} onClick={ ()=> {
-                            
+                              dispatch(setNewsData(data))
+                              push('/news/detail')
                           } }>
-                              <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[280px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300'>
+                              <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[280px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300 cursor-pointer'>
                                   <img src={data.image} alt='news-photos' className='h-[50%] rounded-t-[10px] object-cover '/>
                                   <div className='h-[40%] flex w-[100%]  relative'>
                                     <div className='bg-PRIMARY-500 py-[8px] px-[12px] bottom-5 rounded-l-[14px] right-0 absolute'>
@@ -535,9 +538,13 @@ export default function LandingPage() {
                 <Grid container spacing={2} justifyContent="flex-start" alignItems="flex-start" direction="row" className='w-[100%]'>
                     {
                       product.map(data => {
+                        
                         return(
-                          <Grid item xs={4}>
-                              <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[250px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300'>
+                          <Grid item xs={4} onClick={()=>{
+                            dispatch(setProductData(data))
+                            push('/product/detail')
+                          }}>
+                              <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[250px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300 cursor-pointer'>
                                   <img src={data.image} alt='news-photos' className='h-[70%] rounded-t-[10px] object-cover '/>
                                   <div className='h-[30%] flex w-[100%]  relative'>
                                     <div className='bg-STATE-YELLOW-BASE py-[8px] px-[12px] bottom-5 rounded-l-[14px] right-0 shadow-xl absolute'>

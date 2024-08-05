@@ -58,8 +58,8 @@ const ProfilePage = () => {
                     <p className="text-[18px] text-PRIMARY-500">{ 'Bagan Desa'}</p>
                     <p className="text-[24px] font-extrabold text-TEXT-1 text-center px-[20px] ">{"Struktur Organisasi Pemerintahan Desa"}</p>
                 </Box>
-                <Box>
-
+                <Box className='py-[10px] w-[100%] h-auto flex items-center justify-center'>
+                    <img src={images.image.strukturPemdes} className='w-[80%] h-auto object-fill' />
                 </Box>
             </section>
             {/*  */}
@@ -68,8 +68,8 @@ const ProfilePage = () => {
                     <p className="text-[18px] text-PRIMARY-500">{ 'Bagan Desa'}</p>
                     <p className="text-[24px] font-extrabold text-TEXT-1 text-center px-[20px] ">{"Struktur Organisasi PKK"}</p>
                 </Box>
-                <Box>
-
+                <Box className='py-[10px] w-[100%] h-auto flex items-center justify-center'>
+                    <img src={images.image.strukturPkk} className='w-[80%] h-auto object-fill' />
                 </Box>
             </section>
             {/*  */}

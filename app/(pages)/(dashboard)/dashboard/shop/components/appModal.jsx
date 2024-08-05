@@ -299,18 +299,6 @@ const AppModalProduct = (props) => {
                                 />
                             </AppAnimationButton>
                         </Box>
-                        <Box className='w-[35%] md:w-[15%] lg:w-[15%] xl:w-[15%]'>
-                            <AppAnimationButton>
-                                <AppButton
-                                    className='w-[100%] p-[10px] bg-PRIMARY-500 hover:bg-PRIMARY-600 shadow-xl text-white font-poppins rounded-[18px]'
-                                    text={'Buat'} 
-                                    type = {'button'}
-                                    onClick={()=>{
-                                       handleCreateProduct()
-                                    }}
-                                />
-                            </AppAnimationButton>
-                        </Box>
                     </Box>
                 </Box>
             </motion.div>

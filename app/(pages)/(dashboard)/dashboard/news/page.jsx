@@ -10,8 +10,11 @@ import { getAllNews } from '@/app/api/repository/newsRepository'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { setNewsData } from '@/app/redux/slices/newsSlice';
+import AppButton from "@/app/components/appButton/appButton";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
 import { convertToIndonesianDate } from '@/app/utils/helper';      
 import AppModalNews from './components/appModal'
+import AppModalCreateNews from './components/appModalCreate'
 
 const DashboardNews = () => {
     
@@ -21,6 +24,7 @@ const DashboardNews = () => {
     const [news , setNews] = useState([])
     const [currentPageData, setCurrentPageData] = useState([]);
     const [openModal , setOpenModal ] = useState(false)
+    const [openModalCreate , setOpenModalCreate ] = useState(false)
 
     const perPage = 6;
     
@@ -59,13 +63,28 @@ const DashboardNews = () => {
                 open = { openModal }
                 onCloseButton = { (value) => {setOpenModal(value)} } 
             />
+            <AppModalCreateNews
+                open = { openModalCreate }
+                onCloseButton = { (value) => {setOpenModalCreate(value)} } 
+            />
             <section className='w-[100%] flex flex-col items-center justify-center h-auto relative'>
                 <Box className='flex flex-col items-center gap-[40px] w-[90%] py-[20px]' >
                     <Box className='flex flex-col gap-[5px] items-center'>
                         <p className="text-[18px] text-PRIMARY-500">{ 'Berita Desa'}</p>
                         <p className="text-[24px] font-extrabold text-TEXT-1">{'Informasi Seluruh Berita di Desa Kumbangsari'}</p>
                     </Box>
-                    
+                    <Box className={'flex items-center justify-end w-[100%]'}>
+                        <AppAnimationButton className='w-auto'>
+                                <AppButton
+                                    className={` px-[20px] py-[6px]  text-[12px] bg-PRIMARY-500 text-white font-poppins rounded-[6px]`}
+                                    text={'Tambah Berita'} 
+                                    type = {'button'}
+                                    onClick={()=>{
+                                        setOpenModalCreate(!openModalCreate) 
+                                    }}
+                                />
+                            </AppAnimationButton>
+                        </Box>
                     <Grid container spacing={2} justifyContent="flex-start" alignItems="flex-start" direction="row" className='w-[100%]'>
                         {
                             currentPageData.map(data => {

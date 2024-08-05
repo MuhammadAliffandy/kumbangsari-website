@@ -2,6 +2,8 @@
 
 const background = './images/bg.jpg'
 const logoSitubondo = '/images/logo_situbondo.png'
+const strukturPemdes = '/images/struktur_pemdes.png'
+const strukturPkk = '/images/struktur_pkk.png'
 
 
 // icon 
@@ -130,7 +132,9 @@ const shapeUp2 = '/images/shape/ShapeUp2.png'
 const images = {
     image: {
         background,
-        logoSitubondo
+        logoSitubondo,
+        strukturPemdes,
+        strukturPkk,
     },
     icon : {
         profileDefault,

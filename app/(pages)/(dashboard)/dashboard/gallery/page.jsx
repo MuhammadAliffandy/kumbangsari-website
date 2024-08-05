@@ -10,6 +10,9 @@ import { getAllGallery } from '@/app/api/repository/galleryRepository'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { convertToIndonesianDate } from '@/app/utils/helper';
+import AppButton from "@/app/components/appButton/appButton";
+import AppAnimationButton from "@/app/components/appAnimation/appAnimationButton";
+import AppModalCreateGallery from './components/appModalCreate';
 import AppModalGallery from './components/appModal';
 import { setGalleryData } from '@/app/redux/slices/gallerySlice';
 
@@ -18,6 +21,7 @@ const DashboardGallery = () => {
     const dispatch = useDispatch()
     const { push } = useRouter()
     const [openModal , setOpenModal] = useState(false)
+    const [openModalCreate , setOpenModalCreate] = useState(false)
     const [currentPage, setCurrentPage] = useState(0);
     const [gallery , setGallery] = useState([])
     const [currentPageData, setCurrentPageData] = useState([]);
@@ -58,6 +62,10 @@ const DashboardGallery = () => {
 
     return(
         <>
+            <AppModalCreateGallery
+                open = { openModalCreate }
+                onCloseButton = { (value) => {setOpenModalCreate(value)} } 
+            />
             <AppModalGallery
                 open = { openModal }
                 onCloseButton = { (value) => {setOpenModal(value)} } 
@@ -68,7 +76,18 @@ const DashboardGallery = () => {
                         <p className="text-[18px] text-PRIMARY-500">{ 'Galeri Desa'}</p>
                         <p className="text-[24px] font-extrabold text-TEXT-1">{'Menampilkan kegiatan-kegiatan yang berlangsung di Desa'}</p>
                     </Box>
-                    
+                    <Box className={'flex items-center justify-end w-[100%]'}>
+                        <AppAnimationButton className='w-auto'>
+                                <AppButton
+                                    className={` px-[20px] py-[6px]  text-[12px] bg-PRIMARY-500 text-white font-poppins rounded-[6px]`}
+                                    text={'Tambah Galeri'} 
+                                    type = {'button'}
+                                    onClick={()=>{
+                                        setOpenModalCreate(!openModalCreate)
+                                    }}
+                                />
+                            </AppAnimationButton>
+                        </Box>
                     <Grid container spacing={2} justifyContent="flex-start" alignItems="flex-start" direction="row" className='w-[100%]'>
                         {
                             currentPageData.map(data => {
