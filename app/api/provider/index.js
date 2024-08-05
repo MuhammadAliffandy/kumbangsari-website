@@ -12,6 +12,7 @@ export const PROVIDER_GET = async (pathUrl, token) => {
         
         switch (response.status) {
             case 200:
+                return response.data;
             case 201:
                 return response.data;
             default:
@@ -40,16 +41,15 @@ export const PROVIDER_GET = async (pathUrl, token) => {
     }
 }
 
-export const PROVIDER_POST = async (pathUrl, data , token , type = 'object') => {
+export const PROVIDER_POST = async (pathUrl, data , type = 'object') => {
     const headers = {
-        'Content-Type': type  == 'object' ? 'application/json' : 'multipart/form-data',
-        "Authorization": `Bearer ${token || ''}`,
-    }
+        'Content-Type': type  == 'object' ? 'application/json' : 'multipart/form-data'}
 
     try {
         const response = await axios.post(`${BASE_URL}/${pathUrl}`, data, { headers });
         switch (response.status) {
             case 200:
+                return response.data;
             case 201:
                 return response.data;
             default:
@@ -116,10 +116,9 @@ export const PROVIDER_DELETE = async (pathUrl , token ) => {
     }
 }
 
-export const PROVIDER_PUT = async (pathUrl, data , token , type = 'object') => {
+export const PROVIDER_PUT = async (pathUrl, data  , type = 'object') => {
     const headers = {
-        'Content-Type': type == 'object' ? 'application/json' : 'multipart/form-data',
-        "Authorization": `Bearer ${token || ''}`,
+        'Content-Type': type == 'object' ? 'application/json' : 'multipart/form-data'
     }
 
     try {

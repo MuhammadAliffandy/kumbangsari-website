@@ -1,3 +1,8 @@
+// images
+
+const background = './images/bg.jpg'
+const logoSitubondo = '/images/logo_situbondo.png'
+
 
 // icon 
 
@@ -100,6 +105,14 @@ const instagramIcon = '/images/icon/sosmed/icon-instagram.png'
 const twitterIcon = '/images/icon/sosmed/icon-twitter.png'
 const mailIcon = '/images/icon/sosmed/icon-mail.png'
 const twitchIcon = '/images/icon/sosmed/icon-twitch.png'
+const instagramOriIcon = '/images/icon/sosmed/instagram.svg'
+const whatsappOriIcon = '/images/icon/sosmed/whatsapp.svg'
+const facebookOriIcon = '/images/icon/sosmed/facebook.svg'
+const twitterOriIcon = '/images/icon/sosmed/twitter.svg'
+const twitterWhiteIcon = '/images/icon/sosmed/twitterWhite.svg'
+const facebookWhiteIcon = '/images/icon/sosmed/facebookWhite.svg'
+const instagramWhiteIcon = '/images/icon/sosmed/instagramWhite.svg'
+const whatsappWhiteIcon = '/images/icon/sosmed/whatsappWhite.svg'
 
 // vector 
 const AIVector = '/images/vector/AI.png'
@@ -115,6 +128,10 @@ const shapeUp = '/images/shape/ShapeUp.png'
 const shapeUp2 = '/images/shape/ShapeUp2.png'
 
 const images = {
+    image: {
+        background,
+        logoSitubondo
+    },
     icon : {
         profileDefault,
         addCircleIcon,
@@ -220,7 +237,15 @@ const images = {
             instagramIcon,
             twitterIcon,
             twitchIcon,
-            mailIcon
+            mailIcon,
+            instagramOriIcon,
+            whatsappOriIcon,
+            facebookOriIcon,
+            twitterOriIcon,
+            facebookWhiteIcon,
+            twitterOriIcon,
+            instagramWhiteIcon,
+            whatsappWhiteIcon,
         }
 
     },

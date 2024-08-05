@@ -2,6 +2,8 @@ export const listDropItem = [
     {value : 1 , text : 'Satu'},
     {value : 2 , text : 'Dua'},
     {value : 3 , text : 'Tiga'},
+    {value : 4 , text : 'Empat'},
+    {value : 5 , text : 'Lima'},
 ]
 
 export const listDropCategory = [
@@ -59,3 +61,15 @@ export const listPlatform = {
     instagram : 'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM',
     twitter : 'https://store-images.s-microsoft.com/image/apps.60673.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.5d82b7eb-9734-4b51-b65d-a0383348ab1b?h=464'   
 }
+
+export const listCategoryCrafts = [
+    {value: 'dekorasi_rumah', text: 'Dekorasi Rumah'},
+    {value: 'mainan', text: 'Mainan'},
+    {value: 'perhiasan', text: 'Perhiasan'},
+    {value: 'aksesori_fashion', text: 'Aksesori Fashion'},
+    {value: 'furniture', text: 'Furniture'},
+    {value: 'penyimpanan', text: 'Solusi Penyimpanan'},
+    {value: 'barang', text: 'Barang'},
+    {value: 'seni', text: 'Seni dan Patung'},
+    {value: 'perlengkapan_kantor', text: 'Perlengkapan Kantor'},
+];

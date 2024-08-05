@@ -6,9 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useForm , SubmitHandler} from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { getToken, setToken } from '@/app/redux/slices/authSlice';
-import { validateEmail, validatePassword } from '../component/validation';
-import { getCurrentUser, loginAuth } from '@/app/api/repository/authRepository';
+import { validateEmail , validatePassword } from '../component/validation';
 import AppButton from '@/app/components/appButton/appButton';
 import AppHeadline from '@/app/components/appHeadline/appHeadline';
 import AppTextField from '@/app/components/appTextField/appTextField';
@@ -27,146 +25,38 @@ import { setCookie } from '@/app/utils/helper';
 
 const SignInPage = () => {
 
-    const searchParams = useSearchParams();
-    const queryToken = searchParams.get('token');
-
     const dispatch = useDispatch();
     const { push } = useRouter()
-    const [modalTokenExp,setModalTokenExp] = useState(false);
-    const [loadingProgress,setLoadingProgress] = useState(0);
-    const [openModalLoading,setOpenModalLoading] = useState(false);
+    
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const isAccountAdd = JSON.parse(localStorage.getItem('isAccountAdd') || 'false')
-    const accountList = JSON.parse(localStorage.getItem('accountList') || '[]')
+
     
     const onSubmit  = async (data ) => {
 
         try {
-            setLoadingProgress(50)
-            setOpenModalLoading(true)
-            const res = await loginAuth(data)
-            
-            if(isAccountAdd == true){
-                localStorage.setItem('accountList' , JSON.stringify([ res.data.token , ...accountList]))
-            }
-
-            if(accountList.length == 0){
-                localStorage.setItem('accountList',JSON.stringify([]))
-            }
-
-            setCookie('refreshToken', res.data.refreshToken )
-            dispatch(setToken(res.data.token))
-
-            const currentUser = await getCurrentUser(); 
-            if(currentUser.status == 'OK'){
-                setOpenModalLoading(false)
-                if(currentUser.data.countProduct > 0){
-                    push('/dashboard')
-                    localStorage.setItem('isAccountAdd',false)
-                    }else{
-                        push('/input-product/add-product')
-                    }
-            }
-
-            setLoadingProgress(100)
-        } catch (error) {
-            setOpenModalLoading(false)
-            setLoadingProgress(100)
-
-            if(error.code == 'ERR_NETWORK'){
-                push('/network-error')
-                return false
-            }
-            
-            if(error.status == 401){
-                toast.error('Email atau Kata Sandi Salah')
-                
-            }else if(error.status == 403){
-                toast.warn('Silahkan Aktivasi Akun dahulu !!')
-                sessionStorage.setItem('email',data.email)
-                push('/auth/otp-verified')
-            }else if(error.status == 404){
-                toast.error('Akun Tidak Terdaftar')
+            if(data.email == '' && data.password == ''){
+                toast.warn('Email dan Password Kosong')
+            }else if(data.email != 'admin@gmail.com' || data.password != 'Admin123#'){
+                toast.warn('Email dan Password Salah')
             }else{
-                toast.error(error.data.message)
+                toast.success('Login Berhasil')
+                push('/dashboard/gallery')
             }
+        } catch (error) {
+
+            toast.error(error.data.message)
 
         }
     };
 
 
-    useEffect(()=>{
-        if(queryToken == 'expired'){
-            setModalTokenExp(true)
-        }
-    },[queryToken])
 
     return(
     
         <Box className = ' h-[100vh] flex flex-col items-center justify-center px-[70px] relative'>
-            <AppModal
-                withClose = {false}
-                open = {openModalLoading}
-                width={' md:w-[35%] lg:xl:w-[35%] xl:w-[35%]'}
-            >
-                <Box className ='flex flex-col items-center gap-[40px]'>
-                    <CircularProgress style={{color : '#F45B69'}}  />
-                    <Box className='flex flex-col items-center text-center '>
-                        <p className="text-SECONDARY-500 text-[20px] font-bold font-poppins">Sign In...</p>
-                        <p className="text-TEXT-1 text-[14px] font-poppins">Mohon tunggu sebentar</p>
-                    </Box>
-                </Box>
-            </AppModal>
+          
             {/*  */}
-            <AppCustomModal
-                    open={modalTokenExp}
-                    withClose={true}
-                    width={'md:w-[30vw] lg:xl:w-[30vw] xl:w-[30vw]'}
-                    modalType='modal-status'
-                    status={'info'}
-                    titleTop={true}
-                    alignment={'center text-center'}
-                    title={'Token Expired'}
-                    subtitle={'Token Anda Expired , Silahkan Login Ulang'}
-                    onClose={()=>{}}
-                    onCloseButton={(value)=> {
-                        setModalTokenExp(false)
-                        push('/')
-                    }}
-                    children={
-                        <Box className=' flex  gap-[10px] w-[100%]'>
-                            <AppButton
-                                className='w-[100%] py-[10px] bg-NEUTRAL-500 hover:bg-NEUTRAL-600 shadow-xl text-white font-poppins rounded-[18px]'
-                                text={'Tidak'} 
-                                type = {'button'}
-                                onClick={()=>{
-                                    setModalTokenExp(false)
-                                    push('/')
-                                    }}/>
-                            <AppButton
-                                className='w-[100%] py-[10px] bg-CUSTOM-RED hover:bg-SECONDARY-600 shadow-xl text-white font-poppins rounded-[18px]'
-                                text={ 'Iya'} 
-                                type = {'button'}
-                                onClick={()=>{
-                                    setModalTokenExp(false)
-                                    push('/auth/signin')
-                                }}
-                            />
-                        </Box>
-                    }
-                />
-            {/*  */}
-            <Box className='  flex justify-end  top-0 right-[30px] lg:right-0 xl:right-0 mt-[40px]  w-[100%] absolute z-[1]'> 
-                <AppCloseButton
-                    onClick = {()=>{
-                        push('/auth/signup')
-                    }}
-                />
-            </Box>
-            <AppLoadingBar 
-                progress={loadingProgress} 
-                onLoaderFinished={() => setLoadingProgress(0)
-            } />
+
 
             <AppAnimationLayout>
                     <AppHeadline 
@@ -199,9 +89,6 @@ const SignInPage = () => {
                             helperText={errors.password && errors.password.message}
                         
                         />  
-                        <Box className = 'w-[100%] flex justify-end'>
-                            <p onClick = {()=>{push('forgot-pass')}} className='text-black cursor-pointer font-poppins text-[12px] font-semibold'>Lupa Password ?</p>
-                        </Box>
                         <AppAnimationButton>
                             <AppButton
                                 text={'Masuk'} 
@@ -213,10 +100,9 @@ const SignInPage = () => {
                     </form>
                     <CustomSpacing height={'10px'}/>
                     <Box className = 'w-[100%] flex justify-center'>
-                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Belum punya akun?</button>
-                        <CustomSpacing width = {5}/>
-                        <button  onClick = {()=>{push('/auth/signup')}}  className='text-black cursor-pointer text-[14px] font-bold'>Daftar</button>
+                        <button  onClick = {()=>{push('/')}}  className='text-black cursor-pointer text-[14px] text-opacity-[25%]'>Kembali ke halaman awal</button>
                     </Box>
+
                 </AppAnimationLayout>
                 <ToastContainer/>
 

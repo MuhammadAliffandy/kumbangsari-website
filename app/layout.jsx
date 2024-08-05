@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./redux/StoreProvider";
+import AppNavbar from '@/app/components/appNavbar/appNavbar'
 import { ToastContainer } from "react-toastify";
 import Head from "next/head";
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,8 +11,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Planify",
-  description: "Content Management with AI",
+  title: "Kumbangsari",
+  description: "Website Desa Kumbangsari",
 };
 
 export default function RootLayout({
@@ -27,7 +28,7 @@ export default function RootLayout({
           <body className={`scrollbar scrollbar-w-[8px] scrollbar-h-[10px] scrollbar-track-transparent scrollbar-thumb-gray-300 scrollbar-thumb-rounded-full`}>
             <link rel="icon" href="/images/icon/logo/planify.png" sizes="any"/>
             <StoreProvider>
-              { children }
+              {children}
             </StoreProvider>
             <ToastContainer 
               autoClose={900}
