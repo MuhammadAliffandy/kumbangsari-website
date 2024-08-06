@@ -62,37 +62,12 @@ const AppModalProduct = (props) => {
 
     const handleUpdateProduct = async () => {
         try {
-
-            const formData = new FormData();
-            formData.append('title', title);
-            if(image?.type){
-                formData.append('imageUrl', '');
-                formData.set('image',image , image.name );
-            }else{
-                formData.append('imageUrl', image);
-                formData.set('image', '');
-            }
-            formData.append('description', image);
-            formData.append('category', image);
-            formData.append('price', image);
-            formData.append('phoneNumber', image);
-            formData.append('rating', image);
             
-            const res = await editProduct(formData)
-
-            if(res.status == 'OK'){
-                toast.success('Edit Produk Sukses')
-            }
-
-        } catch (error) {
-            toast.error('Ada Kesalahan Server 500')
-        }
-    }
-
-    const handleCreateProduct = async () => {
-        try {
             const formData = new FormData();
+
+            formData.append('id', data.id);
             formData.append('title', title);
+
             if(image?.type){
                 formData.append('imageUrl', '');
                 formData.set('image',image , image.name );
@@ -106,10 +81,14 @@ const AppModalProduct = (props) => {
             formData.append('phoneNumber', phoneNumber);
             formData.append('rating', rating);
 
-            const res = await addProduct(formData)
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+              }
+            
+            const res = await editProduct(formData)
 
             if(res.status == 'OK'){
-                toast.success('Tambah Produk Sukses')
+                toast.success('Edit Produk Sukses')
             }
 
         } catch (error) {
@@ -123,11 +102,10 @@ const AppModalProduct = (props) => {
         setPrice(data.price)
         setDescription(data.description)
         setPhoneNumber(data.phoneNumber)
-        // setRating(data.rating)
+        setRating(data.rating)
         setCategory(data.category)
         setProductImage(data.image)
         setImage(data.image)
-        console.log(data.category)
     },[props.open])
 
     return(
@@ -168,7 +146,7 @@ const AppModalProduct = (props) => {
                                 type='text'
                                 placeholder='Masukkkan judul di sini'
                                 onChange={(event)=>{
-                                
+                                    setTitle(event.target.value)
                                 }}
                             />
                         </Box>
@@ -190,7 +168,7 @@ const AppModalProduct = (props) => {
                                 type='text'
                                 placeholder='Masukkkan deskripsi di sini'
                                 onChange={(event)=>{
-                                
+                                    setDescription(event.target.value)
                                 }}
                             />
                         </Box>
@@ -203,7 +181,7 @@ const AppModalProduct = (props) => {
                                 type='number'
                                 placeholder='Masukkkan harga di sini'
                                 onChange={(event)=>{
-                                
+                                    setPrice(event.target.value)
                                 }}
                             />
                         </Box>
@@ -216,11 +194,11 @@ const AppModalProduct = (props) => {
                                 type='number'
                                 placeholder='Masukkkan nomor telepon di sini'
                                 onChange={(event)=>{
-                                
+                                    setPhoneNumber(event.target.value)
                                 }}
                             />
                         </Box>
-                       
+        
                         {/*  */}
                         <Box className='flex flex-col gap-[10px]'>
                             <label className='text-black font-semibold'>Pilih Kategori</label>

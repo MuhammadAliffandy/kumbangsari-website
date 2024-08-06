@@ -130,7 +130,7 @@ const AppModalCreateProduct = (props) => {
                                 type='text'
                                 placeholder='Masukkkan judul di sini'
                                 onChange={(event)=>{
-                                
+                                    setTitle(event.target.value)
                                 }}
                             />
                         </Box>
@@ -152,7 +152,7 @@ const AppModalCreateProduct = (props) => {
                                 type='text'
                                 placeholder='Masukkkan deskripsi di sini'
                                 onChange={(event)=>{
-                                
+                                    setDescription(event.target.value)
                                 }}
                             />
                         </Box>
@@ -165,7 +165,7 @@ const AppModalCreateProduct = (props) => {
                                 type='number'
                                 placeholder='Masukkkan harga di sini'
                                 onChange={(event)=>{
-                                
+                                    setPrice(event.target.value)
                                 }}
                             />
                         </Box>
@@ -178,7 +178,7 @@ const AppModalCreateProduct = (props) => {
                                 type='number'
                                 placeholder='Masukkkan nomor telepon di sini'
                                 onChange={(event)=>{
-                                
+                                    setPhoneNumber(event.target.value)
                                 }}
                             />
                         </Box>

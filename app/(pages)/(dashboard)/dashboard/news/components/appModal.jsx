@@ -50,7 +50,10 @@ const AppModalNews = (props) => {
         try {
 
             const formData = new FormData();
+            formData.append('id', data.id);
             formData.append('title', title);
+            formData.append('author', author);
+            formData.append('text', text);
             
             if(image?.type){
                 formData.append('imageUrl', '');
@@ -64,6 +67,7 @@ const AppModalNews = (props) => {
             const res = await editNews(formData)
 
             if(res.status == 'OK'){
+                console.log(res.data)
                 toast.success('Edit Berita Sukses')
             }
 
@@ -71,33 +75,6 @@ const AppModalNews = (props) => {
             toast.error('Ada Kesalahan Server 500')
         }
     }
-
-    const handleCreateNews = async () => {
-        try {
-            const formData = new FormData();
-            formData.append('title', title);
-            
-            if(image?.type){
-                formData.append('imageUrl', '');
-                formData.set('image',image , image.name );
-            }else{
-                formData.append('imageUrl', image);
-                formData.set('image', '');
-            }
-            formData.append('author', image);
-            formData.append('text', image);
-
-            const res = await addNews(formData)
-
-            if(res.status == 'OK'){
-                toast.success('Tambah Galeri Sukses')
-            }
-
-        } catch (error) {
-            toast.error('Ada Kesalahan Server 500')
-        }
-    }
-
 
     useEffect(()=>{
         setTitle(data.title)

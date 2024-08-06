@@ -48,7 +48,9 @@ const AppModalGallery = (props) => {
         try {
 
             const formData = new FormData();
+            formData.append('id', data.id);
             formData.append('title', title);
+
             if(image?.type){
                 formData.append('imageUrl', '');
                 formData.set('image',image , image.name );
@@ -57,7 +59,6 @@ const AppModalGallery = (props) => {
                 formData.set('image', '');
             }
             
-
             const res = await editGallery(formData)
 
             if(res.status == 'OK'){
@@ -65,6 +66,7 @@ const AppModalGallery = (props) => {
             }
 
         } catch (error) {
+            console.log(error)
             toast.error('Ada Kesalahan Server 500')
         }
     }

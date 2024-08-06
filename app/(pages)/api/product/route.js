@@ -8,7 +8,10 @@ export async function GET(req) {
     const product = await prisma.Product.findMany({
         where : {
             deletedAt : null
-        }
+        },
+        orderBy: {
+            updatedAt: 'desc', 
+        },
     })
 
     return NextResponse.json(sendSuccessResponse(
@@ -29,7 +32,7 @@ export async function POST(req) {
         const category = form.get('category')
         const imageUrl = form.get('imageUrl');
 
-        if(imageUrl != null || imageUrl != ''){
+        if(imageUrl != ''){
 
             const product = await prisma.Product.create({
                 data: {
@@ -94,13 +97,13 @@ export async function PUT(req) {
         const category = form.get('category')
         const imageUrl = form.get('imageUrl');
 
-        if( imageUrl != '' ||  imageUrl != null ){
+        if( imageUrl != ''){
 
             const product = await prisma.Product.update({
                 data: {
                     id: id ,
                     title : title, 
-                    image : result.secure_url ,
+                    image : imageUrl ,
                     description : description,
                     price :  parseInt(price) ,
                     rating : parseInt(rating) ,
@@ -129,7 +132,6 @@ export async function PUT(req) {
 
             const product = await prisma.Product.update({
                 data: {
-                    id: id ,
                     title : title, 
                     image : result.secure_url ,
                     description : description,

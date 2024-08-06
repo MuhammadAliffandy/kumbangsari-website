@@ -8,7 +8,10 @@ export async function GET(req) {
     const news = await prisma.News.findMany({
         where : {
             deletedAt : null
-        }
+        },
+        orderBy: {
+            updatedAt: 'desc', 
+        },
     })
 
     return NextResponse.json(sendSuccessResponse(
@@ -92,7 +95,7 @@ export async function PUT(req) {
         const author = form.get('author');
         const imageUrl = form.get('imageUrl');
 
-        if(imageUrl != '' || imageUrl != null){
+        if(imageUrl != ''){
             
             const news = await prisma.News.update({
                 data: {

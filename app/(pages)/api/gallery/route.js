@@ -8,7 +8,10 @@ export async function GET(req) {
     const gallery = await prisma.Gallery.findMany({
         where : {
             deletedAt : null
-        }
+        },
+        orderBy: {
+            updatedAt: 'desc', 
+        },
     })
 
     return NextResponse.json(sendSuccessResponse(
@@ -69,19 +72,21 @@ export async function PUT(req) {
 
     try {
         const form = await req.formData();;
-        const id = form.get('title');
-        const title = form.get('id');
+        const id = form.get('id');
+        const title = form.get('title');
         const file = form.get('image')
         const imageUrl = form.get('imageUrl');
 
-        if( imageUrl != '' || imageUrl != null){
-            
+        
+        if( imageUrl != ''){
+        
             const gallery = await prisma.Gallery.update({
                 data: {
                     title : title, 
-                    image : imageUrl  ,
+                    image : imageUrl ,
 
                 },
+                
                 where : {
                     id : id
                 }
@@ -92,15 +97,16 @@ export async function PUT(req) {
                 'gallery data has been updated',
             ), {status : 201})
         }else{
+    
             const fileBuffer = await file.arrayBuffer();
             const buffer = Buffer.from(fileBuffer);
-
+            
             const result = await cloudinary.uploader.upload(
                 `data:${file.type};base64,${buffer.toString('base64')}`,
                 { folder: 'kumbangsari', resource_type: 'auto' }
             );
-
-
+            
+            
             const gallery = await prisma.Gallery.update({
                 data: {
                     title : title, 
