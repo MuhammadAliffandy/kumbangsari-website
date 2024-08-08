@@ -94,11 +94,6 @@ const SideBar = (props) => {
 
     const [currentPath, setCurrentPath] = useState('');
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setCurrentPath(window.location.pathname.split('/dashboard/')[1]);
-        }
-    }, []);
 
     return(
         <>    
