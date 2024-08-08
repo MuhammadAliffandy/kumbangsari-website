@@ -225,28 +225,28 @@ const itemsTestimoni = [
 
 const itemTestimoniID = [
   {
-    title:'Keputusan Konten Berbasis Data',
-    subtitle:`"Pembuat konten AI ini telah mengubah cara saya mendekati pembuatan konten. Ini menganalisis audiens target saya dan memberikan wawasan berbasis data untuk membantu saya menyusun konten yang beresonansi. Tak ada lagi permainan tebak-tebakan! Sekarang, saya bisa fokus pada pembuatan konten yang benar-benar ingin dilihat oleh audiens saya, yang telah menghasilkan peningkatan dramatis dalam lalu lintas situs web dan menghasilkan prospek."`,
-    username: `Mark Robinson, Strategi Pemasaran Konten`,
-    image: '/images/icon/landing-page/user/user1.svg',
+    "title": "Keajaiban Desa Kumbangsari",
+    "subtitle": `"Mengunjungi Desa Kumbangsari adalah pengalaman yang tak terlupakan. Desa ini menawarkan pemandangan alam yang menakjubkan dan budaya yang kaya. Wisatawan bisa menikmati keindahan alam dan keramahan penduduk setempat, membuat kunjungan mereka sangat istimewa."`,
+    "username": "John Doe, Wisatawan",
+    "image": "/images/icon/landing-page/user/user1.svg"
   },
   {
-    title:'Pembuat Konten AI Terbaik',
-    subtitle:`"Pembuat konten AI ini sangat membantu bagi freelancer sibuk seperti saya. Ini membantu saya memenuhi tenggat waktu dan memberikan konten berkualitas tinggi kepada klien saya. Saya suka bahwa ini dapat beradaptasi dengan berbagai gaya dan nada penulisan, jadi saya selalu mendapatkan suara yang sempurna untuk setiap proyek."`,
-    username:`Lisa, Pembuat Konten`,
-    image: '/images/icon/landing-page/user/user2.svg',
+    "title": "Destinasi Impian di Desa Kumbangsari",
+    "subtitle": `"Desa Kumbangsari adalah surga tersembunyi yang menawarkan pengalaman tak tertandingi. Dari pemandangan pegunungan hingga aktivitas budaya yang autentik, desa ini memiliki semuanya. Kami sangat merekomendasikan kunjungan ke desa ini untuk semua pencari petualangan."`,
+    "username": "Jane Smith, Petualang",
+    "image": "/images/icon/landing-page/user/user2.svg"
   },
   {
-    title:'Pembuat Konten AI Terbaik',
-    subtitle:`"Pembuat konten AI ini sangat membantu bagi freelancer sibuk seperti saya. Ini membantu saya memenuhi tenggat waktu dan memberikan konten berkualitas tinggi kepada klien saya. Saya suka bahwa ini dapat beradaptasi dengan berbagai gaya dan nada penulisan, jadi saya selalu mendapatkan suara yang sempurna untuk setiap proyek."`,
-    username:`Lisa, Pembuat Konten`,
-    image: '/images/icon/landing-page/user/user3.svg',
+    "title": "Pengalaman Unik di Desa Kumbangsari",
+    "subtitle": `"Setiap sudut Desa Kumbangsari menawarkan keunikan tersendiri. Kami sangat menikmati setiap momen yang kami habiskan di sini, dari berinteraksi dengan penduduk setempat hingga menjelajahi alam sekitar. Desa Kumbangsari adalah destinasi yang sempurna untuk pelancong yang mencari pengalaman otentik."`,
+    "username": "Alice Brown, Pelancong",
+    "image": "/images/icon/landing-page/user/user3.svg"
   },
   {
-    title:'Manajemen Media Sosial yang Mudah',
-    subtitle:`"Sejak menggunakan alat penjadwalan media sosial ini, mengelola kehadiran online merek saya menjadi sangat mudah! Saya bisa menjadwalkan posting untuk seluruh minggu dalam beberapa menit dan bahkan mempublikasikannya secara otomatis di berbagai platform. Ini telah menghemat banyak waktu dan membantu saya tetap konsisten, yang telah menghasilkan peningkatan signifikan dalam keterlibatan."`,
-    username:`David Lee, Manajer Pemasaran`,
-    image: '/images/icon/landing-page/user/user4.svg',
+    "title": "Kumbangsari: Permata Tersembunyi",
+    "subtitle": `"Desa Kumbangsari adalah permata tersembunyi yang menunggu untuk ditemukan. Desa ini menawarkan keindahan alam yang menakjubkan dan budaya yang kaya, membuat setiap kunjungan menjadi pengalaman yang tak terlupakan. Kami sangat merekomendasikan desa ini sebagai destinasi wisata yang harus dikunjungi."`,
+    "username": "David Lee, Penjelajah",
+    "image": "/images/icon/landing-page/user/user4.svg"
   }
 ]
 
@@ -612,7 +612,7 @@ export default function LandingPage() {
 
               <Box className='w-[100%] h-[100%] flex items-center justify-center text-TEXT-5 bg-black'>
                   <AppCarouselTestimoni
-                    items={ language == 'ID' ? itemTestimoniID :  itemsTestimoni}
+                    items={itemTestimoniID}
                   />
               </Box>
                 

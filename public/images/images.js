@@ -4,6 +4,7 @@ const background = './images/bg.jpg'
 const logoSitubondo = '/images/logo_situbondo.png'
 const strukturPemdes = '/images/struktur_pemdes.png'
 const strukturPkk = '/images/struktur_pkk.png'
+const potensi = '/images/potensi.png'
 
 
 // icon 
@@ -135,6 +136,7 @@ const images = {
         logoSitubondo,
         strukturPemdes,
         strukturPkk,
+        potensi
     },
     icon : {
         profileDefault,
