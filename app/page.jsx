@@ -379,7 +379,7 @@ export default function LandingPage() {
                         return(
                           <Grid item xs={4} onClick={ ()=> {
                               dispatch(setNewsData(data))
-                              push('/news/detail')
+                              push('/feature/news/detail')
                           } }>
                               <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[280px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300 cursor-pointer'>
                                   <img src={data.image} alt='news-photos' className='h-[50%] rounded-t-[10px] object-cover '/>
@@ -416,7 +416,7 @@ export default function LandingPage() {
                         return(
                           <Grid item xs={4} onClick={()=>{
                             dispatch(setProductData(data))
-                            push('/product/detail')
+                            push('/feature/product/detail')
                           }}>
                               <Box className='w-full rounded-[10px] flex flex-col text-center shadow-xl bg-white h-[250px] border-[1px] border-transparent hover:border-[1px] hover:border-PRIMARY-300 cursor-pointer'>
                                   <img src={data.image} alt='news-photos' className='h-[70%] rounded-t-[10px] object-cover '/>

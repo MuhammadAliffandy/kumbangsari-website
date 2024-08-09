@@ -92,7 +92,12 @@ const SideBar = (props) => {
     const [arrowIcon , setArrowIcon ] = useState('/images/icon/ArrowUpRight.svg')
 
     const [currentPath, setCurrentPath] = useState('');
+    
+    useEffect(() => {
 
+        const path = window.location.pathname.split('/').pop();
+        setCurrentPath(path);
+    }, []);
 
     return(
         <>    

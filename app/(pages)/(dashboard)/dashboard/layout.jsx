@@ -94,6 +94,11 @@ const SideBar = (props) => {
 
     const [currentPath, setCurrentPath] = useState('');
 
+    useEffect(() => {
+
+        const path = window.location.pathname.split('/').pop();
+        setCurrentPath(path);
+    }, []);
 
     return(
         <>    
