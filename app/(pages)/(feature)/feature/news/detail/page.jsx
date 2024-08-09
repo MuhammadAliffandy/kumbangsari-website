@@ -11,14 +11,18 @@ import { useEffect, useState } from 'react';
 
 const NewsDetail = () => {
 
-    
     const arr = [ 1 ,2 , 3, 4 ,5]
+    
     const newsData = useSelector( (state) => state.news.value )
     const [ news , setNews ] = useState([])
 
-    const paragraphs = newsData.text.split('. ').map((sentence, index, arr) => {
-        return index < arr.length - 1 ? sentence + '. ' : sentence;
-      });
+    const paragraphs = newsData.text.split('. ');
+    const groupedParagraphs = paragraphs.reduce((acc, sentence, index) => {
+      const groupIndex = Math.floor(index / 3); 
+      if (!acc[groupIndex]) acc[groupIndex] = '';
+      acc[groupIndex] += sentence + '. ';
+      return acc;
+    }, []);
 
 
     const fetchNewsData = async () => {
@@ -63,9 +67,9 @@ const NewsDetail = () => {
                         <img src={newsData.image} className='w-full h-full rounded-xl object-cover' />
                     </Box>
 
-                    <p className="whitespace-pre-wrap text-black text-[14px]">
-                        {paragraphs}
-                    </p>
+                    {groupedParagraphs.map((paragraph, index) => (
+                        <p className='text-black' key={index}>{paragraph.trim()}</p>
+                    ))}
                 </Box>
                 <Box className='grow flex flex-col items-start justify-center gap-[10px]'>
                     <p className='text-[18px] font-bold text-black'>Berita Produk</p>
