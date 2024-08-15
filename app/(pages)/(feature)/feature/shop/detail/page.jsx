@@ -94,7 +94,7 @@ const ProductDetail = () => {
                 </Box>
             </Box>
             {/*  */}
-            <Box className='flex flex-col items-start justify-start w-[80%] gap-[20px] p-[20px] rounded-[12px] border-[1px] border-CUSTOM-GREY-LIGHT '>
+            {/* <Box className='flex flex-col items-start justify-start w-[80%] gap-[20px] p-[20px] rounded-[12px] border-[1px] border-CUSTOM-GREY-LIGHT '>
                 <p className='text-[18px] font-bold text-black'>Ulasan Produk</p>
                 <Box className='flex flex-col justify-start items-start gap-[10px]'>
                     {
@@ -128,7 +128,7 @@ const ProductDetail = () => {
                         })
                     }
                 </Box>
-            </Box>
+            </Box> */}
         </Box>
     )
 }

@@ -298,8 +298,8 @@ export default function LandingPage() {
       <section id="sotk" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
-                  <p className="text-[18px] text-PRIMARY-500">{ language == 'ID' ? 'SOTK'  : 'Struktur Organisasi dan Tata Kerja' }</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1">{ language == 'ID' ? 'Struktur Organisasi dan Tata Kerja' : "Our Features"}</p>
+                  <p className="text-[18px] text-PRIMARY-500">{ 'SOTK' }</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1">{ 'Struktur Organisasi dan Tata Kerja'}</p>
                 </Box>
                 
                 <Box className='flex items-center justify-center w-[100%] gap-[20px] '>
@@ -324,8 +324,8 @@ export default function LandingPage() {
       <section id="adminitration" className="pt-[80px] xl:pt-[0px] flex flex-col items-center justify-center h-auto xl:h-[100vh]">
           <Box className='flex flex-col items-center gap-[40px] w-[70%]' data-aos="fade-up">
                 <Box className='flex flex-col gap-[5px] items-center'>
-                  <p className="text-[18px] text-PRIMARY-500">{ language == 'ID' ? 'Adminitrasi Penduduk'  : 'Struktur Organisasi dan Tata Kerja' }</p>
-                  <p className="text-[24px] font-extrabold text-TEXT-1">{ language == 'ID' ? 'Transparasi Data Penduduk' : "Our Features"}</p>
+                  <p className="text-[18px] text-PRIMARY-500">{  'Adminitrasi Penduduk'  }</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1">{  'Transparasi Data Penduduk' }</p>
                 </Box>
                 
                 <Grid container spacing={2} justifyContent="flex-start" alignItems="flex-start" direction="row" className='w-[100%]'>
@@ -477,9 +477,9 @@ export default function LandingPage() {
       <section id="faq" className="py-[80px] xl:py-[0px] flex flex-col items-center justify-center h-[100vh]">
           <Box className='flex flex-col items-center gap-[50px] w-[100%] h-[70%]' data-aos="fade-up">
               <Box className='flex flex-col gap-[5px] items-center'>
-                <p className="text-[18px] text-PRIMARY-500">{language == 'ID' ? "Testimoni" : "Testimonials"}</p>
+                <p className="text-[18px] text-PRIMARY-500">{"Testimoni"}</p>
                 <span className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center gap-[10px] text-center">
-                  <p className="text-[24px] font-extrabold text-TEXT-1">{language == 'ID' ? "Kata mereka tentang" : "What they say about"}</p>
+                  <p className="text-[24px] font-extrabold text-TEXT-1">{"Kata mereka tentang" }</p>
                   <p className="text-[24px] font-extrabold text-PRIMARY-500">Website Kami</p>
                 </span>
               </Box>
