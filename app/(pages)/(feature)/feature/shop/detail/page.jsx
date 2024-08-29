@@ -24,6 +24,12 @@ const ProductDetail = () => {
         },
     ]
 
+    const url = encodeURIComponent('https://kumbangsari-website.vercel.app/');
+    const text = encodeURIComponent('Lihat postingan menarik ini!');
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    const linkedinUrl = `https://www.linkedin.com/shareArticle?url=${url}&title=${text}`;
+
     const productData = useSelector((state) => state.product.value)
 
     return(
@@ -34,7 +40,7 @@ const ProductDetail = () => {
                     <Box className='w-full h-[350px] rounded-md bg-red-500'>
                         <img src={productData.image} className='w-[100%] h-[100%] rounded-md object-cover' />
                     </Box>
-                    <Grid container spacing={2} justifyContent="flex-center" alignItems="flex-center" direction="row" className='w-[100%]'>
+                    {/* <Grid container spacing={2} justifyContent="flex-center" alignItems="flex-center" direction="row" className='w-[100%]'>
                         {
                             arr.map(data => {
                             return(
@@ -45,7 +51,7 @@ const ProductDetail = () => {
                                 </Grid>
                             )})
                         }
-                    </Grid>
+                    </Grid> */}
                 </Box>
                 {/*  */}
                 <Box className='flex flex-col w-full h-full items-start justify-start gap-[10px]'>
@@ -85,9 +91,15 @@ const ProductDetail = () => {
                     <div className='flex items-center justify-start gap-[10px]'>
                             <p className='text-black text-[14px]'>Bagikan : </p>
                             <div className='flex items-center gap-[10px]'>
-                                <img src={images.icon.sosmed.instagramOriIcon} className='text-white w-[18px] h-[18px]' />
-                                <img src={images.icon.sosmed.facebookOriIcon} className='text-white w-[18px] h-[18px]' />
-                                <img src={images.icon.sosmed.twitterOriIcon} className='text-white w-[18px] h-[18px]' />
+                                <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+                                    <img src={images.icon.sosmed.instagramOriIcon} className='text-white w-[18px] h-[18px]' />
+                                </a>
+                                <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+                                    <img src={images.icon.sosmed.facebookOriIcon} className='text-white w-[18px] h-[18px]' />
+                                </a>
+                                <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
+                                    <img src={images.icon.sosmed.twitterOriIcon} className='text-white w-[18px] h-[18px]' />
+                                </a>
                             </div>
                     </div>
                     
